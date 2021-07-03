@@ -184,6 +184,8 @@ a,input,button,select,textarea {
 		float: left;
 		border-left: 1px solid #CCC;
 		height: 65px;
+		position: relative;
+		z-index: 10;
 	}
 	ul.menu > li > a {
 		display: block;
@@ -195,14 +197,62 @@ a,input,button,select,textarea {
 		letter-spacing: 1px;
 		text-transform: uppercase;
 		text-align: center;
+		position: relative;
 		@include flexgroup-center();
+		&:after {
+			content:"";
+			display: block;
+			width: 100%;
+			position: absolute;
+			bottom: -1px;
+			left: 0;
+			z-index: 10;
+			border-bottom: 2px solid transparent;
+		}
 		span {
 			display: block;
 			width: 100%;
 		}
 	}
 	ul.menu > li:hover > a {
-		background: rgba(9, 81, 151, 0.85);
+		background: rgba($primary,1);
+	}
+
+	ul.menu ul {
+		max-height: 0;
+		height: 0;
+		opacity: 0;
+		transform: translateY(-10px);
+		transition: all ease .3s;
+		overflow: hidden;
+		position: absolute;
+		left: -1px;
+		width: 226px;
+		border-left: 1px solid #FFF;
+		border-right: 1px solid #FFF;
+		border-bottom: 1px solid #FFF;
+		a {
+			color: #FFF;
+			padding: 6px 1.2rem;
+			&:hover {
+				color: rgba(255,255,255,.5);
+			}
+		}
+	}
+	ul.menu > li.menu-item-has-children:hover > a {
+		&:after {
+			border-bottom-color: $primary;
+		}
+	}	
+	ul.menu > li.menu-item-has-children:hover > ul {
+		max-height: unset;
+		height: auto;
+		opacity: 1;
+		transform: translateY(1);
+		margin-top: 11px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		background: rgba($primary, 1);
 	}
 }	
 
