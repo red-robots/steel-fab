@@ -1982,7 +1982,7 @@ a,input,button,select,textarea{-webkit-transition:all ease .3s;transition:all ea
 #site-navigation ul.menu>li>a:after{content:"";display:block;width:100%;position:absolute;bottom:-1px;left:0;z-index:10;border-bottom:2px solid transparent}
 #site-navigation ul.menu>li>a span{display:block;width:100%}
 #site-navigation ul.menu>li:hover>a{background:#0154a0}
-#site-navigation ul.menu ul{max-height:0;height:0;opacity:0;-webkit-transform:translateY(-10px);-ms-transform:translateY(-10px);transform:translateY(-10px);-webkit-transition:all ease .3s;transition:all ease .3s;overflow:hidden;position:absolute;left:-1px;width:226px;border-left:1px solid #FFF;border-right:1px solid #FFF;border-bottom:1px solid #FFF}
+#site-navigation ul.menu ul{max-height:0;height:0;opacity:0;-webkit-transform:translateY(-10px);-ms-transform:translateY(-10px);transform:translateY(-10px);-webkit-transition:all ease .3s;transition:all ease .3s;overflow:hidden;position:absolute;left:-1px;width:226px}
 #site-navigation ul.menu ul a{color:#FFF;padding:6px 1.2rem}
 #site-navigation ul.menu ul a:hover{color:rgba(255,255,255,0.5)}
 #site-navigation ul.menu>li.menu-item-has-children:hover>a:after{border-bottom-color:#0154a0}
