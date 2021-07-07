@@ -2,6 +2,8 @@
 get_header(); 
 ?>
 
+<?php while ( have_posts() ) : the_post(); ?>
+
 <div id="home-row-1" class="home-row" style="background-image:url('<?php echo get_images_dir("dev/home-header-top.png") ?>');">
 	<div class="wrapper">
 		<div class="hero-caption">
@@ -98,9 +100,32 @@ get_header();
 	</div>
 </div>
 
-<div id="primary" class="content-area full">
-	<?php while ( have_posts() ) : the_post(); ?>
-	<?php endwhile; ?>	
-</div><!-- #primary -->
+
+<div id="home-row-3" class="home-row" style="background-image:url('<?php echo get_images_dir("dev/commitments.png") ?>');">
+	<div class="wrapper">
+		<div class="titlediv text-center">
+			<h2 id="title-w-line" class="row-title"><span class="hr-left"></span><span class="middle">Our Commitments To You.</span><span class="hr-right"></span></h2>
+			<p class="subtext">With every job we take on, SteelFab promise to deliver:</p>
+		</div>
+	</div>
+</div>
+
+<?php endwhile; ?>	
+
+<script>
+jQuery(document).ready(function($){
+	title_with_lines();
+	$(window).resize(function(){
+		title_with_lines();
+	});
+	function title_with_lines() {
+		var titleWidth = $("#title-w-line").width();
+		var spanMiddle = $("#title-w-line span.middle").width();
+		var sideWidth = Math.round( (titleWidth-spanMiddle) / 2 ) - 20;
+		$("span.hr-left,span.hr-right").addClass("show").css("width",sideWidth+"px");
+	}
+	
+});
+</script>
 <?php
 get_footer();

@@ -475,5 +475,53 @@ body.home {
 }
 
 
-
+#home-row-3 {
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	padding-top: 7vw;
+	padding-bottom: 7vw;
+	.titlediv {
+		.row-title {
+			margin: 0 0 10px;
+			color: #335D7D;
+			text-transform: uppercase;
+			font-size: 3rem;
+			font-weight: 800;
+			line-height: 1.2;
+			position: relative;
+			span {
+				display: inline-block;
+				transition: all ease .3s;
+			}
+			span.middle {
+				position: relative;
+				z-index: 5;
+			}
+			.hr-left, .hr-right {
+				position:absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				width: 50%;
+				border-top: 2px solid #335D7D;
+				opacity: 0;
+				&.show {
+					display: inline-block;
+					opacity: 1;
+				}
+			}
+			.hr-left {
+				left: 0;
+			}
+			.hr-right {
+				right: 0;
+			}
+		}
+		.subtext {
+			font-size: 18px;
+			font-weight: 500;
+			line-height: 1.2;
+		}
+	}
+}
 
