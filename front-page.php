@@ -4,109 +4,145 @@ get_header();
 
 <?php while ( have_posts() ) : the_post(); ?>
 
+<?php 
+$row1_title = get_field("row1_title");
+$row1_text = get_field("row1_text");
+$row1_button = get_field("row1_button");
+$row1_target = ( isset($row1_button['target']) && $row1_button['target'] ) ? $row1_button['target'] : '_self';
+?>
 <div id="home-row-1" class="home-row" style="background-image:url('<?php echo get_images_dir("dev/home-header-top.png") ?>');">
 	<div class="wrapper">
 		<div class="hero-caption">
 			<div class="hero-text animated fadeIn">
-				<h2 class="big-text">
-					Nationally renowned steel<BR>
-					fabrication services.
-				</h2>
+				<?php if ($row1_title) { ?>
+				<h2 class="big-text"><?php echo $row1_title ?></h2>
+				<?php } ?>
+				
+				<?php if ($row1_text || $row1_button) { ?>
 				<div class="small-text">
-					<p>A third-generation family-owned company, SteelFab is one of the largest and most experienced steel fabricators in the United States.</p>
-					<div class="button">
-						<a href="#" class="start-btn">Start Your Project</a>
+					<?php if ($row1_text) { ?>
+					<div class="text">
+						<?php echo $row1_text ?>
 					</div>
+					<?php } ?>
+
+					<?php if ($row1_button && ( isset($row1_button['title']) && $row1_button['title'] ) ) { ?>
+					<div class="button">
+						<a href="<?php echo $row1_button['url'] ?>" target="<?php echo $row1_target ?>" class="start-btn"><?php echo $row1_button['title'] ?></a>
+					</div>
+					<?php } ?>
 				</div>
+				<?php } ?>
 			</div>
 		</div>
 		<div class="broken-lines"><span class="arrow animated fadeInDown"></span></div>
 	</div>
 </div>
 
-
-<div id="home-row-2" class="home-row" style="background-image:url('<?php echo get_images_dir("dev/home-header-bottom.png") ?>');">
+<?php  
+$row2_title = get_field("row2_title");
+$row2_text = get_field("row2_text");
+$row2_group = get_field("row2_right_content");
+if( $row2_title || $row2_text || ( isset($row2_group['columns']) && $row2_group['columns'] )  ) { ?>
+<div id="home-row-2" class="home-row">
+	<div class="div-bg" style="background-image:url('<?php echo get_images_dir("dev/home-header-bottom.png") ?>');"></div>
 	<div class="wrapper">
 		<div class="steelfabmap" style="background-image:url('<?php echo get_images_dir("dev/steelfab-map.png") ?>');"></div>
 		<div class="flexwrap">
 			<div class="fcol left">
 				<div class="flexcenter">
 					<div class="textwrap">
-						<h2 class="big-text">
-							Local Roots.<BR>
-							National Recognition.
-						</h2>
+						<?php if ($row2_title) { ?>
+							<h2 class="big-text"><?php echo $row2_title ?></h2>
+						<?php } ?>
+						<?php if ($row2_text) { ?>
 						<div class="small-text">
-							<p>Having evolved from a local business with roots in Charlotte, NC into a national brand with 11 fabrication facilities and 15 offices across the country, our team prides itself on outstanding customer service and on-time delivery of a superior product.</p>
+							<?php echo $row2_text ?>
 						</div>
+						<?php } ?>
 					</div>
 				</div>
 			</div>
+			
+			<?php if ( isset($row2_group['columns']) && $row2_group['columns'] ) { ?>
 			<div class="fcol right">
 				<div class="flexwrap locations">
-					<div class="subcol">
-						<div class="inside">
-							<div class="titlediv">
-								<div class="num">11</div>
-								<div class="t1">Fabrication Facilities</div>
-							</div>
-							<div class="list">
-								<ul>
-									<li>Charlotte, NC</li>
-									<li>Dublin, GA</li>
-									<li>Alexandria, VA</li>
-									<li>Norcross, GA</li>
-									<li>Roanoke, AL</li>
-									<li>York, SC</li>
-									<li>N. Charleston, SC</li>
-									<li>Florence, SC</li>
-									<li>Raleigh, NC</li>
-									<li>Emporia, VA</li>
-									<li>McKinney, TX</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="subcol">
-						<div class="inside">
-							<div class="titlediv">
-								<div class="num">15</div>
-								<div class="t1">Offices</div>
-							</div>
-							<div class="list">
-								<ul>
-									<li>Charlotte, NC</li>
-									<li>Dublin, GA</li>
-									<li>Alexandria, VA</li>
-									<li>Norcross, GA</li>
-									<li>Roanoke, AL</li>
-									<li>York, SC</li>
-									<li>N. Charleston, SC</li>
-									<li>Florence, SC</li>
-									<li>Raleigh, NC</li>
-									<li>Emporia, VA</li>
-									<li>McKinney, TX</li>
-									<li>Austin, TX</li>
-									<li>Durant, OK</li>
-									<li>Brentwood, TN</li>
-									<li>Tangent, OR</li>
-								</ul>
+
+					<?php foreach ($row2_group['columns'] as $col) { ?>
+						<div class="subcol">
+							<div class="inside">
+
+								<?php if ( $col['big_title'] || $col['small_title'] ) { ?>
+								<div class="titlediv">
+									<?php if ( $col['big_title'] ) { ?>
+										<div class="num"><?php echo $col['big_title'] ?></div>
+									<?php } ?>
+									<?php if ( $col['small_title'] ) { ?>
+									<div class="t1"><?php echo $col['small_title'] ?></div>
+									<?php } ?>
+								</div>
+								<?php } ?>
+
+								<?php if ( $col['content'] ) { ?>
+								<div class="list">
+									<?php echo $col['content'] ?>
+								</div>
+								<?php } ?>
+
 							</div>
 						</div>
-					</div>
+					<?php } ?>
+
 				</div>
 			</div>
+			<?php } ?>
+
 		</div>
 	</div>
 </div>
+<?php } ?>
 
-
+<?php  
+$commitment_title = get_field("commitment_title");
+$commitment_text = get_field("commitment_text");
+$commitments = get_field("commitments");
+?>
 <div id="home-row-3" class="home-row" style="background-image:url('<?php echo get_images_dir("dev/commitments.png") ?>');">
 	<div class="wrapper">
+		<?php if ( $commitment_title || $commitment_text ) { ?>
 		<div class="titlediv text-center">
-			<h2 id="title-w-line" class="row-title"><span class="hr-left"></span><span class="middle">Our Commitments To You.</span><span class="hr-right"></span></h2>
-			<p class="subtext">With every job we take on, SteelFab promise to deliver:</p>
+			<h2 id="title-w-line" class="row-title"><span class="hr-left"></span><span class="middle"><?php echo $commitment_title ?></span><span class="hr-right"></span></h2>
+			<?php if ($commitment_text) { ?>
+			<div class="subtext"><?php echo $commitment_text ?></div>
+			<?php } ?>
 		</div>
+		<?php } ?>
+
+		<?php if ($commitments) { ?>
+		<div class="commitments">
+			<div class="flexwrap">
+				<?php foreach ($commitments as $c) { ?>
+				<div class="fcol text-center">
+					<div class="pad">
+						<?php if ($c['icon']) { ?>
+						<div class="icon">
+							<img src="<?php echo $c['icon']['url'] ?>" alt="<?php echo $c['icon']['title'] ?>">
+						</div>	
+						<?php } ?>
+
+						<?php if ($c['title']) { ?>
+							<h3 class="title"><?php echo $c['title'] ?></h3>
+						<?php } ?>
+
+						<?php if ($c['description']) { ?>
+							<div class="description"><?php echo $c['description'] ?></div>
+						<?php } ?>
+					</div>
+				</div>	
+				<?php } ?>
+			</div>
+		</div>
+		<?php } ?>
 	</div>
 </div>
 
