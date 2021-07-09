@@ -15,11 +15,11 @@ $row1_target = ( isset($row1_button['target']) && $row1_button['target'] ) ? $ro
 		<div class="hero-caption">
 			<div class="hero-text animated fadeIn">
 				<?php if ($row1_title) { ?>
-				<h2 class="big-text"><?php echo $row1_title ?></h2>
+				<h2 class="col-title"><?php echo $row1_title ?></h2>
 				<?php } ?>
 				
 				<?php if ($row1_text || $row1_button) { ?>
-				<div class="small-text">
+				<div class="col-text">
 					<?php if ($row1_text) { ?>
 					<div class="text">
 						<?php echo $row1_text ?>
@@ -143,6 +143,96 @@ $commitments = get_field("commitments");
 			</div>
 		</div>
 		<?php } ?>
+	</div>
+</div>
+
+
+<div id="home-row-4" class="home-row" style="background-image:url('<?php echo get_images_dir("dev/innovation.png") ?>');">
+	<div class="wrapper">
+		<div class="flexwrap">
+			<div class="fcol fl">
+				
+				<div class="hexagons">
+					<a href="#" class="hexa-shape">
+						<span class="title">Fabrication</span>
+						<div class="hexa">
+							<div class="hex1">
+								<div class="hex2">
+									<div class="img" style="background-image:url('<?php echo get_images_dir("dev/engineers.jpg") ?>')"></div>
+								</div>
+							</div>
+						</div>
+						<span class="hex-border">
+							<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163.37 187.44"><polygon points="1 47.6 81.52 1.15 161.87 46.94 162.37 140.84 81.49 186.29 1.45 141.34 1 47.6" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2px"/></svg>
+						</span>
+					</a>
+
+					<a href="#" class="hexa-shape">
+						<span class="title">Engineering & Detailing</span>
+						<div class="hexa">
+							<div class="hex1">
+								<div class="hex2">
+									<div class="img" style="background-image:url('<?php echo get_images_dir("dev/engineers.jpg") ?>')"></div>
+								</div>
+							</div>
+						</div>
+						<span class="hex-border">
+							<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163.37 187.44"><polygon points="1 47.6 81.52 1.15 161.87 46.94 162.37 140.84 81.49 186.29 1.45 141.34 1 47.6" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2px"/></svg>
+						</span>
+					</a>
+
+					<a href="#" class="hexa-shape">
+						<span class="title">Pre-Construction</span>
+						<div class="hexa">
+							<div class="hex1">
+								<div class="hex2">
+									<div class="img" style="background-image:url('<?php echo get_images_dir("dev/engineers.jpg") ?>')"></div>
+								</div>
+							</div>
+						</div>
+						<span class="hex-border">
+							<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163.37 187.44"><polygon points="1 47.6 81.52 1.15 161.87 46.94 162.37 140.84 81.49 186.29 1.45 141.34 1 47.6" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2px"/></svg>
+						</span>
+					</a>
+
+					<a href="#" class="hexa-shape">
+						<span class="title">Miscellaneous Metals</span>
+						<div class="hexa">
+							<div class="hex1">
+								<div class="hex2">
+									<div class="img" style="background-image:url('<?php echo get_images_dir("dev/engineers.jpg") ?>')"></div>
+								</div>
+							</div>
+						</div>
+						<span class="hex-border">
+							<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163.37 187.44"><polygon points="1 47.6 81.52 1.15 161.87 46.94 162.37 140.84 81.49 186.29 1.45 141.34 1 47.6" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2px"/></svg>
+						</span>
+					</a>
+
+					<a href="#" class="hexa-shape">
+						<span class="title">Project Management</span>
+						<div class="hexa">
+							<div class="hex1">
+								<div class="hex2">
+									<div class="img" style="background-image:url('<?php echo get_images_dir("dev/engineers.jpg") ?>')"></div>
+								</div>
+							</div>
+						</div>
+						<span class="hex-border">
+							<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163.37 187.44"><polygon points="1 47.6 81.52 1.15 161.87 46.94 162.37 140.84 81.49 186.29 1.45 141.34 1 47.6" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2px"/></svg>
+						</span>
+					</a>
+				</div>
+
+			</div>
+			<div class="fcol fr">
+				<h2 class="col-title">Where innovation<BR>meets precision.</h2>
+				<div class="col-text">
+					<p>The work we do at SteelFab is cutting edge, but every project comes down to how our team handles your needs. That’s why your dedicated project team is with you every step of the way, focusing on your unique design ideas, budget, and schedule.</p> 
+					<p>Our turnkey steel fabrication services range from the design phase through to the very end of your project.</p>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 

@@ -43,16 +43,18 @@ var params={};location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){
 		<div class="navbar">
 			<div class="wrapper cf">
 				<?php if( get_custom_logo() ) { ?>
-            <span class="site-logo">
-            	<?php the_custom_logo(); ?>
-            </span>
+          <span class="site-logo">
+          	<?php the_custom_logo(); ?>
+          </span>
         <?php } else { ?>
             <h1 class="site-logo"><a href="<?php bloginfo('url'); ?>"><?php bloginfo('name'); ?></a></h1>
         <?php } ?>
 
+        <button id="menu-toggle"><span class="sr">Menu</span><span class="bar"></span></button>
         <nav id="site-navigation" class="main-navigation" role="navigation">
 					<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu','link_before'=>'<span>','link_after'=>'</span>','container'=>false) ); ?>
 				</nav><!-- #site-navigation -->
+				<div class="nav-overlay"></div>
 			</div>
 		</div>
 	</header>

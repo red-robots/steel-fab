@@ -1,0 +1,1 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163.37 187.44"><polygon points="1 47.6 81.52 1.15 161.87 46.94 162.37 140.84 81.49 186.29 1.45 141.34 1 47.6" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2px"/></svg>

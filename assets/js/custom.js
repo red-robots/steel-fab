@@ -18,4 +18,17 @@ jQuery(document).ready(function ($) {
     }
   });
 
+  $("#menu-toggle").click(function(e){
+    e.preventDefault();
+    $("body").toggleClass('open-menu');
+    $(this).toggleClass("open");
+    $("#site-navigation").toggleClass("show");
+  });
+
+  $(document).on('click','.nav-overlay', function(e) {
+    $("#menu-toggle").removeClass("open");
+    $("body").removeClass('open-menu');
+    $("#site-navigation").removeClass("show");
+  });
+
 }); 
