@@ -271,6 +271,22 @@ $row4_text = ( isset($row4Group['description']) && $row4Group['description'] ) ?
 		</a>
 		<?php } ?>
 	</div>
+	<div class="button text-center">
+		<a href="#" class="btn-default">See More</a>
+	</div>
+</div>
+
+
+<div id="home-row-8" class="home-row">
+	<div class="wrapper text-center">
+		<h2 class="col-title">Get In Touch</h2>
+		<div class="small-text">
+			<p>Let us put our decades of experience to use helping you execute your next fabrication project with a level of skill and support you won’t find anywhere else.</p>
+		</div>
+		<div class="button">
+			<a href="#" class="btn-outline">Contact</a>
+		</div>
+	</div>
 </div>
 
 <?php endwhile; ?>	

@@ -2135,6 +2135,15 @@ body.open-menu .nav-overlay{display:block;width:100%;height:100%;position:fixed;
 #home-row-7 .gallery .photo .caption{width:100%;height:0;position:absolute;bottom:-30px;left:0;opacity:0;z-index:15;color:#FFF;background:rgba(3,26,41,0.85);text-align:center}
 #home-row-7 .gallery .photo .caption .info{display:block;position:absolute;top:50%;left:0;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%);font-size:13px;line-height:1.3;text-transform:uppercase;padding:20px}
 #home-row-7 .gallery a.photo:hover .caption{opacity:1;bottom:0;height:100%}
+#home-row-7 div.button{padding:50px 0}
+#home-row-7 div.button a.btn-default{text-align:center;min-width:230px}
+#home-row-8{background:#0154a0;color:#FFF;padding-top:5vw;padding-bottom:5vw}
+#home-row-8:before,#home-row-8:after{content:"";display:block;width:15%;height:100%;position:absolute;top:0;background-repeat:no-repeat;background-size:cover;background-image:url("images/arrows.svg")}
+#home-row-8:before{left:0;-webkit-transform:scaleX(-1);-ms-transform:scaleX(-1);transform:scaleX(-1)}
+#home-row-8:after{right:0}
+#home-row-8 .wrapper{max-width:800px;width:100%;z-index:10;margin:0 auto}
+#home-row-8 div.button{margin-top:30px}
+#home-row-8 div.button .btn-outline{text-align:center;min-width:170px}
 @-webkit-keyframes dash{to{opacity:1;stroke-dashoffset:0}
 }@keyframes dash{to{opacity:1;stroke-dashoffset:0}
 }@media screen and (max-width:960px){#home-row-4{padding-top:10px;padding-bottom:50px}

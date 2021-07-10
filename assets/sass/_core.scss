@@ -1142,6 +1142,52 @@ body.open-menu {
 			}
 		}
 	}
+	div.button {
+		padding: 50px 0;
+		a.btn-default {
+			text-align: center;
+			min-width: 230px;
+		}
+	}
+}
+
+#home-row-8 {
+	background: $blue;
+	color: #FFF;
+	padding-top: 5vw;
+	padding-bottom: 5vw;
+	&:before,
+	&:after {
+		content:"";
+		display: block;
+		width: 15%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-image:url('images/arrows.svg');
+	}
+	&:before {
+		left: 0;
+		transform: scaleX(-1);
+	}
+	&:after {
+		right: 0;
+	}
+	.wrapper {
+		max-width: 800px;
+		width: 100%;
+		z-index: 10;
+		margin: 0 auto;
+	}
+	div.button {
+		margin-top: 30px;
+		.btn-outline {
+			text-align: center;
+			min-width: 170px;
+		}
+	}
 }
 
 @keyframes dash {
