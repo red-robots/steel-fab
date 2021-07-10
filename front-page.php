@@ -146,93 +146,130 @@ $commitments = get_field("commitments");
 	</div>
 </div>
 
-
+<?php  
+$hexagons = get_field("hexagons");
+$row4_button = get_field("row4_button");
+$row4_button_target = ( isset($row4_button['target']) && $row4_button['target'] ) ? $row4_button['target'] : '_self';
+$row4_button_title = ( isset($row4_button['title']) && $row4_button['title'] ) ? $row4_button['title'] : '';
+$row4_button_link = ( isset($row4_button['url']) && $row4_button['url'] ) ? $row4_button['url'] : '';
+$row4Group = get_field("right_column_content_row4");
+$row4_title = ( isset($row4Group['title']) && $row4Group['title'] ) ? $row4Group['title'] : '';
+$row4_text = ( isset($row4Group['description']) && $row4Group['description'] ) ? $row4Group['description'] : '';
+?>
 <div id="home-row-4" class="home-row" style="background-image:url('<?php echo get_images_dir("dev/innovation.png") ?>');">
 	<div class="wrapper">
 		<div class="flexwrap">
 			<div class="fcol fl">
 				
+				<?php if ($hexagons) { ?>
 				<div class="hexagons">
-					<a href="#" class="hexa-shape">
-						<span class="title">Fabrication</span>
-						<div class="hexa">
-							<div class="hex1">
-								<div class="hex2">
-									<div class="img" style="background-image:url('<?php echo get_images_dir("dev/engineers.jpg") ?>')"></div>
-								</div>
-							</div>
-						</div>
-						<span class="hex-border">
-							<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163.37 187.44"><polygon points="1 47.6 81.52 1.15 161.87 46.94 162.37 140.84 81.49 186.29 1.45 141.34 1 47.6" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2px"/></svg>
-						</span>
-					</a>
 
-					<a href="#" class="hexa-shape">
-						<span class="title">Engineering & Detailing</span>
-						<div class="hexa">
-							<div class="hex1">
-								<div class="hex2">
-									<div class="img" style="background-image:url('<?php echo get_images_dir("dev/engineers.jpg") ?>')"></div>
+					<?php foreach ($hexagons as $h) { 
+						$img = $h['image'];
+						$title = $h['title'];
+						$link = $h['link'];
+						$link_open = '<div class="hexa-shape nolink">';
+						$link_close = '</div>';
+						if($link) {
+							$link_open = '<a href="'.$link.'" class="hexa-shape pagelink">';
+							$link_close = '</a>';
+						}
+						if( $img ) { ?>
+						<?php echo $link_open ?>
+							<span class="title"><?php echo $title ?></span>
+							<div class="hexa">
+								<div class="hex1">
+									<div class="hex2">
+										<div class="img" style="background-image:url('<?php echo $img['url'] ?>')"></div>
+									</div>
 								</div>
 							</div>
-						</div>
-						<span class="hex-border">
-							<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163.37 187.44"><polygon points="1 47.6 81.52 1.15 161.87 46.94 162.37 140.84 81.49 186.29 1.45 141.34 1 47.6" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2px"/></svg>
-						</span>
-					</a>
+							<span class="hex-border">
+								<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163.37 187.44"><polygon points="1 47.6 81.52 1.15 161.87 46.94 162.37 140.84 81.49 186.29 1.45 141.34 1 47.6" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2px"/></svg>
+							</span>
+						<?php echo $link_close ?>
+						<?php } ?>
 
-					<a href="#" class="hexa-shape">
-						<span class="title">Pre-Construction</span>
-						<div class="hexa">
-							<div class="hex1">
-								<div class="hex2">
-									<div class="img" style="background-image:url('<?php echo get_images_dir("dev/engineers.jpg") ?>')"></div>
-								</div>
-							</div>
-						</div>
-						<span class="hex-border">
-							<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163.37 187.44"><polygon points="1 47.6 81.52 1.15 161.87 46.94 162.37 140.84 81.49 186.29 1.45 141.34 1 47.6" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2px"/></svg>
-						</span>
-					</a>
-
-					<a href="#" class="hexa-shape">
-						<span class="title">Miscellaneous Metals</span>
-						<div class="hexa">
-							<div class="hex1">
-								<div class="hex2">
-									<div class="img" style="background-image:url('<?php echo get_images_dir("dev/engineers.jpg") ?>')"></div>
-								</div>
-							</div>
-						</div>
-						<span class="hex-border">
-							<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163.37 187.44"><polygon points="1 47.6 81.52 1.15 161.87 46.94 162.37 140.84 81.49 186.29 1.45 141.34 1 47.6" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2px"/></svg>
-						</span>
-					</a>
-
-					<a href="#" class="hexa-shape">
-						<span class="title">Project Management</span>
-						<div class="hexa">
-							<div class="hex1">
-								<div class="hex2">
-									<div class="img" style="background-image:url('<?php echo get_images_dir("dev/engineers.jpg") ?>')"></div>
-								</div>
-							</div>
-						</div>
-						<span class="hex-border">
-							<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163.37 187.44"><polygon points="1 47.6 81.52 1.15 161.87 46.94 162.37 140.84 81.49 186.29 1.45 141.34 1 47.6" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:2px"/></svg>
-						</span>
-					</a>
+					<?php } ?>
+					
 				</div>
+				<?php } ?>
+
+				<?php if ( $row4_button_title && $row4_button_link ) { ?>
+				<div class="buttondiv">
+					<a href="<?php echo $row4_button_link ?>" target="<?php echo $row4_button_target ?>" class="btn"><?php echo $row4_button_title ?></a>
+				</div>
+				<?php } ?>
 
 			</div>
-			<div class="fcol fr">
-				<h2 class="col-title">Where innovation<BR>meets precision.</h2>
-				<div class="col-text">
-					<p>The work we do at SteelFab is cutting edge, but every project comes down to how our team handles your needs. That’s why your dedicated project team is with you every step of the way, focusing on your unique design ideas, budget, and schedule.</p> 
-					<p>Our turnkey steel fabrication services range from the design phase through to the very end of your project.</p>
+
+			<?php if ( $row4_title || $row4_text ) { ?>
+			<div id="col-right-line" class="fcol fr">
+				<span class="topline"></span>
+				<span class="bottomline"></span>
+				<div id="innovationTxt" class="wrap">
+					<?php if ($row4_title) { ?>
+					<h2 class="col-title"><?php echo $row4_title ?></h2>
+					<?php } ?>
+					
+					<?php if ($row4_text) { ?>
+					<div class="col-text">
+						<?php echo $row4_text ?>
+					</div>
+					<?php } ?>
+				</div>
+			</div>
+			<?php } ?>
+
+		</div>
+	</div>
+</div>
+
+<div id="home-row-5" class="home-row">
+	<div class="wrapper">
+		<h2 class="col-title">SteelFab’s Mission</h2>
+		<div class="text">
+			<p>From local outreach to environmental impact, our team is committed to bettering the communities we serve through our processes, practices, and actions.</p>
+		</div>
+		<div class="button">
+			<a href="#" class="btn-outline">Our Values</a>
+		</div>
+	</div>
+</div>
+
+
+<div id="home-row-6" class="home-row" style="background-image:url('<?php echo get_images_dir("dev/construction.png") ?>');">
+	<div class="wrapper">
+		<div class="flexwrap">
+			<div class="fcol fl">
+				<h2 class="col-title">Join our team.</h2>
+				<div class="text">
+					<p>As our team continues to expand, SteelFab is always looking to fill a wide range of exciting positions all across the country. Ready to learn, grow, and innovate with us?</p>
+				</div>
+				<div class="button">
+					<a href="#" class="btn-default">Browse Positions</a>
 				</div>
 			</div>
 		</div>
+	</div>
+	<div class="stripe-bg"><span></span><span></span><span></span></div>
+</div>
+
+
+<div id="home-row-7" class="home-row">
+	<div class="top">
+		<div class="wrapper"><h2 class="col-title">Our work in your community.</h2></div>
+	</div>
+	<div class="gallery">
+		<?php for($i=1; $i<=8; $i++) { ?>
+		<a href="#" class="photo">
+			<figure class="image" style="background-image:url('<?php echo get_images_dir("dev/sample".$i.".png") ?>');"></figure>
+			<img src="<?php echo get_images_dir("square.png") ?>" alt="" aria-hidden="true" />
+			<span class="caption">
+				<span class="info">Tampa Internation Airport APM</span>
+			</span>
+		</a>
+		<?php } ?>
 	</div>
 </div>
 
@@ -241,8 +278,10 @@ $commitments = get_field("commitments");
 <script>
 jQuery(document).ready(function($){
 	title_with_lines();
+	innovation_area_line();
 	$(window).resize(function(){
 		title_with_lines();
+		innovation_area_line();
 	});
 	function title_with_lines() {
 		var titleWidth = $("#title-w-line").width();
@@ -250,6 +289,17 @@ jQuery(document).ready(function($){
 		var sideWidth = Math.round( (titleWidth-spanMiddle) / 2 ) - 20;
 		$("span.hr-left,span.hr-right").addClass("show").css("width",sideWidth+"px");
 	}
+	
+	function innovation_area_line() {
+		if( $("#innovationTxt").length ) {
+			var columnHeight = $("#col-right-line").height();
+			var textHeight = $("#innovationTxt").height();
+			var b = (columnHeight - textHeight) / 2;
+			var lineHeight = Math.round(b) - 15;
+			$(".topline, .bottomline").css("height",lineHeight+"px");
+		}
+	}
+	
 	
 });
 </script>
