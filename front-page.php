@@ -72,11 +72,9 @@ if( $row2_title || $row2_text || ( isset($row2_group['columns']) && $row2_group[
 						<div class="subcol">
 							<div class="inside">
 
-								<?php if ( $col['big_title'] || $col['small_title'] ) { ?>
+								<?php if ( $col['small_title'] ) { ?>
 								<div class="titlediv">
-									<?php if ( $col['big_title'] ) { ?>
-										<div class="num"></div>
-									<?php } ?>
+									<div class="num"></div>
 									<?php if ( $col['small_title'] ) { ?>
 									<div class="t1"><?php echo $col['small_title'] ?></div>
 									<?php } ?>

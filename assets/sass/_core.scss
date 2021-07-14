@@ -798,8 +798,8 @@ body.open-menu {
 	}
 	.hexagons {
 		max-width: 700px;
-    width: 100%;
-    margin: 0 auto;
+    	width: 100%;
+    	margin: 0 auto;
 		@include flexgroup();
 		@include flexbox-justify(center);
 	}
@@ -845,7 +845,7 @@ body.open-menu {
 	}
 	.hexa {
 		width: 100%;
-    height: 100%;
+    	height: 100%;
 		overflow: hidden;
 		position: relative;
 		.hex1 {
@@ -915,6 +915,9 @@ body.open-menu {
 		  stroke-dashoffset: 1000;
 		  animation: dash 1s linear forwards;
 		}
+		span.title {
+			text-shadow: 2px 7px 10px rgba(0,0,0,0.5);
+		}
 	}
 
 	.buttondiv {
@@ -952,19 +955,31 @@ body.open-menu {
 
 
 #home-row-5 {
-	background-image: url('images/logo-fade.png');
-	background-position: center;
-	background-repeat:no-repeat;
 	background-color: $gray;
-	background-size: 80%;
 	color: #FFF;
 	text-align: center;
 	padding-top: 5vw;
 	padding-bottom: 5vw;
+	&:after {
+		content:"";
+		display: block;
+		width: 100%;
+		height: 90%;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+		background-image: url('images/logo-symbol.png');
+		background-position: center;
+		background-repeat:no-repeat;
+		background-size: contain;
+		opacity: 0.05;
+	}
 	.wrapper {
 		max-width: 700px;
 		width: 100%;
 		margin:0 auto;
+		z-index: 15;
 	}
 	.col-title {
 		margin: 0 0 15px;
