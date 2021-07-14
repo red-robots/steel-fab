@@ -1299,7 +1299,7 @@ body.scrolled {
 		}
 	}
 	body.subpage {
-		background-color: #f1f1f1;
+		// background-color: #f1f1f1;
 		#page {
 			padding-top: 66px;
 		}
@@ -1308,6 +1308,139 @@ body.scrolled {
 		}
 	}
 }
+
+.bottom-blue-area {
+	background: $blue;
+	color: #FFF;
+	padding-top: 5vw;
+	padding-bottom: 5vw;
+	&:before,
+	&:after {
+		content:"";
+		display: block;
+		width: 15%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-image:url('images/arrows.svg');
+	}
+	&:before {
+		left: 0;
+		transform: scaleX(-1);
+	}
+	&:after {
+		right: 0;
+	}
+	.wrapper {
+		max-width: 800px;
+		width: 100%;
+		z-index: 10;
+		margin: 0 auto;
+	}
+	div.button {
+		margin-top: 30px;
+		.btn-outline {
+			text-align: center;
+			min-width: 170px;
+		}
+	}
+}
+
+.subpage-banner {
+	height: 400px;
+	overflow: hidden;
+	position: relative;
+	background-color: $dark_blue;
+	@include backgroundImage(center);
+	@include tab {
+		height: 65vh;
+	}
+	.wrapper {
+		height: 100%;
+		z-index: 10;
+		@include flexgroup-center();
+		@include flexbox-align-items(center);
+		.inner {
+			width: 100%;
+			transform: translateY(0.5vw);
+		}
+		h1 {
+			font-size: 4.5rem;
+			font-weight: 800;
+			line-height: 1.2;
+			color: #FFF;
+			text-transform: uppercase;
+		}
+	}
+	&:before, &:after {
+		content:"";
+		display: block;
+		width: 65%;
+		height:70px;
+		background: #FFF;
+		position: absolute;
+		bottom: 0;
+	}
+	&:before {
+		left: -17vw;
+		transform: skew(60deg);
+	}
+	&:after {
+		right: -17vw;
+		transform: skew(-60deg);
+	}
+}
+
+.page-services-template {
+	#row1 {
+		min-height: 10em;
+		.flexwrap {
+			padding-bottom: 70px;
+			margin-left: -30px;
+			margin-right: -30px;
+			@include tab {
+				margin-left: -40px;
+				margin-right: -40px;
+			}
+		}
+		.fcol {
+			width: 100%;
+			padding-left: 30px;
+			padding-right: 30px;
+			@include flexgroup();
+			@include flexbox-align-items(center);
+			@include tab {
+				width: 50%;
+				padding-left: 40px;
+				padding-right: 40px;
+			}
+			.col-title {
+				color: $primary;
+				margin: 0 0;
+				font-size: 50px;
+			}
+			&.right {
+				font-size: 20px;
+				line-height: 1.5;
+				.inside {
+					position: relative;
+					padding-bottom: 40px;
+					border-bottom: 1px solid $primary;
+				}
+			}
+		}
+	}
+}
+
+body.subpage {
+	.entry-content {
+		min-height: 20em;
+	}
+}
+
+
 
 /* FOOTER */
 .site-footer {

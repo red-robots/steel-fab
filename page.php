@@ -13,7 +13,7 @@
  */
 
 $placeholder = THEMEURI . 'images/rectangle.png';
-$banner = get_field("flexslider_banner");
+$banner = get_field("banner");;
 $has_banner = ($banner) ? 'hasbanner':'nobanner';
 get_header(); ?>
 
@@ -22,14 +22,12 @@ get_header(); ?>
 
 		<?php while ( have_posts() ) : the_post(); ?>
 
-			<section class="text-centered-section">
-				<div class="wrapper text-center">
-					<div class="page-header">
-						<h1 class="page-title"><?php the_title(); ?></h1>
-					</div>
-					<?php the_content(); ?>
-				</div>
-			</section>
+			<?php if ( !$banner ) { ?>
+				<h1 class="page-title"><?php the_title(); ?></h1>
+			<?php } ?>
+			<div class="entry-content">
+				<?php the_content(); ?>
+			</div>
 
 		<?php endwhile; ?>
 

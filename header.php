@@ -59,4 +59,6 @@ var params={};location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){
 		</div>
 	</header>
 
+	<?php get_template_part('parts/hero') ?>
+
 	<div id="content" class="site-content">
