@@ -75,7 +75,7 @@ if( $row2_title || $row2_text || ( isset($row2_group['columns']) && $row2_group[
 								<?php if ( $col['big_title'] || $col['small_title'] ) { ?>
 								<div class="titlediv">
 									<?php if ( $col['big_title'] ) { ?>
-										<div class="num"><?php echo $col['big_title'] ?></div>
+										<div class="num"></div>
 									<?php } ?>
 									<?php if ( $col['small_title'] ) { ?>
 									<div class="t1"><?php echo $col['small_title'] ?></div>
@@ -225,80 +225,163 @@ $row4_text = ( isset($row4Group['description']) && $row4Group['description'] ) ?
 	</div>
 </div>
 
+<?php  
+$row5_title = get_field("row5_title");
+$row5_text = get_field("row5_text");
+$row5_button = get_field("row5_button");
+$row5BtnTarget = ( isset($row5_button['target']) && $row5_button['target'] ) ? $row5_button['target'] : '_self';
+$row5BtnTitle = ( isset($row5_button['title']) && $row5_button['title'] ) ? $row5_button['title'] : '';
+$row5BtnLink = ( isset($row5_button['url']) && $row5_button['url'] ) ? $row5_button['url'] : '';
+if( $row5_title || $row5_text || $row5_button ) { ?>
 <div id="home-row-5" class="home-row">
 	<div class="wrapper">
-		<h2 class="col-title">SteelFab’s Mission</h2>
-		<div class="text">
-			<p>From local outreach to environmental impact, our team is committed to bettering the communities we serve through our processes, practices, and actions.</p>
-		</div>
+		<?php if ($row5_title) { ?>
+		<h2 class="col-title"><?php echo $row5_title ?></h2>
+		<?php } ?>
+		
+		<?php if ($row5_text) { ?>
+		<div class="text"><?php echo $row5_text ?></div>
+		<?php } ?>
+
+		<?php if ($row5BtnTitle && $row5BtnLink) { ?>
 		<div class="button">
-			<a href="#" class="btn-outline">Our Values</a>
+			<a href="<?php echo $row5BtnLink ?>" target="<?php echo $row5BtnTarget ?>" class="btn-outline"><?php echo $row5BtnTitle ?></a>
 		</div>
+		<?php } ?>
 	</div>
 </div>
+<?php } ?>
 
 
-<div id="home-row-6" class="home-row" style="background-image:url('<?php echo get_images_dir("dev/construction.png") ?>');">
+<?php  
+$row6_bg = get_field("row6_bg");
+$row6_title = get_field("row6_title");
+$row6_text = get_field("row6_text");
+$row6_button = get_field("row6_button");
+$row6BtnTarget = ( isset($row6_button['target']) && $row6_button['target'] ) ? $row6_button['target'] : '_self';
+$row6BtnTitle = ( isset($row6_button['title']) && $row6_button['title'] ) ? $row6_button['title'] : '';
+$row6BtnLink = ( isset($row6_button['url']) && $row6_button['url'] ) ? $row6_button['url'] : '';
+$row6_ImageBg = ( isset($row6_bg['url']) && $row6_bg['url'] ) ? ' style="background-image:url('.$row6_bg['url'].')"' : '';
+if( $row6_title || $row6_text || $row6_button ) { ?>
+<div id="home-row-6" class="home-row"<?php echo $row6_ImageBg ?>>
 	<div class="wrapper">
 		<div class="flexwrap">
 			<div class="fcol fl">
-				<h2 class="col-title">Join our team.</h2>
-				<div class="text">
-					<p>As our team continues to expand, SteelFab is always looking to fill a wide range of exciting positions all across the country. Ready to learn, grow, and innovate with us?</p>
+				<?php if ($row6_title) { ?>
+				<h2 class="col-title"><?php echo $row6_title ?></h2>
+				<?php } ?>
+
+				<?php if ($row6_text) { ?>
+				<div class="text"><?php echo $row6_text ?></div>
+				<?php } ?>
+
+				<?php if ($row6BtnTitle && $row6BtnLink) { ?>
+				<div class="buttondiv">
+					<a href="<?php echo $row6BtnLink ?>" target="<?php echo $row6BtnTarget ?>" class="btn-default"><?php echo $row6BtnTitle ?></a>
 				</div>
-				<div class="button">
-					<a href="#" class="btn-default">Browse Positions</a>
-				</div>
+				<?php } ?>
 			</div>
 		</div>
 	</div>
 	<div class="stripe-bg"><span></span><span></span><span></span></div>
 </div>
+<?php } ?>
 
 
+<?php  
+$row7_projects = get_field("row7_projects");
+$row7_title = get_field("row7_title");
+$row7_button = get_field("row7_button");
+$row7BtnTarget = ( isset($row7_button['target']) && $row7_button['target'] ) ? $row7_button['target'] : '_self';
+$row7BtnTitle = ( isset($row7_button['title']) && $row7_button['title'] ) ? $row7_button['title'] : '';
+$row7BtnLink = ( isset($row7_button['url']) && $row7_button['url'] ) ? $row7_button['url'] : '';
+if( $row7_title || $row7_projects || $row7_button ) { ?>
 <div id="home-row-7" class="home-row">
-	<div class="top">
-		<div class="wrapper"><h2 class="col-title">Our work in your community.</h2></div>
-	</div>
+	<?php if ($row7_title) { ?>
+		<div class="top">
+			<div class="wrapper"><h2 class="col-title"><?php echo $row7_title ?></h2></div>
+		</div>
+	<?php } ?>
+	
+	<?php if ($row7_projects) { ?>
 	<div class="gallery">
-		<?php for($i=1; $i<=8; $i++) { ?>
-		<a href="#" class="photo">
-			<figure class="image" style="background-image:url('<?php echo get_images_dir("dev/sample".$i.".png") ?>');"></figure>
-			<img src="<?php echo get_images_dir("square.png") ?>" alt="" aria-hidden="true" />
-			<span class="caption">
-				<span class="info">Tampa Internation Airport APM</span>
-			</span>
+		<?php $i=1; foreach ($row7_projects as $p) {
+			$proj_id = $p->ID;
+			$proj_title = $p->post_title;
+			$proj_link = get_permalink($proj_id); 
+			$proj_img = get_field("main_photo",$proj_id);
+			$proj_style = ($proj_img) ? ' style="background-image:url('.$proj_img['url'].')"':'';
+		?>
+		<a href="<?php echo $proj_link ?>" class="photo">
+			<figure class="image"<?php echo $proj_style ?>></figure>
+				<img src="<?php echo get_images_dir("square.png") ?>" alt="" aria-hidden="true" />
+				<span class="caption">
+					<span class="info"><?php echo $proj_title ?></span>
+				</span>
 		</a>
-		<?php } ?>
+		<?php $i++; } ?>
 	</div>
+	<?php } ?>
+
+	<?php if ($row7BtnTitle && $row7BtnLink) { ?>
 	<div class="button text-center">
-		<a href="#" class="btn-default">See More</a>
+		<a href="<?php echo $row7BtnLink ?>" target="<?php echo $row7BtnTarget ?>" class="btn-default"><?php echo $row7BtnTitle ?></a>
 	</div>
+	<?php } ?>
 </div>
+<?php } ?>
 
 
+<?php  
+$row8_title = get_field("row8_title");
+$row8_text = get_field("row8_text");
+$row8_button = get_field("row8_button");
+$row8BtnTarget = ( isset($row8_button['target']) && $row8_button['target'] ) ? $row8_button['target'] : '_self';
+$row8BtnTitle = ( isset($row8_button['title']) && $row8_button['title'] ) ? $row8_button['title'] : '';
+$row8BtnLink = ( isset($row8_button['url']) && $row8_button['url'] ) ? $row8_button['url'] : '';
+if( $row8_title || $row8_text || $row8_button ) { ?>
 <div id="home-row-8" class="home-row">
 	<div class="wrapper text-center">
-		<h2 class="col-title">Get In Touch</h2>
-		<div class="small-text">
-			<p>Let us put our decades of experience to use helping you execute your next fabrication project with a level of skill and support you won’t find anywhere else.</p>
-		</div>
+		<?php if ($row8_title) { ?>
+		<h2 class="col-title"><?php echo $row8_title ?></h2>
+		<?php } ?>
+
+		<?php if ($row8_text) { ?>
+		<div class="small-text"><?php echo $row8_text ?></div>
+		<?php } ?>
+
+		<?php if ($row8BtnTitle && $row8BtnLink) { ?>
 		<div class="button">
-			<a href="#" class="btn-outline">Contact</a>
+			<a href="<?php echo $row8BtnLink ?>" target="<?php echo $row8BtnTarget ?>" class="btn-outline"><?php echo $row8BtnTitle ?></a>
 		</div>
+		<?php } ?>
 	</div>
 </div>
+<?php } ?>
 
 <?php endwhile; ?>	
 
 <script>
 jQuery(document).ready(function($){
+
+	//locations counter
+	if( $("#home-row-2 .locations .subcol").length ) {
+		$("#home-row-2 .locations .subcol").each(function(){
+			var parent = $(this);
+			if( $(this).find('.list li').length ) {
+				var totalList = $(this).find('.list li').length;
+				parent.find('.num').text(totalList);
+			}
+		});
+	}
+
 	title_with_lines();
 	innovation_area_line();
 	$(window).resize(function(){
 		title_with_lines();
 		innovation_area_line();
 	});
+
 	function title_with_lines() {
 		var titleWidth = $("#title-w-line").width();
 		var spanMiddle = $("#title-w-line span.middle").width();

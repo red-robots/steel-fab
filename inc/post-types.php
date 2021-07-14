@@ -15,7 +15,7 @@ function js_custom_init() {
           'single'    => 'Project',
           'menu_icon' => 'dashicons-index-card',
           'supports'  => array('title','editor')
-        ),
+        )
     );
     
     if($post_types) {
@@ -83,13 +83,13 @@ add_action( 'init', 'build_taxonomies', 0 );
 function build_taxonomies() {
 
   $post_types = array(
-    array(
-      'post_type' => array('project'),
-      'menu_name' => 'Project Category',
-      'plural'    => 'Project Category',
-      'single'    => 'Project Category',
-      'taxonomy'  => 'project-category'
-    ),
+    // array(
+    //   'post_type' => array('project'),
+    //   'menu_name' => 'Project Category',
+    //   'plural'    => 'Project Category',
+    //   'single'    => 'Project Category',
+    //   'taxonomy'  => 'project-category'
+    // ),
   );
 
 
@@ -136,7 +136,6 @@ function build_taxonomies() {
 }
 
 
-
 // Add the custom columns to the position post type:
 add_filter( 'manage_posts_columns', 'set_custom_cpt_columns' );
 function set_custom_cpt_columns($columns) {
@@ -144,31 +143,40 @@ function set_custom_cpt_columns($columns) {
     $query = isset($wp_query->query) ? $wp_query->query : '';
     $post_type = ( isset($query['post_type']) ) ? $query['post_type'] : '';
     
-    // if($post_type=='music') {
-    //     unset($columns['taxonomy-event-location']);
-    //     unset($columns['expirationdate']);
-    //     unset($columns['date']);
-    //     $columns['title'] = __( 'Name', 'bellaworks' );
-    //     $columns['show_on_homepage'] = __( 'Show on<br>Homepage', 'bellaworks' );
-    //     $columns['featimage'] = __( 'Image', 'bellaworks' );
-    //     $columns['taxonomy-event-location'] = __( 'Location', 'bellaworks' );
-    //     $columns['date'] = __( 'Date', 'bellaworks' );
-    //     $columns['expirationdate'] = __( 'Expires', 'bellaworks' );
-    // }
-
+    if($post_type=='project') {
+        unset($columns['date']);
+        $columns['title'] = __( 'Name', 'bellaworks' );
+        $columns['project_image'] = __( 'Image', 'bellaworks' );
+        $columns['date'] = __( 'Date', 'bellaworks' );
+    }
     
+    return $columns;
+}
 
-    // if($post_type=='music') {
-    //     switch ( $column ) {
+//Add the data to the custom columns for the book post type:
+add_action( 'manage_posts_custom_column' , 'custom_post_column', 10, 2 );
+function custom_post_column( $column, $post_id ) {
+    global $wp_query;
+    $query = isset($wp_query->query) ? $wp_query->query : '';
+    $post_type = ( isset($query['post_type']) ) ? $query['post_type'] : '';
+    
+    if($post_type=='project') {
+        switch ( $column ) {
 
-    //         case 'show_on_homepage' :
-    //             $show = get_field('show_on_homepage',$post_id);
-    //             if($show=='yes') {
-    //                 echo '<span style="display:inline-block;width:50px;text-align:center;"><i class="dashicons dashicons-star-filled" style="color:#f1b429;font-size:25px;"></i></span>';
-    //             } 
-    //             break;
-
-    //     }
-    // }
+            case 'project_image' :
+                $img = get_field('main_photo',$post_id);
+                $img_src = ($img) ? $img['sizes']['medium'] : '';
+                $the_photo = '<span class="tmphoto" style="display:inline-block;width:50px;height:50px;background:#e2e1e1;text-align:center;border:1px solid #CCC;overflow:hidden;">';
+                if($img_src) {
+                   $the_photo .= '<span style="display:block;width:100%;height:100%;background:url('.$img_src.') top center no-repeat;background-size:cover;transform:scale(1.2)"></span>';
+                } else {
+                    $the_photo .= '<i class="dashicons dashicons-format-image" style="font-size:25px;position:relative;top:13px;left: -3px;opacity:0.3;"></i>';
+                }
+                $the_photo .= '</span>';
+                echo $the_photo;
+                break;
+        }
+    }
     
 }
+
