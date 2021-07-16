@@ -1876,7 +1876,7 @@ body.scrolled {
 	.flexwrap {
 		margin-left: -15px;
 		margin-right: -15px;
-		@include flexbox-align-items(center);
+		@include flexbox-justify(center);
 	}
 	.pfcol {
 		width: 100%;
@@ -1887,6 +1887,7 @@ body.scrolled {
 		}
 		.inner {
 			padding: 30px;
+			height: 100%;
 			background-color: $gray;
 			color: #FFF;
 			@include tab {
@@ -1921,6 +1922,9 @@ body.scrolled {
 			font-size: 14px;
 			line-height: 1.5;
 			color: #FFF;
+			p:last-child {
+				margin-bottom: 0;
+			}
 		}
 	}
 }
