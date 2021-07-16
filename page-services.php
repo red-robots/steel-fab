@@ -16,213 +16,158 @@ get_header(); ?>
 			<?php if ( !$banner ) { ?>
 				<h1 class="page-title"><?php the_title(); ?></h1>
 			<?php } ?>
+
+			<!-- ROW 1 -->
+			<?php  
+			$row1_column_left = get_field("row1_column_left");
+			$row1_column_right = get_field("row1_column_right");
+			$row1_yellow_bar_text = get_field("row1_yellow_bar_text");
+			$row1_col_class = ($row1_column_left && $row1_column_right) ? 'colnum2':'colnum1';
+			if( $row1_column_left || $row1_column_right ) { ?>
 			<div id="row1" class="entry-content">
 				<div class="wrapper">
-					<div class="flexwrap">
-						<div class="fcol left">
-							<div class="inside">
-								<h2 class="col-title">Our team is by your side from budget estimates through to the very end of contstruction.</h2>
+					<div class="flexwrap <?php echo $row1_col_class ?>">
+						<?php if ($row1_column_left) { ?>
+							<div class="fcol left">
+								<div class="inside">
+									<h2 class="col-title"><?php echo $row1_column_left ?></h2>
+								</div>
 							</div>
-						</div>
+						<?php } ?>
+						
+						<?php if ($row1_column_right) { ?>
 						<div class="fcol right">
 							<div class="inside">
-								<p>As one of the nation's largest AISC (American Institute of Steel Construction) structural steel fabricators, SteelFab has the resources and expertise to handle a wide range of challenging projects, regardless of size.</p>
-								<p>All of our processes have been designed and fine-tuned over the years to ensure your projects are carried off without a hitch.</p>
+								<?php echo $row1_column_right ?>
 							</div>
 						</div>
+						<?php } ?>
 					</div>
 				</div>
 			</div>
+			<?php } ?>
 
-
-			<div id="row2" class="yellow-bar">
+			<!-- YELLOW BAR -->
+			<?php if ($row1_yellow_bar_text) { ?>
+			<div class="yellow-bar">
 				<div class="wrapper text-center">
-					<p>We pride ourselves on helping to guide you through the process as seamlessly as possible.</p>
+					<?php echo wpautop($row1_yellow_bar_text) ?>
 				</div>
 			</div>
+			<?php } ?>
 
-			<div id="row3" class="section has-hexagons">
+			<?php  
+			$row2_title = get_field("row2_title");
+			$row2_services = get_field("row2_services");
+			if( $row2_title || $row2_services ) { ?>
+			<!-- HEXAGONS SECTION -->
+			<div id="hex-sections" class="section has-hexagons">
 
 				<div class="wrapper">
-					<h2 class="col-title blue text-center">Our Services</h2>
+					<?php if ($row2_title) { ?>
+					<h2 class="col-title blue text-center"><?php echo $row2_title ?></h2>
+					<?php } ?>
 				
+					<?php if ($row2_services) { ?>
 					<div class="hexagons-large">
 						
-						<div class="hex-figure">
-							<div class="hexagon">
-								<img class="helper" src="<?php echo get_images_dir('square.png') ?>" alt="" aria-hidden="true">
-								<div class="hexInner">
-									<div class="hex1">
-										<div class="hex2">
-											<div class="hexoverlay"></div>
-											<div class="heximg" style="background-image:url('<?php echo get_images_dir('dev/engineers.jpg') ?>')"></div>
-										</div>
-									</div>
-
-									<div class="hex-caption">
-										<div class="hex-text">
-											<h3 class="h3">Fabrication</h3>
-											<p>Our eleven fabrication facilities utilize the latest high-tech machinery and cutting-edge computer-driven processes to bring the pieces you need to life with the precision you rely on.</p>
-											<div class="button">
-												<a href="#" class="more"><span>Learn More <i class="arrow"></i><i class="arrow a1"></i><i class="arrow a2"></i></span></a>
+						<?php foreach ($row2_services as $row) { 
+							$img = $row['image'];
+							$title = $row['title'];
+							$description = $row['description'];
+							$button = $row['button'];
+							$btnTarget = ( isset($button['target']) && $button['target'] ) ? $button['target'] : '_self';
+							$btnTitle = ( isset($button['title']) && $button['title'] ) ? $button['title'] : '';
+							$btnLink = ( isset($button['url']) && $button['url'] ) ? $button['url'] : '';
+							if($title || $description) { ?>
+							<div class="hex-figure <?php echo ($img) ? 'hasImage':'noImage'; ?>">
+								<div class="hexagon">
+									<img class="helper" src="<?php echo get_images_dir('square.png') ?>" alt="" aria-hidden="true">
+									<div class="hexInner">
+										<div class="hex1">
+											<div class="hex2">
+												<div class="hexoverlay"></div>
+												<?php if ($img) { ?>
+													<div class="heximg" style="background-image:url('<?php echo $img['url'] ?>')"></div>
+												<?php } ?>
 											</div>
 										</div>
+
+										<?php if ( $title || $description || $button ) { ?>
+										<div class="hex-caption">
+											<div class="hex-text">
+												<?php if ($title) { ?>
+												<h3 class="h3"><?php echo $title ?></h3>
+												<?php } ?>
+												
+												<?php if ($description) { ?>
+												<div class="textwrap"><?php echo wpautop($description) ?></div>
+												<?php } ?>
+
+												<?php if ($btnTitle && $btnLink) { ?>
+												<div class="button">
+													<a href="<?php echo $btnLink ?>" target="<?php echo $btnTarget ?>" class="more"><span><?php echo $btnTitle ?> <i class="arrow"></i><i class="arrow a1"></i><i class="arrow a2"></i></span></a>
+												</div>
+												<?php } ?>
+											</div>
+										</div>
+										<?php } ?>
 									</div>
 								</div>
 							</div>
-						</div>
+							<?php } ?>
 
-
-						<div class="hex-figure">
-							<div class="hexagon">
-								<img class="helper" src="<?php echo get_images_dir('square.png') ?>" alt="" aria-hidden="true">
-								<div class="hexInner">
-									<div class="hex1">
-										<div class="hex2">
-											<div class="hexoverlay"></div>
-											<div class="heximg" style="background-image:url('<?php echo get_images_dir('dev/engineers.jpg') ?>')"></div>
-										</div>
-									</div>
-
-									<div class="hex-caption">
-										<div class="hex-text">
-											<h3 class="h3">Engineering & Detailing</h3>
-											<p>Since 1976, SteelFab has maintained and supported an in-house detailing department. Though our methods have changed over the years, our dedication to quality has always remained.</p>
-											<div class="button">
-												<a href="#" class="more"><span>Learn More <i class="arrow"></i><i class="arrow a1"></i><i class="arrow a2"></i></span></a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="hex-figure">
-							<div class="hexagon">
-								<img class="helper" src="<?php echo get_images_dir('square.png') ?>" alt="" aria-hidden="true">
-								<div class="hexInner">
-									<div class="hex1">
-										<div class="hex2">
-											<div class="hexoverlay"></div>
-											<div class="heximg" style="background-image:url('<?php echo get_images_dir('dev/engineers.jpg') ?>')"></div>
-										</div>
-									</div>
-
-									<div class="hex-caption">
-										<div class="hex-text">
-											<h3 class="h3">Pre-Construction</h3>
-											<p>Our team provides pre-construction services starting from the beginning of the design development stage. Our goal is always to add as much value as possible while remaining conscious of your timeline and budget.</p>
-											<div class="button">
-												<a href="#" class="more"><span>Learn More <i class="arrow"></i><i class="arrow a1"></i><i class="arrow a2"></i></span></a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="hex-figure">
-							<div class="hexagon">
-								<img class="helper" src="<?php echo get_images_dir('square.png') ?>" alt="" aria-hidden="true">
-								<div class="hexInner">
-									<div class="hex1">
-										<div class="hex2">
-											<div class="hexoverlay"></div>
-											<div class="heximg" style="background-image:url('<?php echo get_images_dir('dev/engineers.jpg') ?>')"></div>
-										</div>
-									</div>
-
-									<div class="hex-caption">
-										<div class="hex-text">
-											<h3 class="h3">Project Management</h3>
-											<p>Your project management team will be your go-to point of contact throughout the entirety of your project, providing ongoing guidance and support for best practices.</p>
-											<div class="button">
-												<a href="#" class="more"><span>Learn More <i class="arrow"></i><i class="arrow a1"></i><i class="arrow a2"></i></span></a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="hex-figure">
-							<div class="hexagon">
-								<img class="helper" src="<?php echo get_images_dir('square.png') ?>" alt="" aria-hidden="true">
-								<div class="hexInner">
-									<div class="hex1">
-										<div class="hex2">
-											<div class="hexoverlay"></div>
-											<div class="heximg" style="background-image:url('<?php echo get_images_dir('dev/engineers.jpg') ?>')"></div>
-										</div>
-									</div>
-
-									<div class="hex-caption">
-										<div class="hex-text">
-											<h3 class="h3">Miscellaneous Metals</h3>
-											<p>Our team maintains long-lasting relationships with trusted suppliers that specialize in fabricating miscellaneous metals, ensuring on-time delivery within your budget.</p>
-											<div class="button">
-												<a href="#" class="more"><span>Learn More <i class="arrow"></i><i class="arrow a1"></i><i class="arrow a2"></i></span></a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-
-
+						<?php } ?>
 					</div>
+					<?php } ?>
 				</div>
 
+
+				<?php  
+				$row3_title = get_field("row3_title");
+				$row3_features = get_field("row3_features");
+				if($row3_title || $row3_features) { ?>
 				<!-- PROJECTS -->
 				<div class="wrapper project-features">
-					<h2 class="col-title white text-center">On every project, you can expect:</h2>	
+					<?php if ($row3_title) { ?>
+					<h2 class="col-title white text-center"><?php echo $row3_title ?></h2>
+					<?php } ?>
+
+					<?php if ($row3_features) { ?>
 					<div class="project-feature-list">
 						<div class="flexwrap">
-							<div class="pfcol">
-								<div class="inner">
-									<div class="icon">
-										<img src="<?php echo get_images_dir('dev/clock.png') ?>" alt="" aria-hidden="true">
-									</div>
-									<div class="text">
-										<h3 class="h3">Value add services</h3>
-										<div class="info">
-											<p>Our pre-construction and design phases include input from our team of experts to maximize the value of your project.</p>
-										</div>
-									</div>
-								</div>
-							</div>
 
-							<div class="pfcol">
-								<div class="inner">
-									<div class="icon">
-										<img src="<?php echo get_images_dir('dev/clock.png') ?>" alt="" aria-hidden="true">
-									</div>
-									<div class="text">
-										<h3 class="h3">Value add services</h3>
-										<div class="info">
-											<p>Our pre-construction and design phases include input from our team of experts to maximize the value of your project.</p>
+							<?php foreach ($row3_features as $feat) { ?>
+								<div class="pfcol">
+									<div class="inner">
+										<?php if ( $feat['icon'] ) { ?>
+										<div class="icon">
+											<img src="<?php echo $feat['icon']['url'] ?>" alt="" aria-hidden="true">
 										</div>
-									</div>
-								</div>
-							</div>
+										<?php } ?>
+										
+										<?php if ( $feat['title'] || $feat['description'] ) { ?>
+										<div class="text">
+											<?php if ( $feat['title'] ) { ?>
+											<h3 class="h3"><?php echo $feat['title'] ?></h3>
+											<?php } ?>
 
-							<div class="pfcol">
-								<div class="inner">
-									<div class="icon">
-										<img src="<?php echo get_images_dir('dev/clock.png') ?>" alt="" aria-hidden="true">
-									</div>
-									<div class="text">
-										<h3 class="h3">Value add services</h3>
-										<div class="info">
-											<p>Our pre-construction and design phases include input from our team of experts to maximize the value of your project.</p>
+											<?php if ( $feat['description'] ) { ?>
+											<div class="info">
+												<?php echo wpautop($feat['description']) ?>
+											</div>
+											<?php } ?>
 										</div>
+										<?php } ?>
 									</div>
 								</div>
-							</div>
+							<?php } ?>
+
 						</div>
 					</div>
+					<?php } ?>
 				</div>
+				<?php } ?>
 
 				<div class="pattern-overlay"><span></span></div>
 				<div class="diagonal-line d1"></div>
@@ -236,16 +181,31 @@ get_header(); ?>
 					<div class="pattern"></div>
 				</div>
 			</div>
+			<?php } ?>
 
+			<?php 
+			$row4_title = get_field("row4_title");
+			$row4_text = get_field("row4_text");
+			$row4_button = get_field("row4_button");
+			$btn4Target = ( isset($row4_button['target']) && $row4_button['target'] ) ? $row4_button['target'] : '_self';
+			$btn4Title = ( isset($row4_button['title']) && $row4_button['title'] ) ? $row4_button['title'] : '';
+			$btn4Link = ( isset($row4_button['url']) && $row4_button['url'] ) ? $row4_button['url'] : '';
+			?>
 			<div id="bottom-blue" class="bottom-blue-area">
 				<div class="wrapper text-center">
-					<h2 class="col-title">Need a team with the skill and experience to seamlessly pull off your next fabrication project?</h2>
+					<?php if($row4_title) { ?>
+					<h2 class="col-title"><?php echo $row4_title ?></h2>
+					<?php } ?>
 
-					<!-- <div class="small-text"></div> -->
+					<?php if($row4_text) { ?>
+					<div class="small-text"><?php echo wpautop($row4_text) ?></div>
+					<?php } ?>
 
+					<?php if ($btn4Title && $btn4Link) { ?>
 					<div class="button">
-						<a href="#" target="_blank" class="btn-outline">Get In Touch</a>
+						<a href="<?php echo $btn4Link ?>" target="<?php echo $btn4Target ?>" class="btn-outline"><?php echo $btn4Title ?></a>
 					</div>
+					<?php } ?>
 				</div>
 			</div>
 

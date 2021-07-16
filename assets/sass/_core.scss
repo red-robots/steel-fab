@@ -1352,6 +1352,9 @@ body.scrolled {
 		z-index: 10;
 		margin: 0 auto;
 	}
+	.small-text {
+		margin: 15px 0 10px;
+	}
 	div.button {
 		margin-top: 30px;
 		.btn-outline {
@@ -1457,8 +1460,14 @@ body.scrolled {
 				}
 			}
 		}
+		.flexwrap.colnum1 {
+			.fcol {
+				width: 100%;
+				text-align: left;
+			}
+		}
 	}
-	#row2 {
+	.yellow-bar {
 		background-color: $yellow;
 		color: #FFF;
 		font-size: 18px;
@@ -1473,7 +1482,7 @@ body.scrolled {
 			margin-bottom: 0;
 		}
 	}
-	#row3 {
+	#hex-sections {
 		padding-top: 50px;
 		padding-bottom: 50px;
 		position: relative;
