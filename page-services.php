@@ -174,11 +174,57 @@ get_header(); ?>
 					</div>
 				</div>
 
+				<!-- PROJECTS -->
 				<div class="wrapper project-features">
 					<h2 class="col-title white text-center">On every project, you can expect:</h2>	
+					<div class="project-feature-list">
+						<div class="flexwrap">
+							<div class="pfcol">
+								<div class="inner">
+									<div class="icon">
+										<img src="<?php echo get_images_dir('dev/clock.png') ?>" alt="" aria-hidden="true">
+									</div>
+									<div class="text">
+										<h3 class="h3">Value add services</h3>
+										<div class="info">
+											<p>Our pre-construction and design phases include input from our team of experts to maximize the value of your project.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="pfcol">
+								<div class="inner">
+									<div class="icon">
+										<img src="<?php echo get_images_dir('dev/clock.png') ?>" alt="" aria-hidden="true">
+									</div>
+									<div class="text">
+										<h3 class="h3">Value add services</h3>
+										<div class="info">
+											<p>Our pre-construction and design phases include input from our team of experts to maximize the value of your project.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="pfcol">
+								<div class="inner">
+									<div class="icon">
+										<img src="<?php echo get_images_dir('dev/clock.png') ?>" alt="" aria-hidden="true">
+									</div>
+									<div class="text">
+										<h3 class="h3">Value add services</h3>
+										<div class="info">
+											<p>Our pre-construction and design phases include input from our team of experts to maximize the value of your project.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 
-				<div class="pattern-overlay"></div>
+				<div class="pattern-overlay"><span></span></div>
 				<div class="diagonal-line d1"></div>
 				<div class="diagonal-line d2"></div>
 				<div class="diagonal-line d3"></div>
@@ -188,6 +234,18 @@ get_header(); ?>
 					<div class="overlay"></div>
 					<div class="overlay ov2"></div>
 					<div class="pattern"></div>
+				</div>
+			</div>
+
+			<div id="bottom-blue" class="bottom-blue-area">
+				<div class="wrapper text-center">
+					<h2 class="col-title">Need a team with the skill and experience to seamlessly pull off your next fabrication project?</h2>
+
+					<!-- <div class="small-text"></div> -->
+
+					<div class="button">
+						<a href="#" target="_blank" class="btn-outline">Get In Touch</a>
+					</div>
 				</div>
 			</div>
 
