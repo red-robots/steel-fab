@@ -2226,8 +2226,9 @@ body.subpage .site-header:after{background-color:#031a29}
 .page-services-template #hex-sections .diagonal-line.d4{top:-18%}
 .page-services-template #hex-sections .diagonal-line.d5{top:-13%}
 .page-services-template #hex-sections .diagonal-line.d6{top:-29%;width:200%;height:200%}
-}.page-services-template #hex-sections .project-features{padding-top:80px}
-@media screen and (max-width:960px){.page-services-template #hex-sections .diagonal-line .overlay{display:none}
+}.page-services-template #hex-sections .project-features{padding-top:70px}
+@media(min-width:960px){.page-services-template #hex-sections .project-features{padding-top:130px}
+}@media screen and (max-width:960px){.page-services-template #hex-sections .diagonal-line .overlay{display:none}
 .page-services-template #hex-sections .pattern-overlay span{display:block;width:100%;height:60%;position:absolute;top:0;left:0;background-color:#FFF}
 .page-services-template #hex-sections .pattern-overlay:before{display:none}
 .page-services-template #hex-sections .pattern-overlay:after{content:"";width:400%;height:65vw;position:absolute;bottom:-5%;left:0;z-index:5;background:-webkit-linear-gradient(top,transparent 0,rgba(2,13,21,0.65) 50%,rgba(3,26,41,0.65) 100%);background:linear-gradient(to bottom,transparent 0,rgba(2,13,21,0.65) 50%,rgba(3,26,41,0.65) 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000',endColorstr='#a6031a29',GradientType=0)}

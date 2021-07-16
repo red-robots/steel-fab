@@ -1576,6 +1576,7 @@ body.scrolled {
 				background-position: center;
 				transform: skew(-60deg);
 			}
+
 			@include min(1300px) {
 				&.d1 {
 					top: -23%;
@@ -1623,8 +1624,12 @@ body.scrolled {
 		}
 		
 		.project-features {
-			padding-top: 80px;
+			padding-top: 70px;
+			@include mid {
+				padding-top: 130px;
+			}
 		}
+		
 		@include max($midwidth) {
 			.diagonal-line {
 				.overlay {display:none;}
