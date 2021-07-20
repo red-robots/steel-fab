@@ -13,7 +13,23 @@ function js_custom_init() {
           'menu_name' => 'Projects',
           'plural'    => 'Projects',
           'single'    => 'Project',
-          'menu_icon' => 'dashicons-index-card',
+          'menu_icon' => 'dashicons-archive',
+          'supports'  => array('title','editor')
+        ),
+        array(
+          'post_type' => 'services',
+          'menu_name' => 'Services',
+          'plural'    => 'Services',
+          'single'    => 'Service',
+          'menu_icon' => 'dashicons-list-view',
+          'supports'  => array('title')
+        ),
+        array(
+          'post_type' => 'team',
+          'menu_name' => 'Team',
+          'plural'    => 'Teams',
+          'single'    => 'Team',
+          'menu_icon' => 'dashicons-groups',
           'supports'  => array('title','editor')
         )
     );
@@ -83,13 +99,13 @@ add_action( 'init', 'build_taxonomies', 0 );
 function build_taxonomies() {
 
   $post_types = array(
-    // array(
-    //   'post_type' => array('project'),
-    //   'menu_name' => 'Project Category',
-    //   'plural'    => 'Project Category',
-    //   'single'    => 'Project Category',
-    //   'taxonomy'  => 'project-category'
-    // ),
+    array(
+      'post_type' => array('team'),
+      'menu_name' => 'Divisions',
+      'plural'    => 'Divisions',
+      'single'    => 'Division',
+      'taxonomy'  => 'divisions'
+    ),
   );
 
 

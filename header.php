@@ -34,7 +34,11 @@ var params={};location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){
 </script>
 <?php wp_head(); ?>
 </head>
-<body <?php body_class(); ?>>
+<?php  
+$banner = get_field("banner");
+$has_hero = ($banner) ? 'has-hero':'no-hero';
+?>
+<body <?php body_class($has_hero); ?>>
 <div id="page" class="site cf">
 	<div id="overlay"></div>
 	<a class="skip-link sr" href="#content"><?php esc_html_e( 'Skip to content', 'bellaworks' ); ?></a>

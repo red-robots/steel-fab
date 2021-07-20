@@ -13,7 +13,7 @@
  */
 
 $placeholder = THEMEURI . 'images/rectangle.png';
-$banner = get_field("banner");;
+$banner = get_field("banner");
 $has_banner = ($banner) ? 'hasbanner':'nobanner';
 get_header(); ?>
 

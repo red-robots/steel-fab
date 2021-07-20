@@ -4,7 +4,7 @@
  */
 
 $placeholder = THEMEURI . 'images/rectangle.png';
-$banner = get_field("banner");;
+$banner = get_field("banner");
 $has_banner = ($banner) ? 'hasbanner':'nobanner';
 get_header(); ?>
 
@@ -59,7 +59,9 @@ get_header(); ?>
 			<?php  
 			$row2_title = get_field("row2_title");
 			$row2_services = get_field("row2_services");
-			if( $row2_title || $row2_services ) { ?>
+			$row3_title = get_field("row3_title");
+			$row3_features = get_field("row3_features");
+			if( $row2_title || $row2_services || ($row3_title || $row3_features) ) { ?>
 			<!-- HEXAGONS SECTION -->
 			<div id="hex-sections" class="section has-hexagons">
 
@@ -124,8 +126,6 @@ get_header(); ?>
 
 
 				<?php  
-				$row3_title = get_field("row3_title");
-				$row3_features = get_field("row3_features");
 				if($row3_title || $row3_features) { ?>
 				<!-- PROJECTS -->
 				<div class="wrapper project-features">
@@ -190,7 +190,7 @@ get_header(); ?>
 			$btn4Target = ( isset($row4_button['target']) && $row4_button['target'] ) ? $row4_button['target'] : '_self';
 			$btn4Title = ( isset($row4_button['title']) && $row4_button['title'] ) ? $row4_button['title'] : '';
 			$btn4Link = ( isset($row4_button['url']) && $row4_button['url'] ) ? $row4_button['url'] : '';
-			?>
+			if( $row4_title || $row4_text || $row4_button ) { ?>
 			<div id="bottom-blue" class="bottom-blue-area">
 				<div class="wrapper text-center">
 					<?php if($row4_title) { ?>
@@ -208,6 +208,7 @@ get_header(); ?>
 					<?php } ?>
 				</div>
 			</div>
+			<?php } ?>
 
 		<?php endwhile; ?>
 
