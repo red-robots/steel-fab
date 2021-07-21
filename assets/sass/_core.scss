@@ -2311,17 +2311,8 @@ body.scrolled {
 		.inner {
 			position: relative;
 			z-index: 10;
-			padding-top: 100px;
-			// &:before {
-			// 	content:"";
-			// 	display: block;
-			// 	width: 1px;
-			// 	height: 100%;
-			// 	background: $primary;
-			// 	position: absolute;
-			// 	top: -1px;
-			// 	left: -5vw;
-			// }
+			padding-top: 30px;
+    	padding-bottom: 60px;
 		}
 	}
 	.t1 {
