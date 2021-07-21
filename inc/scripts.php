@@ -77,3 +77,39 @@ function bellaworks_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'bellaworks_scripts' );
+
+function admin_head_custom_css() { ?>
+<style type="text/css">
+.acf-field-flexible-content .layout.has-title .acf-fc-layout-handle {
+	position: relative;
+	color: transparent;
+}
+.acf-field-flexible-content .layout.has-title .acf-fc-layout-handle:before{
+	content: attr(data-title);
+	display: inline-block;
+	position: absolute;
+	left: 40px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #000;
+}
+</style>
+<?php }
+add_action('admin_head', 'admin_head_custom_css');
+
+function admin_footer_custom_script() { ?>
+<script>
+jQuery(document).ready(function($){
+	if( $('.acf-field-flexible-content .layout [data-name="title"]').length ) {
+		$('.acf-field-flexible-content .layout [data-name="title"]').each(function(){
+			var title = $(this).find('.acf-input-wrap input').val();
+			var parent = $(this).parents('.layout');
+			parent.addClass("has-title");
+			parent.find('.acf-fc-layout-handle').attr("data-title",title);
+		});
+	}
+});
+</script>
+<?php }
+add_action('admin_footer', 'admin_footer_custom_script');
+

@@ -59,7 +59,7 @@ get_header(); ?>
 			$row2_bg_img = get_field("row2_bg_img");
 			$row2BgImg = ($row2_bg_img) ? ' style="background-image:url('.$row2_bg_img['url'].')"':'';
 			if( $row2_title || $row2_text || $row2_content ) { ?>
-			<div id="row2" class="section-wrap">
+			<div id="row2" class="section-wrap row2-services">
 				
 				<?php if( $row2_title || $row2_text ) { ?>
 				<div id="svc1" class="svc"<?php echo $row2BgImg ?>>
@@ -76,7 +76,7 @@ get_header(); ?>
 				<?php } ?>
 
 				<?php if($row2_content) { $count_col = count($row2_content); ?>
-				<div id="svc2" class="column-content count<?php echo $count_col ?>">
+				<div id="svc2" class="column-content-svc2 count<?php echo $count_col ?>">
 					<div class="wrapper">
 						<div class="flexwrap">
 						<?php foreach ($row2_content as $r) { 
@@ -110,11 +110,12 @@ get_header(); ?>
 			$row3_content = get_field("row3_content");
 			$row3_bg_img = get_field("row3_bg_img");
 			$row3BgImg = ($row3_bg_img) ? ' style="background-image:url('.$row3_bg_img['url'].')"':'';
+			$row3_col_class = ($row3_content) ? 'hascol':'nocol';
 			if( $row3_title || $row3_text || $row3_content ) { ?>
-			<div id="row3" class="section-wrap">
+			<div id="row3" class="section-wrap row3-services">
 				
 				<?php if( $row3_title || $row3_text ) { ?>
-				<div class="svc primary-bg-color"<?php echo $row3BgImg ?>>
+				<div class="svc primary-bg-color full-text <?php echo $row3_col_class ?>"<?php echo $row3BgImg ?>>
 					<div class="overlay"></div>
 					<div class="wrapper sm text-center">
 						<?php if ($row3_title) { ?>
@@ -132,11 +133,11 @@ get_header(); ?>
 				<div class="column-content count<?php echo $row3_count; ?>">
 					<div class="wrapper">
 						<div class="flexwrap">
-						<?php foreach ($row3_content as $r) { 
+						<?php $fc=1; foreach ($row3_content as $r) { 
 							$c_title = $r['title']; 
 							$c_text = $r['description']; 
 							if( $c_title || $c_text ) { ?>
-							<div class="fcol">
+							<div class="fcol col<?php echo $fc ?>">
 								<div class="wrap">
 									<!-- <div class="skew"></div> -->
 									<div class="inner">
@@ -150,12 +151,83 @@ get_header(); ?>
 								</div>
 							</div>
 							<?php } ?>
-						<?php } ?>
+						<?php $fc++; } ?>
 						</div>
 					</div>
 				</div>
 				<?php } ?>
 
+			</div>
+			<?php } ?>
+
+
+			<?php
+			$text_blocks = get_field("text_photo");
+			if($text_blocks) { ?>
+			<div id="row4" class="section-wrap flexible-content-wrap">
+				<?php $j=1; foreach ($text_blocks as $b) { 
+					$title = $b['title'];
+					$text = $b['description'];
+					$buttons = $b['buttons'];
+					$image = $b['image'];
+					$section_class = ( ($title || $text) &&  $image ) ? 'col-two':'col-one';
+					if( $title || $text || $image) { 
+						$section_class .= ($j % 2==0) ? ' even':' odd';
+					?>
+					<section id="flex-content<?php echo $j?>" class="flex-content <?php echo $section_class ?>">
+						<div class="flexwrap">
+							<?php if ($title || $text) { ?>
+							<div class="fcol textcol">
+								<div class="wrap">
+								<?php if ($title) { ?>
+									<h2 class="col-title"><?php echo $title ?></h2>
+								<?php } ?>
+								<?php if ($text) { ?>
+									<div class="col-text"><?php echo $text ?></div>
+								<?php } ?>
+								</div>
+							</div>	
+							<?php } ?>
+
+							<?php if ($image) { ?>
+							<div class="fcol imagecol">
+								<div class="imgbg" style="background-image:url('<?php echo $image['url'] ?>')">
+									<img src="<?php echo get_images_dir('rectangle.png') ?>" alt="" aria-hidden="true">
+								</div>
+							</div>	
+							<?php } ?>
+						</div>
+					</section>
+					<?php $j++; } ?>
+				<?php } ?>
+			</div>
+			<?php } ?>
+
+
+			<?php 
+			$row5_title = get_field("row5_title");
+			$row5_text = get_field("row5_text");
+			$row5_button = get_field("row5_button");
+			$btn5Target = ( isset($row5_button['target']) && $row5_button['target'] ) ? $row5_button['target'] : '_self';
+			$btn5Title = ( isset($row5_button['title']) && $row5_button['title'] ) ? $row5_button['title'] : '';
+			$btn5Link = ( isset($row5_button['url']) && $row5_button['url'] ) ? $row5_button['url'] : '';
+			if( $row5_title || $row5_text || $row5_button ) { ?>
+			<div id="bottom-blue" class="bottom-blue-area">
+				<div class="wrapper text-center">
+					<?php if($row5_title) { ?>
+					<h2 class="col-title"><?php echo $row5_title ?></h2>
+					<?php } ?>
+
+					<?php if($row5_text) { ?>
+					<div class="small-text"><?php echo wpautop($row5_text) ?></div>
+					<?php } ?>
+
+					<?php if ($btn5Title && $btn5Link) { ?>
+					<div class="button">
+						<a href="<?php echo $btn5Link ?>" target="<?php echo $btn5Target ?>" class="btn-outline"><?php echo $btn5Title ?></a>
+					</div>
+					<?php } ?>
+				</div>
 			</div>
 			<?php } ?>
 
