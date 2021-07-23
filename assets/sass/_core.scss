@@ -1024,6 +1024,10 @@ body.open-menu {
 	border-radius: 0;
 	letter-spacing: 1px;
 	border: 1px solid #FFF;
+	&.sm {
+		padding: 8px 20px;
+		font-size: 15px;
+	}
 	&:hover {
 		background-color: $yellow;
 		border-color: $yellow;
@@ -1381,7 +1385,8 @@ body.scrolled {
 	background-color: $dark_blue;
 	@include backgroundImage(center);
 	@include tab {
-		height: 65vh;
+		// height: 60vh;
+		height: 500px;
 	}
 	.wrapper {
 		height: 100%;
@@ -1437,7 +1442,7 @@ body.scrolled {
 			padding-left: 30px;
 			padding-right: 30px;
 			@include flexgroup();
-			@include flexbox-align-items(center);
+			// @include flexbox-align-items(center);
 			@include tab {
 				width: 50%;
 				padding-left: 40px;
@@ -1451,7 +1456,7 @@ body.scrolled {
 					font-size: 40px;
 				}
 				@include mid {
-					font-size: 50px;
+					font-size: 45px;
 				}
 			}
 			&.left {
@@ -1529,9 +1534,6 @@ body.scrolled {
 			margin-bottom: 20px;
 			@include tab {
 				margin-bottom: 40px;
-			}
-			@include mid {
-				margin-bottom: 60px;
 			}
 		}
 		.diagonal-line {
@@ -1955,6 +1957,238 @@ body.scrolled {
 	}
 }
 
+.intro-two-col {
+	min-height: 10em;
+	.flexwrap {
+		padding-top: 30px;
+		padding-bottom: 80px;
+		margin-left: -30px;
+		margin-right: -30px;
+		@include tab {
+			margin-left: -40px;
+			margin-right: -40px;
+		}
+	}
+	.fcol {
+		width: 100%;
+		padding-left: 30px;
+		padding-right: 30px;
+		@include flexgroup();
+		@include tab {
+			width: 50%;
+			padding-left: 40px;
+			padding-right: 40px;
+		}
+		.col-title {
+			color: $primary;
+			margin: 0 0;
+			font-size: 30px;
+			@include tab {
+				font-size: 40px;
+			}
+			@include mid {
+				font-size: 45px;
+			}
+		}
+		&.left {
+			margin-bottom: 30px;
+			@include tab {
+				margin-bottom: 0;
+			}
+			.inside {
+				width: 100%;
+			}
+		}
+		&.right {
+			font-size: 20px;
+			line-height: 1.5;
+			.inside {
+				position: relative;
+				padding-bottom: 40px;
+				border-bottom: 1px solid $primary;
+			}
+		}
+	}
+	.flexwrap.colnum1 {
+		.fcol {
+			width: 100%;
+			text-align: left;
+		}
+	}
+}
+
+.text-imgbg-section {
+	.fw-text {
+		background-color: $primary;
+		position: relative;
+		&:before {
+			content:"";
+			display: block;
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background-color: rgba(20,96,154,.85);
+			z-index: 2;
+		}
+		.bg-img {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			filter: grayscale(100%);
+			@include backgroundImage(center);
+		}
+		&:before {
+			content:"";
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+	}
+	.wrapper {
+		max-width: 900px;
+		width: 100%;
+		z-index: 5;
+		color: #FFF;
+		padding-top: 50px;
+		padding-bottom: 50px;
+		@include tab {
+			padding-top: 80px;
+			padding-bottom: 80px;
+		}
+		&.bottom-pad-large {
+			padding-bottom: 10vw;
+		}
+		h2 {
+			font-weight: 800;
+			font-size: 30px;
+			line-height: 1.2;
+			text-transform: uppercase;
+			margin: 0 0 20px;
+			position: relative;
+			color: #FFF;
+			@include tab {
+				font-size: 40px;
+			}
+			@include mid {
+				font-size: 45px;
+			}
+		}
+	}
+}
+
+.twocol-text-image {
+	background-color: $primary;
+	color: #FFF;
+	position: relative;
+	z-index: 15;
+	.flexwrap {
+		width: 100%;
+		position: relative;
+	}
+	.fxcol {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		@include tab {
+			width: 50%;
+			
+		}
+		&.left {
+			padding: 20px 20px 30px;
+			@include tab {
+				padding: 2vw 5vw 5vw;
+			}
+			.text {
+				position: relative;
+				z-index: 10;
+				h2 {
+					font-weight: 800;
+					font-size: 30px;
+					line-height: 1.2;
+					text-transform: uppercase;
+					margin: 0 0 20px;
+					position: relative;
+					@include tab {
+						font-size: 40px;
+					}
+				}
+			}
+			.bg-img, .bg-color {
+				width: 100%;
+				height: calc(100% + 65px);
+				position: absolute;
+				top: -65px;
+				left: 0;
+				@include tab {
+					height: calc(100% + 66px);
+					top: -66px;
+					@include clip_small_left();
+				}
+				@include mid {
+					height: calc(100% + 61px);
+					top: -61px;
+				}
+				@include desk {
+					@include clip_large_left();
+				}
+				@include xxl {
+					@include clip_xl_left();
+				}
+			}
+			.bg-img {
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: top left;
+				overflow: hidden;
+			}
+			.bg-color {
+				background-color: rgba($dark_blue,.85);
+				z-index: 1;
+			}
+		}
+		&.right {
+			@include tab {
+				height: 100%;
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+			img {
+				width: 100%;
+				height: auto;
+				float: left;
+				visibility: hidden;
+				@include tab {
+					display: none;
+				}
+			}
+			.right-bg {
+				width: 100%;
+				height: calc(100% + 61px);
+				position: absolute;
+				top: -61px;
+				left: 0;
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: top;
+				@include tab {
+					@include clip_small_right();
+				}
+				@include desk {
+					@include clip_large_right();
+				}
+				@include xxl {
+					@include clip_xl_right();
+				}
+			}
+		}
+	}
+}
+
 .single-services-page {
 	#row1 {
 		min-height: 10em;
@@ -1973,7 +2207,7 @@ body.scrolled {
 			padding-left: 30px;
 			padding-right: 30px;
 			@include flexgroup();
-			@include flexbox-align-items(center);
+			// @include flexbox-align-items(center);
 			@include tab {
 				width: 50%;
 				padding-left: 40px;
@@ -1983,12 +2217,6 @@ body.scrolled {
 				color: $primary;
 				margin: 0 0;
 				font-size: 30px;
-				@include tab {
-					font-size: 40px;
-				}
-				@include mid {
-					font-size: 50px;
-				}
 			}
 			&.left {
 				margin-bottom: 30px;
@@ -2468,6 +2696,10 @@ body.scrolled {
 		color: #FFF;
 		background-color: $primary;
 	}
+	.flx-btn {
+		margin-top: 15px;
+		margin-right: 15px;
+	}
 	.fcol {
 		width: 100%;
 		position: relative;
@@ -2556,6 +2788,104 @@ body.scrolled {
 	}
 }
 
+.columns-with-icons {
+	background-image:url('images/logo_pattern.png');
+	background-color: $dark_blue;
+	background-repeat: repeat;
+	background-position: top center;
+	position: relative;
+	color: #FFF;
+	&:after {
+		content:"";
+		display: block;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(2,13,21,0.5) 50%, rgba(3,26,41,1) 100%);
+		background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(2,13,21,0.5) 50%,rgba(3,26,41,1) 100%);
+		background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(2,13,21,0.5) 50%,rgba(3,26,41,1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#031a29',GradientType=0 );
+	}
+	.wrapper {
+		padding-top: 50px;
+		padding-bottom: 50px;
+		z-index: 10;
+		@include tab {
+			padding-top: 80px;
+			padding-bottom: 80px;
+		}
+		@include mid {
+			padding-top: 100px;
+			padding-bottom: 100px;
+		}
+	}
+	// .col-title {
+	// 	font-size: 40px;
+	// }
+	.column-icons {
+		margin: 50px 0;
+		@include tab {
+			margin: 60px 0;
+		}
+	}
+	.flexwrap {
+		margin-left: -15px;
+		margin-right: -15px;
+	}
+	.fxcol {
+		width: 100%;
+		padding: 0 15px;
+		@include tab {
+			width: 33.33%;
+		}
+		.inner {
+			padding: 15px;
+			background: $gray;
+			color: #FFF;
+			height: 100%;
+			@include tab {
+				padding: 3vw 4vw;
+			}
+		}
+		div.icon {
+			margin-bottom: 20px;
+			img {
+				width: auto;
+    		height: 50px;
+			}
+		}
+		.title {
+			font-size: 18px;
+			font-weight: 800;
+			line-height: 1.2;
+			text-transform: uppercase;
+			color: #FFF;
+			margin: 0 0;
+			&:after {
+				content: "";
+				display: block;
+				width: 25%;
+				height: 1px;
+				background: #FFF;
+				margin: 20px auto;
+			}
+		}
+		.description {
+			font-size: 14px;
+			line-height: 1.5;
+		}
+	}
+	.bottom-text {
+		max-width: 700px;
+		width: 100%;
+		margin: 0 auto;
+		div.button {
+			margin-top: 30px;
+		}
+	}
+}
 
 
 body.no-hero {

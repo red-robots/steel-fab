@@ -219,3 +219,12 @@ function get_images_dir($fileName=null) {
     return get_bloginfo('template_url') . '/images/' . $fileName;
 }
 
+/* Remove richtext editor on specific page */
+function remove_pages_editor(){
+    $page_id = 21; /* Our Values */
+    if( isset($_GET['post']) && $_GET['post']==$page_id ) {
+        remove_post_type_support( 'page', 'editor' );
+    }
+}   
+add_action( 'init', 'remove_pages_editor' );
+

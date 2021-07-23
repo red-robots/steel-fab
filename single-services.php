@@ -185,6 +185,18 @@ get_header(); ?>
 								<?php if ($text) { ?>
 									<div class="col-text"><?php echo $text ?></div>
 								<?php } ?>
+								<?php if ($buttons) { ?>
+									<?php foreach ($buttons as $b) { 
+										$btn = $b['button'];
+										if($b) {
+											$btnName = $btn['title']; 
+											$btnLink = $btn['url']; 
+											$btnTarget = ( isset($btn['target']) && $btn['target'] ) ? $btn['target'] : '_self'; 
+											?>
+											<a href="<?php echo $btnLink?>" target="<?php echo $btnTarget?>" class="flx-btn btn-outline sm"><?php echo $btnName?></a>
+										<?php } ?>
+									<?php } ?>
+								<?php } ?>
 								</div>
 							</div>	
 							<?php } ?>
