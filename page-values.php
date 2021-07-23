@@ -119,10 +119,13 @@ get_header(); ?>
 			$row3LeftColText = ( isset($row3_blocks['left_column_text']) && $row3_blocks['left_column_text'] ) ? $row3_blocks['left_column_text'] : '';
 			$row3LeftColBtn = ( isset($row3_blocks['left_column_button']) && $row3_blocks['left_column_button'] ) ? $row3_blocks['left_column_button'] : '';
 			$row3BtnTarget = ( isset($row3LeftColBtn['target']) && $row3LeftColBtn['target'] ) ? $row3LeftColBtn['target'] : '_self';
+			$row3BtnTitle = ( isset($row3LeftColBtn['title']) && $row3LeftColBtn['title'] ) ? $row3LeftColBtn['title'] : '';
+			$row3BtnLink = ( isset($row3LeftColBtn['url']) && $row3LeftColBtn['url'] ) ? $row3LeftColBtn['url'] : '';
 			$row3LeftColTextImg = ( isset($row3_blocks['left_column_bg_img']) && $row3_blocks['left_column_bg_img'] ) ? $row3_blocks['left_column_bg_img'] : '';
 			$row3_arrs = array($row3_text,$row3LeftColText);
 			$row3_has_content = (array_filter($row3_arrs)) ? true : false;
 			$row3_pad_bottom = ($row3LeftColText) ? ' bottom-pad-large':'';
+			$row3BgImg = ($row3LeftColTextImg) ? ' style="background-image:url('.$row3LeftColTextImg['url'].')"':'';
 			if( $row3_has_content ) { ?>
 			<div id="row3" class="entry-content text-imgbg-section">
 				<?php if ( $row3_text ) { ?>
@@ -138,20 +141,17 @@ get_header(); ?>
 
 				<?php if ( $row3LeftColText ) { ?>
 				<div class="twocol-text-image">
-					<?php  
-					$row3BgImg = ($row3LeftColTextImg) ? ' style="background-image:url('.$row3LeftColTextImg['url'].')"':'';
-					?>
+					<div class="image-bg"<?php echo $row3BgImg ?>></div>
 					<div class="flexwrap">
 						<div class="fxcol left">
 							<div class="text"><?php echo $row3LeftColText ?></div>
-							<div class="bg-img"<?php echo $row3BgImg ?>>
-								<div class="bg-color"></div>
+							<?php if ($row3BtnTitle && $row3BtnLink) { ?>
+							<div class="button">
+								<a href="<?php echo $row3BtnLink ?>" target="<?php echo $row3BtnTarget ?>" class="btn-default sm"><?php echo $row3BtnTitle ?></a>
 							</div>
+							<?php } ?>
 						</div>
-						<div class="fxcol right">
-							<div class="right-bg"<?php echo $row3BgImg ?>></div>
-							<img src="<?php echo get_images_dir('rectangle.png') ?>" alt="" aria-hidden="true">
-						</div>
+						<div class="fxcol right"></div>
 					</div>
 				</div>
 				<?php } ?>
