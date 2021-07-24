@@ -45,7 +45,7 @@ get_header(); ?>
 
 			<!-- YELLOW BAR -->
 			<?php if ($row1_yellow_bar_text) { ?>
-			<div class="yellow-bar single-entry">
+			<div class="yellow-bar capitalize">
 				<div class="wrapper text-center">
 					<?php echo wpautop($row1_yellow_bar_text) ?>
 				</div>

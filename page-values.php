@@ -158,6 +158,116 @@ get_header(); ?>
 			</div>
 			<?php } ?>
 
+			<?php
+			$row3_yellow_bar = get_field("row3_yellow_bar");
+			if($row3_yellow_bar) { ?>
+			<div id="yellow-bar" class="yellow-bar">
+				<div class="wrapper sm text-center">
+					<?php echo $row3_yellow_bar ?>
+				</div>
+			</div>
+			<?php } ?>
+
+
+			<?php  
+			$row4_text = get_field("row4_text");
+			$row4_bg_image = get_field("row4_bg_image");
+			$row4_column_title = get_field("row4_column_title");
+			$row4_column_left_text = get_field("row4_column_left_text");
+			$row4_column_img = get_field("row4_column_right_img");
+			$row4ColBgImg = ($row4_column_img) ? ' style="background-image:url('.$row4_column_img['url'].')"':'';
+			if($row4_text || ($row4_column_title || $row4_column_left_text) ) { ?>
+			<div id="row4" class="entry-content text-imgbg-section texttwocol">
+				<div class="fw-text text-center">
+					<?php if ($row4_bg_image) { ?>
+					<div class="bg-img" style="background-image:url('<?php echo $row4_bg_image['url'] ?>')"></div>
+					<?php } ?>
+					<div class="wrapper">
+						<?php echo $row4_text ?>
+					</div>
+				</div>
+
+				<?php  
+				$row4Class = ( ($row4_column_title || $row4_column_left_text) && $row4_column_img ) ? 'twocol':'onecol';
+				?>
+
+				<?php if ( $row4_column_title || $row4_column_left_text ) { ?>
+				<div class="twocol-text-image lightgray <?php echo $row4Class ?>">
+					<div class="flexwrap">
+						<div class="fxcol left">
+							<div class="text">
+								<?php if ($row4_column_title) { ?>
+								<h3 class="t1"><?php echo $row4_column_title ?></h3>		
+								<?php } ?>
+								<?php if ($row4_column_left_text) { ?>
+								<div class="t2"><?php echo $row4_column_left_text ?></div>		
+								<?php } ?>	
+							</div>
+						</div>
+						<div class="fxcol right"<?php echo $row4ColBgImg ?>>
+							<img src="<?php echo get_images_dir('rectangle.png') ?>" alt="" aria-hidden="true">
+						</div>
+					</div>
+					<div class="arrow-down-middle">
+						<div class="wrap">
+							<div class="aleft"></div>
+							<div class="aright"<?php echo $row4ColBgImg ?>></div>
+						</div>
+					</div>
+				</div>
+				<?php } ?>
+
+			</div>
+			<?php } ?>
+
+			<?php  
+			$row4_bottom_text = get_field("row4_bottom_text");
+			$row4_bottom_button = get_field("row4_bottom_button");
+			$row4Btn2Target = ( isset($row4_bottom_button['target']) && $row4_bottom_button['target'] ) ? $row4_bottom_button['target'] : '_self';
+			$row4Btn2Title = ( isset($row4_bottom_button['title']) && $row4_bottom_button['title'] ) ? $row4_bottom_button['title'] : '';
+			$row4Btn2Link = ( isset($row4_bottom_button['url']) && $row4_bottom_button['url'] ) ? $row4_bottom_button['url'] : '';
+			if($row4_bottom_text) { ?>
+			<div class="text-button-blue-bg">
+				<div class="wrapper sm">
+					<?php echo $row4_bottom_text ?>
+					<?php if($row4Btn2Title && $row4Btn2Link) { ?>
+					<div class="button">
+						<a href="<?php echo $row4Btn2Link ?>" target="<?php echo $row4Btn2Target ?>" class="btn-outline sm"><?php echo $row4Btn2Title ?></a>
+					</div>
+					<?php } ?>
+				</div>
+			</div>
+			<?php } ?>
+
+
+			<!-- BLUE SECTION with Left and Right Arrow -->
+			<?php 
+			$row5_title = get_field("row5_title");
+			$row5_text = get_field("row5_text");
+			$row5_button = get_field("row5_button");
+			$btn5Target = ( isset($row5_button['target']) && $row5_button['target'] ) ? $row5_button['target'] : '_self';
+			$btn5Title = ( isset($row5_button['title']) && $row5_button['title'] ) ? $row5_button['title'] : '';
+			$btn5Link = ( isset($row5_button['url']) && $row5_button['url'] ) ? $row5_button['url'] : '';
+			if( $row5_title || $row5_text || $row5_button ) { ?>
+			<div id="bottom-blue" class="bottom-blue-area">
+				<div class="wrapper text-center">
+					<?php if($row5_title) { ?>
+					<h2 class="col-title"><?php echo $row5_title ?></h2>
+					<?php } ?>
+
+					<?php if($row5_text) { ?>
+					<div class="small-text"><?php echo wpautop($row5_text) ?></div>
+					<?php } ?>
+
+					<?php if ($btn5Title && $btn5Link) { ?>
+					<div class="button">
+						<a href="<?php echo $btn5Link ?>" target="<?php echo $btn5Target ?>" class="btn-outline"><?php echo $btn5Title ?></a>
+					</div>
+					<?php } ?>
+				</div>
+			</div>
+			<?php } ?>
+
 		<?php endwhile; ?>
 
 	</main><!-- #main -->
