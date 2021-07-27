@@ -3234,9 +3234,10 @@ body.scrolled {
 		margin-top: 10vw;
     margin-bottom: 3vw;
     @include xs {
-    	margin-top: 0;
+    	margin-top: 1vw;
     	margin-bottom: 0;
     }
+
 		.name {
 			font-size: 18px;
 			font-weight: 800;
