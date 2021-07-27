@@ -221,10 +221,14 @@ function get_images_dir($fileName=null) {
 
 /* Remove richtext editor on specific page */
 function remove_pages_editor(){
-    $page_id = 21; /* Our Values */
-    if( isset($_GET['post']) && $_GET['post']==$page_id ) {
-        remove_post_type_support( 'page', 'editor' );
+    $page_ids = array(21,23);
+    foreach ($page_ids as $id) {
+        if( isset($_GET['post']) && $_GET['post']==$id ) {
+            remove_post_type_support( 'page', 'editor' );
+        }
     }
 }   
 add_action( 'init', 'remove_pages_editor' );
+
+
 

@@ -96,6 +96,15 @@ a,input,button,select,textarea {
 		max-width: 1350px;
 	}
 }
+.page-title  {
+	color: $primary;
+	&.title-primary {
+		font-size: 2rem;
+		font-weight: 700;
+		line-height: 1.2;
+		margin: 0 0 1em;
+	}
+}
 .flexwrap {
 	@include flexgroup();
 	.fcol {
@@ -3094,6 +3103,179 @@ body.scrolled {
 	}
 }
 
+
+.hexagon-areas {
+	.hexagons {
+		max-width: 700px;
+    	width: 100%;
+    	margin: 0 auto;
+		@include flexgroup();
+		@include flexbox-justify(center);
+	}
+	.hexa-shape,
+	.hexa-shape * {
+		transition: all ease .3s;
+	}
+	.hexa-shape {
+		display: block;
+		width: 160px;
+		height: 185px;
+		position: relative;
+		text-decoration: none;
+		color: #FFF;
+		float: left;
+		margin: 0 10px;
+		.hex-border {
+			width: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			opacity: 0;
+			svg {
+				width: 100%;
+			}
+		}
+	
+		.title {
+			display: block;
+			width: 100%;
+			position: absolute;
+			top: 50%;
+			left: 0;
+			transform: translateY(-50%);
+			text-align: center;
+			z-index: 20;
+			font-size: 12px;
+			font-weight: 500;
+			line-height: 1.3;
+			text-transform: uppercase;
+			padding: 0 10px;
+		}
+	}
+	.hexa {
+		width: 100%;
+    	height: 100%;
+		overflow: hidden;
+		position: relative;
+		.hex1 {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			transform: rotate(60deg);
+			overflow: hidden;
+		}
+		.hex2 {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			overflow: hidden;
+			transform: rotate(-120deg);
+		}
+		div.img {
+			width: 120%;
+			height: 105%;
+			position: absolute;
+			top: -3%;
+			left: -11%;
+			transform: rotate(60deg);
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			filter: grayscale(0.5);
+			&:before {
+				content:"";
+				display: block;
+				width: 100%;
+				height: 100%;
+				background: rgba(0,63,99,0.85);
+				position: absolute;
+				top: 0;
+				left: 0;
+				transition: all ease .3s;
+			}
+		}
+	}	
+}
+.team-list  {
+	padding-bottom: 100px;
+	.hexagons-large {
+		margin-left: -4vw;
+		margin-right: -4vw;
+		top: -5vw;
+		.hex2 {
+			background-color: #000;
+		}
+		.hexFigure {
+			transform: none!important;
+			width: 100%;
+			margin-bottom: 100px;
+			@include xs {
+				width: 50%;
+				margin: 20px 0;
+				padding: 30px;
+			}
+			@include tab {
+				margin: 5px 0;
+				width: 25%;
+				padding: 3vw 4vw 4vw;
+			}
+			.heximg {
+				filter: grayscale(0);
+				background-size: 120%;
+			}
+		}
+	}
+	.staff-info {
+		text-align: center;
+		margin-top: 10vw;
+    margin-bottom: 3vw;
+    @include xs {
+    	margin-top: 0;
+    	margin-bottom: 0;
+    }
+		.name {
+			font-size: 18px;
+			font-weight: 800;
+			line-height: 1.2;
+			text-transform: uppercase;
+			color: $primary;
+			margin: 0 0 10px;
+		}
+		.info {
+			font-size: 13px;
+			line-height: 1.4;
+			margin-bottom: 2px;
+		}
+		.icon-phone {
+			display: inline-block;
+			transform: rotate(90deg);
+			color: $primary;
+		}
+		.info.linkedin {
+			a {
+				font-size: 16px;
+				color: $primary;
+				&:hover {
+					color: tint($primary,20%);
+				}
+			}
+		}
+	}
+}
+
+body.page-template-page-team  {
+	.subpage-banner:before, 
+	.subpage-banner:after {
+		background: $light_gray;
+	}
+	#content {
+		background: $light_gray;
+	}
+}
 
 body.no-hero {
 	background: #f3f3f3;
