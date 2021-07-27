@@ -2510,15 +2510,19 @@ body.subpage .site-header:after{background-color:#031a29}
 .hexagon-areas .hexa div.img:before{content:"";display:block;width:100%;height:100%;background:rgba(0,63,99,0.85);position:absolute;top:0;left:0;-webkit-transition:all ease .3s;transition:all ease .3s}
 .team-list{padding-bottom:100px}
 .team-list .hexagons-large{margin-left:-4vw;margin-right:-4vw;top:-5vw}
-.team-list .hexagons-large .hex2{background-color:#000}
-.team-list .hexagons-large .hexFigure{-webkit-transform:none !important;-ms-transform:none !important;transform:none !important;width:100%;margin-bottom:100px}
-@media(min-width:600px){.team-list .hexagons-large .hexFigure{width:50%;margin:20px 0;padding:30px}
-}@media(min-width:820px){.team-list .hexagons-large .hexFigure{margin:5px 0;width:25%;padding:3vw 4vw 4vw}
+.team-list .hexagons-large .hexagon{width:80%;margin:0 auto}
+@media(min-width:820px){.team-list .hexagons-large .hexagon{width:100%}
+}.team-list .hexagons-large .hex2{background-color:#000}
+.team-list .hexagons-large .hexFigure{-webkit-transform:none !important;-ms-transform:none !important;transform:none !important;width:100%;margin-bottom:22vw;margin-top:5vw}
+@media(min-width:600px){.team-list .hexagons-large .hexFigure{width:50%;margin:30px 0;padding:0 30px}
+}@media(min-width:820px){.team-list .hexagons-large .hexFigure{margin:3vw 0 4vw;width:25%;padding:0 4vw}
 }.team-list .hexagons-large .hexFigure .heximg{-webkit-filter:grayscale(0);filter:grayscale(0);background-size:120%}
 .team-list .staff-info{text-align:center;margin-top:10vw;margin-bottom:3vw}
 @media(min-width:600px){.team-list .staff-info{margin-top:1vw;margin-bottom:0}
 }.team-list .staff-info .name{font-size:18px;font-weight:800;line-height:1.2;text-transform:uppercase;color:#335d7d;margin:0 0 10px}
 .team-list .staff-info .info{font-size:13px;line-height:1.4;margin-bottom:2px}
+.team-list .staff-info .info a{display:inline-block;text-decoration:none;color:#000}
+.team-list .staff-info .info a:hover{color:#eca72c}
 .team-list .staff-info .icon-phone{display:inline-block;-webkit-transform:rotate(90deg);-ms-transform:rotate(90deg);transform:rotate(90deg);color:#335d7d}
 .team-list .staff-info .info.linkedin a{font-size:16px;color:#335d7d}
 .team-list .staff-info .info.linkedin a:hover{color:#5c7d97}

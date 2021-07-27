@@ -46,7 +46,7 @@ if ( $team->have_posts() ) { ?>
 						<div class="info jobtitle"><?php echo $jobtitle ?></div>	
 						<?php } ?>
 						<?php if ($phone) { ?>
-						<div class="info phone"><span class="icon-phone"><i class="fas fa-phone"></i></span> <?php echo $phone ?></div>	
+						<div class="info phone"><span class="icon-phone"><i class="fas fa-phone"></i></span> <a href="tel:<?php echo format_phone_number($phone) ?>"><?php echo $phone ?></a></div>	
 						<?php } ?>
 						<?php if ($linkedin) { ?>
 						<div class="info linkedin"><a href="<?php echo $linkedin ?>" target="_blank"><span class="icon"><i class="fab fa-linkedin"></i></span></a></div>	
