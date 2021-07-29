@@ -183,32 +183,8 @@ get_header(); ?>
 			</div>
 			<?php } ?>
 
-			<?php 
-			$row4_title = get_field("row4_title");
-			$row4_text = get_field("row4_text");
-			$row4_button = get_field("row4_button");
-			$btn4Target = ( isset($row4_button['target']) && $row4_button['target'] ) ? $row4_button['target'] : '_self';
-			$btn4Title = ( isset($row4_button['title']) && $row4_button['title'] ) ? $row4_button['title'] : '';
-			$btn4Link = ( isset($row4_button['url']) && $row4_button['url'] ) ? $row4_button['url'] : '';
-			if( $row4_title || $row4_text || $row4_button ) { ?>
-			<div id="bottom-blue" class="bottom-blue-area">
-				<div class="wrapper text-center">
-					<?php if($row4_title) { ?>
-					<h2 class="col-title"><?php echo $row4_title ?></h2>
-					<?php } ?>
-
-					<?php if($row4_text) { ?>
-					<div class="small-text"><?php echo wpautop($row4_text) ?></div>
-					<?php } ?>
-
-					<?php if ($btn4Title && $btn4Link) { ?>
-					<div class="button">
-						<a href="<?php echo $btn4Link ?>" target="<?php echo $btn4Target ?>" class="btn-outline"><?php echo $btn4Title ?></a>
-					</div>
-					<?php } ?>
-				</div>
-			</div>
-			<?php } ?>
+			<!-- BLUE SECTION with Left and Right Arrow -->
+			<?php get_template_part('parts/blue-section') ?>
 
 		<?php endwhile; ?>
 
