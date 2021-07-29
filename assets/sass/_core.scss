@@ -42,6 +42,13 @@ section, div {
 a,input,button,select,textarea {
 	transition: all ease .3s;
 }
+a {
+	color: $blue;
+	text-decoration: underline;
+	&:hover {
+		color: tint($blue,30%);
+	}
+}
 .cf:before, .cf:after {
     content: " "; 
     display: table; 
@@ -2671,6 +2678,10 @@ body.scrolled {
 			max-width: 1000px;
 		}
 	}
+	ul,ol {
+		display: inline-block;
+		text-align: left;
+	}
 	p:last-child {
 		margin-bottom: 0;
 	}
@@ -2684,6 +2695,10 @@ body.scrolled {
 		}
 	}
 	&.capitalize {
+		text-transform: none;
+		font-weight: 400;
+	}
+	&.normal-text {
 		text-transform: none;
 		font-weight: 400;
 	}
@@ -3206,13 +3221,7 @@ body.scrolled {
 		margin-left: -4vw;
 		margin-right: -4vw;
 		top: -5vw;
-		.hexagon {
-			width: 80%;
-    	margin: 0 auto;
-    	@include tab {
-    		width: 100%;
-    	}
-		}
+
 		.hex2 {
 			background-color: #000;
 		}
@@ -3234,6 +3243,28 @@ body.scrolled {
 			.heximg {
 				filter: grayscale(0);
 				background-size: 120%;
+			}
+			.hexagon {
+				display: block;
+				width: 80%;
+				margin: 0 auto;
+				position: relative;
+	    	@include tab {
+	    		width: 100%;
+	    	}
+	    	.svg {
+	    		display: block;
+	    		position: absolute;
+	    		top: 70px;
+	    		left: 0;
+	    		svg {
+	    			width: 100%;
+	    			float: left;
+	    		}
+	    	}
+	    	.hexInner {
+	    		z-index: 10;
+	    	}
 			}
 		}
 	}
@@ -3278,6 +3309,87 @@ body.scrolled {
 				color: $primary;
 				&:hover {
 					color: tint($primary,20%);
+				}
+			}
+		}
+	}
+}
+.backtoparent {
+	.fa-chevron-left {
+		font-size: 11px;
+		line-height: 1;
+		position: relative;
+		top: -1px;
+		margin-right: 3px;
+		transition: all ease .3s;
+	}
+	a {
+		display: inline-block;
+		text-decoration: none;
+		&:hover {
+			.fa-chevron-left {
+				transform: translateX(-4px);
+			}
+		}
+	}
+}
+.single-team {
+	.entry-content {
+		padding-top: 50px;
+		padding-bottom: 50px;
+		width: 100%;
+		&.hasphoto {
+			width: 100%;
+			.inner {
+				@include flexgroup();
+				@include tab {
+					@include flexbox-direction(row-reverse);
+				}
+			}
+			.bio {
+				width: 100%;
+				@include tab {
+					width: 80%;
+					padding-left: 30px;
+				}
+			}
+			.photo {
+				width: 100%;
+				@include tab {
+					width: 20%;
+				}
+				img {
+					width: 100%;
+					height: auto;
+				}
+			}
+		}
+		.titlediv {
+			margin: 0 0 20px;
+			h1 {
+				margin: 0 0;
+			}
+			p {
+				margin: 0 0;
+				color: $primary;
+				&.sm {
+					font-weight: 500;
+					font-size: 14px;
+				}
+			}
+			.jobtitle {
+				font-size: 17px;
+				font-weight: 600;
+			}
+			.division, a {
+				color: $primary;
+				text-decoration: none;
+			}
+			.phone {
+				font-family: $font_secondary;
+				font-weight: 400;
+				a {
+					font-weight: 400;
 				}
 			}
 		}

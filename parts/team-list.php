@@ -21,9 +21,10 @@ if ( $team->have_posts() ) { ?>
 				$style = ($photo) ? ' style="background-image:url('.$photo['url'].')"':'';
 				$division_name = ($division) ? $division[0]->name : '';
 				$linkedin = get_field("linkedin");
+				$enable_link = true;
 				?>
 				<div class="hexFigure <?php echo $hasphoto ?>">
-					<div class="hexagon">
+					<div class="hexagon" href="<?php echo $pagelink ?>">
 						<img class="helper" src="<?php echo get_images_dir('square.png') ?>" alt="" aria-hidden="true">
 						<div class="hexInner">
 							<div class="hex1">

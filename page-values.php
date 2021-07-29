@@ -161,11 +161,11 @@ get_header(); ?>
 			<?php
 			$row3_yellow_bar = get_field("row3_yellow_bar");
 			if($row3_yellow_bar) { ?>
-			<div id="yellow-bar" class="yellow-bar">
-				<div class="wrapper sm text-center">
-					<?php echo $row3_yellow_bar ?>
+				<div id="yellow-bar" class="yellow-bar normal-text">
+					<div class="wrapper sm text-center">
+						<?php echo $row3_yellow_bar ?>
+					</div>
 				</div>
-			</div>
 			<?php } ?>
 
 
@@ -241,32 +241,7 @@ get_header(); ?>
 
 
 			<!-- BLUE SECTION with Left and Right Arrow -->
-			<?php 
-			$row5_title = get_field("row5_title");
-			$row5_text = get_field("row5_text");
-			$row5_button = get_field("row5_button");
-			$btn5Target = ( isset($row5_button['target']) && $row5_button['target'] ) ? $row5_button['target'] : '_self';
-			$btn5Title = ( isset($row5_button['title']) && $row5_button['title'] ) ? $row5_button['title'] : '';
-			$btn5Link = ( isset($row5_button['url']) && $row5_button['url'] ) ? $row5_button['url'] : '';
-			if( $row5_title || $row5_text || $row5_button ) { ?>
-			<div id="bottom-blue" class="bottom-blue-area">
-				<div class="wrapper text-center">
-					<?php if($row5_title) { ?>
-					<h2 class="col-title"><?php echo $row5_title ?></h2>
-					<?php } ?>
-
-					<?php if($row5_text) { ?>
-					<div class="small-text"><?php echo wpautop($row5_text) ?></div>
-					<?php } ?>
-
-					<?php if ($btn5Title && $btn5Link) { ?>
-					<div class="button">
-						<a href="<?php echo $btn5Link ?>" target="<?php echo $btn5Target ?>" class="btn-outline"><?php echo $btn5Title ?></a>
-					</div>
-					<?php } ?>
-				</div>
-			</div>
-			<?php } ?>
+			<?php get_template_part('parts/blue-section') ?>
 
 		<?php endwhile; ?>
 
