@@ -223,21 +223,12 @@ function get_images_dir($fileName=null) {
 function remove_pages_editor(){
     global $wpdb;
     $post_id = ( isset($_GET['post']) && $_GET['post'] ) ? $_GET['post'] : '';
-    if($post_id) {
-
-        $query = "SELECT p.ID FROM {$wpdb->posts} p, {$wpdb->postmeta} m WHERE p.ID=m.post_id 
-                  AND m.meta_key='left_large_text' AND p.post_status='publish' AND p.ID=".$post_id;
-        $result = $wpdb->get_row($query);
-        if( $result ) {
+    $disable_editor = array();
+    if($post_id) {        
+        $page_ids_disable = get_field("disable_editor_on_pages","option");
+        if( $page_ids_disable && in_array($post_id,$page_ids_disable) ) {
             remove_post_type_support( 'page', 'editor' );
         }
-        //$page_ids = array(21,23);
-        // foreach ($page_ids as $id) {
-        //     if( isset($_GET['post']) && $_GET['post']==$id ) {
-        //         remove_post_type_support( 'page', 'editor' );
-        //     }
-        // }
-        
     }
 }   
 add_action( 'init', 'remove_pages_editor' );
