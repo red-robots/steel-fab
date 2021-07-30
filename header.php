@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="<?php bloginfo("template_url") ?>/css/jquery.fancybox.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="<?php bloginfo("template_url") ?>/css/select2.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <?php if ( is_singular(array('post')) ) { 
 global $post;
 $post_id = $post->ID;
@@ -27,7 +28,7 @@ $featImg = wp_get_attachment_image_src($thumbId,'full'); ?>
 <?php } ?>
 <!-- end of SOCIAL MEDIA META TAGS -->
 <?php } ?>
-<script defer src="<?php bloginfo( 'template_url' ); ?>/assets/svg-with-js/js/fontawesome-all.js"></script>
+<!-- <script defer src="<?php //bloginfo( 'template_url' ); ?>/assets/svg-with-js/js/fontawesome-all.js"></script> -->
 <script>
 var currentURL = '<?php echo get_permalink();?>';
 var params={};location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){params[k]=v});

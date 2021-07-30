@@ -58,7 +58,18 @@ get_header(); ?>
 			$row2_content = get_field("row2_content");
 			$row2_bg_img = get_field("row2_bg_img");
 			$row2BgImg = ($row2_bg_img) ? ' style="background-image:url('.$row2_bg_img['url'].')"':'';
-			if( $row2_title || $row2_text || $row2_content ) { ?>
+			$row2_column_content = array();
+			if($row2_content) {
+				$ct=1; foreach($row2_content as $rc) {
+					$rc_title = ($rc['title']) ? string_cleaner($rc['title']) : ''; 
+					$rc_text = ($rc['description']) ? string_cleaner($rc['description']) : ''; 
+					if($rc_title || $rc_text) {
+						$row2_column_content[] = $ct;
+					}
+					$ct++;
+				}
+			}
+			if( $row2_title || $row2_text || $row2_column_content ) { ?>
 			<div id="row2" class="section-wrap row2-services">
 				
 				<?php if( $row2_title || $row2_text ) { ?>
@@ -111,7 +122,20 @@ get_header(); ?>
 			$row3_bg_img = get_field("row3_bg_img");
 			$row3BgImg = ($row3_bg_img) ? ' style="background-image:url('.$row3_bg_img['url'].')"':'';
 			$row3_col_class = ($row3_content) ? 'hascol':'nocol';
-			if( $row3_title || $row3_text || $row3_content ) { ?>
+
+			$row3_column_content = array();
+			if($row3_content) {
+				$ct=1; foreach($row3_content as $rc) {
+					$rc_title = ($rc['title']) ? string_cleaner($rc['title']) : ''; 
+					$rc_text = ($rc['description']) ? string_cleaner($rc['description']) : ''; 
+					if($rc_title || $rc_text) {
+						$row3_column_content[] = $ct;
+					}
+					$ct++;
+				}
+			}
+
+			if( $row3_title || $row3_text || $row3_column_content ) { ?>
 			<div id="row3" class="section-wrap row3-services">
 				
 				<?php if( $row3_title || $row3_text ) { ?>
