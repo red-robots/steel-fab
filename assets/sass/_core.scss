@@ -3477,130 +3477,164 @@ body.subpage {
 	}
 	.horizontal-timeline {
 		.events-wrapper {
-			overflow-x: hidden;
-			overflow-y: visible;
+			max-width: 92%;
 			height: 100px;
+			margin: 0 auto;
+			@include mid {
+				max-width: 80%;
+			}
+			@include desk {
+				max-width: 1000px;
+			}
 		}
 		.events {
 			bottom: 80px;
+			height: 2px;
+			margin-left: 10px;
+			background: $blue_gray;
 		}
 		.filling-line {
-			// background-color: #345c7d;
-			background-color: $dark_blue;
+			background-color: $blue_gray;
 		}
 		.events a:before,
 		.events a:after {
 			transition: all ease .3s;
 		}
 		.events a.selected::after  {
-			background-color: #345c7d;
+			background-color: $blue_gray;
 		}
 		.events a.older-event::after {
 			background: $dark_blue;
 		}
 		.events a:after {
-			width: 20px;
-			height: 20px;
-			bottom: -6px;
+			width: 25px;
+			height: 25px;
+			bottom: -11px;
 			left: 30%;
-			border: 1px solid #345c7d;
+			border: 1px solid $blue_gray;
 			background: $dark_blue;
 		}
 		.events a.selected:before {
-			color: #FFF;
-			transform: scale(1.2);
+			color: #FFF!important;
+			transform: scale(1.2)!important;
 		}
-	}
-
-	.timeline-content {
-		margin-top: 100px;
-	}
-
-	.timeline {
-		.events-wrapper {
-			a {
-				color: transparent;
-				&:before {
-					content:attr(data-label);
-					display: inline-block;
-					font-size: 16px;
-					line-height: 1;
+		.events a.first {
+			left: -15px!important;
+		}
+		.timeline {
+			max-width: 80%;
+			width: 100%;
+			@include mid {
+				max-width: 80%;
+			}
+			@include desk {
+				max-width: 1100px;
+			}
+			.events-wrapper {
+				a {
+					color: transparent;
+					&:before {
+						content:attr(data-label);
+						display: inline-block;
+						font-size: 16px;
+						line-height: 1;
+						position: absolute;
+						bottom: -50px;
+						color: $blue_gray;
+					}
+				}
+			}
+			.scroll-left,
+			.scroll-right {
+				display: none;
+			}
+			a.prev, a.next {
+				display: inline-block;
+				width: 35px;
+				height: 35px;
+				border: 1px solid $blue_gray;
+				border-radius: 100%;
+				position: absolute;
+				top: -44px;
+				background-color: $dark_blue;
+				@include mid {
+					top: -53px;
+				}
+				&:before, &:after  {
+					content:"";
+					display: block;
+					width: 15px;
+					height: 2px;
+					background: $yellow;
 					position: absolute;
-					bottom: -50px;
-					color: #345c7d;
+					top: 14px;
+					left: 8px;
+				}
+				&:hover {
+					background-color: $blue_gray;
+				}
+			}
+			a.prev {
+				left: -30px;
+				&:before {
+					transform: translateY(6px) rotate(40deg);
+				}
+				&:after {
+					transform: translateY(-3px) rotate(-40deg);
+				}
+			}
+			a.next {
+				&:before, &:after {
+					left: 10px;
+				}
+				&:before {
+					transform: translateY(6px) rotate(-40deg);
+				}
+				&:after {
+					transform: translateY(-3px) rotate(40deg);
 				}
 			}
 		}
-		.scroll-left,
-		.scroll-right {
-			display: none;
-		}
-		a.prev, a.next {
-			display: inline-block;
-			width: 35px;
-			height: 35px;
-			border: 1px solid #345c7d;
-			border-radius: 100%;
-			position: relative;
-			top: -55px;
-			background-color: $dark_blue;
-			&:before, &:after  {
-				content:"";
-				display: block;
-				width: 15px;
-				height: 2px;
-				background: $yellow;
-				position: absolute;
-				top: 14px;
-				left: 8px;
+
+		.events-content {
+			height: auto!important;
+			width: 100%;
+			margin-top: 0;
+			@include desk {
+				margin-top: 10px;
 			}
-			&:hover {
-				background-color: #345c7d;
+			a[data-horizontal-timeline] {
+				display: none;
+			}
+			.history-data {
+				display: none;
+				&.selected {
+					display: block;
+				}
+				.text {
+					font-size: 16px;
+				}
+			}
+			li {
+				background-color: transparent;
 			}
 		}
-		a.prev {
-			&:before {
-				transform: translateY(6px) rotate(40deg);
-			}
-			&:after {
-				transform: translateY(-3px) rotate(-40deg);
-			}
-		}
-		a.next {
-			&:before, &:after {
-				left: 10px;
-			}
-			&:before {
-				transform: translateY(6px) rotate(-40deg);
-			}
-			&:after {
-				transform: translateY(-3px) rotate(40deg);
-			}
-		}
+
 	}
+
+	.timeline-content {
+		margin-top: 80px;
+	}
+
+	
 	.timeline-navigation {
 		a {
-			position: relative;
+			position: absolute;
 			top: -60px;
 		}
 	}
 
-	.events-content {
-		height: auto!important;
-		width: 100%;
-		a[data-horizontal-timeline] {
-			display: none;
-		}
-		.history-data {
-			display: none;
-			&.selected {
-				display: block;
-			}
-		}
-		li {
-			background-color: transparent;
-		}
-	}
+	
 	.timeline-navigation {
 		z-index: 50;
 	}
