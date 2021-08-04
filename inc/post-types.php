@@ -31,6 +31,14 @@ function js_custom_init() {
           'single'    => 'Team',
           'menu_icon' => 'dashicons-groups',
           'supports'  => array('title','editor')
+        ),
+        array(
+          'post_type' => 'careers',
+          'menu_name' => 'Careers',
+          'plural'    => 'Careers',
+          'single'    => 'Career',
+          'menu_icon' => 'dashicons-megaphone',
+          'supports'  => array('title','editor')
         )
     );
     
@@ -100,7 +108,7 @@ function build_taxonomies() {
 
   $post_types = array(
     array(
-      'post_type' => array('team'),
+      'post_type' => array('team','careers'),
       'menu_name' => 'Divisions',
       'plural'    => 'Divisions',
       'single'    => 'Division',
