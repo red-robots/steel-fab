@@ -101,13 +101,16 @@ get_header(); ?>
 			$buttonTarget = '_self';
 			if($button_type=='file') {
 				$buttonName = $row3_button['btn_file_name'];
-				$buttonLink = ( isset($row3_button['btn_file_link']['url']) && $row3_button['btn_file_link']['url'] ) ? $row3_button['btn_file_link']['url'] : '';
+				$buttonLink = ( isset($row3_button['btn_file_link']) && $row3_button['btn_file_link']) ? $row3_button['btn_file_link'] : '';
 				$buttonTarget = '_blank';
 			} else {
 				$buttonName = ( isset($row3_button['btn_link']['title']) && $row3_button['btn_link']['title'] ) ? $row3_button['btn_link']['title'] : '';
 				$buttonLink = ( isset($row3_button['btn_link']['url']) && $row3_button['btn_link']['url'] ) ? $row3_button['btn_link']['url'] : '';
 				$buttonTarget = ( isset($row3_button['btn_link']['target']) && $row3_button['btn_link']['target'] ) ? $row3_button['btn_link']['target'] : '';
 			}
+
+			
+
 			if( $row3_text ) { ?>
 			<div id="row3" class="entry-content text-left-image-right">
 				<?php if ($row3_img_bg) { ?>
@@ -117,7 +120,14 @@ get_header(); ?>
 				<div class="textcol">
 					<div class="text">
 						<?php echo $row3_text ?>
+
+						<?php if ($buttonName && $buttonLink) { ?>
+						<div class="button">
+							<a href="<?php echo $buttonLink ?>" target="<?php echo $buttonTarget ?>" class="btn-default sm"><?php echo $buttonName ?></a>
+						</div>
+						<?php } ?>
 					</div>
+					
 				</div>
 			</div>
 			<?php } ?>
