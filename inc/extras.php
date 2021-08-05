@@ -234,4 +234,10 @@ function remove_pages_editor(){
 add_action( 'init', 'remove_pages_editor' );
 
 
+function has_job_list() {
+    global $wpdb;
+    $result = $wpdb->get_row( "SELECT ID FROM $wpdb->posts WHERE post_type = 'careers' AND post_status='publish' LIMIT 1" );
+    return ($result) ? true : false;
+}
+
 

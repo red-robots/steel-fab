@@ -11,6 +11,7 @@ if ( $team->have_posts() ) { ?>
 		<div class="flexwrap hexagons-large">
 
 				<?php while ( $team->have_posts() ) : $team->the_post();
+				$id = get_the_ID();
 				$division = get_the_terms($id,'divisions'); 
 				$photo = get_field('photo'); 
 				$jobtitle = get_field('jobtitle'); 

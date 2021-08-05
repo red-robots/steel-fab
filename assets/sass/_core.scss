@@ -3064,12 +3064,12 @@ body.scrolled {
 		}
 	}
 	.flexwrap {
-		margin-left: -15px;
-		margin-right: -15px;
+		margin-left: -20px;
+		margin-right: -20px;
 	}
 	.fxcol {
 		width: 100%;
-		padding: 0 15px;
+		padding: 0 20px;
 		margin-top: 12px;
 		margin-bottom: 12px;
 		@include tab {
@@ -3653,6 +3653,296 @@ body.subpage {
 		}
 	}
 	
+}
+
+.text-left-image-right {
+	background-color: $dark_blue;
+	color: #FFF;
+	position: relative;
+	.bg {
+		@include backgroundImage(center);
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	.textcol {
+		width: 100%;
+		@include flexgroup-center();
+		@include tab {
+			width: 50%;
+		}
+		&:before {
+			content:"";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba($dark_blue,.85);
+			@include tab {
+				width: 50%;
+			}
+		}
+		.text {
+			position: relative;
+			z-index: 5;
+			padding: 40px 20px;
+			@include tab {
+				padding: 5vw 5vw;
+			}
+			ul {
+				margin-left: 0;
+				padding-left: 15px;
+			}
+			h2 {
+				color: #eca72c;
+				font-weight: 800;
+				font-size: 28px;
+				line-height: 1.2;
+				text-transform: uppercase;
+				margin: 0 0 20px;
+				position: relative;
+				@include tab {
+					font-size: 40px;
+				}
+			}
+		}
+	}
+}
+
+.page-careers-template {
+	.columns-with-icons {
+		.wrapper {
+			padding-bottom: 60px;
+		}
+	}
+}
+
+.text-blue-bg {
+	color: #FFF;
+	position: relative;
+	padding-top: 80px;
+	padding-bottom: 80px;
+	@include flexgroup-center();
+	&:before {
+		content:"";
+		display: block;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: rgba(20,96,154,.85);
+		z-index: 2;
+	}
+	.wrapper {
+		z-index: 5;
+		height: 100%;
+		.textwrap {
+			width: 100%;
+		}
+		.col-title {
+			margin: 0 0 30px;
+		}
+	}
+	.bg-img {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		filter: grayscale(100%);
+		@include backgroundImage(center);
+	}
+}
+.text-blue-bg.has-job-list {
+	padding-top: 80px;
+	padding-bottom: 130px;
+	.bottom-arrow {
+		width: 100%;
+		height: 70px;
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		&:before, &:after {
+			content: "";
+			display: block;
+			width: 65%;
+			height: 100%;
+			background: $light_gray;
+			position: absolute;
+			bottom: 0;
+			z-index: 20;
+		}
+		&:before {
+			left: -17vw;
+			transform: skew(60deg);
+		}
+		&:after {
+			right: -17vw;
+			transform: skew(-60deg);
+		}
+	}
+}
+
+.careers-list {
+	background-color: $light_gray;
+	padding-top: 50px;
+	padding-bottom: 100px;
+	.flexwrap {
+		@include flexgroup();
+		@include flexbox-justify(center);
+		margin:0 -8px;
+	}
+	.job {
+		width: 100%;
+		padding: 8px;
+		position: relative;
+		@include xs {
+			width: 50%;
+		}
+		@include tab {
+			width: 33.33%;
+		}
+		.inside {
+			position: relative;
+			height: 100%;
+			overflow: hidden;
+			.wrap {
+				width: 100%;
+				height: 100%;
+				border: 1px solid $primary;
+				padding: 30px 50px;
+				position: relative;
+				@include xs {
+					padding: 30px 6vw;
+				}
+				@include tab {
+					padding: 5vw;
+				}
+				&:before {
+					content: "";
+					display: block;
+					width: 1px;
+					height: 30px;
+					position: absolute;
+					left: -1px;
+					top: 39px;
+					background: $light_gray;
+					z-index: 3;
+				}
+			}
+			span.arrow {
+			position: absolute;
+			top: 50px;
+			left: -25px;
+			transform: rotate(-30deg);
+				&:before {
+					content:"";
+					display: block;
+					width: 35px;
+					height: 30px;
+					border: 1px solid $primary;
+					position: absolute;
+					top: 0;
+					left: 0;
+					transform: skew(30deg);
+				}
+			}
+			
+		}
+	}
+	.titlediv {
+		margin-bottom: 30px;
+		h3 {
+			font-size: 18px;
+			font-weight: 800;
+			line-height: 1.2;
+			text-transform: uppercase;
+			margin: 0 0;
+			color: $primary;
+		}
+		.division {
+			color: $primary;
+			font-size: 14px;
+			font-weight: 400;
+		}
+	}
+	.summary {
+		color: $dark_blue;
+		font-size: 14px;
+		font-weight: 400;
+	}
+	div.more {
+		a {
+			display: inline-block;
+			text-decoration: none;
+			font-size: 12px;
+			font-weight: 700;
+			color: $yellow;
+			position: relative;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			i {
+				display: inline-block;
+				position: absolute;
+    		top: 0;
+    		right: 0;
+    		transition: all ease .3s;
+				&:before, &:after {
+					content: "";
+					display: block;
+					width: 6px;
+					height: 1px;
+					background: $yellow;
+					position: absolute;
+					top: 10px;
+					right: -10px;
+				}
+				&:before {
+					transform: translateY(-4px) rotate(50deg);
+				}
+				&:after {
+					transform: rotate(-50deg);
+				}
+				&.a2 {
+					right: -4px;
+				}
+				&.a3 {
+					right: -8px;
+				}
+			}
+			&:hover {
+				color: $blue_gray;
+				i {
+					margin-right: -2px;
+					&:before, &:after {
+						background: $blue_gray;
+					}
+				}
+			}
+		}
+	}
+}
+
+body.single-careers {
+	.backtoparent {
+		margin-bottom: 40px;
+	}
+	.titlediv {
+		margin-bottom: 30px;
+		h1 {
+			margin: 0 0;
+			font-weight: 800;
+		}
+		.locations {
+			color: $primary;
+			font-size: 18px;
+			font-weight: 400;
+		}
+	}
 }
 
 /* FOOTER */
