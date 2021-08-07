@@ -7,29 +7,41 @@
  * @package bellaworks
  */
 
+$title = get_field("title404","option");
+$content = get_field("content404","option");
 get_header(); ?>
-<?php  
-$t1 = get_field("404_title_small","option");
-$red = get_field("404_title_red","option");
-$text = get_field("404_text","option");
-$bg = get_field("404_bg_image","option");
-$style = ($bg) ? ' style="background-image:url('.$bg['url'].')"':'';
-?>
-<main id="main" class="site-main page404 custom404" role="main"<?php echo $style ?>>
-	<div class="wrapper">
-		<section class="content404">
-			<?php if ($t1) { ?>
-			<p class="t1"><small><?php echo $t1 ?></small></p>	
-			<?php } ?>
-			<?php if ($red) { ?>
-			<h2 class="t2"><span><?php echo $red ?></span></h2>	
-			<?php } ?>
 
-			<?php if ($text) { ?>
-			<div class="text"><?php echo $text ?></div>
-			<?php } ?>
-		</section>
-	</div>
-</main>
+<div id="primary" class="content-area-full content-default page-default-template page404">
+  <main id="main" class="site-main wrapper" role="main">
+
+    <?php if ($title || $content) { ?>
+
+      <?php if ($title) { ?>
+        <h1 class="page-title"><?php echo $title ?></h1>
+      <?php } ?>
+
+      <?php if ($content) { ?>
+      <div class="content404"><?php echo $content ?></div>
+      <?php } ?>
+
+      <div id="sitemap-wrap">
+        <?php wp_nav_menu( array( 'theme_location' => 'sitemap', 'menu_id' => 'sitemap','container_class'=>'sitemap-links') ); ?>
+      </div>
+
+    <?php } else { ?>
+
+      <h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'bellaworks' ); ?></h1>
+      <div class="content404">
+        <p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below.', 'bellaworks' ); ?></p>
+        <div id="sitemap-wrap">
+          <?php wp_nav_menu( array( 'theme_location' => 'sitemap', 'menu_id' => 'sitemap','container_class'=>'sitemap-links') ); ?>
+        </div>
+      </div>
+
+    <?php } ?>
+
+  </main><!-- #main -->
+</div><!-- #primary -->
+
 <?php
 get_footer();
