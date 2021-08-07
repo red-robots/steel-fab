@@ -21,7 +21,7 @@ get_header(); ?>
       <?php } ?>
 
       <?php if ($content) { ?>
-      <div class="content404"><?php echo $content ?></div>
+      <div class="content404"><?php echo email_obfuscator($content) ?></div>
       <?php } ?>
 
       <div id="sitemap-wrap">

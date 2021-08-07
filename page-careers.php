@@ -37,7 +37,7 @@ get_header(); ?>
 						<?php if ($row1_column_right) { ?>
 						<div class="fcol right">
 							<div class="inside">
-								<?php echo $row1_column_right ?>
+								<?php echo email_obfuscator($row1_column_right) ?>
 							</div>
 						</div>
 						<?php } ?>

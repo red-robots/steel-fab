@@ -35,7 +35,7 @@ get_header(); ?>
 						<?php if ($right_small_text) { ?>
 							<div class="fcol right">
 								<div class="inside">
-									<?php echo $right_small_text ?>
+									<?php echo email_obfuscator($right_small_text) ?>
 								</div>
 							</div>
 						<?php } ?>

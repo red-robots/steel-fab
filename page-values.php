@@ -19,8 +19,8 @@ get_header(); ?>
 
 			<!-- ROW 1 -->
 			<?php  
-			$row1_column_left = get_field("row1_column_left");
-			$row1_column_right = get_field("row1_column_right");
+			$row1_column_left = get_field("left_large_text");
+			$row1_column_right = get_field("right_small_text");
 			$row1_yellow_bar_text = get_field("row1_yellow_bar_text");
 			$row1_col_class = ($row1_column_left && $row1_column_right) ? 'colnum2':'colnum1';
 			if( $row1_column_left || $row1_column_right ) { ?>
@@ -38,7 +38,7 @@ get_header(); ?>
 						<?php if ($row1_column_right) { ?>
 						<div class="fcol right">
 							<div class="inside">
-								<?php echo $row1_column_right ?>
+								<?php echo email_obfuscator($row1_column_right) ?>
 							</div>
 						</div>
 						<?php } ?>
