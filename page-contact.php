@@ -92,7 +92,7 @@ get_header(); ?>
 										<img src="<?php echo get_images_dir('rectangle-lg.png') ?>" alt="" aria-hidden="true" class="helper">
 										<div class="bgimg" style="background-image:url('<?php echo $column1_image['url'] ?>')"></div>
 										<div class="bgcolor"></div>
-									</div>	
+									</div>
 									<?php } ?>
 								</div>
 							</div>

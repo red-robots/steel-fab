@@ -2756,7 +2756,8 @@ body.page-template-page-contact .subpage-banner:before,body.page-template-page-c
 }.generic-layout.contact-page .fcol.left .small-txt,.generic-layout.contact-page .fcol.left .large-txt{text-align:center;width:100%;float:left}
 .generic-layout.contact-page .fcol.left .small-txt{font-size:18px;font-weight:800;color:#eca72c}
 .generic-layout.contact-page .fcol.left .large-txt{font-size:35px;font-weight:800;line-height:1;color:#335d7d;margin-bottom:30px}
-@media(min-width:820px){.contact-form .gform_wrapper{margin-top:22px}
+@media(min-width:820px){.generic-layout.contact-page .fcol.left .large-txt{font-size:3rem}
+}@media(min-width:820px){.contact-form .gform_wrapper{margin-top:33px}
 }.contact-form .gform_wrapper span.name_last{position:relative;top:8px}
 @media(min-width:820px){.contact-form .gform_wrapper span.name_last{top:0}
 }.contact-form .gform_wrapper input[type=tel],.contact-form .gform_wrapper input[type=text],.contact-form .gform_wrapper input[type=time],.contact-form .gform_wrapper input[type=url],.contact-form .gform_wrapper input[type=week],.contact-form .gform_wrapper select,.contact-form .gform_wrapper textarea{border:1px solid #e4e4e4;background-color:#e4e4e4;outline:0;-webkit-transition:all ease .3s;transition:all ease .3s}
