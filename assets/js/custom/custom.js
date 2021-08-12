@@ -6,6 +6,16 @@
 
 jQuery(document).ready(function ($) {
 
+  var screenHeight = $(window).height();
+  var contentHeight = $("#page").height();
+  if(contentHeight>screenHeight) {
+    if ($(this).scrollTop() > 50) {
+      $('body').addClass('scrolled');
+    } else {
+      $('body').removeClass('scrolled');
+    }
+  }
+
   $(window).scroll(function(){
     var screenHeight = $(window).height();
     var contentHeight = $("#page").height();
@@ -90,5 +100,23 @@ jQuery(document).ready(function ($) {
     }
   }
 
+  $(document).on("click","#page-more-btn",function(e){
+    e.preventDefault();
+    var pgnum = $(this).attr("data-next");
+    var totalpage = $(this).attr("data-pagetotal");
+    var baseurl = $(this).attr("data-baseurl");
+    var newURL = baseurl + '?pg=' + pgnum;
+    var next = parseInt(pgnum) + 1;
+    $(this).attr("data-next",next);
+    if(next>totalpage) {
+      $('.button-more').hide();
+    }
+    $(".hidden-items").load(newURL + " .result",function(){
+      var items = $(".hidden-items .result").html();
+      if(items) {
+        $("#list-container .result").append(items);
+      }
+    });
+  });
 
 }); 

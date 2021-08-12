@@ -1,15 +1,6 @@
 <?php
 /**
- * The template for displaying all pages.
- *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages
- * and that other 'pages' on your WordPress site may use a
- * different template.
- *
- * @link https://codex.wordpress.org/Template_Hierarchy
- *
- * @package bellaworks
+ * Template Name: Projects
  */
 
 $placeholder = THEMEURI . 'images/rectangle.png';
@@ -17,7 +8,7 @@ $banner = get_field("banner");
 $has_banner = ($banner) ? 'hasbanner':'nobanner';
 get_header(); ?>
 
-<div id="primary" class="content-area-full content-default page-default-template generic-layout <?php echo $has_banner ?>">
+<div id="primary" class="content-area-full content-default page-default-template project-page <?php echo $has_banner ?>">
 	<main id="main" class="site-main wrapper" role="main">
 
 		<?php while ( have_posts() ) : the_post(); ?>
@@ -26,6 +17,7 @@ get_header(); ?>
 			<div class="titlediv wrapper">
 				<h1 class="page-title"><?php the_title(); ?></h1>
 			</div>
+				
 			<?php } ?>
 			
 			<!-- ROW 1 -->
@@ -58,6 +50,9 @@ get_header(); ?>
 			<?php } ?>
 
 		<?php endwhile; ?>
+
+
+		<?php get_template_part('parts/projects-list') ?>
 
 	</main><!-- #main -->
 </div><!-- #primary -->

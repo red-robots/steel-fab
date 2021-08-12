@@ -2173,6 +2173,8 @@ body.open-menu .nav-overlay{display:block;width:100%;height:100%;position:fixed;
 .btn-default{display:inline-block;text-decoration:none !important;background:#0154a0;color:#FFF;padding:15px 20px;font-size:16px;line-height:1.2;text-transform:uppercase;border-radius:0;letter-spacing:1px}
 .btn-default.sm{font-size:14px;padding:8px 20px}
 .btn-default:hover{background:#eca72c;color:#FFF;text-decoration:none !important}
+.btn-default.yellow{background:#eca72c}
+.btn-default.yellow:hover{background:#0154a0}
 #home-row-6{background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#031a29}
 #home-row-6 .wrapper{padding-top:10vw;padding-bottom:10vw;z-index:10}
 #home-row-6 .fcol{width:100%}
@@ -2734,8 +2736,8 @@ body.no-hero .sitemap-links>ul ul li:last-child:after{content:"";display:block;w
 .generic-layout #row1.intro-two-col .fcol{width:100%}
 .generic-layout #row1.intro-two-col .fcol.right .inside{padding-bottom:0;border-bottom:0}
 .generic-layout #row1.intro-two-col .col-title{margin:0 0 20px}
-body.page-template-page-contact{background:#f7f7f7}
-body.page-template-page-contact .subpage-banner:before,body.page-template-page-contact .subpage-banner:after{background:#f7f7f7}
+body.page-template-page-contact,body.page-template-page-projects{background:#f7f7f7}
+body.page-template-page-contact .subpage-banner:before,body.page-template-page-contact .subpage-banner:after,body.page-template-page-projects .subpage-banner:before,body.page-template-page-projects .subpage-banner:after{background:#f7f7f7}
 .generic-layout.contact-page #row2{margin-top:10px;margin-bottom:70px}
 @media(min-width:820px){.generic-layout.contact-page #row2{margin-bottom:100px}
 }.generic-layout.contact-page #row2 .flexwrap{margin-left:-40px;margin-right:-40px}
@@ -2767,6 +2769,20 @@ body.page-template-page-contact .subpage-banner:before,body.page-template-page-c
 .contact-form .gform_wrapper.gravity-theme .gform_page_footer input,.contact-form .gform_wrapper .gform_footer input.button{outline:0;background:#0154a0;color:#FFF;border:0;text-transform:uppercase;padding:15px 20px !important;font-size:15px;line-height:1.2 !important;text-align:center;min-width:200px;margin-bottom:0 !important;width:100%}
 @media(min-width:600px){.contact-form .gform_wrapper.gravity-theme .gform_page_footer input,.contact-form .gform_wrapper .gform_footer input.button{width:auto}
 }.contact-form .gform_wrapper.gravity-theme .gform_page_footer input:hover,.contact-form .gform_wrapper .gform_footer input.button:hover{background:#eca72c}
+.projects-list{margin-top:30px;margin-bottom:100px}
+.projects-list .flexwrap{margin-left:-10px;margin-right:-10px}
+.projects-list .imagebox{width:100%;padding:10px}
+@media(min-width:820px){.projects-list .imagebox{width:33.33%}
+}.projects-list .imagebox .link{display:block;text-decoration:none;position:relative;width:100%;float:left}
+.projects-list .imagebox .link img.helper{width:100%;height:auto;float:left}
+.projects-list .imagebox .link .caption{display:block;width:100%;height:45px;position:absolute;left:0;bottom:0;z-index:10;color:#FFF;padding:10px 15px;font-size:13px;font-weight:500;line-height:1.2;letter-spacing:1px;text-align:center;text-transform:uppercase;background-color:rgba(3,26,41,0.85);display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-flex-direction:row;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-transition:all ease .3s;transition:all ease .3s}
+.projects-list .imagebox .link .caption .title{display:block;width:100%;text-align:center}
+.projects-list .imagebox .link .bg{width:100%;height:100%;display:block;position:absolute;left:0;bottom:0;background-size:cover;background-position:center;background-repeat:no-repeat}
+.projects-list .imagebox .link:hover .caption{height:100%}
+.projects-list .imagebox.nophoto .link{background-color:#e2e2e2}
+.projects-list .imagebox.nophoto .link:after{content:"Photo Coming Soon";text-align:center;width:100%;display:block;position:absolute;left:0;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%);color:#989898;text-transform:uppercase;font-size:13px;letter-spacing:1px}
+.projects-list .button-more{margin-top:10px}
+.projects-list .button-more a{display:block;width:100%;text-align:center;text-transform:uppercase}
 .site-footer{background-color:#031a29;color:#FFF;position:relative;overflow:hidden}
 .site-footer .wrapper{position:relative;z-index:10;padding-top:50px;padding-bottom:50px}
 .site-footer:before{content:"";display:block;width:24vw;height:120%;background-image:url("images/logo-symbol.png");background-position:center;background-repeat:no-repeat;background-size:cover;position:absolute;top:0;left:-5vw;opacity:.05}

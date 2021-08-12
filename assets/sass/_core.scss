@@ -1072,6 +1072,12 @@ body.open-menu {
 		color: #FFF;
 		text-decoration: none!important;
 	}
+	&.yellow {
+		background: $yellow;
+		&:hover {
+			background: $blue;
+		}
+	}
 }
 
 #home-row-6 {
@@ -4090,7 +4096,8 @@ body.no-hero {
 	}
 }
 
-body.page-template-page-contact {
+body.page-template-page-contact,
+body.page-template-page-projects {
 	background: $light_gray;
 	.subpage-banner:before,
 	.subpage-banner:after {
@@ -4257,6 +4264,101 @@ body.page-template-page-contact {
     }
 		&:hover {
 			background: $yellow;
+		}
+	}
+}
+
+.projects-list {
+	margin-top: 30px;
+	margin-bottom: 100px;
+	.flexwrap {
+		margin-left: -10px;
+		margin-right: -10px;
+	}
+	.imagebox {
+		width: 100%;
+		padding: 10px;
+		@include tab {
+			width: 33.33%;
+		}
+		.link {
+			display: block;
+			text-decoration: none;
+			position: relative;
+			width: 100%;
+			float: left;
+			img.helper {
+				width: 100%;
+				height: auto;
+				float: left;
+			}
+			.caption {
+				display: block;
+				width: 100%;
+				height: 45px;
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				z-index: 10;
+				color: #FFF;
+				padding: 10px 15px;
+				font-size: 13px;
+				font-weight: 500;
+				line-height: 1.2;
+				letter-spacing: 1px;
+				text-align: center;
+				text-transform: uppercase;
+				background-color: rgba($dark_blue,.85);
+				@include flexgroup-center();
+				transition: all ease .3s;
+				.title {
+					display: block;
+					width: 100%;
+					text-align: center;
+				}
+			}
+			.bg {
+				width: 100%;
+				height: 100%;
+				display: block;
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				@include backgroundImage(center);
+			}
+			&:hover {
+				.caption {
+					height: 100%;
+				}
+			}
+		}
+		&.nophoto {
+			.link {
+				background-color: #e2e2e2;
+				&:after {
+					content:"Photo Coming Soon";
+					text-align: center;
+					width: 100%;
+					display: block;
+					position: absolute;
+					left: 0;
+					top: 50%;
+					transform: translateY(-50%);
+					color: #989898;
+					text-transform: uppercase;
+					font-size: 13px;
+					letter-spacing: 1px;
+				}
+			}
+		}
+	}
+	.button-more {
+		margin-top: 10px;
+		a {
+			display: block;
+			width: 100%;
+			text-align: center;
+			text-transform: uppercase;
 		}
 	}
 }
