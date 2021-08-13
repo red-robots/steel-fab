@@ -2073,7 +2073,7 @@ body.open-menu .nav-overlay{display:block;width:100%;height:100%;position:fixed;
 .col-title.white{color:white}
 .col-text{font-size:17px;line-height:1.5}
 .home-row{position:relative;font-size:17px;line-height:1.5}
-#home-row-1{background-position:bottom center;background-size:cover;background-repeat:no-repeat;z-index:5}
+#home-row-1{background-color:#031a29;background-position:bottom center;background-size:cover;background-repeat:no-repeat;z-index:5}
 #home-row-1 .wrapper{z-index:10}
 #home-row-1 .hero-caption{padding-top:28vh;padding-bottom:25vh;color:#FFF;display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-flex-direction:row;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center}
 #home-row-1 .hero-text{max-width:700px;width:100%;text-align:center;margin:0 auto}
