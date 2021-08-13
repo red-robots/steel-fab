@@ -14,7 +14,7 @@ function js_custom_init() {
           'plural'    => 'Projects',
           'single'    => 'Project',
           'menu_icon' => 'dashicons-archive',
-          'supports'  => array('title','editor')
+          'supports'  => array('title')
         ),
         array(
           'post_type' => 'services',

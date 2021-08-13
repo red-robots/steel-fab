@@ -86,7 +86,7 @@ a {
 	}
 }
 .wrapper {
-	max-width: 1400px;
+	max-width: 1200px;
 	width: 100%;
 	margin: 0 auto;
 	padding-left: 20px;
@@ -3422,14 +3422,20 @@ body.no-hero {
 	background: #f3f3f3;
 	.site-header {
 		background: $dark_blue;
-		position: relative;
+		position: fixed;
+		@include tab {
+			position: relative;
+		}
 	}
 	#content {
 		// background-color: #FFF;
 	}
 	#main {
 		min-height: 30em;
-		margin-top: 50px;
+		margin-top: 30px;
+		@include tab {
+			margin-top: 50px;
+		}
 	}
 }
 
@@ -4095,7 +4101,7 @@ body.no-hero {
 		}
 	}
 }
-
+body.subpage,
 body.page-template-page-contact,
 body.page-template-page-projects {
 	background: $light_gray;
@@ -4360,6 +4366,136 @@ body.page-template-page-projects {
 			width: 100%;
 			text-align: center;
 			text-transform: uppercase;
+		}
+	}
+}
+
+.project-features-section {
+	.flexwrap {
+		margin: 30px -20px 10px;
+		@include flexbox-justify(center);
+		@include tab {
+			margin: 50px -20px;
+		}
+	}
+	.featcol {
+		width: 100%;
+		text-align: center;
+		padding: 0 20px;
+		@include tab {
+			width: 33.33%;
+		}
+		.wrap {
+			padding: 30px 0;
+			border-top: 1px solid #cecece;
+			@include tab {
+				padding: 0 0;
+				border-top: none;
+				border-left: 1px solid #cecece;
+			}
+		}
+		&.first {
+			.wrap {
+				border-top: none;
+				border-left: none;
+			}
+		}
+		.name,.info {
+			font-size: 14px;
+		}
+		.name {
+			font-weight: 600;
+			line-height: 1.2;
+			color: $yellow;
+			margin: 0 0 5px;
+		}
+		.info {
+			color: $primary;
+		}
+	}
+}
+
+.project-description-area {
+	margin-bottom: 80px;
+	.wrapper {
+		padding-left: 0;
+		padding-right: 0;
+		@include tab {
+			padding-left: 20px;
+			padding-right: 20px;
+		}
+	}
+	.flexwrap {
+		@include flexbox-justify(center);
+	}
+	.project-info {
+		width: 100%;
+		position: relative;
+	}
+	.project-info.left {
+		z-index: 10;
+		.inside {
+			background: $dark_blue;
+			color: #FFF;
+			font-size: 14px;
+			line-height: 1.5;
+			padding: 30px;
+			width: 100%;
+			height: 100%;
+			&:after {
+				content:"";
+				width: 0;
+				height: 0;
+				border-left: 25px solid $dark_blue;
+				border-top: 35px solid transparent;
+				border-bottom: 35px solid transparent;
+				position: absolute;
+				@include tab {
+					top: 50%;
+					right: -25px;
+					transform: translateY(-50%);
+				}
+				@include max( $tabwidth - 1px ) {
+					margin-left: -15px;
+					bottom: -60px;
+					left: 50%;
+					transform: rotate(90deg) translateX(-50%);
+				}
+			}
+			@include tab {
+				padding: 2vw;
+			}
+			p:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+	.project-info.right {
+		div.image {
+			width: 100%;
+			height: 100%;
+			@include backgroundImage(center);
+			img.helper {
+				display: block;
+				width: 100%;
+				height: auto;
+				float: left;
+			}
+		}
+	}
+	&.twocol {
+		.project-info {
+			width: 100%;
+			&.left {
+				@include tab {
+					width: 40%;
+				}
+			}
+			&.right {
+				@include tab {
+					width: 60%;
+				}
+			}
 		}
 	}
 }
