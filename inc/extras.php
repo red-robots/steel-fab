@@ -235,9 +235,106 @@ add_action( 'init', 'remove_pages_editor' );
 
 
 function has_job_list() {
-    global $wpdb;
-    $result = $wpdb->get_row( "SELECT ID FROM $wpdb->posts WHERE post_type = 'careers' AND post_status='publish' LIMIT 1" );
-    return ($result) ? true : false;
+  global $wpdb;
+  $result = $wpdb->get_row( "SELECT ID FROM $wpdb->posts WHERE post_type = 'careers' AND post_status='publish' LIMIT 1" );
+  return ($result) ? true : false;
 }
+
+function extract_map_id($shortcode) {
+  if( empty($shortcode) ) return '';
+  $shortcode = str_replace('[','',$shortcode);
+  $shortcode = str_replace(']','',$shortcode);
+  $parts = explode("wpgmza",$shortcode);
+  $id = '';
+  if($parts && array_filter($parts)) {
+      foreach(array_filter($parts) as $p) {
+          if( $str = array_filter(explode("id=",$p)) ) {
+              foreach($str as $s) {
+                $s = string_cleaner($s);
+                $id = preg_replace('/[^A-Za-z0-9\-]/', '', $s);
+              }
+          }
+          
+      }
+  }
+  return $id;
+}
+
+function get_marker_listing($map_shortcode) {
+  global $wpdb;
+  $listing = array();
+  if( $map_id = extract_map_id($map_shortcode) ) {
+    $prefix = $wpdb->prefix;
+    $table = $prefix . 'wpgmza';
+    $query = "SELECT * FROM  $table WHERE map_id=" . $map_id;
+    $result = $wpdb->get_results($query);
+    if($result) {
+      foreach($result as $row) {
+        $id = $row->id;
+        $icon = ($row->icon) ? @json_decode($row->icon) : '';
+        $row->icon = ( isset($icon->url) && $icon->url ) ? $icon->url : '';
+        $cat_ids = get_map_location_category($id);
+        $row->categories = array();
+        //echo "<pre>";
+        $custom_fields = get_location_custom_fields($id);
+        $row->custom_fields = ($custom_fields) ? $custom_fields : '';
+        if( $cat_ids ) {
+          foreach($cat_ids as $c) {
+            $catid = $c->category_id;
+            if( $cat = get_map_category($catid) ) {
+              $arg = new stdClass();
+              $catIcon = ($cat->category_icon) ? @json_decode($cat->category_icon) : '';
+              $arg->category_id = $catid;
+              $arg->category_name = $cat->category_name;
+              $arg->category_icon = ( isset($catIcon->url) && $catIcon->url ) ? $catIcon->url : '';
+              $row->categories[] = $arg;
+            }
+          }        
+        }
+
+        // print_r($row);
+        // echo "</pre>";     
+        $listing[] = $row;
+      }
+    }
+  }
+  return $listing;
+}
+
+function get_map_location_category($marker_id) {
+  global $wpdb;
+  $prefix = $wpdb->prefix;
+  $table = $prefix . 'wpgmza_markers_has_categories';
+  $query = "SELECT category_id FROM  $table WHERE marker_id=" . $marker_id;
+  $result = $wpdb->get_results($query);
+  return ($result) ? $result : '';
+}
+
+function get_map_category($catid,$field=null) {
+  global $wpdb;
+  $prefix = $wpdb->prefix;
+  $table = $prefix . 'wpgmza_categories';
+  if($field) {
+    $query = "SELECT $field FROM  $table WHERE id=" . $catid;
+    $result = $wpdb->get_row($query);
+    return ($result) ? $result->$field : '';
+  } else {
+    $query = "SELECT * FROM  $table WHERE id=" . $catid;
+    $result = $wpdb->get_row($query);
+    return ($result) ? $result : '';
+  }
+}
+
+function get_location_custom_fields($id) {
+  global $wpdb;
+  $prefix = $wpdb->prefix;
+  $table1 = $prefix . 'wpgmza_markers_has_custom_fields';
+  $table2 = $prefix . 'wpgmza_custom_fields';
+  $query = "SELECT  t1.*,t2.name,t2.icon AS field_icon FROM  $table1 t1, $table2 t2 WHERE t1.field_id=t2.id 
+            AND t1.object_id=" . $id;
+  $result = $wpdb->get_results($query);
+  return ($result) ? $result : '';
+}
+
 
 
