@@ -1366,6 +1366,7 @@ body.scrolled {
 	padding-bottom: 50px;
 	position: relative;
 	overflow: hidden;
+	z-index: 20;
 	@include tab {
 		padding-top: 4.5vw;
 		padding-bottom: 5vw;
@@ -4510,7 +4511,12 @@ body.page-template-page-locations {
 .map-locations-section {
 	width: 100%;
 	float: left;
-	margin-bottom: 50px;
+	position: relative;
+	padding-bottom: 50px;
+	overflow: hidden;
+	.ol-attribution {
+		display: none!important;
+	}
 	.wpgmza_map {
 		.wpgmza-infowindow p {
 			display: none;
@@ -4535,15 +4541,59 @@ body.page-template-page-locations {
 			// }
 		}
 	}
+	#mapArea {
+		position: relative;
+		z-index: 20;
+	}
 	.map-locations {
 		position: relative;
-		margin-top: 50px;
-		.wrapper {
-			z-index: 10;
+		margin-top: 70px;
+		z-index: 10;
+	}
+}
+
+.diagonalLines {
+	width: 120vw;
+	height: 100%;
+	position: absolute;
+	bottom: -10vw;
+	left: -50vw;
+	@include mid {
+		left: -40vw;
+	}
+	div {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		border-top: 1px solid #b2bfca;
+		transform: rotate(35deg);
+		&.b1 {
+			bottom: -20%;
+		}
+		&.b2 {
+			bottom: -26%;
+		}
+		&.b3 {
+			bottom: -32%;
+		}
+		&.b4 {
+			bottom: -38%;
+		}
+		&.b5 {
+			bottom: -44%;
+		}
+		&.b6 {
+			bottom: -50%;
 		}
 	}
 }
 
+body.page-template-page-locations #primary {
+	overflow: hidden;
+	position: relative;
+}
 #accordion {
 	position: relative;
 	.panel {

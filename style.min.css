@@ -2172,7 +2172,7 @@ body.open-menu .nav-overlay{display:block;width:100%;height:100%;position:fixed;
 .site-header:after{content:"";display:block;width:100%;height:66px;position:fixed;top:0;left:0;background:-webkit-linear-gradient(left,transparent 0,rgba(0,0,0,0.98) 100%);background:linear-gradient(to right,transparent 0,rgba(0,0,0,0.98) 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000',endColorstr='#a6000000',GradientType=1)}
 body.subpage #page{padding-top:66px}
 body.subpage .site-header:after{background-color:#031a29}
-}.bottom-blue-area{background:#0154a0;color:#FFF;padding-top:50px;padding-bottom:50px;position:relative;overflow:hidden}
+}.bottom-blue-area{background:#0154a0;color:#FFF;padding-top:50px;padding-bottom:50px;position:relative;overflow:hidden;z-index:20}
 @media(min-width:820px){.bottom-blue-area{padding-top:4.5vw;padding-bottom:5vw}
 }.bottom-blue-area:before,.bottom-blue-area:after{content:"";display:block;width:15%;height:100%;position:absolute;top:0;background-repeat:no-repeat;background-size:cover;background-image:url("images/arrows.svg")}
 .bottom-blue-area:before{left:0;-webkit-transform:scaleX(-1);-ms-transform:scaleX(-1);transform:scaleX(-1)}
@@ -2760,13 +2760,24 @@ body.subpage .subpage-banner:before,body.subpage .subpage-banner:after,body.page
 @media(min-width:820px){.project-description-area.twocol .project-info.left{width:40%}
 }@media(min-width:820px){.project-description-area.twocol .project-info.right{width:60%}
 }body.page-template-page-locations .site-footer,body.page-template-page-locations .bottom-blue-area{width:100%;float:left}
-.map-locations-section{width:100%;float:left;margin-bottom:50px}
+.map-locations-section{width:100%;float:left;position:relative;padding-bottom:50px;overflow:hidden}
+.map-locations-section .ol-attribution{display:none !important}
 .map-locations-section .wpgmza_map .wpgmza-infowindow p{display:none;margin:0}
 .map-locations-section .wpgmza_map .wpgmza-infowindow p.wpgmza_infowindow_title{display:block;cursor:pointer;-webkit-transition:all ease .3s;transition:all ease .3s}
 .map-locations-section .wpgmza_map .wpgmza-infowindow p.wpgmza_infowindow_title:hover{color:#0154a0}
 .map-locations-section .wpgmza_map .wpgmza_infowindow_address{display:none !important}
-.map-locations-section .map-locations{position:relative;margin-top:50px}
-.map-locations-section .map-locations .wrapper{z-index:10}
+.map-locations-section #mapArea{position:relative;z-index:20}
+.map-locations-section .map-locations{position:relative;margin-top:70px;z-index:10}
+.diagonalLines{width:120vw;height:100%;position:absolute;bottom:-10vw;left:-50vw}
+@media(min-width:960px){.diagonalLines{left:-40vw}
+}.diagonalLines div{width:100%;height:100%;position:absolute;bottom:0;left:0;border-top:1px solid #b2bfca;-webkit-transform:rotate(35deg);-ms-transform:rotate(35deg);transform:rotate(35deg)}
+.diagonalLines div.b1{bottom:-20%}
+.diagonalLines div.b2{bottom:-26%}
+.diagonalLines div.b3{bottom:-32%}
+.diagonalLines div.b4{bottom:-38%}
+.diagonalLines div.b5{bottom:-44%}
+.diagonalLines div.b6{bottom:-50%}
+body.page-template-page-locations #primary{overflow:hidden;position:relative}
 #accordion{position:relative}
 #accordion .panel{margin-bottom:13px}
 #accordion .panel .ptitle{display:block;width:100%;background:#dddedb;position:relative;color:#031a29;padding:16px 15px 16px 65px;cursor:pointer;text-decoration:none;-webkit-transition:all ease .3s;transition:all ease .3s}

@@ -25,7 +25,7 @@ get_header(); ?>
 				$locations = get_marker_listing($map_shortcode);
 			?>
 			<div class="map-locations-section">
-				<div class="wrapper">
+				<div id="mapArea" class="wrapper">
 					<?php echo do_shortcode($map_shortcode) ?>
 				</div>
 
@@ -102,6 +102,15 @@ get_header(); ?>
 		<?php endwhile; ?>
 
 	</main><!-- #main -->
+
+	<div class="diagonalLines">
+		<div class="b1"></div>
+		<div class="b2"></div>
+		<div class="b3"></div>
+		<div class="b4"></div>
+		<div class="b5"></div>
+		<div class="b6"></div>
+	</div>
 </div><!-- #primary -->
 
 <script>
