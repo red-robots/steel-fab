@@ -23,8 +23,23 @@ get_header(); ?>
 
 			<?php if ($map_shortcode && do_shortcode($map_shortcode)) { 
 				$locations = get_marker_listing($map_shortcode);
+				$marker_categories = get_map_category_list();
 			?>
 			<div class="map-locations-section">
+				<?php if ($marker_categories) { ?>
+				<div class="legend">
+					<div class="wrapper">
+						<div class="info">
+						<?php foreach ($marker_categories as $cat) { 
+							$cat_slug = ($cat->category_name) ? sanitize_title($cat->category_name) : '';
+							if($cat_slug) { ?>
+							<span class="<?php echo $cat_slug ?>"><?php echo $cat->category_name ?></span>
+							<?php } ?>
+						<?php } ?>
+						</div>
+					</div>
+				</div>
+				<?php } ?>
 				<div id="mapArea" class="wrapper">
 					<?php echo do_shortcode($map_shortcode) ?>
 				</div>
@@ -39,6 +54,17 @@ get_header(); ?>
 							$loc_icon = $row->icon;
 							$categories = ( isset($row->categories) && $row->categories ) ? $row->categories : '';
 							$custom_fields = ( isset($row->custom_fields) && $row->custom_fields ) ? $row->custom_fields : '';
+							$custom_fields_order = array();
+							if($custom_fields) {
+								foreach($custom_fields as $cc) {
+									$index = $cc->stack_order;
+									$custom_fields_order[$index] = $cc;
+								}
+							}
+
+							if($custom_fields_order) {
+								ksort($custom_fields_order);
+							}
 
 							if($loc_name) { ?>
 							<div id="panel_<?php echo $i?>" data-location="<?php echo $loc_slug ?>" class="panel">
@@ -54,10 +80,10 @@ get_header(); ?>
 									<span class="name"><?php echo $loc_name ?></span>
 								</a>
 
-								<?php if ($custom_fields) { ?>
+								<?php if ($custom_fields_order) { ?>
 								<div class="pcontent">
 									<ul class="info">
-									<?php foreach ($custom_fields as $cf) { 
+									<?php foreach ($custom_fields_order as $cf) { 
 										$field_name = $cf->name;
 										$field_value = $cf->value;
 										$field_icon = ($cf->field_icon) ? 'si fa fa-'.$cf->field_icon : '';
@@ -76,7 +102,7 @@ get_header(); ?>
 											<?php } ?>
 
 											<?php if ($field_value) { ?>
-											<span class="f-value"><?php echo $field_value ?>: </span>	
+											<span class="f-value"><?php echo $field_value ?></span>	
 											<?php } ?>
 										</li>	
 										<?php } ?>
@@ -94,7 +120,7 @@ get_header(); ?>
 				<?php } ?>
 			</div>	
 			<?php } ?>
-		
+					
 
 			<!-- BLUE SECTION with Left and Right Arrow -->
 			<?php get_template_part('parts/blue-section') ?>

@@ -266,7 +266,7 @@ function get_marker_listing($map_shortcode) {
   if( $map_id = extract_map_id($map_shortcode) ) {
     $prefix = $wpdb->prefix;
     $table = $prefix . 'wpgmza';
-    $query = "SELECT * FROM  $table WHERE map_id=" . $map_id;
+    $query = "SELECT * FROM  $table WHERE map_id=" . $map_id . " ORDER BY title ASC";
     $result = $wpdb->get_results($query);
     if($result) {
       foreach($result as $row) {
@@ -325,12 +325,24 @@ function get_map_category($catid,$field=null) {
   }
 }
 
+function get_map_category_list() {
+  global $wpdb;
+  $prefix = $wpdb->prefix;
+  $markers = $prefix . 'wpgmza';
+  $categories = $prefix . 'wpgmza_categories';
+  $relation = $prefix . 'wpgmza_markers_has_categories';
+  $query = "SELECT cat.id AS category_id, cat.category_name FROM  $relation rel, $markers marker, $categories cat 
+            WHERE marker.id=rel.marker_id AND rel.category_id=cat.id GROUP BY cat.id ORDER BY cat.id ASC";
+  $result = $wpdb->get_results($query);
+  return ($result) ? $result : '';
+}
+
 function get_location_custom_fields($id) {
   global $wpdb;
   $prefix = $wpdb->prefix;
   $table1 = $prefix . 'wpgmza_markers_has_custom_fields';
   $table2 = $prefix . 'wpgmza_custom_fields';
-  $query = "SELECT  t1.*,t2.name,t2.icon AS field_icon FROM  $table1 t1, $table2 t2 WHERE t1.field_id=t2.id 
+  $query = "SELECT  t1.*,t2.name,t2.icon AS field_icon, t2.stack_order FROM  $table1 t1, $table2 t2 WHERE t1.field_id=t2.id 
             AND t1.object_id=" . $id;
   $result = $wpdb->get_results($query);
   return ($result) ? $result : '';

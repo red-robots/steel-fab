@@ -4550,6 +4550,44 @@ body.page-template-page-locations {
 		margin-top: 70px;
 		z-index: 10;
 	}
+
+	div.legend {
+		text-align: right;
+		.info {
+			display: inline-block;
+		}
+		span {
+			display: inline-block;
+			float: left;
+			text-align: left;
+			position: relative;
+			font-size: 13px;
+			line-height:1.1;
+			padding-left: 16px;
+			margin-left: 16px;
+			letter-spacing: 1px;
+			&:before {
+				content:"";
+				display: block;
+				width: 11px;
+				height: 11px;
+				border-radius: 100px;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			&.offices {
+				&:before {
+					background: #00539f;
+				}
+			}
+			&.facilities {
+				&:before {
+					background: #808080;
+				}
+			}
+		}
+	}
 }
 
 .diagonalLines {
