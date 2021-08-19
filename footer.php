@@ -23,7 +23,7 @@
 				<?php if ($social_media) { ?>
 					<div class="social-media">
 					<?php foreach ($social_media as $s) { ?>
-						<a href="<?php echo $s['url'] ?>" class="<?php echo $s['type'] ?> link"><i class="<?php echo $s['icon'] ?>"></i></a>
+						<a href="<?php echo $s['url'] ?>" class="<?php echo $s['type'] ?> link" target="_blank"><i class="<?php echo $s['icon'] ?>"></i></a>
 					<?php } ?>
 					</div>
 				<?php } ?>
