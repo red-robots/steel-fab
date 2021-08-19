@@ -141,6 +141,26 @@ jQuery(document).ready(function($){
 			var txt = $(this).text();
 			$(this).attr('data-label',txt);
 		});
+
+		timeline_auto_resize_photo();
+		$(window).on("resize",function(){
+			timeline_auto_resize_photo();
+		});
+		function timeline_auto_resize_photo() {
+			$("#steelFab-timeline .photo img").each(function(){
+				if( $(this).length ) {
+					var width = $(this).width();
+					var height = $(this).height();
+					if(height>width) {
+						$(this).css('max-width','320px');
+					} else {
+						$(this).css('max-width','500px');
+					}
+				}
+			});
+		}
+		
+
 	}
 
 });
