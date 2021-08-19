@@ -8,7 +8,7 @@ $blue: #0154a0;
 $yellow: #eca72c;
 $gray: #808080;
 $dark_blue: #031A29;
-$light_gray: #f7f7f7;
+$light_gray: #f3f3f3;
 $blue_gray: #345c7d;
 
 $font_primary: 'Raleway', sans-serif;
@@ -145,6 +145,18 @@ $nav_width: 350px;
 	letter-spacing: 1px;
 	margin: 0 0 20px;
 	color: $color;
+}
+
+@mixin fontAwesome() {
+	font-family: "Font Awesome 5 Free";
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	display: inline-block;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 900;
+	text-rendering: auto;
+	line-height: 1;
 }
 
 @mixin customFonts() {

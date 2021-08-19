@@ -1,7 +1,13 @@
 <?php 
-$blue_area_title = get_field("blue_section_title");
-$blue_area_text = get_field("blue_section_text");
-$blue_area_button = get_field("blue_section_button");
+if( is_tax('divisions') ) {
+	$blue_area_title = get_field("blue_section_title","option");
+	$blue_area_text = get_field("blue_section_text","option");
+	$blue_area_button = get_field("blue_section_button","option");
+} else {
+	$blue_area_title = get_field("blue_section_title");
+	$blue_area_text = get_field("blue_section_text");
+	$blue_area_button = get_field("blue_section_button");
+}
 $blueBtnTarget = ( isset($blue_area_button['target']) && $blue_area_button['target'] ) ? $blue_area_button['target'] : '_self';
 $blueBtnTitle = ( isset($blue_area_button['title']) && $blue_area_button['title'] ) ? $blue_area_button['title'] : '';
 $blueBtnLink = ( isset($blue_area_button['url']) && $blue_area_button['url'] ) ? $blue_area_button['url'] : '';

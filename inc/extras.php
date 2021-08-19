@@ -349,4 +349,81 @@ function get_location_custom_fields($id) {
 }
 
 
+// add_menu_page(
+//   'Divisions', // Page Title
+//   'Divisions', // Menu Title
+//   'manage_options', // Capabiliy
+//   './edit-tags.php?taxonomy=divisions&post_type=team', // Menu_slug
+//   '', // function
+//   'dashicons-location-alt', // icon_url
+//   26   // position
+// );
 
+/* Add richtext editor to category description */
+// remove the html filtering
+remove_filter( 'pre_term_description', 'wp_filter_kses' );
+remove_filter( 'term_description', 'wp_kses_data' );
+
+// $taxonomy_edit_form_fields
+add_filter('divisions_edit_form_fields', 'cat_description');
+function cat_description($tag)
+{
+    ?>
+        <table class="form-table">
+            <tr class="form-field">
+                <th scope="row" valign="top"><label for="description"><?php _ex('Description', 'Taxonomy Description'); ?></label></th>
+                <td>
+                <?php
+                  $settings = array('wpautop' => true, 'media_buttons' => true, 'quicktags' => true, 'textarea_rows' => '15', 'textarea_name' => 'description' );
+                  wp_editor(wp_kses_post($tag->description , ENT_QUOTES, 'UTF-8'), 'cat_description', $settings);
+                ?>
+                <br />
+                <span class="description"><?php _e('The description is not prominent by default; however, some themes may show it.'); ?></span>
+                </td>
+            </tr>
+        </table>
+    <?php
+}
+
+add_action('admin_head', 'remove_default_category_description');
+function remove_default_category_description()
+{
+  global $current_screen;
+  $currentLink = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+  if ( $current_screen->id == 'edit-divisions' )
+  {
+  ?>
+      <script type="text/javascript">
+      jQuery(function($) {
+          $('textarea#description').closest('tr.form-field').remove();
+      });
+      </script>
+  <?php
+  }
+  if( isset($_GET['taxonomy']) && $_GET['taxonomy']=='divisions' && (strpos($currentLink, 'edit-tags') !== false) ) { ?>
+    <style type="text/css">
+      body.taxonomy-divisions .term-description-wrap, 
+      body.taxonomy-divisions #acf-term-fields {
+        display: none!important;
+      }
+    </style>
+  <?php
+  }
+}
+
+/* Remove description column in the wp table list */
+add_filter('manage_edit-divisions_columns', function ( $columns ) {
+  if( isset( $columns['description'] ) )
+      unset( $columns['description'] );   
+  return $columns;
+} );
+
+
+/* ACF CUSTOM OPTIONS TABS */
+if( function_exists('acf_add_options_page') ) {
+  acf_add_options_sub_page(array(
+    'page_title'  => 'Divisions Options',
+    'menu_title'  => 'Divisions Options',
+    'parent_slug' => 'edit.php?post_type=team'
+  ));
+}

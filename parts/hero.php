@@ -9,6 +9,10 @@ if( $is_subpage ) { ?>
 			$banner = get_field("banner",$parent_id);
 			$page_title = get_the_title($parent_id);
 		}
+		if( is_tax('divisions') ) {
+			$banner = get_field("divisions_main_photo","option");
+			$page_title = 'Divisions';
+		}
 	?>
 	<?php if ($banner) { ?>
 	<div class="subpage-banner" style="background-image:url('<?php echo $banner['url']?>')">
@@ -19,4 +23,5 @@ if( $is_subpage ) { ?>
 		</div>
 	</div>
 	<?php } ?>
+
 <?php } ?>

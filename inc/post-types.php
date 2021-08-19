@@ -109,7 +109,7 @@ function build_taxonomies() {
   $post_types = array(
     array(
       'post_type' => array('team','careers'),
-      'menu_name' => 'Divisions',
+      'menu_name' => 'Divisions Taxonomy',
       'plural'    => 'Divisions',
       'single'    => 'Division',
       'taxonomy'  => 'divisions'
