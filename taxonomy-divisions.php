@@ -70,13 +70,14 @@ get_header(); ?>
 		}
 	}
 
-	$has_extra_fields = ($mailing_address || $sales_office_info || $specialty_info) ? true : false;
-	$div_class = ( ($description || $has_extra_fields) && $term_image ) ? 'twocol':'onecol';
-	if($description || $term_image || ($mailing_address || $sales_office_info || $specialty_info) ) { ?>
+	$locations = get_field("location",$field_id);
+	//$has_extra_fields = ($mailing_address || $sales_office_info || $specialty_info) ? true : false;
+	$div_class = ( ($description || $$locations) && $term_image ) ? 'twocol':'onecol';
+	if($description || $term_image || $locations ) { ?>
 	<div class="project-description-area divisions <?php echo $div_class ?>">
 		<div class="wrapper">
 			<div class="flexwrap">
-				<?php if ($description || ($mailing_address || $sales_office_info || $specialty_info) ) { ?>
+				<?php if ($description || $locations ) { ?>
 				<div class="project-info left">
 					<div class="inside">
 						<h2 class="term-name"><?php echo $current_term_name ?></h2>
@@ -87,8 +88,9 @@ get_header(); ?>
 						</div>
 						<?php } ?>
 
-						<?php if ( $has_extra_fields ) { ?>
+						<?php if ( $locations || $mailing_address) { ?>
 						<div class="division-info">
+							
 							<?php if ($mailing_address) { ?>
 							<div class="info mailing-address">
 								<div class="title">Mailing Address</div>
@@ -96,28 +98,22 @@ get_header(); ?>
 							</div>
 							<?php } ?>
 
-							<?php if ($sales_office_info) { ?>
-							<div class="info multiple sales-info">
-								<div class="title">YORK SALES OFFICE &amp; PLANT</div>
-								<?php foreach ($sales_office_info as $type=>$val) { ?>
-								<div class="val v_<?php echo $type ?>">
-									<?php echo $val ?>
-								</div>
+							<?php foreach ($locations as $obj) { 
+								if($obj['location_title']) { 
+									$slug_loc = ($obj['location_title']) ?  sanitize_title($obj['location_title']) : '';
+									?>
+									<div class="info <?php echo $k ?>-info">
+										<div class="title"><?php echo $obj['location_title'] ?></div>
+										<?php unset($obj['location_title']); ?>
+										<?php foreach($obj as $k=>$val) { 
+											if($val) { ?>
+												<div class="val v_<?php echo $k ?>"><?php echo $val ?></div>
+											<?php } ?>
+										<?php } ?>
+									</div>
 								<?php } ?>
-							</div>
 							<?php } ?>
 
-
-							<?php if ($specialty_info) { ?>
-							<div class="info multiple specialty-info">
-								<div class="title">SPECIALTY METALS DIVISION</div>
-								<?php foreach ($specialty_info as $type=>$val) { ?>
-								<div class="val v_<?php echo $type ?>">
-									<?php echo $val ?>
-								</div>
-								<?php } ?>
-							</div>
-							<?php } ?>
 						</div>
 						<?php } ?>
 					</div>
