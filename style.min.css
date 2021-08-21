@@ -2754,9 +2754,10 @@ body.subpage .subpage-banner:before,body.subpage .subpage-banner:after,body.page
 }@media screen and (max-width:819px){.project-description-area .project-info.left .inside:after{margin-left:-15px;bottom:-60px;left:50%;-webkit-transform:rotate(90deg) translateX(-50%);-ms-transform:rotate(90deg) translateX(-50%);transform:rotate(90deg) translateX(-50%)}
 }@media(min-width:820px){.project-description-area .project-info.left .inside{padding:2vw}
 }.project-description-area .project-info.left .inside p:last-child{margin-bottom:0}
-.project-description-area .project-info.right div.image{width:100%;height:100%;background-size:cover;background-position:center;background-repeat:no-repeat}
+.project-description-area .project-info.right div.image{min-height:50vh;width:100%;height:100%;background-size:cover;background-position:center;background-repeat:no-repeat}
 .project-description-area .project-info.right div.image img.helper{display:block;width:100%;height:auto;float:left}
-.project-description-area.twocol .project-info{width:100%}
+@media(min-width:820px){.project-description-area .project-info.right div.image img.helper{display:none}
+}.project-description-area.twocol .project-info{width:100%}
 @media(min-width:820px){.project-description-area.twocol .project-info.left{width:40%}
 }@media(min-width:820px){.project-description-area.twocol .project-info.right{width:60%}
 }body.page-template-page-locations .site-footer,body.page-template-page-locations .bottom-blue-area{width:100%;float:left}
@@ -2821,7 +2822,8 @@ body.page-template-page-locations #primary{overflow:hidden;position:relative}
 .project-description-area.divisions .wrapper{padding-left:0;padding-right:0;max-width:100%;width:100%}
 .project-description-area.divisions .term-name{font-size:2.2rem;font-weight:800;line-height:1.2;margin:0 0 20px;text-transform:uppercase}
 .project-description-area.divisions .project-info.left .inside{background:#335d7d;padding:30px}
-@media(min-width:820px){.project-description-area.divisions .project-info.left .inside{padding:50px 4vw}
+@media(min-width:820px){.project-description-area.divisions .project-info.left .inside{padding:50px 4vw;display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-flex-direction:row;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center}
+.project-description-area.divisions .project-info.left .inside .wrap{width:100%}
 }.project-description-area.divisions .project-info.left .inside:after{border-left:40px solid #335d7d;border-top:60px solid transparent;border-bottom:60px solid transparent}
 @media(min-width:820px){.project-description-area.divisions .project-info.left .inside:after{right:-40px}
 }@media screen and (max-width:819px){.project-description-area.divisions .project-info.left .inside:after{margin-left:-20px;bottom:-90px;left:50%;-webkit-transform:rotate(90deg) translateX(-50%);-ms-transform:rotate(90deg) translateX(-50%);transform:rotate(90deg) translateX(-50%)}

@@ -80,6 +80,9 @@ add_action( 'wp_enqueue_scripts', 'bellaworks_scripts' );
 
 function admin_head_custom_css() { ?>
 <style type="text/css">
+<?php if ( isset($_GET['page']) && $_GET['page']=='wp-google-maps-menu' ) { ?>
+@import url('<?php echo get_site_url() ?>/wp-content/plugins/advanced-custom-fields-pro/assets/inc/select2/4/select2.min.css?ver=4.0');
+<?php } ?>
 .acf-field-flexible-content .layout.has-title .acf-fc-layout-handle {
 	position: relative;
 	color: transparent;
@@ -93,11 +96,26 @@ function admin_head_custom_css() { ?>
 	font-weight: bold;
 	color: #000;
 }
+.divisions-select-wrap {
+	width: 100%;
+	position: relative;
+}
+.divisions-select-wrap .select2 {
+	width: 100%!important;
+}
+.wgmza-map-editor-holder [data-custom-field-id="7"],
+.wgmza-map-editor-holder [data-custom-field-id="5"] input {
+	display: none!important;
+}
 </style>
 <?php }
 add_action('admin_head', 'admin_head_custom_css');
 
+add_action('admin_footer', 'admin_footer_custom_script');
 function admin_footer_custom_script() { ?>
+<?php if ( isset($_GET['page']) && $_GET['page']=='wp-google-maps-menu' ) { ?>
+<script src='<?php echo get_site_url() ?>/wp-content/plugins/advanced-custom-fields-pro/assets/inc/select2/4/select2.full.min.js?ver=4.0' id='select2-js'></script>
+<?php } ?>
 <script>
 jQuery(document).ready(function($){
 	if( $('.acf-field-flexible-content .layout [data-name="title"]').length ) {
@@ -108,8 +126,48 @@ jQuery(document).ready(function($){
 			parent.find('.acf-fc-layout-handle').attr("data-title",title);
 		});
 	}
+
+	if( $('[data-custom-field-id="5"]').length ) {
+		var divisions = '<?php echo get_all_divisions(); ?>';
+		if(divisions) {
+			divisions = $.parseJSON(divisions);
+			var selectedVal = $('[data-custom-field-id="7"] input').val();
+			var select = '<div class="divisions-select-wrap"><select id="divisions_options" class="select-division selectjs select2">';
+					select += '<option></option>';
+					$(divisions).each(function(k,v){
+						var selected = (selectedVal && selectedVal==v.term_id) ? ' selected':''; 
+						select += '<option value="'+v.term_id+'"'+selected+'>'+v.name+'</option>';
+					});
+					select += '</select></div>';
+			$('[data-custom-field-id="5"]').append(select);
+			$("#divisions_options").select2({
+			    placeholder: "Select a Division",
+			    allowClear: true
+			});
+			$(document).on("change","#divisions_options",function(){
+				var opt = $(this).val();
+				var label = $(this).find('option:selected').text();
+				$('[data-custom-field-id="5"]').find('input').val(label);
+				$('[data-custom-field-id="7"] input').val(opt);
+			});
+			// $(document).on('click','.wpgmza_edit_btn.button',function(){
+			// 	var id = $(this).attr('data-edit-marker-id');
+			// 	$("#divisions_options select").val(id).trigger('change');
+			// });
+
+			$(document).ajaxComplete ( function(event, jqxhr, settings){
+				var id = $('[data-custom-field-id="7"] input').val();
+				$("#divisions_options select").val(id).trigger('change');
+			});
+		}
+	}
 });
 </script>
 <?php }
-add_action('admin_footer', 'admin_footer_custom_script');
+
+
+function get_all_divisions() {
+	$categories = get_categories( array('taxonomy'=>'divisions') );
+	return ($categories) ? @json_encode($categories) : '';
+}
 

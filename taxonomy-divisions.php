@@ -72,7 +72,7 @@ get_header(); ?>
 
 	$locations = get_field("location",$field_id);
 	//$has_extra_fields = ($mailing_address || $sales_office_info || $specialty_info) ? true : false;
-	$div_class = ( ($description || $$locations) && $term_image ) ? 'twocol':'onecol';
+	$div_class = ( ($description || $locations) && $term_image ) ? 'twocol':'onecol';
 	if($description || $term_image || $locations ) { ?>
 	<div class="project-description-area divisions <?php echo $div_class ?>">
 		<div class="wrapper">
@@ -80,42 +80,41 @@ get_header(); ?>
 				<?php if ($description || $locations ) { ?>
 				<div class="project-info left">
 					<div class="inside">
-						<h2 class="term-name"><?php echo $current_term_name ?></h2>
-
-						<?php if ($description) { ?>
-						<div class="description">
-							<?php echo email_obfuscator($description) ?>	
-						</div>
-						<?php } ?>
-
-						<?php if ( $locations || $mailing_address) { ?>
-						<div class="division-info">
-							
-							<?php if ($mailing_address) { ?>
-							<div class="info mailing-address">
-								<div class="title">Mailing Address</div>
-								<div class="val v_address"><?php echo $mailing_address ?></div>
+						<div class="wrap">
+							<h2 class="term-name"><?php echo $current_term_name ?></h2>
+							<?php if ($description) { ?>
+							<div class="description">
+								<?php echo email_obfuscator($description) ?>	
 							</div>
 							<?php } ?>
 
-							<?php foreach ($locations as $obj) { 
-								if($obj['location_title']) { 
-									$slug_loc = ($obj['location_title']) ?  sanitize_title($obj['location_title']) : '';
-									?>
-									<div class="info <?php echo $k ?>-info">
-										<div class="title"><?php echo $obj['location_title'] ?></div>
-										<?php unset($obj['location_title']); ?>
-										<?php foreach($obj as $k=>$val) { 
-											if($val) { ?>
-												<div class="val v_<?php echo $k ?>"><?php echo $val ?></div>
-											<?php } ?>
-										<?php } ?>
-									</div>
+							<?php if ( $locations || $mailing_address) { ?>
+							<div class="division-info">
+								<?php if ($mailing_address) { ?>
+								<div class="info mailing-address">
+									<div class="title">Mailing Address</div>
+									<div class="val v_address"><?php echo $mailing_address ?></div>
+								</div>
 								<?php } ?>
-							<?php } ?>
 
+								<?php foreach ($locations as $obj) { 
+									if($obj['location_title']) { 
+										$slug_loc = ($obj['location_title']) ?  sanitize_title($obj['location_title']) : '';
+										?>
+										<div class="info <?php echo $k ?>-info">
+											<div class="title"><?php echo $obj['location_title'] ?></div>
+											<?php unset($obj['location_title']); ?>
+											<?php foreach($obj as $k=>$val) { 
+												if($val) { ?>
+													<div class="val v_<?php echo $k ?>"><?php echo $val ?></div>
+												<?php } ?>
+											<?php } ?>
+										</div>
+									<?php } ?>
+								<?php } ?>
+							</div>
+							<?php } ?>
 						</div>
-						<?php } ?>
 					</div>
 				</div>	
 				<?php } ?>

@@ -4475,6 +4475,7 @@ body.page-template-page-projects {
 	}
 	.project-info.right {
 		div.image {
+			min-height: 50vh;
 			width: 100%;
 			height: 100%;
 			@include backgroundImage(center);
@@ -4483,6 +4484,9 @@ body.page-template-page-projects {
 				width: 100%;
 				height: auto;
 				float: left;
+				@include tab {
+					display: none;
+				}
 			}
 		}
 	}
@@ -4821,6 +4825,11 @@ body.page-template-page-locations #primary {
 			padding: 30px;
 			@include tab {
 				padding: 50px 4vw;
+				@include flexgroup();
+				@include flexbox-align-items(center);
+				.wrap {
+					width: 100%;
+				}
 			}
 			&:after {
 				border-left: 40px solid $primary;

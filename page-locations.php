@@ -83,28 +83,31 @@ get_header(); ?>
 								<?php if ($custom_fields_order) { ?>
 								<div class="pcontent">
 									<ul class="info">
-									<?php foreach ($custom_fields_order as $cf) { 
+										<?php //print_r($custom_fields_order); ?>
+									<?php foreach ($custom_fields_order as $k=>$cf) { 
 										$field_name = $cf->name;
+										$field_name_slug = ($field_name) ? sanitize_title($field_name) : '';
 										$field_value = $cf->value;
 										$field_icon = ($cf->field_icon) ? 'si fa fa-'.$cf->field_icon : '';
 										if($field_name=='Division') {
 											$field_icon = 'si ci-steelfab';
 										}
-										?>
+										if($field_name_slug!='division-url') { ?>
 										<?php if ($field_name && $field_value) { ?>
-										<li>
-											<?php if ($field_icon) { ?>
-											<i class="<?php echo $field_icon ?>"></i>	
-											<?php } ?>
+											<li class="data-<?php echo $field_name_slug ?>">
+												<?php if ($field_icon) { ?>
+												<i class="<?php echo $field_icon ?>"></i>	
+												<?php } ?>
 
-											<?php if ($field_name) { ?>
-											<strong class="f-name"><?php echo $field_name ?>: </strong>	
-											<?php } ?>
+												<?php if ($field_name) { ?>
+												<strong class="f-name"><?php echo $field_name ?>: </strong>	
+												<?php } ?>
 
-											<?php if ($field_value) { ?>
-											<span class="f-value"><?php echo $field_value ?></span>	
+												<?php if ($field_value) { ?>
+												<span class="f-value"><?php echo $field_value ?></span>	
+												<?php } ?>
+											</li>	
 											<?php } ?>
-										</li>	
 										<?php } ?>
 									<?php } ?>
 									</ul>
