@@ -39,7 +39,7 @@ function js_custom_init() {
           'single'    => 'Career',
           'menu_icon' => 'dashicons-megaphone',
           'supports'  => array('title','editor')
-        )
+        ),
     );
     
     if($post_types) {

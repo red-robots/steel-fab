@@ -103,10 +103,10 @@ function admin_head_custom_css() { ?>
 .divisions-select-wrap .select2 {
 	width: 100%!important;
 }
-.wgmza-map-editor-holder [data-custom-field-id="7"],
+/*.wgmza-map-editor-holder [data-custom-field-id="7"],
 .wgmza-map-editor-holder [data-custom-field-id="5"] input {
 	display: none!important;
-}
+}*/
 </style>
 <?php }
 add_action('admin_head', 'admin_head_custom_css');
@@ -144,20 +144,21 @@ jQuery(document).ready(function($){
 			    placeholder: "Select a Division",
 			    allowClear: true
 			});
+			
 			$(document).on("change","#divisions_options",function(){
 				var opt = $(this).val();
 				var label = $(this).find('option:selected').text();
 				$('[data-custom-field-id="5"]').find('input').val(label);
 				$('[data-custom-field-id="7"] input').val(opt);
 			});
-			// $(document).on('click','.wpgmza_edit_btn.button',function(){
-			// 	var id = $(this).attr('data-edit-marker-id');
-			// 	$("#divisions_options select").val(id).trigger('change');
-			// });
 
 			$(document).ajaxComplete ( function(event, jqxhr, settings){
 				var id = $('[data-custom-field-id="7"] input').val();
-				$("#divisions_options select").val(id).trigger('change');
+				$('#divisions_options').val(id).trigger('change');
+				$("#divisions_options").select2({
+				  placeholder: "Select a Division",
+				  allowClear: true
+				});
 			});
 		}
 	}

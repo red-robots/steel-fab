@@ -83,7 +83,19 @@ get_header(); ?>
 								<?php if ($custom_fields_order) { ?>
 								<div class="pcontent">
 									<ul class="info">
-										<?php //print_r($custom_fields_order); ?>
+									<?php
+										$division_link = '';
+										foreach ($custom_fields_order as $i=>$cf) {
+											$field_name_slug = ($cf->name) ? sanitize_title($cf->name) : '';
+											if($field_name_slug=='division-url') {
+												unset($custom_fields_order[$i]);
+												if( $term = get_term($cf->value,'divisions') ) {
+													$division_link = get_term_link($term,'divisions');
+												}
+											}
+										}
+									?>	
+
 									<?php foreach ($custom_fields_order as $k=>$cf) { 
 										$field_name = $cf->name;
 										$field_name_slug = ($field_name) ? sanitize_title($field_name) : '';
@@ -91,8 +103,12 @@ get_header(); ?>
 										$field_icon = ($cf->field_icon) ? 'si fa fa-'.$cf->field_icon : '';
 										if($field_name=='Division') {
 											$field_icon = 'si ci-steelfab';
+											if($division_link) {
+												$field_value = '<a href="'.$division_link.'">'.$field_value.'</a>';
+											}
 										}
-										if($field_name_slug!='division-url') { ?>
+										?>
+
 										<?php if ($field_name && $field_value) { ?>
 											<li class="data-<?php echo $field_name_slug ?>">
 												<?php if ($field_icon) { ?>
@@ -104,11 +120,12 @@ get_header(); ?>
 												<?php } ?>
 
 												<?php if ($field_value) { ?>
-												<span class="f-value"><?php echo $field_value ?></span>	
+													<span class="f-value"><?php echo $field_value ?></span>	
 												<?php } ?>
 											</li>	
-											<?php } ?>
 										<?php } ?>
+
+
 									<?php } ?>
 									</ul>
 								</div>

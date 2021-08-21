@@ -427,3 +427,132 @@ if( function_exists('acf_add_options_page') ) {
     'parent_slug' => 'edit.php?post_type=team'
   ));
 }
+
+
+/* SAVE ACF */
+// add_action('acf/save_post', 'my_acf_save_post');
+// function my_acf_save_post( $post_id ) {
+//   global $wpdb;
+
+//   $prefix = $wpdb->prefix;
+//   $table1 = $prefix . 'wpgmza';
+//   $table2 = $prefix . 'wpgmza_markers_has_categories';
+//   $marker_id = '';
+//   $lat_long_strs = '';
+//   $lat = '';
+//   $long = '';
+//   $lastid = '';
+
+//   $latlong = get_field("latlong",$post_id);
+//   $lat_long_strs = ($latlong) ? preg_replace("/\s+/", "", $latlong) : '';
+//   if( $lat_long_strs ) {
+//     $parts = explode(",",$lat_long_strs);
+//     $lat = ( isset($parts[0]) ) ? $parts[0] : '';
+//     $long = ( isset($parts[1]) ) ? $parts[1] : '';
+//     $query = "SELECT id FROM $table1 WHERE lat='".$lat."' AND lng='".$long."'";
+//     $result = $wpdb->get_row($query);
+//     $marker_id = ($result) ? $result->id : '';
+//   }
+
+//   /* If exists update entry */
+//   $default_map_id = 1;
+//   $terms = get_the_terms($post_id,'location-type');
+//   $icon_value = '';
+//   $post_title = get_the_title($post_id);
+
+//   if( $marker_id ) {
+
+//     $arg = array(
+//       'map_id'    => $default_map_id,
+//       'address'   => $lat_long_strs,
+//       'icon'      => $icon_value,
+//       'lat'       => $lat,
+//       'lng'       => $long,
+//       'title'     => $post_title,
+//       'approved'  => 1,
+//       'retina'    => 1
+//     );
+    
+
+//     //$wpdb->update('table_name', array('id'=>$id, 'title'=>$title, 'message'=>$message), array('id'=>$id));
+
+//   } else {
+
+//     /* If not exists insert entry */
+//     $term_count = ($terms) ? count($terms) : 0;
+//     if($term_count>1) {
+//       $icon['url'] = get_template_directory_uri() . '/images/markers/marker_all.png';
+//       $icon['retina'] = false;
+//       $icon_value = @json_encode($icon);
+//     }
+//     else if($term_count==1) {
+//       $cat = $terms[0]->slug;
+//       if($cat=='facilities') {
+//         $icon['url'] = get_template_directory_uri() . '/images/markers/marker_facility.png';
+//         $icon['retina'] = false;
+//         $icon_value = @json_encode($icon);
+//       }
+//       else if($cat=='offices') {
+//         $icon['url'] = get_template_directory_uri() . '/images/markers/marker_office.png';
+//         $icon['retina'] = false;
+//         $icon_value = @json_encode($icon);
+//       }
+//     }
+
+//     $arg = array(
+//       'map_id'    => $default_map_id,
+//       'address'   => $lat_long_strs,
+//       'icon'      => $icon_value,
+//       'lat'       => $lat,
+//       'lng'       => $long,
+//       'title'     => $post_title,
+//       'approved'  => 1,
+//       'retina'    => 1
+//     );
+
+//     $wpdb->insert($table1,$arg);
+//     $lastid = $wpdb->insert_id;
+//     if($lastid) {
+
+//       if( $terms ) {
+//         foreach($terms as $term) {
+//           $term_id = $term->name;
+//           $map_cat_id = get_map_category_id($term_id);
+//           if($map_cat_id) {
+//             $map_arg = array(
+//               'marker_id'   => $lastid,
+//               'category_id' => $map_cat_id
+//             );
+//             $wpdb->insert($table2,$map_arg);
+//           }
+//         }
+//       }
+//     }
+
+//   }
+  
+// }
+
+// function get_map_marker_data($address) {
+//   global $wpdb;
+//   $prefix = $wpdb->prefix;
+//   $table1 = $prefix . 'wpgmza';
+//   if( empty($title) ) return '';
+//   $result = $wpdb->get_row( "SELECT id FROM $table1 WHERE address = '".$address."'" );
+//   return ($result) ? $result->id : '';
+// }
+
+// function get_map_category_id($catName) {
+//   global $wpdb;
+//   if( empty($catName) ) return '';
+//   $prefix = $wpdb->prefix;
+//   $table2 = $prefix . 'wpgmza_categories';
+//   $result = $wpdb->get_row( "SELECT id FROM $table2 WHERE category_name = '".$catName."'" );
+//   return ($result) ? $result->id : '';
+// }
+
+
+
+
+
+
