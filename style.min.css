@@ -2818,7 +2818,7 @@ body.page-template-page-locations #primary{overflow:hidden;position:relative}
 .term-divisions .term a:hover:after{-webkit-transform:scaleX(1);-ms-transform:scaleX(1);transform:scaleX(1)}
 .term-divisions .term.active a{color:#0154a0}
 .term-divisions .term.active a:after{-webkit-transform:scaleX(1);-ms-transform:scaleX(1);transform:scaleX(1)}
-.project-description-area.divisions{margin-bottom:0}
+.project-description-area.divisions{background:#335d7d;margin-bottom:0}
 .project-description-area.divisions .wrapper{padding-left:0;padding-right:0;max-width:100%;width:100%}
 .project-description-area.divisions .term-name{font-size:2.2rem;font-weight:800;line-height:1.2;margin:0 0 20px;text-transform:uppercase}
 .project-description-area.divisions .project-info.left .inside{background:#335d7d;padding:30px}
@@ -2837,6 +2837,8 @@ body.page-template-page-locations #primary{overflow:hidden;position:relative}
 .project-description-area.divisions .division-info .val.v_phone:before{content:"\f879"}
 .project-description-area.divisions .division-info .val.v_fax:before{content:"\f1ac"}
 .project-description-area.divisions .division-info .val.v_contacts:before{content:"\f007"}
+.project-description-area.divisions.onecol .project-info.left{max-width:900px;width:100%;margin:0 auto;text-align:center}
+.project-description-area.divisions.onecol .project-info.left .division-info{display:inline-block;text-align:left}
 .available-jobs-area{background:#f3f3f3;padding-top:50px;padding-bottom:50px}
 @media(min-width:820px){.available-jobs-area{padding-top:70px;padding-bottom:70px}
 }.available-jobs-area .mid-title{font-size:2.2rem;font-weight:800;line-height:1.2;color:#335d7d;margin:0 0 15px;text-transform:uppercase}

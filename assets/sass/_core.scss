@@ -4805,6 +4805,7 @@ body.page-template-page-locations #primary {
 }
 
 .project-description-area.divisions {
+	background: $primary;
 	margin-bottom: 0;
 	.wrapper {
 		padding-left: 0;
@@ -4896,6 +4897,19 @@ body.page-template-page-locations #primary {
 			}
 			&.v_contacts:before {
 				content: "\f007";
+			}
+		}
+	}
+
+	&.onecol {
+		.project-info.left {
+			max-width: 900px;
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			.division-info {
+				display: inline-block;
+				text-align: left;
 			}
 		}
 	}
