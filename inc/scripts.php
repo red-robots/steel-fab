@@ -107,6 +107,7 @@ function admin_head_custom_css() { ?>
 .wgmza-map-editor-holder [data-custom-field-id="5"] input {
 	display: none!important;
 }*/
+.wgmza-map-editor-holder [data-custom-field-id="7"] { display: none!important; }
 </style>
 <?php }
 add_action('admin_head', 'admin_head_custom_css');
@@ -132,7 +133,7 @@ jQuery(document).ready(function($){
 		if(divisions) {
 			divisions = $.parseJSON(divisions);
 			var selectedVal = $('[data-custom-field-id="7"] input').val();
-			var select = '<div class="divisions-select-wrap"><select id="divisions_options" class="select-division selectjs select2">';
+			var select = '<div class="divisions-select-wrap" style="margin-top:13px"><legend>Division URL</legend><select id="divisions_options" class="select-division selectjs select2">';
 					select += '<option></option>';
 					$(divisions).each(function(k,v){
 						var selected = (selectedVal && selectedVal==v.term_id) ? ' selected':''; 
@@ -148,7 +149,7 @@ jQuery(document).ready(function($){
 			$(document).on("change","#divisions_options",function(){
 				var opt = $(this).val();
 				var label = $(this).find('option:selected').text();
-				$('[data-custom-field-id="5"]').find('input').val(label);
+				//$('[data-custom-field-id="5"]').find('input').val(label);
 				$('[data-custom-field-id="7"] input').val(opt);
 			});
 
