@@ -2648,6 +2648,12 @@ body.scrolled {
 		}
 		.wrapper {
 			max-width: 100%;
+			padding-left: 0;
+			padding-right: 0;
+		}
+		.flexwrap {
+			margin-left: 0;
+			margin-right: 0;
 		}
 		.fcol {
 			width: 100%;
