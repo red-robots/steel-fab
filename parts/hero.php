@@ -11,7 +11,7 @@ if( $is_subpage ) { ?>
 		}
 		if( is_tax('divisions') ) {
 			$banner = get_field("divisions_main_photo","option");
-			$page_title = 'Divisions';
+			$page_title = get_field("division_page_title","option");
 		}
 	?>
 	<?php if ($banner) { ?>
