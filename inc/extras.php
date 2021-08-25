@@ -426,6 +426,11 @@ if( function_exists('acf_add_options_page') ) {
     'menu_title'  => 'Divisions Options',
     'parent_slug' => 'edit.php?post_type=team'
   ));
+  acf_add_options_sub_page(array(
+    'page_title'  => 'Projects Options',
+    'menu_title'  => 'Options',
+    'parent_slug' => 'edit.php?post_type=project'
+  ));
 }
 
 
