@@ -37,6 +37,9 @@ var params={};location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){
 </head>
 <?php  
 $banner = get_field("banner");
+if( is_tax('divisions') ) {
+	$banner = get_field("divisions_main_photo","option");
+}
 $has_hero = ($banner) ? 'has-hero':'no-hero';
 ?>
 <body <?php body_class($has_hero); ?>>
