@@ -10026,7 +10026,7 @@ body.open-menu .nav-overlay {
     content: "";
     display: block;
     width: 100%;
-    height: 50%;
+    height: 80%;
     position: absolute;
     left: 0;
     bottom: 0;
