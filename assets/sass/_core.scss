@@ -2775,6 +2775,9 @@ body.scrolled {
 				display: none;
 			}
 		}
+		.fcol:last-child {
+			border-bottom: none!important;
+		}
 	}
 }
 
