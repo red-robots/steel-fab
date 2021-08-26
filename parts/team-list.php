@@ -24,7 +24,7 @@ if ( $team->have_posts() ) { ?>
 				$linkedin = get_field("linkedin");
 				$enable_link = true;
 				?>
-				<div class="hexFigure <?php echo $hasphoto ?>">
+				<div class="hexFigure square <?php echo $hasphoto ?>">
 					<div class="hexagon" href="<?php echo $pagelink ?>">
 						<img class="helper" src="<?php echo get_images_dir('square.png') ?>" alt="" aria-hidden="true">
 						<div class="hexInner">

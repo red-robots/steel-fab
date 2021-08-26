@@ -1832,14 +1832,17 @@ body.scrolled {
 				text-transform: uppercase;
 				margin: 0 0 25px;
 			}
-			div.button {
-				margin-top: 30px;
-			}
+			// div.button {
+			// 	margin-top: 30px;
+			// }
 			a.more {
 				display: inline-block;
 				text-decoration: none;
 				color: #FFF;
 				position: relative;
+				top: -15px;
+				padding: 25px 40px;
+    			position: relative;
 				span {
 					display: inline-block;
 					position: relative;
@@ -3420,14 +3423,16 @@ body.scrolled {
 			}
 		}
 	}
+
+
 	.staff-info {
 		text-align: center;
 		margin-top: 10vw;
-    margin-bottom: 3vw;
-    @include xs {
-    	margin-top: 1vw;
-    	margin-bottom: 0;
-    }
+    	margin-bottom: 3vw;
+	    @include xs {
+	    	margin-top: 1vw;
+	    	margin-bottom: 0;
+	    }
 
 		.name {
 			font-size: 18px;
@@ -3461,6 +3466,53 @@ body.scrolled {
 				color: $primary;
 				&:hover {
 					color: tint($primary,20%);
+				}
+			}
+		}
+	}
+
+
+	/* HEX TO SQUARE */
+	.hexagons-large .hexFigure.square {
+		padding: 0 3vw;
+		.hexagon {
+			width: 100%;
+			height: auto;
+			float: left;
+			position: relative;
+			margin-bottom: 20px;
+			.hex1, .hex2 {
+				background-color: #dedede;
+			}
+			.hex1, .hex2, .heximg {
+				transform: none!important;
+			}
+			.hexInner {
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			.heximg {
+				background-size: 100%;
+			}
+		}
+		&.noImage {
+			.hex2 {
+				position: relative;
+				&:before {
+					content: "Photo Coming Soon";
+					display: block;
+					width: 100%;
+					position: absolute;
+					top: 50%;
+					left: 0;
+					transform: translateY(-50%);
+					text-align: center;
+					text-transform: uppercase;
+					color: #a9a9a9;
+    			font-size: 10px;
+    			letter-spacing: 1px;
 				}
 			}
 		}
@@ -3795,6 +3847,10 @@ body.subpage {
 			max-width: 900px;
 			width: 100%;
 			margin: 0 auto;
+			min-height: 300px;
+			@include desk {
+				min-height: 450px;
+			}
 		}
 	}
 	.photo {

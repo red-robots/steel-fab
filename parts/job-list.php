@@ -13,7 +13,7 @@ if ( $careers->have_posts() ) { ?>
 			$id = get_the_ID();
 			$jobtitle = get_the_title();
 			$text = get_the_content();
-			$summary = ($text) ? shortenText($text,200,'.', '...') : '';
+			$summary = ($text) ? shortenText(strip_tags($text),150,' ','...') : '';
 			$locations = '';
 			$division = get_the_terms($id,'divisions');
 			if($division) {

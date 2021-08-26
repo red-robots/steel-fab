@@ -6,12 +6,12 @@ if( $is_subpage ) { ?>
 		$page_title = get_the_title();
 		if( is_singular('project') ) {
 			$parent_id = get_page_id_by_template('page-projects');
-			//$page_title = get_the_title($parent_id);
+			$page_title = get_the_title($parent_id);
 			$banner = get_field("banner",$parent_id);
-			$page_title = get_field("project_main_page_title","option");
-			if(empty($page_title)) {
-				$page_title = get_the_title($parent_id);
-			}
+			// $page_title = get_field("project_main_page_title","option");
+			// if(empty($page_title)) {
+			// 	$page_title = get_the_title($parent_id);
+			// }
 			
 		}
 		if( is_tax('divisions') ) {

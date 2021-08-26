@@ -321,11 +321,20 @@ if( $row7_title || $row7_projects || $row7_button ) { ?>
 	</div>
 	<?php } ?>
 
+	<?php 
+	/* 
+	* Temporarily disable `See More` button
+	* Remove the variables below to enable the button
+	*/
+	$row7BtnTitle = false;
+	$row7BtnLink = false;
+	?>
 	<?php if ($row7BtnTitle && $row7BtnLink) { ?>
 	<div class="button text-center">
 		<a href="<?php echo $row7BtnLink ?>" target="<?php echo $row7BtnTarget ?>" class="btn-default"><?php echo $row7BtnTitle ?></a>
 	</div>
 	<?php } ?>
+	
 </div>
 <?php } ?>
 

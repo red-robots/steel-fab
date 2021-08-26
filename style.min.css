@@ -2263,8 +2263,7 @@ body.subpage .site-header:after{background-color:#031a29}
 .hexagons-large .hex-caption{width:100%;height:60%;position:absolute;top:50%;left:0;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%);z-index:10;overflow:hidden;display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-flex-direction:row;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-align-items:center;align-items:center}
 .hexagons-large .hex-caption .hex-text{width:100%;text-align:center;font-size:13px;color:#FFF;padding:0 8%}
 .hexagons-large .hex-caption .hex-text .h3{font-size:20px;font-weight:700;text-transform:uppercase;margin:0 0 25px}
-.hexagons-large .hex-caption .hex-text div.button{margin-top:30px}
-.hexagons-large .hex-caption .hex-text a.more{display:inline-block;text-decoration:none;color:#FFF;position:relative}
+.hexagons-large .hex-caption .hex-text a.more{display:inline-block;text-decoration:none;color:#FFF;position:relative;top:-15px;padding:25px 40px;position:relative}
 .hexagons-large .hex-caption .hex-text a.more span{display:inline-block;position:relative}
 .hexagons-large .hex-caption .hex-text a.more .arrow{display:inline-block;width:7px;height:2px;position:absolute;top:11px;right:-11px;-webkit-transition:all ease .3s;transition:all ease .3s}
 .hexagons-large .hex-caption .hex-text a.more .arrow:before,.hexagons-large .hex-caption .hex-text a.more .arrow:after{content:"";display:block;width:100%;height:100%;background:#eca72c;position:absolute;top:0;left:0}
@@ -2563,6 +2562,14 @@ body.subpage .site-header:after{background-color:#031a29}
 .team-list .staff-info .icon-phone{display:inline-block;-webkit-transform:rotate(90deg);-ms-transform:rotate(90deg);transform:rotate(90deg);color:#335d7d}
 .team-list .staff-info .info.linkedin a{font-size:16px;color:#335d7d}
 .team-list .staff-info .info.linkedin a:hover{color:#5c7d97}
+.team-list .hexagons-large .hexFigure.square{padding:0 3vw}
+.team-list .hexagons-large .hexFigure.square .hexagon{width:100%;height:auto;float:left;position:relative;margin-bottom:20px}
+.team-list .hexagons-large .hexFigure.square .hexagon .hex1,.team-list .hexagons-large .hexFigure.square .hexagon .hex2{background-color:#dedede}
+.team-list .hexagons-large .hexFigure.square .hexagon .hex1,.team-list .hexagons-large .hexFigure.square .hexagon .hex2,.team-list .hexagons-large .hexFigure.square .hexagon .heximg{-webkit-transform:none !important;-ms-transform:none !important;transform:none !important}
+.team-list .hexagons-large .hexFigure.square .hexagon .hexInner{height:100%;position:absolute;top:0;left:0}
+.team-list .hexagons-large .hexFigure.square .hexagon .heximg{background-size:100%}
+.team-list .hexagons-large .hexFigure.square.noImage .hex2{position:relative}
+.team-list .hexagons-large .hexFigure.square.noImage .hex2:before{content:"Photo Coming Soon";display:block;width:100%;position:absolute;top:50%;left:0;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%);text-align:center;text-transform:uppercase;color:#a9a9a9;font-size:10px;letter-spacing:1px}
 .backtoparent .fa-chevron-left{font-size:11px;line-height:1;position:relative;top:-1px;margin-right:3px;-webkit-transition:all ease .3s;transition:all ease .3s}
 .backtoparent a{display:inline-block;text-decoration:none}
 .backtoparent a:hover .fa-chevron-left{-webkit-transform:translateX(-4px);-ms-transform:translateX(-4px);transform:translateX(-4px)}
@@ -2635,8 +2642,9 @@ body.subpage .entry-content{min-height:20em}
 #timeline-area .timeline-content{margin-top:80px}
 #timeline-area .timeline-navigation a{position:absolute;top:-60px}
 #timeline-area .timeline-navigation{z-index:50}
-#timeline-area .history-data .info{max-width:900px;width:100%;margin:0 auto}
-#timeline-area .photo{margin-top:30px}
+#timeline-area .history-data .info{max-width:900px;width:100%;margin:0 auto;min-height:300px}
+@media(min-width:1200px){#timeline-area .history-data .info{min-height:450px}
+}#timeline-area .photo{margin-top:30px}
 #timeline-area .photo img{max-width:350px;width:100%;height:auto}
 .text-left-image-right{background-color:#031a29;color:#FFF;position:relative}
 .text-left-image-right .bg{background-size:cover;background-position:center;background-repeat:no-repeat;width:100%;height:100%;position:absolute;top:0;left:0}

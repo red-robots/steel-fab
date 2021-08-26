@@ -63,6 +63,13 @@ function shortenText($string, $limit, $break=".", $pad="...") {
   return $string;
 }
 
+function shortenText2($text, $max = 50, $append = '…') {
+  if (strlen($text) <= $max) return $text;
+  $return = substr($text, 0, $max);
+  if (strpos($text, ' ') === false) return $return . $append;
+  return preg_replace('/\w+$/', '', $return) . $append;
+}
+
 /* Fixed Gravity Form Conflict Js */
 add_filter("gform_init_scripts_footer", "init_scripts");
 function init_scripts() {
@@ -426,11 +433,11 @@ if( function_exists('acf_add_options_page') ) {
     'menu_title'  => 'Divisions Options',
     'parent_slug' => 'edit.php?post_type=team'
   ));
-  acf_add_options_sub_page(array(
-    'page_title'  => 'Projects Options',
-    'menu_title'  => 'Options',
-    'parent_slug' => 'edit.php?post_type=project'
-  ));
+  // acf_add_options_sub_page(array(
+  //   'page_title'  => 'Projects Options',
+  //   'menu_title'  => 'Options',
+  //   'parent_slug' => 'edit.php?post_type=project'
+  // ));
 }
 
 
