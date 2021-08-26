@@ -681,6 +681,9 @@ body.open-menu {
 			min-height: 165px;
 		}
 	}
+	div.button {
+		margin-top: 40px;
+	}
 }
 
 
@@ -994,8 +997,12 @@ body.open-menu {
 	background-color: $gray;
 	color: #FFF;
 	text-align: center;
-	padding-top: 5vw;
-	padding-bottom: 5vw;
+	padding-top: 60px;
+	padding-bottom: 65px;
+	@include tab {
+		padding-top: 5vw;
+		padding-bottom: 5vw;
+	}
 	&:after {
 		content:"";
 		display: block;
@@ -1085,9 +1092,13 @@ body.open-menu {
 	@include backgroundImage(center);
 	background-color: $dark_blue;
 	.wrapper {
-		padding-top: 10vw;
-		padding-bottom: 10vw;
+		padding-top: 60px;
+		padding-bottom: 65px;
 		z-index: 10;
+		@include tab {
+			padding-top: 10vw;
+			padding-bottom: 10vw;
+		}
 	}
 	.fcol {
 		width: 100%;
@@ -1222,8 +1233,8 @@ body.open-menu {
 #home-row-8 {
 	background: $blue;
 	color: #FFF;
-	padding-top: 5vw;
-	padding-bottom: 5vw;
+	// padding-top: 5vw;
+	// padding-bottom: 5vw;
 	&:before,
 	&:after {
 		content:"";
@@ -1267,8 +1278,8 @@ body.open-menu {
 
 @include max($midwidth) {
 	#home-row-4 {
-    padding-top: 10px;
-    padding-bottom: 50px;
+    padding-top: 20px;
+    padding-bottom: 60px;
 		.fcol {
 			width: 100%!important;
 		}
@@ -1362,8 +1373,8 @@ body.scrolled {
 .bottom-blue-area {
 	background: $blue;
 	color: #FFF;
-	padding-top: 50px;
-	padding-bottom: 50px;
+	padding-top: 60px;
+	padding-bottom: 65px;
 	position: relative;
 	overflow: hidden;
 	z-index: 20;
@@ -1468,13 +1479,14 @@ body.scrolled {
 	#row1 {
 		min-height: 10em;
 		.flexwrap {
-			padding-top: 40px;
-			padding-bottom: 120px;
+			padding-top: 30px;
+			padding-bottom: 20px;
 			margin-left: -30px;
 			margin-right: -30px;
 			@include tab {
 				margin-left: -40px;
 				margin-right: -40px;
+				padding-bottom: 120px;
 			}
 		}
 		.fcol {
@@ -1511,7 +1523,9 @@ body.scrolled {
 				.inside {
 					position: relative;
 					padding-bottom: 40px;
-					border-bottom: 1px solid $primary;
+					@include tab {
+						border-bottom: 1px solid $primary;
+					}
 				}
 			}
 		}
@@ -1993,12 +2007,13 @@ body.scrolled {
 	min-height: 10em;
 	.flexwrap {
 		padding-top: 30px;
-		padding-bottom: 80px;
+		padding-bottom: 20px;
 		margin-left: -30px;
 		margin-right: -30px;
 		@include tab {
 			margin-left: -40px;
 			margin-right: -40px;
+			padding-bottom: 80px;
 		}
 	}
 	.fcol {
@@ -2037,7 +2052,9 @@ body.scrolled {
 			.inside {
 				position: relative;
 				padding-bottom: 40px;
-				border-bottom: 1px solid $primary;
+				@include tab {
+					border-bottom: 1px solid $primary;
+				}
 			}
 		}
 	}
@@ -2316,12 +2333,13 @@ body.scrolled {
 		}
 		&.twocol {
 			.fxcol.left {
-				padding-top: 5vw;
-				padding-bottom: 10vw;
+				padding-top: 30px;
+				padding-bottom: 40px;
 				position: relative;
 				top: -10px;
 				@include tab {
 					top: -70px;
+					padding-top: 5vw;
 					padding-bottom: 0;
 				}
 			}
@@ -2351,15 +2369,19 @@ body.scrolled {
 	position: relative;
 	background: $light_gray;
 	position: absolute;
-	top: -65px;
+	top: -70px;
 	left: 0;
 	width: 100%;
-	height: calc(100% + 65px);
+	height: 80vh;
 	clip-path: polygon(35% 0, 50% 10%, 65% 0, 100% 0, 100% 100%, 0 100%, 0 0);
+	display: none;
 	@include xs {
+		display: block;
+		height: calc(100% + 30px);
 		clip-path: polygon(40% 0, 50% 7%, 60% 0, 100% 0, 100% 100%, 0 100%, 0 0);
 	}
 	@include desk {
+		height: calc(100% + 65px);
 		clip-path: polygon(44% 0, 50% 18%, 56% 0, 100% 0, 100% 100%, 0 100%, 0 0)
 	}
 	@include max(400px) {
@@ -2384,6 +2406,29 @@ body.scrolled {
 			}
 		}
 	}
+	@include max($xswidth - 1px) {
+		display: block;
+		clip-path: none!important;
+		background-color: transparent;
+		height: 75px;
+		&:before, &:after {
+			content:"";
+			display: block;
+			width: 100%;
+			height: 100%;
+			background: #f3f3f3;
+			position: absolute;
+			top: 0;
+		}
+		&:before {
+			left: -55%;
+			transform: skew(45deg);
+		}
+		&:after {
+			right: -55%;
+			transform: skew(-45deg);
+		}
+	}
 }
 
 .text-button-blue-bg {
@@ -2405,13 +2450,14 @@ body.scrolled {
 	#row1 {
 		min-height: 10em;
 		.flexwrap {
-			padding-top: 40px;
-			padding-bottom: 90px;
+			padding-top: 30px;
+			padding-bottom: 20px;
 			margin-left: -30px;
 			margin-right: -30px;
 			@include tab {
 				margin-left: -40px;
 				margin-right: -40px;
+				padding-bottom: 90px;
 			}
 		}
 		.fcol {
@@ -2445,7 +2491,9 @@ body.scrolled {
 				.inside {
 					position: relative;
 					padding-bottom: 40px;
-					border-bottom: 1px solid $primary;
+					@include tab {
+						border-bottom: 1px solid $primary;
+					}
 				}
 			}
 		}
@@ -2574,8 +2622,10 @@ body.scrolled {
 		.svc.primary-bg-color {
 			position: relative;
 			color: #FFF;
-			padding-top: 8vh;
-			padding-bottom: 15vh;
+			// padding-top: 8vh;
+			// padding-bottom: 15vh;
+			padding-top: 60px;
+			padding-bottom: 50px;
 			@include backgroundImage(center);
 			background-color: $primary;
 			@include tab {
@@ -3069,7 +3119,30 @@ body.scrolled {
 			}
 		}
 	}
+	@include max( $tabwidth - 1px ) {
+		&:before, &:after {
+			display: none!important;
+		}
+		.fcol {
+			border-bottom: 1px solid $primary;
+			&:before, &:after,
+			.wrap:before, .wrap:after {
+				display: none!important;
+			}
+			.inner {
+				padding-top: 50px;
+    		padding-bottom: 40px;
+			}
+		}
+		&.count3  {
+			.fcol.col3 .wrap:before,
+			.fcol.col3 .wrap:after {
+				display: none!important;
+			}
+		}
+	}
 }
+
 
 .flexible-content-wrap {
 	position: relative;
@@ -3090,7 +3163,7 @@ body.scrolled {
 		@include flexgroup-center();
 		.wrap {
 			width: 100%;
-			padding: 30px;
+			padding: 50px 30px;
 			@include tab {
 				padding: 6vw 5vw;
 			}
@@ -3371,7 +3444,7 @@ body.scrolled {
 	}	
 }
 .team-list  {
-	padding-bottom: 100px;
+	padding-bottom: 0;
 	.hexagons-large {
 		margin-left: -4vw;
 		margin-right: -4vw;
@@ -3383,7 +3456,7 @@ body.scrolled {
 		.hexFigure {
 			transform: none!important;
 			width: 100%;
-			margin-bottom: 22vw;
+			margin-bottom: 30px;
 			margin-top: 5vw;
 			@include xs {
 				width: 50%;
@@ -3443,6 +3516,7 @@ body.scrolled {
 			margin: 0 0 10px;
 		}
 		.info {
+			
 			font-size: 13px;
 			line-height: 1.4;
 			margin-bottom: 2px;
@@ -3454,6 +3528,9 @@ body.scrolled {
 					color: $yellow;
 				}
 			}
+			// &.phone {
+			// 	font-family: $font_secondary;
+			// }
 		}
 		.icon-phone {
 			display: inline-block;
@@ -4951,17 +5028,24 @@ body.page-template-page-locations #primary {
 }
 
 .term-divisions {
-	margin: 30px 0 60px;
+	margin: 10px 60px 50px;
+	@include xs {
+		margin: 30px 0 60px;
+	}
 	.inner {
 		margin: 0 -15px;
 		text-align: center;
 	}
 	.term {
-		text-align: center;
-		min-width: 15vw;
-		width: auto;
-		padding: 15px;
 		display: inline-block;
+		text-align: center;
+		padding: 5px 15px;
+		width: 100%;
+		@include xs {
+			min-width: 15vw;
+			width: auto;
+			padding: 15px;
+		}
 		a {
 			display: inline-block;
 			text-decoration: none;
@@ -5017,7 +5101,7 @@ body.page-template-page-locations #primary {
 	.project-info.left {
 		.inside {
 			background: $primary;
-			padding: 30px;
+			padding: 50px 30px;
 			@include tab {
 				padding: 50px 4vw;
 				@include flexgroup();
@@ -5136,22 +5220,30 @@ body.page-template-page-locations #primary {
 			position: relative;
 			padding-left: 17px;
     	padding-right: 15px;
-			&:before {
-				content:"";
-				display: block;
-				width: 1px;
-				height: 80%;
-				background: $primary;
-				position: absolute;
-				top: 50%;
-				left: 0;
-				transform: translateY(-50%);
+    	width: 100%;
+    	@include xs {
+    		width: auto;
+				&:before {
+					content:"";
+					display: block;
+					width: 1px;
+					height: 80%;
+					background: $primary;
+					position: absolute;
+					top: 50%;
+					left: 0;
+					transform: translateY(-50%);
+				}
 			}
 			a {
 				display: inline-block;
 				text-decoration: none;
 				color: $primary;
 				font-size: 14px;
+				padding: 3px 0;
+				@include xs {
+					padding: 0 0;
+				}
 				&:hover {
 					color: $yellow;
 				}

@@ -42,6 +42,10 @@ $row1_target = ( isset($row1_button['target']) && $row1_button['target'] ) ? $ro
 <?php  
 $row2_title = get_field("row2_title");
 $row2_text = get_field("row2_text");
+$row2_button = get_field("row2_button");
+$row2_btnTxt = ( isset($row2_button['title']) && $row2_button['title'] ) ? $row2_button['title'] : '';
+$row2_btnLink = ( isset($row2_button['url']) && $row2_button['url'] ) ? $row2_button['url'] : '';
+$row2_btnTarget = ( isset($row2_button['target']) && $row2_button['target'] ) ? $row2_button['target'] : '_self';
 $row2_group = get_field("row2_right_content");
 if( $row2_title || $row2_text || ( isset($row2_group['columns']) && $row2_group['columns'] )  ) { ?>
 <div id="home-row-2" class="home-row">
@@ -58,6 +62,12 @@ if( $row2_title || $row2_text || ( isset($row2_group['columns']) && $row2_group[
 						<?php if ($row2_text) { ?>
 						<div class="small-text">
 							<?php echo $row2_text ?>
+						</div>
+						<?php } ?>
+
+						<?php if ($row2_btnTxt && $row2_btnLink) { ?>
+						<div class="button">
+							<a href="<?php echo $row2_btnLink ?>" target="<?php echo $row2_btnTarget ?>" class="btn-outline"><?php echo $row2_btnTxt ?></a>
 						</div>
 						<?php } ?>
 					</div>
@@ -334,7 +344,7 @@ if( $row7_title || $row7_projects || $row7_button ) { ?>
 		<a href="<?php echo $row7BtnLink ?>" target="<?php echo $row7BtnTarget ?>" class="btn-default"><?php echo $row7BtnTitle ?></a>
 	</div>
 	<?php } ?>
-	
+
 </div>
 <?php } ?>
 
@@ -347,8 +357,8 @@ $row8BtnTarget = ( isset($row8_button['target']) && $row8_button['target'] ) ? $
 $row8BtnTitle = ( isset($row8_button['title']) && $row8_button['title'] ) ? $row8_button['title'] : '';
 $row8BtnLink = ( isset($row8_button['url']) && $row8_button['url'] ) ? $row8_button['url'] : '';
 if( $row8_title || $row8_text || $row8_button ) { ?>
-<div id="home-row-8" class="home-row">
-	<div class="wrapper text-center">
+<div id="home-row-8" class="home-row bottom-blue-area">
+	<div class="wrapper text-center"> 
 		<?php if ($row8_title) { ?>
 		<h2 class="col-title"><?php echo $row8_title ?></h2>
 		<?php } ?>
