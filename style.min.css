@@ -1969,7 +1969,7 @@ a:hover{color:#4d87bd}
 .site{position:relative;overflow-x:hidden}
 .site-header{position:fixed;left:0;z-index:500;width:100%}
 .site-header .navbar{padding:0;position:relative}
-@media(min-width:960px){.site-header .navbar:after{content:"";display:block;width:30%;position:absolute;left:0;bottom:0;border-bottom:1px solid #CCC}
+@media(min-width:960px){.site-header .navbar:after{content:"";display:block;width:35%;position:absolute;left:0;bottom:0;border-bottom:1px solid #CCC}
 }.site-header .navbar .wrapper{z-index:10}
 .site-logo{display:inline-block;position:absolute;top:0;left:20px;font-size:12px;line-height:1.2;margin:0;background-color:white;width:120px;height:66px;text-align:center;padding:15px 0 0;z-index:100}
 .site-logo a{display:inline-block;width:75px;position:relative;z-index:15}
