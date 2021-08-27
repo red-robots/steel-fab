@@ -36,11 +36,11 @@ var params={};location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){
 <?php wp_head(); ?>
 </head>
 <?php  
-$banner = get_field("banner");
-if( is_tax('divisions') ) {
-	$banner = get_field("divisions_main_photo","option");
-}
-$has_hero = ($banner) ? 'has-hero':'no-hero';
+// $banner = get_field("banner");
+// if( is_tax('divisions') ) {
+// 	$banner = get_field("divisions_main_photo","option");
+// }
+$has_hero = page_has_hero() ? 'has-hero':'no-hero';
 ?>
 <body <?php body_class($has_hero); ?>>
 <div id="page" class="site cf">

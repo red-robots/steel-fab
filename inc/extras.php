@@ -356,6 +356,18 @@ function get_location_custom_fields($id) {
 }
 
 
+function page_has_hero() {
+  $banner = get_field("banner");
+  if( is_tax('divisions') ) {
+    $banner = get_field("divisions_main_photo","option");
+  }
+  if( is_singular('project') ) {
+    $parent_id = get_page_id_by_template('page-projects');
+    $banner = get_field("banner",$parent_id);
+  }
+  return ($banner) ? true : false;
+}
+
 // add_menu_page(
 //   'Divisions', // Page Title
 //   'Divisions', // Menu Title

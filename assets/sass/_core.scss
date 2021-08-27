@@ -1431,7 +1431,7 @@ body.scrolled {
 		height: 400px;
 	}
 	@include tab {
-		height: 500px;
+		height: 480px;
 	}
 	.wrapper {
 		height: 100%;
@@ -1442,7 +1442,8 @@ body.scrolled {
 			width: 100%;
 			transform: translateY(-5vw);
 			@include tab {
-				transform: translateY(0.5vw);
+				margin-top: -1%;
+				transform: translateY(0);
 			}
 		}
 		h1 {
@@ -3715,6 +3716,9 @@ body.subpage {
 	.page-default-template #main {
 		padding-top: 20px;
 	}
+	&.page-template-page-projects .page-default-template #main {
+		padding-top: 0;
+	}
 	.entry-content {
 		min-height: 20em;
 	}
@@ -4552,7 +4556,7 @@ body.page-template-page-projects {
 }
 
 .projects-list {
-	margin-top: 30px;
+	margin-top: 25px;
 	margin-bottom: 100px;
 	.flexwrap {
 		margin-left: -10px;
