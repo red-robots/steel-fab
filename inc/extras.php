@@ -365,6 +365,9 @@ function page_has_hero() {
     $parent_id = get_page_id_by_template('page-projects');
     $banner = get_field("banner",$parent_id);
   }
+  if( is_front_page() || is_home() ) {
+    $banner = true;
+  }
   return ($banner) ? true : false;
 }
 
