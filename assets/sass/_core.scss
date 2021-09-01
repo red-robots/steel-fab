@@ -5672,6 +5672,11 @@ body.page-template-page-about {
     	transform: translateY(-2px) rotate(-45deg);
     }
 	}
+	&.logged-in.admin-bar {
+		.fancybox-button.fancybox-button--close {
+			top: 4vw;
+		}
+	}
 }
 
 /* FOOTER */

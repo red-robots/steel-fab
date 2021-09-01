@@ -2981,6 +2981,7 @@ body.page-template-page-about .fancybox-button.fancybox-button--close svg{displa
 body.page-template-page-about .fancybox-button.fancybox-button--close:before,body.page-template-page-about .fancybox-button.fancybox-button--close:after{content:"";display:block;width:100%;height:2px;background:#000}
 body.page-template-page-about .fancybox-button.fancybox-button--close:before{-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}
 body.page-template-page-about .fancybox-button.fancybox-button--close:after{-webkit-transform:translateY(-2px) rotate(-45deg);-ms-transform:translateY(-2px) rotate(-45deg);transform:translateY(-2px) rotate(-45deg)}
+body.page-template-page-about.logged-in.admin-bar .fancybox-button.fancybox-button--close{top:4vw}
 .site-footer{background-color:#031a29;color:#FFF;position:relative;overflow:hidden}
 .site-footer .wrapper{position:relative;z-index:10;padding-top:50px;padding-bottom:50px}
 .site-footer:before{content:"";display:block;width:24vw;height:120%;background-image:url("images/logo-symbol.png");background-position:center;background-repeat:no-repeat;background-size:cover;position:absolute;top:0;left:-5vw;opacity:.05}
