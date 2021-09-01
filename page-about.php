@@ -67,48 +67,61 @@ get_header(); ?>
 			$timeline_img_bg = get_field("timeline_img_bg");
 			$timeline_bg = ($timeline_img_bg) ? ' style="background-image:url('.$timeline_img_bg['url'].')"':'';
 			if($timeline_title || $timeline_data) { ?>
-			<div id="timeline-area">
-				<?php if ($timeline_img_bg) { ?>
-				<div class="imagebg"<?php echo $timeline_bg ?>></div>
-				<?php } ?>
-				<div class="wrapper">
-					<?php if ($timeline_title) { ?>
+			<div id="timeline-area" class="timeline-wrapper">
+				<?php if ($timeline_title) { ?>
+				<div class="timeline-large-title">
+					<div class="wrapper">
 						<h2 class="col-title"><?php echo $timeline_title ?></h2>
-					<?php } ?>
-
-					<?php if ($timeline_data) { ?>
-						<div class="timeline-content">
-							<div class="horizontal-timeline" id="steelFab-timeline">
-								<div class="events-content">
-									<ol class="events-info">
-									<?php $n=1; foreach ($timeline_data as $k=>$d) {
-										$year = $d['year']; 
-										$description = $d['description']; 
-										$image = $d['image']; 
-										$selected = ($n==1) ? ' selected':'';
-										$interval = $year_prev + $k;
-										?>
-										<li class="history-data<?php echo $selected ?>" data-horizontal-timeline='{"date": "01/01/<?php echo $interval ?>", "customDisplay": "<?php echo $year ?>"}'>
-											<?php if ($description || $image) { ?>
-											<div class="info">
-												<?php if ($description) { ?>
-												<div class="text"><?php echo $description ?></div>
-												<?php } ?>
-												<?php if ($image) { ?>
-												<div class="photo">
-													<img src="<?php echo $image['url'] ?>" alt="<?php echo $image['title'] ?>">
-												</div>
-												<?php } ?>
-											</div>
-											<?php } ?>
-										</li>
-									<?php $n++; } ?>
-									</ol>
-								</div>
-							</div>
-						</div>
+					</div>
+					<?php if ($timeline_img_bg) { ?>
+					<div class="imagebg"<?php echo $timeline_bg ?>></div>
 					<?php } ?>
 				</div>
+				<?php } ?>
+
+				<?php if ($timeline_data) { ?>
+				<div class="timeline">
+					<div class="wrapper">
+						<div class="timeline-inner">
+							<?php  
+								// echo "<pre>";
+								// print_r($timeline_data);
+								// echo "</pre>";
+							$count_timeline = count($timeline_data);
+							$n=1; foreach ($timeline_data as $k=>$d) { 
+								$year = $d['year']; 
+								$description = $d['description']; 
+								$image = $d['image']; 
+								$selected = ($n==1) ? ' selected':'';
+								$interval = $year_prev + $k;
+								$has_text_image = ($description && $image) ? 'half':'full';
+								$first = ($n==1) ? ' first':'';
+								$last = ($n==$count_timeline) ? ' last':'';
+							?>
+								<div class="history<?php echo $first.$last ?>">
+									<div class="h-title"><?php echo $year ?></div>
+									<?php if ($description || $image) { ?>
+									<div class="h-text <?php echo $has_text_image ?>">
+										<?php if ($description) { ?>
+											<div class="text"><?php echo $description ?></div>
+										<?php } ?>
+										<?php if ($image) { ?>
+										<div class="photo">
+											<a data-fancybox href="<?php echo $image['url'] ?>"  class="pic" style="background-image:url('<?php echo $image['url'] ?>')">
+												<img src="<?php echo $image['url'] ?>" alt="<?php echo $image['title'] ?>" class="actual-image">
+												<img src="<?php echo get_images_dir('square.png') ?>" alt="" aria-hidden="true" class="helper">
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+									<?php } ?>
+								</div>
+							<?php $n++; } ?>
+							<div class="middle-line"></div>
+						</div>
+					</div>
+				</div>
+				<?php } ?>
 			</div>
 			<?php } ?>
 
@@ -125,43 +138,41 @@ get_header(); ?>
 <script type="text/javascript">
 jQuery(document).ready(function($){
 
-	if( $("#steelFab-timeline").length ) {
-		$('#steelFab-timeline').horizontalTimeline({
-			useScrollWheel: false,
-			useTouchSwipe: true,
-			useKeyboardKeys: false,
-			addRequiredFile: true,
-			useFontAwesomeIcons: false,
-			useNavBtns: true,
-			useScrollBtns: true,
-			dateDisplay: "year",
-			autoplay: false,
-		});
-		$(".timeline .events a").each(function(){
-			var txt = $(this).text();
-			$(this).attr('data-label',txt);
-		});
+	// if( $("#steelFab-timeline").length ) {
+	// 	$('#steelFab-timeline').horizontalTimeline({
+	// 		useScrollWheel: false,
+	// 		useTouchSwipe: true,
+	// 		useKeyboardKeys: false,
+	// 		addRequiredFile: true,
+	// 		useFontAwesomeIcons: false,
+	// 		useNavBtns: true,
+	// 		useScrollBtns: true,
+	// 		dateDisplay: "year",
+	// 		autoplay: false,
+	// 	});
+	// 	$(".timeline .events a").each(function(){
+	// 		var txt = $(this).text();
+	// 		$(this).attr('data-label',txt);
+	// 	});
 
-		timeline_auto_resize_photo();
-		$(window).on("resize",function(){
-			timeline_auto_resize_photo();
-		});
-		function timeline_auto_resize_photo() {
-			$("#steelFab-timeline .photo img").each(function(){
-				if( $(this).length ) {
-					var width = $(this).width();
-					var height = $(this).height();
-					if(height>width) {
-						$(this).css('max-width','320px');
-					} else {
-						$(this).css('max-width','500px');
-					}
-				}
-			});
-		}
-		
-
-	}
+	// 	timeline_auto_resize_photo();
+	// 	$(window).on("resize",function(){
+	// 		timeline_auto_resize_photo();
+	// 	});
+	// 	function timeline_auto_resize_photo() {
+	// 		$("#steelFab-timeline .photo img").each(function(){
+	// 			if( $(this).length ) {
+	// 				var width = $(this).width();
+	// 				var height = $(this).height();
+	// 				if(height>width) {
+	// 					$(this).css('max-width','320px');
+	// 				} else {
+	// 					$(this).css('max-width','500px');
+	// 				}
+	// 			}
+	// 		});
+	// 	}
+	// }
 
 });
 </script>

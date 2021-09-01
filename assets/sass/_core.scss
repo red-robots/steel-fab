@@ -5353,6 +5353,326 @@ body.page-template-page-locations #primary {
 		}
 	}
 }
+#timeline-area.timeline-wrapper {
+	width: 100%;
+	float: left;
+	padding-top: 0;
+	padding-bottom: 0;
+	&:before {
+		display: none;
+	}
+	.imagebg {
+		opacity: 0.5;
+	}
+	.timeline-large-title {
+		width: 100%;
+		float: left;
+		position: relative;
+		padding-top: 80px;
+		padding-bottom: 80px;
+		background-color: $dark_blue;
+		@include tab {
+			padding-top: 100px;
+			padding-bottom: 100px;
+		}
+	}
+}
+#timeline-area.timeline-wrapper .timeline {
+	width: 100%;
+	float: left;
+	background: $light_gray;
+	position: relative;
+	padding-top: 80px;
+	padding-bottom: 80px;
+	@include tab {
+		padding-top: 100px;
+		padding-bottom: 100px;
+	}
+	.timeline-inner {
+		width: 100%;
+		float: left;
+		position: relative;
+		@include flexgroup();
+	}
+	.inner-pad {
+		padding-top: 50px;
+		padding-bottom: 50px;
+	}
+	.history {
+		width: 100%;
+    position: relative;
+    z-index: 15;
+    overflow: hidden;
+    // float: left;
+    color: $dark_blue;
+    margin-bottom: 0;
+    z-index: 100;
+    @include tab {
+    	width: 50%;
+    	margin-bottom: 0;
+    }
+    .h-title {
+    	font-family: $font_secondary;
+			font-size: 35px;
+			font-weight: 400;
+			line-height: 1;
+			color: $primary;
+			margin-bottom: 10px;
+    }
+    .h-text {
+			width: 100%;
+			float: left;
+			position: relative;
+			font-size: 15px;
+			line-height: 1.5;
+			padding-bottom: 30px;
+	    @include tab {
+				border-top: 2px solid $primary;
+				padding-top: 20px;
+	    }
+	    .text, .photo {
+    		float: left;
+    		width: 100%;
+    	}
+    	.photo {
+    		transition: all ease .3s;
+    		@include tab {
+    			transform: translateY(-70px);
+    		}
+    		.pic {
+    			display: block;
+    			text-decoration: none;
+    			width: 100%;
+    			float: left;
+    			position: relative;
+    			@include backgroundImage(top center);
+    			background-color: #CCC;
+    			transition: all ease .3s;
+    			img {
+    				width: 100%;
+    				height: auto;
+    				float: left;
+    			}
+    			img.helper {
+    				display: block;
+    			}
+    			img.actual-image {
+    				display: none;
+    			}
+    		}
+    		&:hover {
+  				.pic {
+  					transform: scale(1.1);
+  				}
+  			}
+    	}
+	    &.half {
+	    	.text {
+	    		width: 100%;
+	    		@include tab {
+	    			width: 60%;
+	    			padding-right: 20px;
+	    		}
+	    	}
+	    	.photo {
+	    		width: 100%;
+	    		margin-top: 30px;
+	    		border-radius: 10px;
+	    		overflow: hidden;
+	    		box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+	    		@include tab {
+	    			margin-top: 0;
+	    			width: 40%;
+	    		}
+	    		img {
+	    			width: 100%;
+	    			height: auto;
+	    			float: left;
+	    		}
+	    	}
+	    }
+		}
+	}
+	.history:nth-child(odd) {
+		.h-text {
+			@include tab {
+				padding-right: 3vw;
+				&:before {
+					content: "";
+					display: block;
+					width: 15px;
+					height: 30px;
+					background: $yellow;
+					// border-radius: 100px;
+					border-top-left-radius: 100px;
+					border-bottom-left-radius: 100px;
+					position: absolute;
+					top: -17px;
+					right: 2px;
+				}
+			}
+		}
+		.h-title {
+			@include tab {
+				padding-right: 3vw;
+			}
+		}
+	}
+	.history:nth-child(even) {
+		margin-top: 0;
+		@include tab {
+			padding-top: 80px;
+			margin-top: 10%;
+			left: -2px;
+		}
+		.h-text {
+			@include tab {
+				padding-left: 3vw;
+				&:before {
+					content: "";
+					display: block;
+					width: 15px;
+					height: 30px;
+					background: $yellow;
+					// border-radius: 100px;
+					border-top-right-radius: 100px;
+					border-bottom-right-radius: 100px;
+					position: absolute;
+					top: -17px;
+					left: 2px;
+				}
+			}
+		}
+		.h-title {
+			@include tab {
+				padding-left: 3vw;
+			}
+		}
+	}
+	.history.first {
+		@include tab {
+			padding-top: 50px;
+		}
+	}
+	.history.last {
+		@include tab {
+			padding-bottom: 50px;
+		}
+	}
+	.middle-line {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		border-right: 2px solid $primary;
+		@include tab {
+			width: 50%;
+			&:before {
+				content: "";
+				display: block;
+				width: 7vw;
+				border-bottom: 2px solid $primary;
+				position: absolute;
+				top: 0;
+				right: 0;
+				margin-right: -3.5vw;
+				margin-top: -1.2vw;
+			}
+			&:after {
+				content: "";
+				display: block;
+				width: 7vw;
+				border-bottom: 2px solid $primary;
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				margin-right: -3.5vw;
+				margin-bottom: -1.2vw;
+			}
+		}
+	}
+	@include max( $tabwidth - 1px ) {
+		.history {
+			padding-bottom: 50px;
+			&.first {
+				padding-top: 30px;
+			}
+			.h-title {
+				position: relative;
+				padding-bottom: 5px;
+				border-bottom: 2px solid $primary;
+				&:before {
+					content: "";
+					display: block;
+					width: 15px;
+					height: 30px;
+					background: $yellow;
+					border-top-right-radius: 100px;
+					border-bottom-right-radius: 100px;
+					position: absolute;
+					bottom: -15px;
+					left: 2px;
+				}
+			}
+			.h-title,
+			.h-text {
+				padding-left: 40px;
+			}
+			.photo {
+				width: auto!important;
+				.pic {
+					display: inline-block!important;
+					width: auto;
+					background-image:none!important;
+					img.helper {
+						display: none!important;
+					}
+					img.actual-image {
+						display: block!important;
+					}
+				}
+			}
+		}
+	}
+}
+
+body.page-template-page-about {
+	.site-footer {
+		width: 100%;
+		float: left;
+	}
+	.fancybox-button--zoom {
+		display: none!important;
+	}
+	.fancybox-spaceball {
+		box-shadow: 0 10px 18px rgba(0,0,0,0.2);
+	}
+	.fancybox-bg {
+		background: #dedede;
+	}
+	.fancybox-button.fancybox-button--close {
+		top: 2vw;
+		right: 2vw;
+		background: transparent;
+		padding: 8px;
+    svg {
+    	display: none;
+    }
+    &:before,&:after {
+    	content:"";
+    	display: block;
+    	width: 100%;
+    	height: 2px;
+    	background: #000;
+    }
+    &:before {
+    	transform: rotate(45deg);
+    }
+    &:after {
+    	transform: translateY(-2px) rotate(-45deg);
+    }
+	}
+}
 
 /* FOOTER */
 .site-footer {
