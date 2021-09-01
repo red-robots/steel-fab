@@ -12558,9 +12558,9 @@ body.page-template-page-locations #primary {
         transition: all ease .3s; }
         @media (min-width: 820px) {
           #timeline-area.timeline-wrapper .timeline .history .h-text .photo {
-            -webkit-transform: translateY(-70px);
-                -ms-transform: translateY(-70px);
-                    transform: translateY(-70px); } }
+            -webkit-transform: translateY(-65px);
+                -ms-transform: translateY(-65px);
+                    transform: translateY(-65px); } }
         #timeline-area.timeline-wrapper .timeline .history .h-text .photo .pic {
           display: block;
           text-decoration: none;

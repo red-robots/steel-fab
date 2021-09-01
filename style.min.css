@@ -2938,7 +2938,7 @@ body.page-template-page-locations #primary{overflow:hidden;position:relative}
 @media(min-width:820px){#timeline-area.timeline-wrapper .timeline .history .h-text{border-top:2px solid #335d7d;padding-top:20px}
 }#timeline-area.timeline-wrapper .timeline .history .h-text .text,#timeline-area.timeline-wrapper .timeline .history .h-text .photo{float:left;width:100%}
 #timeline-area.timeline-wrapper .timeline .history .h-text .photo{-webkit-transition:all ease .3s;transition:all ease .3s}
-@media(min-width:820px){#timeline-area.timeline-wrapper .timeline .history .h-text .photo{-webkit-transform:translateY(-70px);-ms-transform:translateY(-70px);transform:translateY(-70px)}
+@media(min-width:820px){#timeline-area.timeline-wrapper .timeline .history .h-text .photo{-webkit-transform:translateY(-65px);-ms-transform:translateY(-65px);transform:translateY(-65px)}
 }#timeline-area.timeline-wrapper .timeline .history .h-text .photo .pic{display:block;text-decoration:none;width:100%;float:left;position:relative;background-size:cover;background-position:top center;background-repeat:no-repeat;background-color:#CCC;-webkit-transition:all ease .3s;transition:all ease .3s}
 #timeline-area.timeline-wrapper .timeline .history .h-text .photo .pic img{width:100%;height:auto;float:left}
 #timeline-area.timeline-wrapper .timeline .history .h-text .photo .pic img.helper{display:block}
