@@ -100,7 +100,7 @@ get_header(); ?>
 										$field_name = $cf->name;
 										$field_name_slug = ($field_name) ? sanitize_title($field_name) : '';
 										$field_value = $cf->value;
-										$field_icon = ($cf->field_icon) ? 'si fa fa-'.$cf->field_icon : '';
+										$field_icon = ( isset($cf->field_icon) && $cf->field_icon ) ? 'si fa fa-'.$cf->field_icon : '';
 										if($field_name=='Division') {
 											$field_icon = 'si ci-steelfab';
 											if($division_link) {

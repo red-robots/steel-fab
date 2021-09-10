@@ -80,8 +80,27 @@ get_header(); ?>
 			<?php } ?>
 		<?php endwhile; ?>
 
+    <div class="project-pagination">
+      <div id="pagination" class="wrapper">
+        <span class="prev"><?php next_post_link('%link','<i class="arrow"></i>Previous Project'); ?></span>
+        <span class="next"><?php previous_post_link('%link','Next Project<i class="arrow"></i>'); ?></span>
+      </div>
+    </div>
+
 	</main><!-- #main -->
 </div><!-- #primary -->
 
 <?php
+// $args = array(
+//   'posts_per_page'  => -1,
+//   'post_type'       => 'project',
+//   'post_status'     => 'publish',
+// );
+// $entries = get_posts($args);
+// $project_ids = array();
+// if($entries) {
+//   foreach($entries as $e) {
+//     $project_ids[] = $e->ID;
+//   }
+// }
 get_footer();

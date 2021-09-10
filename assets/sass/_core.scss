@@ -1,14 +1,14 @@
 div,h1,h2,h3,h4,h5,h6,p,li,a,span,strong {
 	overflow-wrap: normal;
-    word-wrap: normal;
-    -ms-word-break: normal;
-    word-break: normal;
-    word-break: normal;
-    -ms-hyphens: none;
-    -moz-hyphens: none;
-    -webkit-hyphens: none;
-    hyphens: none;
-    page-break-inside: avoid;
+	word-wrap: normal;
+	-ms-word-break: normal;
+	word-break: normal;
+	word-break: normal;
+	-ms-hyphens: none;
+	-moz-hyphens: none;
+	-webkit-hyphens: none;
+	hyphens: none;
+	page-break-inside: avoid;
 }
 * {
 	box-sizing: border-box;
@@ -135,7 +135,25 @@ a {
 	width: 100%;
 	.navbar {
 		padding: 0 0;
+    background: transparent;
 		position: relative;
+    transition: all ease .3s;
+    &:before {
+      content:"";
+      display: block;
+      width: 130%;
+      height: 0%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      transition: all ease .3s;
+      opacity: 0;
+      // background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, #011321 100%);
+      background: -moz-linear-gradient(left,  rgba(0,0,0,0) 0%, rgba(3,32,51,0.62) 50%, rgba(3,32,51,0.9) 73%);
+      background: -webkit-linear-gradient(left,  rgba(0,0,0,0) 0%,rgba(3,32,51,0.62) 50%,rgba(3,32,51,0.9) 73%);
+      background: linear-gradient(to right,  rgba(0,0,0,0) 0%,rgba(3,32,51,0.62) 50%,rgba(3,32,51,0.9) 73%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#e6032033',GradientType=1 );
+    }
 		@include mid {
 			&:after {
 				content:"";
@@ -210,7 +228,7 @@ a {
 		position: relative;
 		z-index: 10;
 		@include mid {
-			border-right:1px solid #CCC;
+      border-right:1px solid #CCC;
 		}
 		a {
 			display: block;
@@ -650,7 +668,8 @@ body.open-menu {
 
 	.locations {
 		@include tab {
-			padding-left: 3vw;
+			padding-left: 1vw;
+      margin-right: -10px;
 		}
 		ul {
 			margin: 0 0;
@@ -658,7 +677,8 @@ body.open-menu {
 			list-style: none;
 		}
 		ul > li {
-			margin: 5px 0;
+      margin: 5px 0;
+      font-size: 15px;
 		}
 		.num {
 			font-size: 5rem;
@@ -817,13 +837,12 @@ body.open-menu {
 				margin-bottom: 0;
 			}
 		}
-		.topline,
-		.bottomline {
+		.topline, .bottomline {
 			width: 1px;
 			height: 30%;
 			background: #FFF;
 			position: absolute;
-			right: 2px;
+			right: 0;
 		}
 		.topline {
 			top: 0;
@@ -1323,21 +1342,27 @@ body.open-menu {
 
 body.scrolled {
 	@include tab {
+    #masthead {
+      .navbar:before {
+        opacity: 1;
+        height: 100%;
+      }
+      .navbar:after {
+        width: 100%;
+      }
+    }
 		#site-navigation {
-			&:after {
-				content:"";
-				display: block;
-				width: 110%;
-				height: calc(100% - 1px);
-				position: absolute;
-				top: 0;
-				right: 20px;
-				opacity: 1;
-				background: -moz-linear-gradient(left,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.98) 100%);
-				background: -webkit-linear-gradient(left,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.98) 100%);
-				background: linear-gradient(to right,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.98) 100%);
-				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=1 );
-			}
+			// &:after {
+			// 	content:"";
+			// 	display: block;
+			// 	width: 100vw;
+			// 	height: calc(100% - 1px);
+			// 	position: absolute;
+			// 	top: 0;
+			// 	right: 20px;
+			// 	opacity: 1;
+			// 	background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, #011321 100%);
+			// }
 		}
 	}
 }
@@ -1474,6 +1499,9 @@ body.scrolled {
 		right: -17vw;
 		transform: skew(-60deg);
 	}
+  .hero-button {
+    margin-top: 15px;
+  }
 }
 
 .page-services-template {
@@ -4004,6 +4032,20 @@ body.subpage {
 				}
 			}
 		}
+
+    &.careers-items {
+      @include tab {
+        .text ul {
+          column-count: 2;
+        }
+        .text ul li {
+          -webkit-column-break-inside: avoid; 
+          page-break-inside: avoid; 
+          break-inside: avoid;
+          min-height: 26px;
+        }
+      }
+    }
 	}
 	div.button {
 		margin-top: 30px;
@@ -4653,12 +4695,16 @@ body.page-template-page-projects {
 	}
 }
 
+body.single-project {
+  #main .titlediv { margin-bottom: 50px;}
+}
+
 .project-features-section {
 	.flexwrap {
 		margin: 30px -20px 10px;
 		@include flexbox-justify(center);
 		@include tab {
-			margin: 50px -20px;
+			margin: 0 -20px 50px;
 		}
 	}
 	.featcol {
@@ -5407,6 +5453,8 @@ body.page-template-page-locations #primary {
 		float: left;
 		position: relative;
 		@include flexgroup();
+		@include flexbox-align-items(flex-start);
+		@include flexbox-justify(flex-start);
 	}
 	.inner-pad {
 		padding-top: 50px;
@@ -5416,14 +5464,16 @@ body.page-template-page-locations #primary {
 		width: 100%;
     position: relative;
     z-index: 15;
-    overflow: hidden;
-    // float: left;
     color: $dark_blue;
     margin-bottom: 0;
     z-index: 100;
     @include tab {
     	width: 50%;
     	margin-bottom: 0;
+      min-height: 150px;
+      &.hasimage {
+        min-height: 250px;
+      }
     }
     .h-title {
     	font-family: $font_secondary;
@@ -5439,10 +5489,10 @@ body.page-template-page-locations #primary {
 			position: relative;
 			font-size: 15px;
 			line-height: 1.5;
-			padding-bottom: 30px;
+			padding-bottom: 20px;
 	    @include tab {
 				border-top: 2px solid $primary;
-				padding-top: 20px;
+				padding-top: 10px;
 	    }
 	    .text, .photo {
     		float: left;
@@ -5451,6 +5501,7 @@ body.page-template-page-locations #primary {
     	.photo {
     		transition: all ease .3s;
     		@include tab {
+          right: 0;
     			transform: translateY(-65px);
     		}
     		.pic {
@@ -5496,7 +5547,9 @@ body.page-template-page-locations #primary {
 	    		box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 	    		@include tab {
 	    			margin-top: 0;
-	    			width: 40%;
+	    			width: 35%;
+            position: absolute;
+            top: 0;
 	    		}
 	    		img {
 	    			width: 100%;
@@ -5507,7 +5560,7 @@ body.page-template-page-locations #primary {
 	    }
 		}
 	}
-	.history:nth-child(odd) {
+	.history.odd {
 		.h-text {
 			@include tab {
 				padding-right: 3vw;
@@ -5526,18 +5579,24 @@ body.page-template-page-locations #primary {
 				}
 			}
 		}
+    .photo {
+      @include tab {
+        right: 40px;
+      }
+    }
 		.h-title {
 			@include tab {
 				padding-right: 3vw;
 			}
 		}
 	}
-	.history:nth-child(even) {
+	.history.even {
 		margin-top: 0;
 		@include tab {
-			padding-top: 80px;
-			margin-top: 10%;
+			padding-top: 0;
+			margin-top: 2%;
 			left: -2px;
+      transform: translateY(5vw);
 		}
 		.h-text {
 			@include tab {
@@ -5565,12 +5624,16 @@ body.page-template-page-locations #primary {
 	}
 	.history.first {
 		@include tab {
+      transform: translateY(0);
 			padding-top: 50px;
 		}
 	}
 	.history.last {
 		@include tab {
 			padding-bottom: 50px;
+      .h-text {
+        margin-bottom: 70px;
+      }
 		}
 	}
 	.middle-line {
@@ -5607,6 +5670,7 @@ body.page-template-page-locations #primary {
 	}
 	@include max( $tabwidth - 1px ) {
 		.history {
+      height: auto!important;
 			padding-bottom: 50px;
 			&.first {
 				padding-top: 30px;
@@ -5693,8 +5757,100 @@ body.page-template-page-about {
 	}
 }
 
+.project-pagination {
+  width: 100%;
+  float: left;
+  position: relative;
+  top: -40px;
+  #pagination {
+    span {
+      display: inline-block;
+      position: relative;
+      i {
+        display: inline-block;
+        width: 7px;
+        height: 2px;
+        position: absolute;
+        top: 12px;
+        transition: all ease .3s;
+        &:before, &:after {
+          content: "";
+          display: block;
+          width: 100%;
+          height: 100%;
+          background: $yellow;
+          position: absolute;
+          top: 0;
+        }
+      }
+    }
+    span.prev {
+      float: left;
+    }
+    span.next {
+      float: right;
+    }
+    a {
+      display: inline-block;
+      text-decoration: none;
+      position: relative;
+      text-transform: uppercase;
+      &:hover {
+        color: $yellow;
+      }
+    }
+    span.prev {
+      i {
+        left: 0;
+        &:before, &:after {
+          left: 0;
+        }
+        &:before {
+          transform: translateY(0) rotate(50deg);
+        }
+        &:after {
+          transform: translateY(-4px) rotate(-50deg);
+        }
+      }
+      a {
+        padding-left: 15px;
+      }
+      a:hover {
+        i {
+          left: -5px;
+        }
+      }
+    }
+    span.next {
+      i {
+        top: 13px;
+        right: 0;
+        &:before, &:after {
+          right: 0;
+        }
+        &:before {
+          transform: translateY(0) rotate(-50deg);
+        }
+        &:after {
+          transform: translateY(-4px) rotate(50deg);
+        }
+      }
+      a {
+        padding-right: 15px;
+      }
+      a:hover {
+        i {
+          right: -5px;
+        }
+      }
+    }
+    
+  }
+}
+
 /* FOOTER */
 .site-footer {
+  width: 100%;
 	background-color: $dark_blue;
 	color: #FFF;
 	position: relative;
@@ -5763,9 +5919,9 @@ body.page-template-page-about {
 	ul.menu a {
 		display: inline-block;
 		text-decoration: none;
-		color: #687177;
+		color: #FFF;
 		&:hover {
-			color: #FFF;
+			color: #178cf3;
 		}
 	}
 	ul.menu > li > a {

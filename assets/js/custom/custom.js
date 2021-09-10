@@ -8,23 +8,37 @@ jQuery(document).ready(function ($) {
 
   var screenHeight = $(window).height();
   var contentHeight = $("#page").height();
-  if(contentHeight>screenHeight) {
-    if ($(this).scrollTop() > 50) {
-      $('body').addClass('scrolled');
-    } else {
-      $('body').removeClass('scrolled');
-    }
+
+  // if(contentHeight>screenHeight) {
+  //   if ($(this).scrollTop() > 50) {
+  //     $('body').addClass('scrolled');
+  //   } else {
+  //     $('body').removeClass('scrolled');
+  //   }
+  // }
+
+  if ($(window).scrollTop() > 100) {
+    $('body').addClass('scrolled');
+  } else {
+    $('body').removeClass('scrolled');
   }
 
   $(window).scroll(function(){
     var screenHeight = $(window).height();
-    var contentHeight = $("#page").height();
-    if(contentHeight>screenHeight) {
-      if ($(this).scrollTop() > 50) {
-        $('body').addClass('scrolled');
-      } else {
-        $('body').removeClass('scrolled');
-      }
+    var contentHeight = $('#page').height();
+    // if(contentHeight>=screenHeight) {
+    //   if ($(this).scrollTop() > 50) {
+    //     $('body').addClass('scrolled');
+    //   } else {
+    //     $('body').removeClass('scrolled');
+    //   }
+    // } else {
+    //   $('body').removeClass('scrolled');
+    // }
+    if ($(this).scrollTop() > 100) {
+      $('body').addClass('scrolled');
+    } else {
+      $('body').removeClass('scrolled');
     }
   });
 

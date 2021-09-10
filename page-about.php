@@ -6,7 +6,17 @@
 $placeholder = THEMEURI . 'images/rectangle.png';
 $banner = get_field("banner");
 $has_banner = ($banner) ? 'hasbanner':'nobanner';
-get_header(); ?>
+$timeline_data = get_field("timeline_data"); ?>
+<style type="text/css">
+<?php
+$n=1; foreach ($timeline_data as $k=>$d) { 
+$move = ( isset($d['moveup']) && $d['moveup'] ) ? $d['moveup'] : '';
+if ($move) { ?>
+  @media screen and (min-width:820px) { #history-info-<?php echo $n ?>{transform: translateY(<?php echo $move ?>%)!important; } }
+<?php }
+$n++; } ?>
+</style> 
+<?php get_header(); ?>
 
 <div id="primary" class="content-area-full content-default page-values-template <?php echo $has_banner ?>">
 	<main id="main" class="site-main" role="main">
@@ -63,7 +73,6 @@ get_header(); ?>
 			$year_now = date('Y');
 			$year_prev = $year_now - 1;
 			$timeline_title = get_field("timeline_title");
-			$timeline_data = get_field("timeline_data");
 			$timeline_img_bg = get_field("timeline_img_bg");
 			$timeline_bg = ($timeline_img_bg) ? ' style="background-image:url('.$timeline_img_bg['url'].')"':'';
 			if($timeline_title || $timeline_data) { ?>
@@ -84,9 +93,6 @@ get_header(); ?>
 					<div class="wrapper">
 						<div class="timeline-inner">
 							<?php  
-								// echo "<pre>";
-								// print_r($timeline_data);
-								// echo "</pre>";
 							$count_timeline = count($timeline_data);
 							$n=1; foreach ($timeline_data as $k=>$d) { 
 								$year = $d['year']; 
@@ -95,10 +101,12 @@ get_header(); ?>
 								$selected = ($n==1) ? ' selected':'';
 								$interval = $year_prev + $k;
 								$has_text_image = ($description && $image) ? 'half':'full';
-								$first = ($n==1) ? ' first':'';
-								$last = ($n==$count_timeline) ? ' last':'';
-							?>
-								<div class="history<?php echo $first.$last ?>">
+								$class = ($n==1) ? ' first':'';
+                $class .= ($image) ? ' hasimage':' noimage';
+								$class .= ($n==$count_timeline) ? ' last':'';
+                $class .= ($n % 2) ? ' odd':' even';
+							  ?>
+								<div id="history-info-<?php echo $n ?>" class="history<?php echo $class ?>">
 									<div class="h-title"><?php echo $year ?></div>
 									<?php if ($description || $image) { ?>
 									<div class="h-text <?php echo $has_text_image ?>">
@@ -134,45 +142,32 @@ get_header(); ?>
 	</main><!-- #main -->
 </div><!-- #primary -->
 
-<script src="<?php echo get_bloginfo('template_url') ?>/assets/js/vendors/horizontal_timeline.2.0.min.js"></script>
+<!-- <script src="<?php //echo get_bloginfo('template_url') ?>/assets/js/vendors/horizontal_timeline.2.0.min.js"></script> -->
 <script type="text/javascript">
 jQuery(document).ready(function($){
 
-	// if( $("#steelFab-timeline").length ) {
-	// 	$('#steelFab-timeline').horizontalTimeline({
-	// 		useScrollWheel: false,
-	// 		useTouchSwipe: true,
-	// 		useKeyboardKeys: false,
-	// 		addRequiredFile: true,
-	// 		useFontAwesomeIcons: false,
-	// 		useNavBtns: true,
-	// 		useScrollBtns: true,
-	// 		dateDisplay: "year",
-	// 		autoplay: false,
-	// 	});
-	// 	$(".timeline .events a").each(function(){
-	// 		var txt = $(this).text();
-	// 		$(this).attr('data-label',txt);
-	// 	});
 
-	// 	timeline_auto_resize_photo();
-	// 	$(window).on("resize",function(){
-	// 		timeline_auto_resize_photo();
-	// 	});
-	// 	function timeline_auto_resize_photo() {
-	// 		$("#steelFab-timeline .photo img").each(function(){
-	// 			if( $(this).length ) {
-	// 				var width = $(this).width();
-	// 				var height = $(this).height();
-	// 				if(height>width) {
-	// 					$(this).css('max-width','320px');
-	// 				} else {
-	// 					$(this).css('max-width','500px');
-	// 				}
-	// 			}
-	// 		});
-	// 	}
-	// }
+  // adjust_timeline_height();
+  // $("window").on("resize orientationchange",function(){
+  //   adjust_timeline_height();
+  // });
+
+  // function adjust_timeline_height() {
+  //   $(".timeline .history").each(function(){
+  //     var target = $(this);
+  //     var title_height = ( $(this).find('.h-title').length ) ? $(this).find('.h-title').height() : 0;
+  //     var text_height = ( $(this).find('.h-text').length ) ? $(this).find('.h-text').height() : 0;
+  //     var image_height = ( $(this).find('.photo').length ) ? $(this).find('.photo').height() : 0;
+  //     var total = (title_height + text_height + image_height);
+  //     if(text_height) {
+  //       total = total - text_height;
+  //     }
+  //     if(image_height) {
+  //       total = total + 50;
+  //       target.css("height",total+"px");
+  //     }
+  //   });
+  // }
 
 });
 </script>

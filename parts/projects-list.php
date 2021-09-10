@@ -3,7 +3,6 @@ $perpage = 21;
 //$perpage = 3;
 $paged = ( get_query_var( 'pg' ) ) ? absint( get_query_var( 'pg' ) ) : 1;
 $args = array(
-	'posts_per_page'	=> -1,
 	'post_type'				=> 'project',
 	'post_status'			=> 'publish',
 	'posts_per_page'	=> $perpage,

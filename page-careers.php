@@ -117,7 +117,7 @@ get_header(); ?>
 				<div class="bg" style="background-image:url('<?php echo $row3_img_bg['url'] ?>')"></div>	
 				<?php } ?>
 
-				<div class="textcol">
+				<div class="textcol careers-items">
 					<div class="text">
 						<?php echo $row3_text ?>
 
@@ -159,6 +159,8 @@ get_header(); ?>
 				<?php if ($has_job_list) { ?>
 				<div class="bottom-arrow"></div>					
 				<?php } ?>
+
+        <div id="jobs-anchor" style="width:100%;float:left;"></div>
 			</div>
 			<?php } ?>
 
@@ -178,6 +180,16 @@ get_header(); ?>
 
 	</main><!-- #main -->
 </div><!-- #primary -->
-
+<script type="text/javascript">
+jQuery(document).ready(function($){
+  if( $("#jobs .job").length ) {
+    var jobs_target = ( $("#jobs-anchor").length ) ? '#jobs-anchor' : '#jobs';
+    var hero_button = '<div class="hero-button"><a href="'+jobs_target+'" target="_self" class="btn-outline sm">See Available Positions</a></div>';
+    if( $(".subpage-banner").length ) {
+      $(".subpage-banner .inner").append(hero_button);
+    }
+  }
+});
+</script>
 <?php
 get_footer();
