@@ -2206,6 +2206,11 @@ body.scrolled {
 				width: 50%;
 			}
 		}
+    &.notransparent {
+      &:before {
+        background-color: $dark_blue;
+      }
+    }
 	}
 	.flexwrap {
 		width: 100%;

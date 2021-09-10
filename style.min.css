@@ -1712,6 +1712,7 @@ body.open-menu .nav-overlay{display:block;width:100%;height:100%;position:fixed;
 .twocol-text-image{color:#FFF;position:relative;z-index:15;background-color:#335d7d}
 .twocol-text-image .image-bg{position:absolute;width:100%;height:calc(100% + 75px);top:-70px;left:0;background-size:cover;background-position:center;background-repeat:no-repeat;-webkit-clip-path:polygon(35% 0,50% 10%,65% 0,100% 0,100% 100%,0 100%,0 0);clip-path:polygon(35% 0,50% 10%,65% 0,100% 0,100% 100%,0 100%,0 0)}
 .twocol-text-image .image-bg:before{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(3,26,41,0.85)}
+.twocol-text-image .image-bg.notransparent:before{background-color:#031a29}
 .twocol-text-image .flexwrap{width:100%;position:relative;z-index:10}
 .twocol-text-image .fxcol{width:100%;height:100%;position:relative}
 .twocol-text-image .fxcol.left{padding:10vw 30px 8vw}

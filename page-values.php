@@ -141,7 +141,7 @@ get_header(); ?>
 
 				<?php if ( $row3LeftColText ) { ?>
 				<div class="twocol-text-image">
-					<div class="image-bg"<?php echo $row3BgImg ?>></div>
+					<div class="image-bg notransparent"<?php echo $row3BgImg ?>></div>
 					<div class="flexwrap">
 						<div class="fxcol left">
 							<div class="text"><?php echo $row3LeftColText ?></div>
