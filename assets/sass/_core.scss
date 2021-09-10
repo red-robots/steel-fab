@@ -5559,6 +5559,9 @@ body.page-template-page-locations #primary {
 	    	}
 	    }
 		}
+    // &.hasimage {
+    //   margin-bottom: 50px;
+    // }
 	}
 	.history.odd {
 		.h-text {
@@ -5624,7 +5627,7 @@ body.page-template-page-locations #primary {
 	}
 	.history.first {
 		@include tab {
-      transform: translateY(0);
+      transform: translateY(0)!important;
 			padding-top: 50px;
 		}
 	}
@@ -5636,6 +5639,11 @@ body.page-template-page-locations #primary {
       }
 		}
 	}
+  .history.moveup {
+    @include tab {
+      transform: translateY(-5vw);
+    }
+  }
 	.middle-line {
 		position: absolute;
 		top: 0;

@@ -2405,9 +2405,10 @@ body.no-hero #main{margin-top:50px}
 #timeline-area.timeline-wrapper .timeline .history.even .h-text{padding-left:3vw}
 #timeline-area.timeline-wrapper .timeline .history.even .h-text:before{content:"";display:block;width:15px;height:30px;background:#eca72c;border-top-right-radius:100px;border-bottom-right-radius:100px;position:absolute;top:-17px;left:2px}
 #timeline-area.timeline-wrapper .timeline .history.even .h-title{padding-left:3vw}
-#timeline-area.timeline-wrapper .timeline .history.first{-webkit-transform:translateY(0);transform:translateY(0);padding-top:50px}
+#timeline-area.timeline-wrapper .timeline .history.first{-webkit-transform:translateY(0) !important;transform:translateY(0) !important;padding-top:50px}
 #timeline-area.timeline-wrapper .timeline .history.last{padding-bottom:50px}
 #timeline-area.timeline-wrapper .timeline .history.last .h-text{margin-bottom:70px}
+#timeline-area.timeline-wrapper .timeline .history.moveup{-webkit-transform:translateY(-5vw);transform:translateY(-5vw)}
 #timeline-area.timeline-wrapper .timeline .middle-line{width:50%}
 #timeline-area.timeline-wrapper .timeline .middle-line:before{content:"";display:block;width:7vw;border-bottom:2px solid #335d7d;position:absolute;top:0;right:0;margin-right:-3.5vw;margin-top:-1.2vw}
 #timeline-area.timeline-wrapper .timeline .middle-line:after{content:"";display:block;width:7vw;border-bottom:2px solid #335d7d;position:absolute;bottom:0;right:0;margin-right:-3.5vw;margin-bottom:-1.2vw}
