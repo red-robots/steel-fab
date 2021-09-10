@@ -1955,6 +1955,7 @@ body.subpage .entry-content{min-height:20em}
 .text-left-image-right .textcol .text{position:relative;z-index:5;padding:40px 20px}
 .text-left-image-right .textcol .text ul{margin-left:0;padding-left:15px}
 .text-left-image-right .textcol .text h2{color:#eca72c;font-weight:800;font-size:28px;line-height:1.2;text-transform:uppercase;margin:0 0 20px;position:relative}
+.text-left-image-right .textcol.careers-items:before{background-color:#031a29;opacity:1}
 .text-left-image-right div.button{margin-top:30px}
 .page-careers-template .columns-with-icons .wrapper{padding-bottom:60px}
 .text-blue-bg{color:#FFF;position:relative;padding-top:80px;padding-bottom:80px;display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-align:center;-ms-flex-align:center;align-items:center}

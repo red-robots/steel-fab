@@ -4034,6 +4034,10 @@ body.subpage {
 		}
 
     &.careers-items {
+      &:before {
+        background-color: $dark_blue;
+        opacity: 1;
+      }
       @include tab {
         .text ul {
           column-count: 2;
