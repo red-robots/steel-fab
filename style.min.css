@@ -2220,6 +2220,12 @@ body.page-template-page-about.logged-in.admin-bar .fancybox-button.fancybox-butt
 .project-pagination #pagination span.next i:after{-webkit-transform:translateY(-4px) rotate(50deg);transform:translateY(-4px) rotate(50deg)}
 .project-pagination #pagination span.next a{padding-right:15px}
 .project-pagination #pagination span.next a:hover i{right:-5px}
+.outer-blue-area{width:100%;float:left}
+.about-video{width:100%;float:left}
+.about-video .wrapper{max-width:700px;width:100%}
+.about-video .video-frame{width:100%;float:left;position:relative;overflow:hidden;margin-bottom:80px;position:relative;top:-10px}
+.about-video .video-frame img.helper{width:100%;height:auto;float:left}
+.about-video .video-frame iframe{width:100% !important;height:100% !important;position:absolute;top:0;left:0}
 .site-footer{width:100%;background-color:#031a29;color:#FFF;position:relative;overflow:hidden}
 .site-footer .wrapper{position:relative;z-index:10;padding-top:50px;padding-bottom:50px}
 .site-footer:before{content:"";display:block;width:24vw;height:120%;background-image:url("images/logo-symbol.png");background-position:center;background-repeat:no-repeat;background-size:cover;position:absolute;top:0;left:-5vw;opacity:.05}
@@ -2364,7 +2370,7 @@ body.no-hero #main{margin-top:50px}
 .text-left-image-right .textcol .text{padding:5vw 5vw}
 .text-left-image-right .textcol .text h2{font-size:40px}
 .text-left-image-right .textcol.careers-items .text ul{-webkit-column-count:2;-moz-column-count:2;column-count:2}
-.text-left-image-right .textcol.careers-items .text ul li{-webkit-column-break-inside:avoid;page-break-inside:avoid;-moz-column-break-inside:avoid;break-inside:avoid;min-height:26px}
+.text-left-image-right .textcol.careers-items .text ul li{-webkit-column-break-inside:avoid;page-break-inside:avoid;-moz-column-break-inside:avoid;break-inside:avoid;min-height:26px;padding-right:15px}
 .careers-list .job{width:33.33%}
 .careers-list .job .inside .wrap{padding:5vw}
 .sitemap-links>ul{-webkit-column-count:2;-moz-column-count:2;column-count:2}

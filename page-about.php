@@ -134,8 +134,52 @@ $n++; } ?>
 			<?php } ?>
 
 
+      <?php
+      $steelfab_video = get_field("steelfab_video");
+      $youtube_id = '';
+      $vimeo_id = '';
+      if($steelfab_video) {
+        $basename = basename($steelfab_video);
+        if ( strpos($steelfab_video, 'youtu.be') !== false ) {
+          $youtube_id = $basename;
+        }
+        else if ( strpos($steelfab_video, 'youtube.com') !== false ) {
+          $parts = parse_url($steelfab_video);
+          parse_str($parts['query'], $query);
+          $youtube_id = ( isset($query['v']) && $query['v'] ) ? $query['v'] : '';
+        }
+        else if ( strpos($steelfab_video, 'vimeo.com') !== false ) {
+          $vimeo_id = ( $basename && is_numeric($basename) ) ? $basename : '';
+        }
+      }
+      
+      ?>
+      <div class="about-video">
+        <div class="wrapper">
+          <div class="video-frame">
+            <img src="<?php echo get_images_dir('video-helper.png') ?>" class="helper" alt="" />
+            
+            <?php 
+            /* YOUTUBE */
+            if ($youtube_id) { ?>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/<?php echo $youtube_id ?>?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <?php } ?>
+
+            <?php 
+            /* VIMEO */
+            if ($vimeo_id) { ?>
+            <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/<?php echo $vimeo_id ?>?h=f7d07a2e6e" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+            <?php } ?>
+
+          </div>
+        </div>
+      </div>
+
+
 			<!-- BLUE SECTION with Left and Right Arrow -->
+      <div class="outer-blue-area">
 			<?php get_template_part('parts/blue-section') ?>
+      </div>
 
 		<?php endwhile; ?>
 

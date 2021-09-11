@@ -4052,6 +4052,7 @@ body.subpage {
           page-break-inside: avoid; 
           break-inside: avoid;
           min-height: 26px;
+          padding-right: 15px;
         }
       }
     }
@@ -5864,6 +5865,41 @@ body.page-template-page-about {
     
   }
 }
+
+.outer-blue-area {
+  width: 100%;
+  float: left;
+}
+.about-video {
+  width: 100%;
+  float: left;
+  .wrapper {
+    max-width: 700px;
+    width: 100%;
+  }
+  .video-frame {
+    width: 100%;
+    float: left;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 80px;
+    position: relative;
+    top: -10px;
+    img.helper {
+      width: 100%;
+      height: auto;
+      float: left;
+    }
+    iframe {
+      width: 100%!important;
+      height: 100%!important;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+}
+
 
 /* FOOTER */
 .site-footer {
