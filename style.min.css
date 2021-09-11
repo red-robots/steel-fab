@@ -2377,7 +2377,7 @@ body.subpage .entry-content.text-left-image-right{min-height:25vw}
 .text-left-image-right .bg img{display:none}
 .text-left-image-right .textcol{width:50%}
 .text-left-image-right .textcol:before{width:50%}
-.text-left-image-right .textcol .text{padding:5vw 5vw}
+.text-left-image-right .textcol .text{padding:4vw 5vw 5vw}
 .text-left-image-right .textcol .text h2{font-size:40px}
 .careers-list .job{width:33.33%}
 .careers-list .job .inside .wrap{padding:5vw}
