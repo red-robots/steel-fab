@@ -60,17 +60,17 @@ get_header(); ?>
 			if( $project_image || $project_description ) { ?>
 			<div class="project-description-area <?php echo $project_class ?>">
 				<div class="wrapper">
-					<div class="flexwrap">
+					<div id="image-description" class="flexwrap">
 						<?php if ($project_description) { ?>
 						<div class="project-info left">
-							<div class="inside"><?php echo email_obfuscator($project_description) ?></div>
+							<div id="textdiv" class="inside"><div class="align-middle"><?php echo email_obfuscator($project_description) ?></div></div>
 						</div>	
 						<?php } ?>
 
 						<?php if ($project_image) { ?>
 						<div class="project-info right">
-							<div class="image" style="background-image:url('<?php echo $project_image['url'] ?>')">
-								<img src="<?php echo get_images_dir('rectangle-lg.png') ?>" alt="" aria-hidden="true" class="helper">
+							<div id="image-container" class="image">
+								<img src="<?php echo $project_image['url'] ?>" alt="<?php echo $project_image['title'] ?>" aria-hidden="true" class="helper" id="feat-image">
 							</div>
 						</div>	
 						<?php } ?>
@@ -89,7 +89,32 @@ get_header(); ?>
 
 	</main><!-- #main -->
 </div><!-- #primary -->
+<script type="text/javascript">
+jQuery(document).ready(function($){
 
+  adjust_featured_image();
+  $(window).on("resize orientationchange",function(){
+    adjust_featured_image();
+  });
+  function adjust_featured_image() {
+    var window_width = $(window).width();
+    if( window_width>819) {
+      var blueText = ( $("#textdiv").length ) ?  $("#textdiv").outerHeight() : '';
+      var imageDIV = ( $("#feat-image").length ) ? $("#feat-image").outerHeight() : '';
+      if( blueText && imageDIV ) {
+        var imageURL = $("#feat-image").attr("src");
+        if( blueText > imageDIV ) {
+          $("#image-description").addClass("adjust-image");
+          $("#image-container").css('background-image','url('+imageURL+')');
+        } else {
+          $("#image-description").removeClass("adjust-image");
+        }
+      }
+    }
+  }
+
+});
+</script>
 <?php
 // $args = array(
 //   'posts_per_page'  => -1,

@@ -1970,7 +1970,7 @@ body.subpage .entry-content{min-height:20em}
 .text-blue-bg.has-job-list .bottom-arrow:before,.text-blue-bg.has-job-list .bottom-arrow:after{content:"";display:block;width:65%;height:100%;background:#f3f3f3;position:absolute;bottom:0;z-index:20}
 .text-blue-bg.has-job-list .bottom-arrow:before{left:-17vw;-webkit-transform:skew(60deg);transform:skew(60deg)}
 .text-blue-bg.has-job-list .bottom-arrow:after{right:-17vw;-webkit-transform:skew(-60deg);transform:skew(-60deg)}
-.careers-list{background-color:#f3f3f3;padding-top:50px;padding-bottom:100px}
+.careers-list{background-color:#f3f3f3;padding-top:50px;padding-bottom:60px}
 .careers-list .flexwrap{display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:0 -8px}
 .careers-list .job{width:100%;padding:8px;position:relative}
 .careers-list .job .inside{position:relative;height:100%;overflow:hidden}
@@ -1992,6 +1992,8 @@ body.subpage .entry-content{min-height:20em}
 .careers-list div.more a:hover{color:#345c7d}
 .careers-list div.more a:hover i{margin-right:-2px}
 .careers-list div.more a:hover i:before,.careers-list div.more a:hover i:after{background:#345c7d}
+.joblist-button{text-align:center;margin-bottom:70px}
+.joblist-button .btn-default{padding:13px 20px 12px;min-width:220px}
 body.single-careers .backtoparent{margin-bottom:40px}
 body.single-careers .titlediv{margin-bottom:30px}
 body.single-careers .titlediv h1{margin:0;font-weight:800}
@@ -2069,12 +2071,14 @@ body.single-project #main .titlediv{margin-bottom:50px}
 .project-description-area .flexwrap{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}
 .project-description-area .project-info{width:100%;position:relative}
 .project-description-area .project-info.left{z-index:10}
-.project-description-area .project-info.left .inside{background:#031a29;color:#FFF;font-size:14px;line-height:1.5;padding:30px;width:100%;height:100%}
+.project-description-area .project-info.left .inside{background:#031a29;color:#FFF;font-size:14px;line-height:1.5;padding:30px;width:100%;height:100%;display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}
 .project-description-area .project-info.left .inside:after{content:"";width:0;height:0;border-left:25px solid #031a29;border-top:35px solid transparent;border-bottom:35px solid transparent;position:absolute}
+.project-description-area .project-info.left .inside .align-middle{width:100%}
 .project-description-area .project-info.left .inside p:last-child{margin-bottom:0}
 .project-description-area .project-info.right div.image{min-height:50vh;width:100%;height:100%;background-size:cover;background-position:center;background-repeat:no-repeat}
 .project-description-area .project-info.right div.image img.helper{display:block;width:100%;height:auto;float:left}
 .project-description-area.twocol .project-info{width:100%}
+.project-description-area #image-description.adjust-image #feat-image{visibility:hidden}
 body.page-template-page-locations .site-footer,body.page-template-page-locations .bottom-blue-area{width:100%;float:left}
 .map-locations-section{width:100%;float:left;position:relative;padding-bottom:50px;overflow:hidden}
 .map-locations-section .ol-attribution{display:none !important}
@@ -2223,7 +2227,7 @@ body.page-template-page-about.logged-in.admin-bar .fancybox-button.fancybox-butt
 .outer-blue-area{width:100%;float:left}
 .about-video{width:100%;float:left}
 .about-video .wrapper{max-width:700px;width:100%}
-.about-video .video-frame{width:100%;float:left;position:relative;overflow:hidden;margin-bottom:80px;position:relative;top:-10px}
+.about-video .video-frame{width:100%;float:left;position:relative;overflow:hidden;margin-bottom:80px;position:relative;top:-10px;background-color:#000;border-radius:10px;-webkit-box-shadow:0 10px 20px rgba(0,0,0,0.25);box-shadow:0 10px 20px rgba(0,0,0,0.25)}
 .about-video .video-frame img.helper{width:100%;height:auto;float:left}
 .about-video .video-frame iframe{width:100% !important;height:100% !important;position:absolute;top:0;left:0}
 .site-footer{width:100%;background-color:#031a29;color:#FFF;position:relative;overflow:hidden}
@@ -2388,9 +2392,8 @@ body.no-hero #main{margin-top:50px}
 .project-description-area .wrapper{padding-left:20px;padding-right:20px}
 .project-description-area .project-info.left .inside:after{top:50%;right:-25px;-webkit-transform:translateY(-50%);transform:translateY(-50%)}
 .project-description-area .project-info.left .inside{padding:2vw}
-.project-description-area .project-info.right div.image img.helper{display:none}
-.project-description-area.twocol .project-info.left{width:40%}
-.project-description-area.twocol .project-info.right{width:60%}
+.project-description-area.twocol .project-info.left{width:35%}
+.project-description-area.twocol .project-info.right{width:65%}
 #accordion .panel .pcontent{padding:25px 5vw}
 .project-description-area.divisions .project-info.left .inside{padding:50px 4vw;display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-align:center;-ms-flex-align:center;align-items:center}
 .project-description-area.divisions .project-info.left .inside .wrap{width:100%}

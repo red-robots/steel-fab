@@ -48,4 +48,19 @@ if ( $careers->have_posts() ) { ?>
 		</div>
 	</div>
 </div>
+
+<?php 
+$button = get_field("row4_joblist_btn");
+if ( $button ) { 
+  $buttonTarget = (isset($button['target']) && $button['target']) ? $button['target'] : '_self';
+  $buttonText = (isset($button['title']) && $button['title']) ? $button['title'] : '';
+  $buttonLink = (isset($button['url']) && $button['url']) ? $button['url'] : '';
+  if($buttonText && $buttonLink) { ?>
+  <div class="joblist-button">
+    <div class="wrapper text-center">
+      <a href="<?php echo $buttonLink ?>" target="<?php echo $buttonTarget ?>" class="btn-default"><?php echo $buttonText ?></a>
+    </div>
+  </div>
+  <?php } ?>
+<?php } ?>
 <?php } ?>
