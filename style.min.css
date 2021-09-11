@@ -1950,13 +1950,14 @@ body.subpage .entry-content{min-height:20em}
 #timeline-area .photo{margin-top:30px}
 #timeline-area .photo img{max-width:350px;width:100%;height:auto}
 .text-left-image-right{background-color:#031a29;color:#FFF;position:relative}
-.text-left-image-right .bg{background-size:cover;background-position:center;background-repeat:no-repeat;width:100%;height:100%;position:absolute;top:0;left:0}
+.text-left-image-right .bg{position:relative;z-index:50;background-size:cover;background-position:center;background-repeat:no-repeat}
+.text-left-image-right .bg img{width:100%;height:auto}
 .text-left-image-right .textcol{width:100%;display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-align:center;-ms-flex-align:center;align-items:center}
 .text-left-image-right .textcol:before{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(3,26,41,0.85)}
 .text-left-image-right .textcol .text{position:relative;z-index:5;padding:40px 20px}
 .text-left-image-right .textcol .text ul{margin-left:0;padding-left:15px}
 .text-left-image-right .textcol .text h2{color:#eca72c;font-weight:800;font-size:28px;line-height:1.2;text-transform:uppercase;margin:0 0 20px;position:relative}
-.text-left-image-right .textcol.careers-items:before{background-color:#031a29;opacity:1}
+.text-left-image-right .textcol.careers-items:before{background-color:#335d7d;opacity:1}
 .text-left-image-right div.button{margin-top:30px}
 .page-careers-template .columns-with-icons .wrapper{padding-bottom:60px}
 .text-blue-bg{color:#FFF;position:relative;padding-top:80px;padding-bottom:80px;display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-align:center;-ms-flex-align:center;align-items:center}
@@ -2258,6 +2259,8 @@ body.page-template-page-about.logged-in.admin-bar .fancybox-button.fancybox-butt
 .arrow-down-middle{display:block;height:calc(100% + 30px);-webkit-clip-path:polygon(40% 0,50% 7%,60% 0,100% 0,100% 100%,0 100%,0 0);clip-path:polygon(40% 0,50% 7%,60% 0,100% 0,100% 100%,0 100%,0 0)}
 .team-list .hexagons-large .hexFigure{width:50%;margin:30px 0;padding:0 30px}
 .team-list .staff-info{margin-top:1vw;margin-bottom:0}
+.text-left-image-right .textcol.careers-items .text ul{-webkit-column-count:2;-moz-column-count:2;column-count:2}
+.text-left-image-right .textcol.careers-items .text ul li{-webkit-column-break-inside:avoid;page-break-inside:avoid;-moz-column-break-inside:avoid;break-inside:avoid;min-height:26px;padding-right:15px}
 .careers-list .job{width:50%}
 .careers-list .job .inside .wrap{padding:30px 6vw}
 .contact-form .gform_wrapper.gravity-theme .gform_page_footer input,.contact-form .gform_wrapper .gform_footer input.button{width:auto}
@@ -2369,12 +2372,13 @@ body.scrolled #masthead .navbar:after{width:100%}
 body.no-hero .site-header{position:relative}
 body.no-hero #main{margin-top:50px}
 #timeline-area{padding-top:100px;padding-bottom:100px}
+body.subpage .entry-content.text-left-image-right{min-height:25vw}
+.text-left-image-right .bg{width:50%;height:100%;position:absolute;top:0;right:0}
+.text-left-image-right .bg img{display:none}
 .text-left-image-right .textcol{width:50%}
 .text-left-image-right .textcol:before{width:50%}
 .text-left-image-right .textcol .text{padding:5vw 5vw}
 .text-left-image-right .textcol .text h2{font-size:40px}
-.text-left-image-right .textcol.careers-items .text ul{-webkit-column-count:2;-moz-column-count:2;column-count:2}
-.text-left-image-right .textcol.careers-items .text ul li{-webkit-column-break-inside:avoid;page-break-inside:avoid;-moz-column-break-inside:avoid;break-inside:avoid;min-height:26px;padding-right:15px}
 .careers-list .job{width:33.33%}
 .careers-list .job .inside .wrap{padding:5vw}
 .sitemap-links>ul{-webkit-column-count:2;-moz-column-count:2;column-count:2}

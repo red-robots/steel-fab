@@ -114,20 +114,20 @@ get_header(); ?>
 			if( $row3_text ) { ?>
 			<div id="row3" class="entry-content text-left-image-right">
 				<?php if ($row3_img_bg) { ?>
-				<div class="bg" style="background-image:url('<?php echo $row3_img_bg['url'] ?>')"></div>	
+				<div class="bg" style="background-image:url('<?php echo $row3_img_bg['url'] ?>')">
+          <img src="<?php echo $row3_img_bg['url'] ?>" alt="<?php echo $row3_img_bg['title'] ?>">  
+        </div>	
 				<?php } ?>
 
 				<div class="textcol careers-items">
 					<div class="text">
 						<?php echo $row3_text ?>
-
 						<?php if ($buttonName && $buttonLink) { ?>
 						<div class="button">
-							<a href="<?php echo $buttonLink ?>" target="<?php echo $buttonTarget ?>" class="btn-default sm"><?php echo $buttonName ?></a>
+							<a href="<?php echo $buttonLink ?>" target="<?php echo $buttonTarget ?>" class="btn-outline sm"><?php echo $buttonName ?></a>
 						</div>
 						<?php } ?>
 					</div>
-					
 				</div>
 			</div>
 			<?php } ?>
