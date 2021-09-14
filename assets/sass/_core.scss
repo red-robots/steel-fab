@@ -1087,13 +1087,18 @@ body.open-menu {
 	padding: 15px 20px;
 	font-size: 16px;
 	line-height: 1.2;
+  text-align: center;
 	text-transform: uppercase;
 	border-radius: 0;
 	letter-spacing: 1px;
+  min-width: 150px;
 	&.sm {
 		font-size: 14px;
 		padding: 8px 20px;
 	}
+  &.wide {
+    min-width: 180px;
+  }
 	&:hover {
 		background: $yellow;
 		color: #FFF;
@@ -4319,6 +4324,12 @@ body.single-careers {
 			font-weight: 400;
 		}
 	}
+  #main {
+    padding-bottom: 80px;
+  }
+  .jobinfo-button {
+    margin-top: 35px;
+  }
 }
 #sitemap-wrap {
 	text-align: center;

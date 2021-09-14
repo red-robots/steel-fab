@@ -1578,8 +1578,9 @@ body.open-menu .nav-overlay{display:block;width:100%;height:100%;position:fixed;
 .btn-outline{display:inline-block;text-decoration:none;color:#FFF;padding:12px 25px;font-size:16px;line-height:1.2;text-transform:uppercase;border-radius:0;letter-spacing:1px;border:1px solid #FFF}
 .btn-outline.sm{padding:8px 20px;font-size:14px}
 .btn-outline:hover{background-color:#eca72c;border-color:#eca72c;color:#FFF;text-decoration:none}
-.btn-default{display:inline-block;text-decoration:none !important;background:#0154a0;color:#FFF;padding:15px 20px;font-size:16px;line-height:1.2;text-transform:uppercase;border-radius:0;letter-spacing:1px}
+.btn-default{display:inline-block;text-decoration:none !important;background:#0154a0;color:#FFF;padding:15px 20px;font-size:16px;line-height:1.2;text-align:center;text-transform:uppercase;border-radius:0;letter-spacing:1px;min-width:150px}
 .btn-default.sm{font-size:14px;padding:8px 20px}
+.btn-default.wide{min-width:180px}
 .btn-default:hover{background:#eca72c;color:#FFF;text-decoration:none !important}
 .btn-default.yellow{background:#eca72c}
 .btn-default.yellow:hover{background:#0154a0}
@@ -1999,6 +2000,8 @@ body.single-careers .backtoparent{margin-bottom:40px}
 body.single-careers .titlediv{margin-bottom:30px}
 body.single-careers .titlediv h1{margin:0;font-weight:800}
 body.single-careers .titlediv .locations{color:#335d7d;font-size:18px;font-weight:400}
+body.single-careers #main{padding-bottom:80px}
+body.single-careers .jobinfo-button{margin-top:35px}
 #sitemap-wrap{text-align:center}
 .sitemap-links{display:inline-block;margin:25px 0;text-align:left}
 .sitemap-links ul{margin:0;padding:0;list-style:none;position:relative}

@@ -45,6 +45,19 @@ get_header(); ?>
 				<?php the_content(); ?>
 			</div>
 
+      <?php 
+      $button = get_field("ctabutton");
+      if ( $button ) { 
+        $buttonTarget = (isset($button['target']) && $button['target']) ? $button['target'] : '_self';
+        $buttonText = (isset($button['title']) && $button['title']) ? $button['title'] : '';
+        $buttonLink = (isset($button['url']) && $button['url']) ? $button['url'] : '';
+        if($buttonText && $buttonLink) { ?>
+        <div class="jobinfo-button">
+          <a href="<?php echo $buttonLink ?>" target="<?php echo $buttonTarget ?>" class="btn-default wide"><?php echo $buttonText ?></a>
+        </div>
+        <?php } ?>
+      <?php } ?>
+
 		<?php endwhile; ?>
 
 	</main><!-- #main -->
