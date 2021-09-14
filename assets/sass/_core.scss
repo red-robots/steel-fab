@@ -4308,6 +4308,7 @@ body.subpage .entry-content.text-left-image-right {
   }
 }
 
+body.subpage.single-careers,
 body.single-careers {
 	.backtoparent {
 		margin-bottom: 40px;
@@ -4326,6 +4327,10 @@ body.single-careers {
 	}
   #main {
     padding-bottom: 80px;
+    min-height: 30em;
+  }
+  .entry-content {
+    min-height: unset;
   }
   .jobinfo-button {
     margin-top: 35px;

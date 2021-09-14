@@ -1996,12 +1996,13 @@ body.subpage .entry-content{min-height:20em}
 .careers-list div.more a:hover i:before,.careers-list div.more a:hover i:after{background:#345c7d}
 .joblist-button{text-align:center;margin-bottom:70px}
 .joblist-button .btn-default{padding:13px 20px 12px;min-width:220px}
-body.single-careers .backtoparent{margin-bottom:40px}
-body.single-careers .titlediv{margin-bottom:30px}
-body.single-careers .titlediv h1{margin:0;font-weight:800}
-body.single-careers .titlediv .locations{color:#335d7d;font-size:18px;font-weight:400}
-body.single-careers #main{padding-bottom:80px}
-body.single-careers .jobinfo-button{margin-top:35px}
+body.subpage.single-careers .backtoparent,body.single-careers .backtoparent{margin-bottom:40px}
+body.subpage.single-careers .titlediv,body.single-careers .titlediv{margin-bottom:30px}
+body.subpage.single-careers .titlediv h1,body.single-careers .titlediv h1{margin:0;font-weight:800}
+body.subpage.single-careers .titlediv .locations,body.single-careers .titlediv .locations{color:#335d7d;font-size:18px;font-weight:400}
+body.subpage.single-careers #main,body.single-careers #main{padding-bottom:80px;min-height:30em}
+body.subpage.single-careers .entry-content,body.single-careers .entry-content{min-height:unset}
+body.subpage.single-careers .jobinfo-button,body.single-careers .jobinfo-button{margin-top:35px}
 #sitemap-wrap{text-align:center}
 .sitemap-links{display:inline-block;margin:25px 0;text-align:left}
 .sitemap-links ul{margin:0;padding:0;list-style:none;position:relative}
