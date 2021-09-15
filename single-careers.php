@@ -47,17 +47,35 @@ get_header(); ?>
 
       <?php 
       $button = get_field("ctabutton");
-      if ( $button ) { 
-        $buttonTarget = (isset($button['target']) && $button['target']) ? $button['target'] : '_self';
-        $buttonText = (isset($button['title']) && $button['title']) ? $button['title'] : '';
-        $buttonLink = (isset($button['url']) && $button['url']) ? $button['url'] : '';
-        if($buttonText && $buttonLink) { ?>
-        <div class="jobinfo-button">
-          <a href="<?php echo $buttonLink ?>" target="<?php echo $buttonTarget ?>" class="btn-default wide"><?php echo $buttonText ?></a>
-        </div>
-        <?php } ?>
-      <?php } ?>
+      $ctabuttons = get_field("ctabuttons");
+      if( $ctabuttons ) { ?>
 
+        <div class="jobinfo-button multiple">
+          <?php foreach ($ctabuttons as $cb) { 
+            $btn = $cb['button'];
+            $buttonTarget = (isset($btn['target']) && $btn['target']) ? $btn['target'] : '_self';
+            $buttonText = (isset($btn['title']) && $btn['title']) ? $btn['title'] : '';
+            $buttonLink = (isset($btn['url']) && $btn['url']) ? $btn['url'] : '';
+            if($buttonText && $buttonLink) { ?>
+              <a href="<?php echo $buttonLink ?>" target="<?php echo $buttonTarget ?>" class="btn-default wide"><?php echo $buttonText ?></a>
+            <?php } ?>
+          <?php } ?>
+        </div>
+
+      <?php } else {
+
+        if ( $button ) { 
+          $buttonTarget = (isset($button['target']) && $button['target']) ? $button['target'] : '_self';
+          $buttonText = (isset($button['title']) && $button['title']) ? $button['title'] : '';
+          $buttonLink = (isset($button['url']) && $button['url']) ? $button['url'] : '';
+          if($buttonText && $buttonLink) { ?>
+          <div class="jobinfo-button">
+            <a href="<?php echo $buttonLink ?>" target="<?php echo $buttonTarget ?>" class="btn-default wide"><?php echo $buttonText ?></a>
+          </div>
+          <?php } ?>
+        <?php } ?>
+
+      <?php } ?>
 		<?php endwhile; ?>
 
 	</main><!-- #main -->

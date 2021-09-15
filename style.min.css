@@ -1895,6 +1895,8 @@ body.subpage.single-careers #main,body.single-careers #main{padding-bottom:80px;
 body.subpage.single-careers .entry-content,body.single-careers .entry-content{min-height:unset}
 body.subpage.single-careers .entry-content,body.single-careers .entry-content{min-height:unset}
 body.subpage.single-careers .jobinfo-button,body.single-careers .jobinfo-button{margin-top:35px}
+body.subpage.single-careers .jobinfo-button.multiple a.btn-default,body.single-careers .jobinfo-button.multiple a.btn-default{margin-left:15px}
+body.subpage.single-careers .jobinfo-button.multiple a.btn-default:first-child,body.single-careers .jobinfo-button.multiple a.btn-default:first-child{margin-left:0}
 #sitemap-wrap{text-align:center}
 .sitemap-links{display:inline-block;margin:25px 0;text-align:left}
 .sitemap-links ul{margin:0;padding:0;list-style:none;position:relative}
