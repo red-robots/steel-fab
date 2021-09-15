@@ -55,7 +55,10 @@ get_header(); ?>
 
 			<?php
 			$project_description = get_field("project_description");
-			$project_image = get_field("main_photo");
+			$photo_type = get_field("photo_type");
+      $projphoto = ($photo_type) ? $photo_type : 'single';
+      $multiple_photos = get_field("multiple_photos");
+      $project_image = get_field("main_photo");
 			$project_class = ( $project_image && $project_description ) ? 'twocol':'onecol';
 			if( $project_image || $project_description ) { ?>
 			<div class="project-description-area <?php echo $project_class ?>">
@@ -70,7 +73,36 @@ get_header(); ?>
 						<?php if ($project_image) { ?>
 						<div class="project-info right">
 							<div id="image-container" class="image">
-								<img src="<?php echo $project_image['url'] ?>" alt="<?php echo $project_image['title'] ?>" aria-hidden="true" class="helper" id="feat-image">
+                <?php if ( $projphoto=='single' ) { ?>
+                  
+                  <?php if ($project_image) { ?>
+                    <img src="<?php echo $project_image['url'] ?>" alt="<?php echo $project_image['title'] ?>" aria-hidden="true" class="helper" id="feat-image">
+                  <?php } ?>
+
+                <?php } else if( $projphoto=='multiple' ) { ?>
+
+                  <?php if ( $multiple_photos ) { $numphotos = count($multiple_photos); ?>
+                    <div class="project-slider">
+                      <div class="swiper">
+                        <div class="swiper-wrapper">
+                          <?php foreach ($multiple_photos as $p) { ?>
+                            <div class="swiper-slide" style="background-image:url('<?php echo $p['url'] ?>')">
+                              <img src="<?php echo $p['url'] ?>" alt="<?php echo $p['title'] ?>" style="display:none;" />
+                            </div>
+                          <?php } ?>
+                        </div>
+                        <?php if ($numphotos>1) { ?>
+                          <div class="swiper-pagination"></div>
+                          <div class="swiper-button-prev"></div>
+                          <div class="swiper-button-next"></div>
+                        <?php } ?>
+                      </div>
+                      <img src="<?php echo get_images_dir('rectangle-lg.png') ?>" alt="" class="helper">
+                    </div>
+                  <?php } ?>
+
+                <?php } ?>
+								
 							</div>
 						</div>	
 						<?php } ?>

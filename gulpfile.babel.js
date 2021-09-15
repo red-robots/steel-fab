@@ -218,7 +218,7 @@ gulp.task('vendorsJS', () => {
 		//.src(config.jsVendorSRC, {since: gulp.lastRun('vendorsJS')}) // Only run on changed files.
 		.src([
 		'./assets/js/vendors/fancybox.js',
-		'./assets/js/vendors/swiper.js'
+		'./assets/js/vendors/swiper-bundle.min.js'
 		])
 		.pipe(plumber(errorHandler))
 		.pipe(

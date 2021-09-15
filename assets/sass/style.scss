@@ -25,10 +25,11 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
 @import "web-fonts-with-css/scss/fontawesome";
 @import "variables";
 @import "modules/animate";
-@import "modules/colorbox";
-@import "modules/flexslider";
-@import "modules/select2";
-@import "modules/owlcarousel";
+// @import "modules/colorbox";
+// @import "modules/flexslider";
+// @import "modules/select2";
+// @import "modules/owlcarousel";
+@import "modules/swiper-bundle";
 @import "modules/timeline";
 @import "fonts";
 @import "core";

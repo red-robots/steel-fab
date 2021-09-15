@@ -4308,6 +4308,7 @@ body.subpage .entry-content.text-left-image-right {
   }
 }
 
+body.subpage.single-careers,
 body.single-careers {
 	.backtoparent {
 		margin-bottom: 40px;
@@ -4326,6 +4327,9 @@ body.single-careers {
 	}
   #main {
     padding-bottom: 80px;
+  }
+  .entry-content {
+    min-height: unset;
   }
   .jobinfo-button {
     margin-top: 35px;
@@ -4884,6 +4888,61 @@ body.single-project {
     #feat-image {visibility:hidden;}
   }
 }
+
+.project-slider {
+  width: 100%;
+  height: 100%;
+  float: left;
+  position: relative;
+  .swiper {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .swiper-slide {
+    @include backgroundImage(center);
+  }
+  img.helper {
+    width: 100%;
+    height: auto;
+    float: left;
+  }
+  .swiper-pagination-bullet {
+    cursor: pointer;
+    background: rgba(255,255,255,.2);
+    width: 10px;
+    height: 10px;
+    border: 1px solid #FFF;
+    opacity: 1;
+    &.swiper-pagination-bullet-active {
+      background: #FFF;
+    }
+  }
+  .swiper-button-prev:after, 
+  .swiper-rtl .swiper-button-next:after,
+  .swiper-button-next:after, 
+  .swiper-rtl .swiper-button-prev:after {
+    color: #FFF;
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    opacity: 0.5;
+    transition: all ease .3s;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .swiper-button-prev {
+    left: 40px;
+  }
+  .swiper-button-next {
+    right: 20px;
+  }
+}
+
+
 body.page-template-page-locations {
 	.site-footer, 
 	.bottom-blue-area {
