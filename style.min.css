@@ -1974,6 +1974,7 @@ body.single-project #main .titlediv{margin-bottom:50px}
 .project-description-area .project-info.left .inside p:last-child{margin-bottom:0}
 .project-description-area .project-info.right div.image{min-height:50vh;width:100%;height:100%;background-size:cover;background-position:center;background-repeat:no-repeat}
 .project-description-area .project-info.right div.image img.helper{display:block;width:100%;height:auto;float:left}
+.project-description-area .project-info.right img.swiper-single-image{width:100%;height:auto;float:left}
 .project-description-area.twocol .project-info{width:100%}
 .project-description-area #image-description.adjust-image #feat-image{visibility:hidden}
 .project-slider{width:100%;height:100%;float:left;position:relative}

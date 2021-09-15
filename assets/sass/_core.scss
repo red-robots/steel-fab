@@ -4872,6 +4872,11 @@ body.single-project {
 				float: left;
 			}
 		}
+    img.swiper-single-image {
+      width: 100%;
+      height: auto;
+      float: left;
+    }
 	}
 	&.twocol {
 		.project-info {

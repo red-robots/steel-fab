@@ -76,29 +76,40 @@ get_header(); ?>
                 <?php if ( $projphoto=='single' ) { ?>
                   
                   <?php if ($project_image) { ?>
-                    <img src="<?php echo $project_image['url'] ?>" alt="<?php echo $project_image['title'] ?>" aria-hidden="true" class="helper" id="feat-image">
+                    <img src="<?php echo $project_image['url'] ?>" alt="<?php echo $project_image['title'] ?>" class="helper" id="feat-image">
                   <?php } ?>
 
                 <?php } else if( $projphoto=='multiple' ) { ?>
 
                   <?php if ( $multiple_photos ) { $numphotos = count($multiple_photos); ?>
-                    <div class="project-slider">
-                      <div class="swiper">
-                        <div class="swiper-wrapper">
-                          <?php foreach ($multiple_photos as $p) { ?>
-                            <div class="swiper-slide" style="background-image:url('<?php echo $p['url'] ?>')">
-                              <img src="<?php echo $p['url'] ?>" alt="<?php echo $p['title'] ?>" style="display:none;" />
-                            </div>
-                          <?php } ?>
+
+                    <?php if ($numphotos>1) { ?>
+                      <div class="project-slider">
+                        <div class="swiper">
+                          <div class="swiper-wrapper">
+                            <?php foreach ($multiple_photos as $p) { ?>
+                              <div class="swiper-slide" style="background-image:url('<?php echo $p['url'] ?>')">
+                                <img src="<?php echo $p['url'] ?>" alt="<?php echo $p['title'] ?>" style="display:none;" />
+                              </div>
+                            <?php } ?>
+                          </div>
+                          
+                            <div class="swiper-pagination"></div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                          
                         </div>
-                        <?php if ($numphotos>1) { ?>
-                          <div class="swiper-pagination"></div>
-                          <div class="swiper-button-prev"></div>
-                          <div class="swiper-button-next"></div>
-                        <?php } ?>
+                        <img src="<?php echo get_images_dir('rectangle-lg.png') ?>" alt="" class="helper">
                       </div>
-                      <img src="<?php echo get_images_dir('rectangle-lg.png') ?>" alt="" class="helper">
-                    </div>
+                    <?php } else { ?>
+
+                      <?php foreach ($multiple_photos as $p) { ?>
+                        <img id="feat-image" class="helper swiper-single-image" src="<?php echo $p['url'] ?>" alt="<?php echo $p['title'] ?>" />
+                      <?php } ?>
+
+
+                    <?php } ?>
+
                   <?php } ?>
 
                 <?php } ?>
