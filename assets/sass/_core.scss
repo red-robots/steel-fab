@@ -4327,6 +4327,10 @@ body.single-careers {
 	}
   #main {
     padding-bottom: 80px;
+    min-height: 30em;
+  }
+  .entry-content {
+    min-height: unset;
   }
   .entry-content {
     min-height: unset;

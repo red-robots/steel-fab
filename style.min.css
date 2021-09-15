@@ -1891,7 +1891,8 @@ body.subpage.single-careers .backtoparent,body.single-careers .backtoparent{marg
 body.subpage.single-careers .titlediv,body.single-careers .titlediv{margin-bottom:30px}
 body.subpage.single-careers .titlediv h1,body.single-careers .titlediv h1{margin:0;font-weight:800}
 body.subpage.single-careers .titlediv .locations,body.single-careers .titlediv .locations{color:#335d7d;font-size:18px;font-weight:400}
-body.subpage.single-careers #main,body.single-careers #main{padding-bottom:80px}
+body.subpage.single-careers #main,body.single-careers #main{padding-bottom:80px;min-height:30em}
+body.subpage.single-careers .entry-content,body.single-careers .entry-content{min-height:unset}
 body.subpage.single-careers .entry-content,body.single-careers .entry-content{min-height:unset}
 body.subpage.single-careers .jobinfo-button,body.single-careers .jobinfo-button{margin-top:35px}
 #sitemap-wrap{text-align:center}
