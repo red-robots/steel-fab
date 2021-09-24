@@ -2,8 +2,8 @@
 
 /**
  *	Custom jQuery Scripts
- *	
  *	Developed by: Lisa DeBona
+ *  Date Modified: 09.23.2021
  */
 jQuery(document).ready(function ($) {
   var screenHeight = $(window).height();

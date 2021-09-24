@@ -1400,7 +1400,7 @@ body.open-menu .nav-overlay{display:block;width:100%;height:100%;position:fixed;
 #home-row-1.hero-video .hero-inner-wrap{width:100%;float:left;overflow:hidden;position:relative}
 #home-row-1.hero-video .hero-caption{padding-top:0;padding-bottom:0}
 #home-row-1.hero-video .hero-video-content{position:absolute;top:0;left:0;z-index:10;width:100%;height:100%;overflow:hidden}
-#home-row-1.hero-video .hero-video-content .wrapper{position:relative;top:43%;-webkit-transform:translateY(-43%);transform:translateY(-43%)}
+#home-row-1.hero-video .hero-video-content .wrapper{position:relative;top:48%;-webkit-transform:translateY(-48%);transform:translateY(-48%)}
 #home-row-1.hero-video .hero-video-wrap{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden}
 #home-row-1.hero-video .hero-video-wrap:before,#home-row-1.hero-video .hero-video-wrap:after{content:"";display:block;width:100%;position:absolute;top:0;left:0;z-index:5}
 #home-row-1.hero-video .hero-video-wrap:before{height:50%;background:-webkit-gradient(linear,left top,left bottom,from(rgba(0,0,0,0.75)),color-stop(2%,rgba(0,0,0,0.75)),to(rgba(0,0,0,0)));background:linear-gradient(to bottom,rgba(0,0,0,0.75) 0,rgba(0,0,0,0.75) 2%,rgba(0,0,0,0) 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bf000000',endColorstr='#00000000',GradientType=0)}
@@ -1995,7 +1995,9 @@ body.single-project #main .titlediv{margin-bottom:50px}
 .project-description-area #image-description.adjust-image #feat-image{visibility:hidden}
 .project-slider{width:100%;height:100%;float:left;position:relative}
 .project-slider .swiper{width:100%;height:100%;position:absolute;top:0;left:0}
-.project-slider .swiper-slide{background-size:cover;background-position:center;background-repeat:no-repeat}
+.project-slider .swiper-slide{position:relative;background-size:cover;background-position:center;background-repeat:no-repeat}
+.project-slider .photo-caption{width:100%;position:absolute;left:0;bottom:0;padding-left:25px;padding-bottom:25px}
+.project-slider .photo-caption .caption{display:inline-block;background:rgba(0,0,0,0.85);color:#FFF;padding:2px 15px;font-size:13px;letter-spacing:1px;-webkit-transition:all ease .5s;transition:all ease .5s;opacity:0;-webkit-transform:translateX(-100%);transform:translateX(-100%)}
 .project-slider img.helper{width:100%;height:auto;float:left}
 .project-slider .swiper-pagination-bullet{cursor:pointer;background:rgba(255,255,255,0.2);width:10px;height:10px;border:1px solid #FFF;opacity:1}
 .project-slider .swiper-pagination-bullet.swiper-pagination-bullet-active{background:#FFF}
@@ -2004,6 +2006,7 @@ body.single-project #main .titlediv{margin-bottom:50px}
 .project-slider .swiper-button-prev:hover,.project-slider .swiper-button-next:hover{opacity:1}
 .project-slider .swiper-button-prev{left:40px}
 .project-slider .swiper-button-next{right:20px}
+.project-slider .swiper-slide.swiper-slide-active .photo-caption .caption{opacity:1;-webkit-transform:translateX(0);transform:translateX(0);-webkit-transition-delay:.5s;transition-delay:.5s}
 body.page-template-page-locations .site-footer,body.page-template-page-locations .bottom-blue-area{width:100%;float:left}
 .map-locations-section{width:100%;float:left;position:relative;padding-bottom:50px;overflow:hidden}
 .map-locations-section .ol-attribution{display:none !important}

@@ -29,6 +29,13 @@ function bellaworks_scripts() {
 			true 
 		);
 
+  wp_enqueue_script( 
+      'bellaworks-carousel', 
+      get_template_directory_uri() . '/assets/js/vendor/fancybox.js', 
+      array(), '20200101', 
+      true 
+    );
+  
 	wp_enqueue_script( 
 			'bellaworks-carousel', 
 			get_template_directory_uri() . '/assets/js/vendor/owl.carousel.min.js', 

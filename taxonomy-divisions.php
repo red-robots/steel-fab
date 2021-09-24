@@ -47,6 +47,8 @@ get_header(); ?>
 	$field_id = $taxonomy.'_'.$current_term_id;
 	$description = term_description($obj);
 	$term_image = get_field("division_featured_image",$field_id);
+  $multiple_images = get_field("divisionFeaturedImages",$field_id);
+  $count_images = ($multiple_images) ? count($multiple_images) : '';
 
 	$mailing = get_field("division_mailing",$field_id);
 	$mailing_address = ( isset($mailing['address']) && $mailing['address'] ) ? $mailing['address'] : '';
@@ -119,12 +121,39 @@ get_header(); ?>
 				</div>	
 				<?php } ?>
 
-				<?php if ($term_image) { ?>
+				<?php if ($multiple_images) { ?>
 				<div class="project-info right">
-					<div class="image" style="background-image:url('<?php echo $term_image['url'] ?>')">
+
+          <?php if ($count_images==1) { ?>
+					<div class="image single-photo" style="background-image:url('<?php echo $multiple_images[0]['url'] ?>')">
 						<img src="<?php echo get_images_dir('rectangle-lg.png') ?>" alt="" aria-hidden="true" class="helper">
 					</div>
-				</div>	
+          <?php } else if($count_images>1) { ?>
+          <div class="image multiple-photos">
+            <div class="project-slider">
+              <div class="swiper">
+                <div class="swiper-wrapper">
+                  <?php foreach ($multiple_images as $p) { ?>
+                    <div class="swiper-slide" style="background-image:url('<?php echo $p['url'] ?>')">
+                      <img src="<?php echo $p['url'] ?>" alt="<?php echo $p['title'] ?>" style="display:none;" />
+                      <?php if ( $p['caption'] ) { ?>
+                       <div class="photo-caption"><div class="caption"><?php echo $p['caption']; ?></div></div> 
+                      <?php } ?>
+                    </div>
+                  <?php } ?>
+                </div>
+                
+                  <div class="swiper-pagination"></div>
+                  <div class="swiper-button-prev"></div>
+                  <div class="swiper-button-next"></div>
+                
+              </div>
+              <img src="<?php echo get_images_dir('rectangle-lg.png') ?>" alt="" class="helper">
+            </div>
+          </div>
+          <?php } ?>
+
+        </div>	
 				<?php } ?>
 			</div>
 		</div>

@@ -633,8 +633,8 @@ body.open-menu {
       overflow: hidden;
       .wrapper {
         position: relative;
-        top: 43%;
-        transform: translateY(-43%);
+        top: 48%;
+        transform: translateY(-48%);
       }
     }
     .hero-video-wrap {
@@ -5028,7 +5028,27 @@ body.single-project {
     left: 0;
   }
   .swiper-slide {
+    position: relative;
     @include backgroundImage(center);
+  }
+  .photo-caption {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding-left: 25px;
+    padding-bottom: 25px;
+    .caption {
+      display: inline-block;
+      background: rgba(0, 0, 0, 0.85);
+      color: #FFF;
+      padding: 2px 15px;
+      font-size: 13px;
+      letter-spacing: 1px;
+      transition: all ease .5s;
+      opacity: 0;
+      transform: translateX(-100%);
+    }
   }
   img.helper {
     width: 100%;
@@ -5065,6 +5085,13 @@ body.single-project {
   }
   .swiper-button-next {
     right: 20px;
+  }
+  .swiper-slide.swiper-slide-active {
+    .photo-caption .caption {
+      opacity: 1;
+      transform: translateX(0);
+      transition-delay: 0.5s;
+    }
   }
 }
 

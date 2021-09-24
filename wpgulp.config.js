@@ -99,7 +99,6 @@ const zipIgnoreGlob = [
 	'!./package.json',
 	'!./package-lock.json',
 	'!./assets/sass/**/*',
-	'!./assets/css',
 	'!./assets/img/raw/**/*',
 	'!./assets/img/raw',
 	`!${imgSRC}`,

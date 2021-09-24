@@ -1,8 +1,9 @@
 /**
  *	Custom jQuery Scripts
- *	
  *	Developed by: Lisa DeBona
+ *  Date Modified: 09.23.2021
  */
+
 
 jQuery(document).ready(function ($) {
 
@@ -152,5 +153,7 @@ jQuery(document).ready(function ($) {
       prevEl: '.swiper-button-prev',
     },
   });
+
+
 
 }); 
