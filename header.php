@@ -41,6 +41,20 @@ var params={};location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){
 // 	$banner = get_field("divisions_main_photo","option");
 // }
 $has_hero = page_has_hero() ? 'has-hero':'no-hero';
+if ( is_front_page() || is_home() ) { 
+  $hero_type = get_field("hero_type");
+  if($hero_type=='image') {
+    if( get_field("hero_image") ) {
+      $has_hero = 'has-hero';
+    }
+  } else if($hero_type=='video') {
+    $hero_mp4 = get_field("hero_video_mp4");
+    $hero_video_ogg = get_field("hero_video_ogg");
+    if( $hero_mp4 || $hero_video_ogg ) {
+      $has_hero = 'has-hero home-video';
+    }
+  }
+}
 ?>
 <body <?php body_class($has_hero); ?>>
 <div id="page" class="site cf">

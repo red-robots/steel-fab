@@ -24,20 +24,21 @@ get_header(); ?>
       <div class="content404"><?php echo email_obfuscator($content) ?></div>
       <?php } ?>
 
-      <div id="sitemap-wrap">
-        <?php wp_nav_menu( array( 'theme_location' => 'sitemap', 'menu_id' => 'sitemap','container_class'=>'sitemap-links') ); ?>
-      </div>
 
     <?php } else { ?>
 
       <h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'bellaworks' ); ?></h1>
       <div class="content404">
         <p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below.', 'bellaworks' ); ?></p>
-        <div id="sitemap-wrap">
-          <?php wp_nav_menu( array( 'theme_location' => 'sitemap', 'menu_id' => 'sitemap','container_class'=>'sitemap-links') ); ?>
-        </div>
       </div>
 
+    <?php } ?>
+
+
+      <?php if ( has_nav_menu('sitemap') ) { ?>
+      <div id="sitemap-wrap">
+        <?php wp_nav_menu( array( 'theme_location' => 'sitemap', 'menu_id' => 'sitemap-links','container_class'=>'sitemap-links') ); ?>
+      </div>
     <?php } ?>
 
   </main><!-- #main -->

@@ -3,42 +3,6 @@ get_header();
 ?>
 
 <?php while ( have_posts() ) : the_post(); ?>
-
-<?php 
-$row1_title = get_field("row1_title");
-$row1_text = get_field("row1_text");
-$row1_button = get_field("row1_button");
-$row1_target = ( isset($row1_button['target']) && $row1_button['target'] ) ? $row1_button['target'] : '_self';
-?>
-<div id="home-row-1" class="home-row" style="background-image:url('<?php echo get_images_dir("dev/home-header-top.png") ?>');">
-	<div class="wrapper">
-		<div class="hero-caption">
-			<div class="hero-text animated fadeIn">
-				<?php if ($row1_title) { ?>
-				<h2 class="col-title"><?php echo $row1_title ?></h2>
-				<?php } ?>
-				
-				<?php if ($row1_text || $row1_button) { ?>
-				<div class="col-text">
-					<?php if ($row1_text) { ?>
-					<div class="text">
-						<?php echo $row1_text ?>
-					</div>
-					<?php } ?>
-
-					<?php if ($row1_button && ( isset($row1_button['title']) && $row1_button['title'] ) ) { ?>
-					<div class="button">
-						<a href="<?php echo $row1_button['url'] ?>" target="<?php echo $row1_target ?>" class="start-btn"><?php echo $row1_button['title'] ?></a>
-					</div>
-					<?php } ?>
-				</div>
-				<?php } ?>
-			</div>
-		</div>
-		<div class="broken-lines"><span class="arrow animated fadeInDown"></span></div>
-	</div>
-</div>
-
 <?php  
 $row2_title = get_field("row2_title");
 $row2_text = get_field("row2_text");

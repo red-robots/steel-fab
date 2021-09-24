@@ -215,11 +215,7 @@ gulp.task('stylesRTL', () => {
  */
 gulp.task('vendorsJS', () => {
 	return gulp
-		//.src(config.jsVendorSRC, {since: gulp.lastRun('vendorsJS')}) // Only run on changed files.
-		.src([
-		'./assets/js/vendors/fancybox.js',
-		'./assets/js/vendors/swiper-bundle.min.js'
-		])
+		.src(config.jsVendorSRC, {since: gulp.lastRun('vendorsJS')}) // Only run on changed files.
 		.pipe(plumber(errorHandler))
 		.pipe(
 			babel({
@@ -267,10 +263,7 @@ gulp.task('vendorsJS', () => {
  */
 gulp.task('customJS', () => {
 	return gulp
-		//.src(config.jsCustomSRC, {since: gulp.lastRun('customJS')}) // Only run on changed files.
-    .src([
-    './assets/js/custom/custom.js'
-    ])
+		.src(config.jsCustomSRC, {since: gulp.lastRun('customJS')}) // Only run on changed files.
 		.pipe(plumber(errorHandler))
 		.pipe(
 			babel({

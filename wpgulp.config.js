@@ -34,13 +34,13 @@ const precision = 10;
 // JS Vendor options.
 
 // Path to JS vendor folder.
-const jsVendorSRC = './assets/js/vendors/*.js';
+const jsVendorSRC = './assets/js/vendor/*.js';
 
 // Path to place the compiled JS vendors file.
 const jsVendorDestination = './assets/js/';
 
 // Compiled JS vendors file name. Default set to vendors i.e. vendors.js.
-const jsVendorFile = 'vendors';
+const jsVendorFile = 'vendor';
 
 // JS Custom options.
 
@@ -68,7 +68,7 @@ const imgDST = './assets/img/';
 const watchStyles = './assets/sass/**/*.scss';
 
 // Path to all vendor JS files.
-const watchJsVendor = './assets/js/vendors/*.js';
+const watchJsVendor = './assets/js/vendor/*.js';
 
 // Path to all custom JS files.
 const watchJsCustom = './assets/js/custom/*.js';
@@ -98,7 +98,7 @@ const zipIgnoreGlob = [
 	'!./vscode',
 	'!./package.json',
 	'!./package-lock.json',
-	'!./assets/css/**/*',
+	'!./assets/sass/**/*',
 	'!./assets/css',
 	'!./assets/img/raw/**/*',
 	'!./assets/img/raw',
