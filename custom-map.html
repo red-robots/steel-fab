@@ -102,11 +102,18 @@
         var cat = item.category;
         var marker_color = 'transparent';
         var multiple_cat_icon = 'http://steel-fab.flywheelsites.com/wp-content/uploads/2021/09/multiple-category.png';
+        var marker_icon_url = '';
         if(cat=='offices') {
           marker_color = '#00539f';
+          marker_icon_url = 'https://lisadebona.com/images/marker_blue.png';
         }
         else if(cat=='facilities') {
           marker_color = '#808080';
+          marker_icon_url = 'https://lisadebona.com/images/marker_gray.png';
+        }
+        else if(cat=='offices_facilities') {
+          marker_color = '#808080';
+          marker_icon_url = 'https://lisadebona.com/images/multiple-category.png';
         }
 
         var iconFeature = new ol.Feature({
@@ -135,33 +142,53 @@
         // });
 
         let marker_features = {};
-        if(cat=='offices_facilities') {
+        
 
+        if(cat=='offices_facilities') {
           marker_features = {
             image: new ol.style.Icon(({
               anchor: [0.5, 1],
               scale: 0.4,
-              src: "http://steel-fab.flywheelsites.com/wp-content/uploads/2021/09/multiple-category.png"
+              src: marker_icon_url
             }))
           };
-
         } else {
-
           marker_features = {
-            text: new ol.style.Text({
-              text: '•',
-              scale: 3,
-              fill: new ol.style.Fill({
-                color: marker_color
-              }),
-              stroke: new ol.style.Stroke({
-                color: marker_color,
-                width: 3.5
-              })
-            })
+            image: new ol.style.Icon(({
+              anchor: [0.5, 1],
+              scale: 0.1,
+              src: marker_icon_url
+            }))
           };
-
         }
+
+        // if(cat=='offices_facilities') {
+
+        //   marker_features = {
+        //     image: new ol.style.Icon(({
+        //       anchor: [0.5, 1],
+        //       scale: 0.4,
+        //       src: "http://steel-fab.flywheelsites.com/wp-content/uploads/2021/09/multiple-category.png"
+        //     }))
+        //   };
+
+        // } else {
+
+        //   marker_features = {
+        //     text: new ol.style.Text({
+        //       text: ' ',
+        //       scale: 3,
+        //       fill: new ol.style.Fill({
+        //         color: marker_color
+        //       }),
+        //       stroke: new ol.style.Stroke({
+        //         color: marker_color,
+        //         width: 3.5
+        //       })
+        //     })
+        //   };
+
+        // }
 
         var iconStyle = new ol.style.Style(marker_features);
         iconFeature.setStyle(iconStyle);
