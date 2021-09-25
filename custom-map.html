@@ -1,0 +1,228 @@
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <script src="https://cdn.maptiler.com/ol/v6.0.0/ol.js"></script>
+      <script src="https://cdn.maptiler.com/ol-mapbox-style/v5.0.2/olms.js"></script>
+      <link rel="stylesheet" href="https://cdn.maptiler.com/ol/v6.0.0/ol.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+      <style>
+        *, *::before, *::after {
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+        }
+        html,body{margin: 0 0}
+        #map {
+          /*height: 500px;*/
+          height: 100vh;
+          width: 100%;
+        }
+        #map #popup {
+          font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-size: 14px;
+          line-height: 1.2;
+          width: 200px;
+          background: #FFF;
+          border-radius: 4px;
+          padding: 10px;
+          box-shadow: 0 2px 10px rgba(0,0,0,.2);
+          transform: translateX(-50%);
+          position: relative;
+          top: 2px;
+        }
+        #map #popup:before {
+          content: "";
+          display: inline-block;
+          width: 0;
+          height: 0;
+          border-left: 5px solid transparent;
+          border-right: 5px solid transparent;
+          border-bottom: 6px solid #FFF;
+          position: absolute;
+          top: -5px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        #map .marker-info a {
+          color: #23539a;
+          text-decoration: none;
+          transition: all ease .3s;
+        }
+        #map .marker-info a:hover {
+          color: #4185e8;
+        }
+        #popup-closer {
+          display: inline-block;
+          position: absolute;
+          top: 2px;
+          right: 6px;
+          color: red;
+          text-decoration: none;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 1;
+        }
+      </style>
+    </head>
+    <body>
+      <div id="map"></div>
+      <div id="popup" class="ol-popup"><a href="#" id="popup-closer" class="ol-popup-closer"><span>x</span></a><div id="popup-content"></div></div>
+    <script>
+
+      const key = 'QSyQ4LTgGotNhqWZlwWM'; /* API key from MapTiler => https://docs.maptiler.com/cloud/api/ */
+      var Markers = [
+        {lat: 26.70687630560177, lng: -80.05257550260059, label:"Florida - West Palm Beach Sales Office", category:'offices'},
+        {lat: 39.29148125144058, lng: -76.55854039908884, label:"Maryland - Baltimore Sales Office & Plant", category:'offices_facilities'},
+        {lat: 31.599460152815855, lng: -95.83802641782452, label:"Texas - Oakwood Sales & Plant", category:'offices_facilities'},
+        {lat: 30.213590938237886, lng: -97.75186657368079, label:"Texas - Austin Sales Office", category:'offices'},
+        {lat: 33.96834573306309, lng: -96.36384057172957, label:"Oklahoma - Durant Plant", category:'facilities'},
+        {lat: 35.852681196290426, lng: -78.7024356581831, label:"North Carolina - Raleigh Sales Office", category:'offices'}
+      ];
+
+      //var styleJson = 'https://api.maptiler.com/maps/bd78520c-fb20-4464-acf3-43c942afb343/style.json?key='+key;
+      var styleJson = 'https://api.maptiler.com/maps/59180e46-7e92-454d-9bd0-979ee36119ea/style.json?key='+key;
+      var map = new ol.Map({
+        target: 'map',
+        view: new ol.View({
+          constrainResolution: true,
+          center: ol.proj.fromLonLat([-97.39876, 33.95300]),
+          maxZoom: 18,
+          zoom: 5
+        })
+      });
+      olms.apply(map, styleJson);
+
+      var features = [];
+
+
+      for (var i = 0; i < Markers.length; i++) {
+        var item = Markers[i];
+        var longitude = item.lng;
+        var latitude = item.lat;
+        var label = item.label;
+        var cat = item.category;
+        var marker_color = 'transparent';
+        var multiple_cat_icon = 'http://steel-fab.flywheelsites.com/wp-content/uploads/2021/09/multiple-category.png';
+        if(cat=='offices') {
+          marker_color = '#00539f';
+        }
+        else if(cat=='facilities') {
+          marker_color = '#808080';
+        }
+
+        var iconFeature = new ol.Feature({
+            geometry: new ol.geom.Point(ol.proj.transform([longitude, latitude], 'EPSG:4326', 'EPSG:3857'))
+        });
+
+        // var iconStyle = new ol.style.Style({
+        //   image: new ol.style.Icon(({
+        //       anchor: [0.5, 1],
+        //       src: "http://cdn.mapmarker.io/api/v1/pin?text=P&size=50&hoffset=1"
+        //   }))
+        // });
+
+        // var iconStyle = new ol.style.Style({
+        //   text: new ol.style.Text({
+        //     text: '•',
+        //     scale: 3,
+        //     fill: new ol.style.Fill({
+        //       color: marker_color
+        //     }),
+        //     stroke: new ol.style.Stroke({
+        //       color: marker_color,
+        //       width: 3.5
+        //     })
+        //   })
+        // });
+
+        let marker_features = {};
+        if(cat=='offices_facilities') {
+
+          marker_features = {
+            image: new ol.style.Icon(({
+              anchor: [0.5, 1],
+              scale: 0.4,
+              src: "http://steel-fab.flywheelsites.com/wp-content/uploads/2021/09/multiple-category.png"
+            }))
+          };
+
+        } else {
+
+          marker_features = {
+            text: new ol.style.Text({
+              text: '•',
+              scale: 3,
+              fill: new ol.style.Fill({
+                color: marker_color
+              }),
+              stroke: new ol.style.Stroke({
+                color: marker_color,
+                width: 3.5
+              })
+            })
+          };
+
+        }
+
+        var iconStyle = new ol.style.Style(marker_features);
+        iconFeature.setStyle(iconStyle);
+        iconFeature.markerKey=i;
+        features.push(iconFeature);
+      }
+
+      var vectorSource = new ol.source.Vector({
+          features: features
+      });
+
+      var vectorLayer = new ol.layer.Vector({
+          source: vectorSource
+      });
+      map.addLayer(vectorLayer);
+      vectorLayer.setZIndex( 2000 ); 
+
+       var container = document.getElementById('popup');
+       var content = document.getElementById('popup-content');
+       var closer = document.getElementById('popup-closer');
+
+       var overlay = new ol.Overlay({
+           element: container,
+           autoPan: true,
+           autoPanAnimation: {
+               duration: 250
+           }
+       });
+
+       map.addOverlay(overlay);
+
+       closer.onclick = function() {
+           overlay.setPosition(undefined);
+           closer.blur();
+           return false;
+       };
+
+       map.on('singleclick', function (e) {
+        if (map.hasFeatureAtPixel(e.pixel) === true) {
+          var coordinate = e.coordinate;
+          //const hdms = toStringHDMS(toLonLat(coordinate));
+
+          var feature = map.forEachFeatureAtPixel(e.pixel, function(feature) {
+            return feature;
+          });
+
+          /* Get data from Markers => See Line 19 */
+          var mk = feature.markerKey;
+            if( typeof Markers[mk] !='undefined' ) {
+            var data = Markers[mk];
+            var markerLabel = data.label;
+            content.innerHTML = '<div class="marker-info"><a href="javascript:void(0)">'+markerLabel+'</a></div>';
+            overlay.setPosition(coordinate);
+          }
+
+        } else {
+          overlay.setPosition(undefined);
+          closer.blur();
+        }
+       });
+
+    </script>
+    </body>
+    
