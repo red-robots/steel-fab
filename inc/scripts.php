@@ -114,8 +114,101 @@ function admin_head_custom_css() { ?>
 .wgmza-map-editor-holder [data-custom-field-id="5"] input {
 	display: none!important;
 }*/
-.wgmza-map-editor-holder [data-custom-field-id="7"] { display: none!important; }
+
+/*.wgmza-map-editor-holder [data-custom-field-id="7"] { display: none!important; }*/
+#divisionListPopUp {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.65);
+  padding: 15px;
+}
+#divisionListPopUp.loading {
+  background-image: url('<?php echo get_images_dir('loader-white.gif') ?>');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 70px;
+}
+#divisionsContentOuter {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  top: 5%;
+}
+#divisionsContent {
+  width: 100%;
+  height: 70vh;
+  overflow: auto;
+  background: #FFF;
+  border-radius: 10px;
+}
+
+#divisionListDiv {
+  padding: 20px;
+}
+#divisionListDiv .bulkactions,
+#divisionListDiv .check-column,
+#divisionListDiv .column-slug,
+#divisionListDiv .column-posts,
+#divisionListDiv .row-actions,
+#divisionListDiv table.table-view-list thead,
+#divisionListDiv table.table-view-list tfoot {
+  display: none!important;
+}
+#divisionListClose {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #FFF;
+  z-index: 10;
+  transition: all ease .3s;
+}
+#divisionListClose:hover {
+  opacity: 0.5;
+}
+#divisionListClose span {
+  visibility: hidden;
+}
+#divisionListClose:before,
+#divisionListClose:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: #000;
+  position: absolute;
+  top: 9px;
+  left: 0;
+}
+#divisionListClose:before {
+  transform: rotate(45deg);
+}
+#divisionListClose:after {
+  transform: rotate(-45deg);
+}
+[data-custom-field-id="7"] legend {
+  width: 100%!important;
+  max-width: 250px!important;
+}
+[data-custom-field-id="7"] input:not(#divisionLinkInput) {
+  display: none;
+}
 </style>
+<script>
+  var divisionTaxURL = '<?php echo get_admin_url(); ?>edit-tags.php?taxonomy=divisions&post_type=team';
+  let divisionData = '<?php echo get_all_divisions(); ?>';
+  if(divisionData) {
+    divisionData = JSON.parse(divisionData);
+  }
+</script>
 <?php }
 add_action('admin_head', 'admin_head_custom_css');
 
@@ -126,57 +219,75 @@ function admin_footer_custom_script() { ?>
 <?php } ?>
 <script>
 jQuery(document).ready(function($){
-	if( $('.acf-field-flexible-content .layout [data-name="title"]').length ) {
-		$('.acf-field-flexible-content .layout [data-name="title"]').each(function(){
-			var title = $(this).find('.acf-input-wrap input').val();
-			var parent = $(this).parents('.layout');
-			parent.addClass("has-title");
-			parent.find('.acf-fc-layout-handle').attr("data-title",title);
-		});
-	}
+  var division_options = '';
+  var divisionList = '<div id="divisionListPopUp"><div id="divisionsContentOuter"><a href="#" id="divisionListClose"><span>X</span></a><div id="divisionsContent"><div id="divisionListDiv"><div></div></div></div>';
+  $('body').append(divisionList);
 
-	if( $('[data-custom-field-id="5"]').length ) {
-		var divisions = '<?php echo get_all_divisions(); ?>';
-		if(divisions) {
-			divisions = $.parseJSON(divisions);
-			var selectedVal = $('[data-custom-field-id="7"] input').val();
-			var select = '<div class="divisions-select-wrap" style="margin-top:13px"><legend>Division URL</legend><select id="divisions_options" class="select-division selectjs select2">';
-					select += '<option></option>';
-					$(divisions).each(function(k,v){
-						var selected = (selectedVal && selectedVal==v.term_id) ? ' selected':''; 
-						select += '<option value="'+v.term_id+'"'+selected+'>'+v.name+'</option>';
-					});
-					select += '</select></div>';
-			$('[data-custom-field-id="5"]').append(select);
-			$("#divisions_options").select2({
-			    placeholder: "Select a Division",
-			    allowClear: true
-			});
-			
-			$(document).on("change","#divisions_options",function(){
-				var opt = $(this).val();
-				var label = $(this).find('option:selected').text();
-				//$('[data-custom-field-id="5"]').find('input').val(label);
-				$('[data-custom-field-id="7"] input').val(opt);
-			});
+  if( $('[data-custom-field-id="7"]').length ) {
+    $('[data-custom-field-id="7"] legend').html('Division URL &mdash; <a href="#" id="browseDivisions">Browse Here</a>');
+    $('[data-custom-field-id="7"]').insertAfter('[data-custom-field-id="5"]');
+    $('[data-custom-field-id="7"]').append('<input type="text" id="divisionLinkInput" value="" readonly>');
+  
 
-			$(document).ajaxComplete ( function(event, jqxhr, settings){
-				var id = $('[data-custom-field-id="7"] input').val();
-				$('#divisions_options').val(id).trigger('change');
-				$("#divisions_options").select2({
-				  placeholder: "Select a Division",
-				  allowClear: true
-				});
-			});
-		}
-	}
+    $(document).on("click","#browseDivisions",function(e){
+      e.preventDefault();
+      $("#divisionListPopUp").addClass('loading').show();
+      $("#divisionListDiv").load(divisionTaxURL+" #wpbody-content #posts-filter",function(){
+        $("body").css("overflow","hidden");
+        $("#divisionListPopUp").removeClass('loading');
+      });
+      $(document).on("click","#divisionListDiv .pagination-links a",function(e){
+        e.preventDefault();
+        var url = $(this).attr("href");
+        $("#divisionListDiv").load(url+" #wpbody-content #posts-filter",function(){
+        });
+      });
+
+      $(document).on("click","#divisionListDiv .row-title",function(e){
+        e.preventDefault();
+        var parent = $(this).parents("tr");
+        var term_id = parent.attr("id").replace("tag-","");
+        var link = parent.find('span.view a').attr("href");
+        $('[data-custom-field-id="7"] input').val(term_id);
+        $("#divisionLinkInput").val(link);
+        $("#divisionListPopUp").hide();
+        $("body").css("overflow","");
+      });
+
+      $(document).on("click","#divisionListClose",function(e){
+        e.preventDefault();
+        $("#divisionListPopUp").hide();
+        $("body").css("overflow","");
+      });
+
+    });
+
+    $(document).ajaxComplete ( function(event, jqxhr, settings){
+      var id = $('[data-ajax-name="custom_field_7"]').val();
+      if(divisionData) {
+        $(divisionData).each(function(k,v){
+          if( v.term_id==id ) {
+            $("#divisionLinkInput").val(v.term_link);
+          }
+        });
+      }
+    });
+
+  }
 });
 </script>
 <?php }
 
 
+
 function get_all_divisions() {
 	$categories = get_categories( array('taxonomy'=>'divisions') );
+  if($categories) {
+    foreach($categories as $term) {
+      $link = get_term_link($term,'divisions');
+      $term->term_link = $link;
+    }
+  }
 	return ($categories) ? @json_encode($categories) : '';
 }
 

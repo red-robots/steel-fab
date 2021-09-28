@@ -276,13 +276,13 @@ function get_marker_listing($map_shortcode) {
     $query = "SELECT * FROM  $table WHERE map_id=" . $map_id . " ORDER BY title ASC";
     $result = $wpdb->get_results($query);
     if($result) {
+      //echo "<pre>";
       foreach($result as $row) {
         $id = $row->id;
-        $icon = ($row->icon) ? @json_decode($row->icon) : '';
+        $icon = ( isset($row->icon) && $row->icon ) ? @json_decode($row->icon) : '';
         $row->icon = ( isset($icon->url) && $icon->url ) ? $icon->url : '';
         $cat_ids = get_map_location_category($id);
         $row->categories = array();
-        //echo "<pre>";
         $custom_fields = get_location_custom_fields($id);
         $row->custom_fields = ($custom_fields) ? $custom_fields : '';
         if( $cat_ids ) {
@@ -297,12 +297,10 @@ function get_marker_listing($map_shortcode) {
               $row->categories[] = $arg;
             }
           }        
-        }
-
-        // print_r($row);
-        // echo "</pre>";     
+        } 
         $listing[] = $row;
       }
+      //echo "</pre>";
     }
   }
   return $listing;
@@ -584,8 +582,3 @@ function getProtectedValue($obj, $name) {
   $prefix = chr(0).'*'.chr(0);
   return $array[$prefix.$name];
 }
-
-
-
-
-

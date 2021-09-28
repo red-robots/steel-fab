@@ -5319,7 +5319,9 @@ body.page-template-page-locations #primary {
 				}
 			}
       &.hasImages {
-        @include flexgroup();
+        .m-info-wrap {
+          @include flexgroup();
+        }
         .m-info.left  {
           width: 100%;
           @include tab {
