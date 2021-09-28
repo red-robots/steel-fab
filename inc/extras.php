@@ -579,6 +579,12 @@ if( function_exists('acf_add_options_page') ) {
 // }
 
 
+function getProtectedValue($obj, $name) {
+  $array = (array)$obj;
+  $prefix = chr(0).'*'.chr(0);
+  return $array[$prefix.$name];
+}
+
 
 
 

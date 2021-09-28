@@ -5125,16 +5125,11 @@ body.page-template-page-locations {
 				color: $blue;
 			}
 		}
-		.wpgmza_infowindow_address {
+		.wpgmza_infowindow_address,
+    .wpgmza_infowindow_image {
 			display: none!important;
 		}
 
-		.ol-marker {
-			// img {
-			// 	width: 16px!important;
-			// 	height: 16px!important;
-			// }
-		}
 	}
 	#mapArea {
 		position: relative;
@@ -5323,6 +5318,45 @@ body.page-template-page-locations #primary {
 					line-height: 1;
 				}
 			}
+      &.hasImages {
+        @include flexgroup();
+        .m-info.left  {
+          width: 100%;
+          @include tab {
+            width: 60%;
+          }
+        }
+        .m-info.right  {
+          width: 100%;
+          margin:0 -8px;
+          @include flexgroup();
+          @include tab {
+            width: 40%;
+          }
+          img {
+            width: 100%;
+            height:auto;
+            float: left;
+          }
+          .map-img {
+            width: 50%;
+            float: left;
+            padding: 8px;
+            .img {
+              width: 100%;
+              float: left;
+              @include backgroundImage(center);
+            }
+          }
+          &.count-1 {
+            margin: 0 0;
+            .map-img {
+              width: 100%;
+              padding: 0 0;
+            }
+          }
+        }
+      }
 		}
 
 		&.active {

@@ -2013,7 +2013,7 @@ body.page-template-page-locations .site-footer,body.page-template-page-locations
 .map-locations-section .wpgmza_map .wpgmza-infowindow p{display:none;margin:0}
 .map-locations-section .wpgmza_map .wpgmza-infowindow p.wpgmza_infowindow_title{display:block;cursor:pointer;-webkit-transition:all ease .3s;transition:all ease .3s}
 .map-locations-section .wpgmza_map .wpgmza-infowindow p.wpgmza_infowindow_title:hover{color:#0154a0}
-.map-locations-section .wpgmza_map .wpgmza_infowindow_address{display:none !important}
+.map-locations-section .wpgmza_map .wpgmza_infowindow_address,.map-locations-section .wpgmza_map .wpgmza_infowindow_image{display:none !important}
 .map-locations-section #mapArea{position:relative;z-index:20}
 .map-locations-section .map-locations{position:relative;margin-top:70px;z-index:10}
 .map-locations-section div.legend{text-align:right}
@@ -2049,6 +2049,14 @@ body.page-template-page-locations #primary{overflow:hidden;position:relative}
 #accordion .panel .pcontent ul.info{margin:0;padding:0;list-style:none}
 #accordion .panel .pcontent ul.info li{margin:6px 0}
 #accordion .panel .pcontent ul.info i.si{color:#afafaf;display:inline-block;position:relative;left:-4px;font-size:14px;line-height:1}
+#accordion .panel .pcontent.hasImages{display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}
+#accordion .panel .pcontent.hasImages .m-info.left{width:100%}
+#accordion .panel .pcontent.hasImages .m-info.right{width:100%;margin:0 -8px;display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}
+#accordion .panel .pcontent.hasImages .m-info.right img{width:100%;height:auto;float:left}
+#accordion .panel .pcontent.hasImages .m-info.right .map-img{width:50%;float:left;padding:8px}
+#accordion .panel .pcontent.hasImages .m-info.right .map-img .img{width:100%;float:left;background-size:cover;background-position:center;background-repeat:no-repeat}
+#accordion .panel .pcontent.hasImages .m-info.right.count-1{margin:0}
+#accordion .panel .pcontent.hasImages .m-info.right.count-1 .map-img{width:100%;padding:0}
 #accordion .panel.active .ptitle{color:#FFF;background:#0154a0}
 #accordion .panel.active .ptitle i{border:1px solid #FFF}
 #accordion .panel.active .ptitle:before,#accordion .panel.active .ptitle:after{background:#FFF}
@@ -2318,6 +2326,8 @@ body.subpage .entry-content.text-left-image-right{min-height:25vw}
 .project-description-area.twocol .project-info.left{width:35%}
 .project-description-area.twocol .project-info.right{width:65%}
 #accordion .panel .pcontent{padding:25px 5vw}
+#accordion .panel .pcontent.hasImages .m-info.left{width:60%}
+#accordion .panel .pcontent.hasImages .m-info.right{width:40%}
 .project-description-area.divisions .project-info.left .inside{padding:50px 4vw;display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-align:center;-ms-flex-align:center;align-items:center}
 .project-description-area.divisions .project-info.left .inside .wrap{width:100%}
 .project-description-area.divisions .project-info.left .inside:after{right:-40px}
