@@ -11,7 +11,7 @@ if ( is_front_page() || is_home() ) { ?>
     $hero_image = get_field("hero_image");
   } else if($hero_type=='video') {
     $hero_mp4 = get_field("hero_video_mp4");
-    $hero_video_ogg = get_field("hero_video_ogg");
+    $hero_ogg = get_field("hero_video_ogg");
   }
   $row1_title = get_field("row1_title");
   $row1_text = get_field("row1_text");
@@ -58,11 +58,7 @@ if ( is_front_page() || is_home() ) { ?>
     <?php } ?>
 
   <?php } else if( $hero_type=='video' ) { 
-    if ($hero_mp4 || $hero_video_ogg) { 
-      $video_url = $hero['url'];
-      $path = pathinfo($video_url);
-      $extension = (isset($path['extension']) && $path['extension']) ? $path['extension'] : '';
-      ?>
+    if ($hero_mp4 || $hero_ogg) { ?>
       <div id="home-row-1" class="home-row home-hero hero-video">
         <div class="hero-inner-wrap">
           <div class="hero-video-content">

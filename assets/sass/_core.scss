@@ -613,11 +613,22 @@ body.open-menu {
   &.hero-video {
     position: relative;
     z-index: 100;
+    margin-top: 65px;
+    @include tab {
+      margin-top: 0;
+    }
     .hero-inner-wrap {
       width: 100%;
       float: left;
       overflow: hidden;
       position: relative;
+      overflow: hidden;
+      @include tab {
+        min-height: 80vh;
+      }
+      @include desk {
+        min-height: 85vh;
+      }
     }
     .hero-caption {
       padding-top: 0;
@@ -682,6 +693,20 @@ body.open-menu {
       width: 100%;
       height: auto;
       float: left;
+      display: block;
+      @include tab {
+        display: none;
+      }
+    }
+  }
+  @media screen and (max-width: $xswidth) {
+    .col-title {
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+    .col-text {
+      font-size: 13px;
+      line-height: 1.3;
     }
   }
 }
