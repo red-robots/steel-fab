@@ -353,6 +353,47 @@ function get_location_custom_fields($id) {
   return ($result) ? $result : '';
 }
 
+function get_location_division($locationID) {
+  global $wpdb;
+  $prefix = $wpdb->prefix;
+  $result = array();
+  if( $locationID ) {
+    $custom_fields = get_location_custom_fields($locationID);
+    if($custom_fields) {
+      foreach($custom_fields as $c) {
+        $field_name = sanitize_title($c->name);
+        if($field_name=='division-url') {
+          $field_value = $c->value;
+          if( $field_value && is_numeric($field_value) ) {
+            $taxonomy = 'divisions';
+            $query = "SELECT * FROM " . $prefix . "terms WHERE term_id=".$field_value;
+            $result = $wpdb->get_row($query);
+            if($result) {
+              $term_id = $result->term_id;
+              $term_slug = $result->slug;
+              
+              $term_link = get_site_url() . '/' . $taxonomy . '/' . $term_slug . '/';
+              $result->term_link = $term_link;
+            }
+          }
+        }
+      }
+    }
+  }
+  return ($result) ? $result : '';
+}
+
+function get_map_location_data($id) {
+  global $wpdb;
+  $prefix = $wpdb->prefix;
+  $query = "SELECT * FROM " . $prefix . "wpgmza WHERE id=" . $id; 
+  $result = $wpdb->get_row($query);
+  if($result) {
+
+  }
+  return $result;
+}
+
 
 function page_has_hero() {
   $banner = get_field("banner");

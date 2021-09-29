@@ -134,7 +134,8 @@ function admin_head_custom_css() { ?>
   background-size: 70px;
 }
 #divisionsContentOuter {
-  max-width: 800px;
+  display: none;
+  max-width: 400px;
   width: 100%;
   margin: 0 auto;
   position: relative;
@@ -201,13 +202,38 @@ function admin_head_custom_css() { ?>
 [data-custom-field-id="7"] input:not(#divisionLinkInput) {
   display: none;
 }
+#divisionListDiv #division-items {
+  margin: 0 0;
+  padding:0 0;
+  list-style: none;
+}
+#divisionListDiv #division-items a {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 1.2em;
+  line-height: 1.2;
+  padding: 10px 0;
+  color: #0c4aa7;
+}
+#divisionListDiv #division-items a:hover {
+  color: #56b8ff;
+}
+#divisionListDiv #division-items li {
+  margin: 0 0;
+  border-top: 1px solid #CCC;
+}
+#divisionListDiv h3 {
+  margin: 0 0 15px;
+  font-size: 20px;
+}
 </style>
 <script>
+  var siteURL =  '<?php echo get_site_url(); ?>';
   var divisionTaxURL = '<?php echo get_admin_url(); ?>edit-tags.php?taxonomy=divisions&post_type=team';
-  let divisionData = '<?php echo get_all_divisions(); ?>';
-  if(divisionData) {
-    divisionData = JSON.parse(divisionData);
-  }
+  // let divisionData = '<?php //echo get_all_divisions(); ?>';
+  // if(divisionData) {
+  //   divisionData = JSON.parse(divisionData);
+  // }
 </script>
 <?php }
 add_action('admin_head', 'admin_head_custom_css');
@@ -231,46 +257,53 @@ jQuery(document).ready(function($){
 
     $(document).on("click","#browseDivisions",function(e){
       e.preventDefault();
-      $("#divisionListPopUp").addClass('loading').show();
-      $("#divisionListDiv").load(divisionTaxURL+" #wpbody-content #posts-filter",function(){
-        $("body").css("overflow","hidden");
-        $("#divisionListPopUp").removeClass('loading');
-      });
-      $(document).on("click","#divisionListDiv .pagination-links a",function(e){
-        e.preventDefault();
-        var url = $(this).attr("href");
-        $("#divisionListDiv").load(url+" #wpbody-content #posts-filter",function(){
-        });
-      });
 
-      $(document).on("click","#divisionListDiv .row-title",function(e){
-        e.preventDefault();
-        var parent = $(this).parents("tr");
-        var term_id = parent.attr("id").replace("tag-","");
-        var link = parent.find('span.view a').attr("href");
-        $('[data-custom-field-id="7"] input').val(term_id);
-        $("#divisionLinkInput").val(link);
-        $("#divisionListPopUp").hide();
-        $("body").css("overflow","");
+      $("#divisionListPopUp").addClass('loading').show();
+      $("body").css("overflow","hidden");
+      $.get(siteURL+'/wp-json/custom-rest/v1/search?tax=divisions',function(items){
+
+
+        if(items.length) {
+          var result = '<h3>Division</h3><ul id="division-items">';
+          $(items).each(function(k,v){
+            result += '<li><a href="#" data-url="'+v.term_link+'" data-termid="'+v.term_id+'" class="divisionInfo">'+v.name+'</a></li>';
+          });
+          result += '</ul>';
+          $("#divisionListDiv").html(result);
+          $("#divisionsContentOuter").show();
+          $("#divisionListPopUp").removeClass('loading');
+        }
+
       });
 
       $(document).on("click","#divisionListClose",function(e){
         e.preventDefault();
         $("#divisionListPopUp").hide();
+        $("#divisionsContentOuter").hide();
         $("body").css("overflow","");
+      });
+
+      $(document).on("click", ".divisionInfo", function(e){
+        e.preventDefault();
+        var link = $(this).attr("data-url");
+        var term_id = $(this).attr("data-termid");
+        $('[data-custom-field-id="7"] input').val(term_id);
+        $("#divisionLinkInput").val(link);
+        $("body").css("overflow","");
+        $("#divisionListPopUp").hide();
+        $("#divisionsContentOuter").hide();
       });
 
     });
 
-    $(document).ajaxComplete ( function(event, jqxhr, settings){
-      var id = $('[data-ajax-name="custom_field_7"]').val();
-      if(divisionData) {
-        $(divisionData).each(function(k,v){
-          if( v.term_id==id ) {
-            $("#divisionLinkInput").val(v.term_link);
-          }
-        });
-      }
+    $(document).on("click",".wpgmza_edit_btn",function(e){
+      var id = $(this).attr('data-edit-marker-id');
+      var apiURL = siteURL+'/wp-json/custom-rest/v1/search?maploc='+id;
+      $.get(apiURL,function(data){
+        if(data) {
+          $("#divisionLinkInput").val(data.term_link);
+        }
+      });
     });
 
   }
@@ -290,4 +323,57 @@ function get_all_divisions() {
   }
 	return ($categories) ? @json_encode($categories) : '';
 }
+
+
+add_action( 'rest_api_init', function () {
+    register_rest_route( 'custom-rest/v1', '/search', array(
+        'methods' => 'GET',
+        'callback' => 'get_queried_data_by_restful'
+    ) );
+} );
+
+
+function get_queried_data_by_restful( $request ) {
+  $taxonomy = $request->get_param('tax');
+  $term_id = $request->get_param('termid');
+  $map_item_id = $request->get_param('maploc');
+  $response = array();
+  $map_info = '';
+
+  if( $taxonomy ) {
+
+    if( $term_id && $taxonomy ) {
+      $response = get_term_by('ID',$term_id,$taxonomy);
+      if($response) {
+        if( get_term_link($response,'divisions') ) {
+          $response->term_link = get_term_link($response,'divisions');
+        }
+      }
+    } else {
+      if( $taxonomy ) {
+        $categories = get_categories( array('taxonomy'=>$taxonomy) );
+        if($categories) {
+          foreach($categories as $term) {
+            $link = get_term_link($term,'divisions');
+            $term->term_link = $link;
+          }
+        }
+        $response = $categories;
+      }
+    }
+
+  } else {
+
+    if($map_item_id) {
+      $response = get_location_division($map_item_id);
+    }
+
+  }
+
+  return $response;
+  exit;
+}
+
+
+
 
