@@ -2394,15 +2394,18 @@ body.subpage .entry-content.text-left-image-right{min-height:25vw}
 #timeline-area .history-data .info{min-height:450px}
 .dark-blue-section .wrapper{padding-top:100px;padding-bottom:100px}
 .mid-content-area .wrapper{padding-top:100px;padding-bottom:70px}
+}@media(min-width:1300px){#home-row-1.hero-video .hero-inner-wrap{min-height:90vh}
+.twocol-text-image .fxcol.left .bg-img,.twocol-text-image .fxcol.left .bg-color{-webkit-clip-path:polygon(0 0,83% 0,100% 11%,100% 100%,0 100%);clip-path:polygon(0 0,83% 0,100% 11%,100% 100%,0 100%)}
+.twocol-text-image .fxcol.right .right-bg{-webkit-clip-path:polygon(0 11%,22% 0,100% 0,100% 100%,0 100%);clip-path:polygon(0 11%,22% 0,100% 0,100% 100%,0 100%)}
 }@media screen and (min-width:1300px){.page-services-template #hex-sections .diagonal-line.d1{top:-23%}
 .page-services-template #hex-sections .diagonal-line.d2{top:-19%}
 .page-services-template #hex-sections .diagonal-line.d3{top:-15%}
 .page-services-template #hex-sections .diagonal-line.d4{top:-11%}
 .page-services-template #hex-sections .diagonal-line.d5{top:-7%}
 .page-services-template #hex-sections .diagonal-line.d6{top:-34%;width:350%;height:350%}
-}@media(min-width:1300px){.twocol-text-image .fxcol.left .bg-img,.twocol-text-image .fxcol.left .bg-color{-webkit-clip-path:polygon(0 0,83% 0,100% 11%,100% 100%,0 100%);clip-path:polygon(0 0,83% 0,100% 11%,100% 100%,0 100%)}
-.twocol-text-image .fxcol.right .right-bg{-webkit-clip-path:polygon(0 11%,22% 0,100% 0,100% 100%,0 100%);clip-path:polygon(0 11%,22% 0,100% 0,100% 100%,0 100%)}
-}@media screen and (min-width:1500px){.page-services-template #hex-sections .diagonal-line.d1{top:-30%}
+}@media screen and (min-width:1500px){#home-row-1.hero-video .hero-video-wrap{height:1000px}
+#home-row-1.hero-video .hero-video-wrap video{-webkit-transform:translateY(-15%);transform:translateY(-15%)}
+.page-services-template #hex-sections .diagonal-line.d1{top:-30%}
 .page-services-template #hex-sections .diagonal-line.d2{top:-26%}
 .page-services-template #hex-sections .diagonal-line.d3{top:-22%}
 .page-services-template #hex-sections .diagonal-line.d4{top:-18%}
@@ -2411,6 +2414,7 @@ body.subpage .entry-content.text-left-image-right{min-height:25vw}
 }@media screen and (max-width:1200px){.site-footer ul.menu{display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}
 .site-footer ul.menu>li{width:33%}
 .site-footer ul.menu>li ul.sub-menu{margin-bottom:30px}
+}@media screen and (max-width:1100px){#site-navigation ul.menu>li>a{padding:0 1rem;font-size:11px}
 }@media only screen and (max-width:1100px){.horizontal-timeline .timeline{padding-bottom:40px !important}
 .timeline-navigation#leftNav{-ms-flex-direction:column-reverse !important;-webkit-box-orient:vertical !important;-webkit-box-direction:reverse !important;flex-direction:column-reverse !important}
 .timeline-navigation#rightNav{-ms-flex-direction:column !important;-webkit-box-orient:vertical !important;-webkit-box-direction:normal !important;flex-direction:column !important}

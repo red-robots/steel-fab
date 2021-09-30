@@ -271,6 +271,10 @@ a {
 			display: block;
 			width: 100%;
 		}
+    @include max(1100px) {
+      padding: 0 1rem;
+      font-size: 11px;
+    }
 	}
 	ul.menu > li.current_page_item > a,
 	ul.menu > li:hover > a {
@@ -629,6 +633,9 @@ body.open-menu {
       @include desk {
         min-height: 85vh;
       }
+      @include xxl {
+        min-height: 90vh;
+      }
     }
     .hero-caption {
       padding-top: 0;
@@ -687,6 +694,12 @@ body.open-menu {
       video {
         width: 100%!important;
         height: 100%!important;
+      }
+      @include min(1500px) {
+        height: 1000px;
+        video {
+          transform: translateY(-15%);
+        }
       }
     }
     img.video-helper {
