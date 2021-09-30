@@ -226,6 +226,31 @@ function admin_head_custom_css() { ?>
   margin: 0 0 15px;
   font-size: 20px;
 }
+.wpgmza-category-picker-container ul.jstree-children li.jstree-node {
+  position: relative;
+}
+.wpgmza-category-picker-container a {
+  display: inline-block;
+  position: relative;
+}
+.wpgmza-category-picker-container a[id="1_anchor"]:after,
+.wpgmza-category-picker-container a[id="2_anchor"]:after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 100px;
+  position: absolute;
+  top: 8px;
+  right: -10px;
+}
+.wpgmza-category-picker-container a[id="1_anchor"]:after {
+  background: #00539f;
+  right: -19px;
+}
+.wpgmza-category-picker-container a[id="2_anchor"]:after {
+  background: #808080;
+}
 </style>
 <script>
   var siteURL =  '<?php echo get_site_url(); ?>';

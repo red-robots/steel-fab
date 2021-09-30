@@ -18,16 +18,28 @@ if ( $projects->have_posts() ) {
 		<div class="flexwrap result">
 			<?php while ( $projects->have_posts() ) : $projects->the_post();
 			$id = get_the_ID();
-			$photo = get_field("main_photo");
+      $photo_type = get_field("photo_type");
+      $projphoto = ($photo_type) ? $photo_type : 'single';
+      $image_url = '';
+      if($projphoto=='single') {
+        $photo = get_field("main_photo");
+        $image_url = ($photo) ? $photo['url'] : '';
+      } else {
+        $multiple_photos = get_field("multiple_photos");
+        if($multiple_photos) {
+          $image_url = $multiple_photos[0]['url'];
+        }
+      }
+
 			$pagelink = get_permalink();
 			$title = get_the_title();
 			?>
-			<div class="imagebox animated fadeIn <?php echo ($photo) ? 'hasphoto':'nophoto'; ?>">
+			<div class="imagebox animated fadeIn <?php echo ($image_url) ? 'hasphoto':'nophoto'; ?>">
 				<div class="wrap">
 					<a href="<?php echo $pagelink ?>" class="link">
 						<span class="caption"><span class="title"><?php echo $title ?></span></span>
-						<?php if ($photo) { ?>
-							<span class="bg" style="background-image:url('<?php echo $photo['url'] ?>')"></span>
+						<?php if ($image_url) { ?>
+							<span class="bg" style="background-image:url('<?php echo $image_url ?>')"></span>
 						<?php } ?>
 						<img src="<?php echo get_images_dir('rectangle-lg.png') ?>" alt="" aria-hidden="true" class="helper">
 					</a>
