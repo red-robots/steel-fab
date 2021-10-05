@@ -16,47 +16,46 @@ function bellaworks_scripts() {
 		);
 
 	wp_enqueue_script( 
-			'bellaworks-blocks', 
-			get_template_directory_uri() . '/assets/js/vendor.min.js', 
-			array(), '20200713', 
-			true 
-		);
-
-	wp_enqueue_script( 
 			'vimeo-player', 
 			'https://player.vimeo.com/api/player.js', 
 			array(), '2.12.2', 
 			true 
 		);
 
+ //  wp_enqueue_script( 
+ //      'bellaworks-fancybox', 
+ //      get_template_directory_uri() . '/assets/js/vendor/fancybox.js', 
+ //      array(), '20200101', 
+ //      true 
+ //    );
+  
+	// wp_enqueue_script( 
+	// 		'bellaworks-carousel', 
+	// 		get_template_directory_uri() . '/assets/js/vendor/owl.carousel.min.js', 
+	// 		array(), '20200101', 
+	// 		true 
+	// 	);
+
+ //  wp_enqueue_script( 
+ //      'bellaworks-swiper', 
+ //      get_template_directory_uri() . '/assets/js/vendor/swiper.js', 
+ //      array(), '20200101', 
+ //      true 
+ //    );
+
+	// wp_enqueue_script( 
+	// 		'bellaworks-boostrap', 
+ //      get_template_directory_uri() . '/assets/js/vendor/bootstrap.bundle.min.js', 
+ //      array(), '20200101', 
+ //      true 
+	// 	);
+
   wp_enqueue_script( 
-      'bellaworks-carousel', 
-      get_template_directory_uri() . '/assets/js/vendor/fancybox.js', 
-      array(), '20200101', 
+      'bellaworks-blocks', 
+      get_template_directory_uri() . '/assets/js/vendor.min.js', 
+      array(), '20200713', 
       true 
     );
-  
-	wp_enqueue_script( 
-			'bellaworks-carousel', 
-			get_template_directory_uri() . '/assets/js/vendor/owl.carousel.min.js', 
-			array(), '20200101', 
-			true 
-		);
-
-	wp_enqueue_script( 
-			'bellaworks-boostrap', 
-			'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js', 
-			array(), '20200101', 
-			true 
-		);
-
-	wp_enqueue_script( 
-			'bellaworks-boostrap', 
-			get_template_directory_uri() . 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js', 
-			array(), '20200713', 
-			true 
-		);
-
 
 	wp_enqueue_script( 
 			'bellaworks-custom', 

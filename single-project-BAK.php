@@ -60,22 +60,14 @@ get_header(); ?>
       $multiple_photos = get_field("multiple_photos");
       $project_image = get_field("main_photo");
       $has_proj_image = '';
-      $is_carousel = '';
-      $photo_count = 0;
       if($projphoto) {
         if ( $projphoto=='single' ) {
           $has_proj_image = get_field("main_photo");
-          $photo_count = 1;
         } else {
           $has_proj_image = get_field("multiple_photos");
-          $is_carousel = ( $multiple_photos && count($multiple_photos)>1 ) ? ' carousel':'';
-          if($multiple_photos) {
-            $photo_count = count($multiple_photos);
-          }
         }
       }
       $project_class = ( $has_proj_image && $project_description ) ? 'twocol':'onecol';
-      $pic_count = ($photo_count==1) ? 'one-image':'';
 			if( $has_proj_image || $project_description ) { ?>
 			<div class="project-description-area <?php echo $project_class ?>">
 				<div class="wrapper">
@@ -87,12 +79,12 @@ get_header(); ?>
 						<?php } ?>
 
 						<?php if ($has_proj_image) { ?>
-						<div class="project-info right <?php echo $pic_count ?>">
-							<div id="image-container" class="image<?php echo $is_carousel ?>">
+						<div class="project-info right">
+							<div id="image-container" class="image">
                 <?php if ( $projphoto=='single' ) { ?>
                   
                   <?php if ($project_image) { ?>
-                    <div class="singlepic">
+                    <div class="singlepic" style="background-image:url('<?php echo $project_image['url'] ?>')">
                       <img src="<?php echo $project_image['url'] ?>" alt="<?php echo $project_image['title'] ?>" class="actual-image" id="feat-image">
                     </div>
                   <?php } ?>
@@ -102,21 +94,32 @@ get_header(); ?>
                   <?php if ( $multiple_photos ) { $numphotos = count($multiple_photos); ?>
 
                     <?php if ($numphotos>1) { ?>
-                      <div class="swiper-container clear">
-                        <div class="swipe-projects swiper-wrapper">
-                            <?php $j=1; foreach($multiple_photos as $img) { ?>
-                              <div class="slick-slide swipeImg<?php echo ($j==1) ? ' slick-current slick-active slick-center':''?>">
-                                <div class="imagediv" style="background-image:url('<?php echo $img['url']; ?>')"></div>
-                                <img src="<?php echo $img['url']; ?>" alt="<?php echo $img['title']; ?>" />
+                      <div class="project-slider">
+                        <div class="swiper">
+                          <div class="swiper-wrapper">
+                            <?php foreach ($multiple_photos as $p) { ?>
+                              <div class="swiper-slide" style="background-image:url('<?php echo $p['url'] ?>')">
+                                <img src="<?php echo $p['url'] ?>" alt="<?php echo $p['title'] ?>" class="actual-image" />
                               </div>
-                            <?php $j++; } ?>
+                            <?php } ?>
+                          </div>
+                          
+                            <div class="swiper-pagination"></div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                          
                         </div>
+                        <img src="<?php echo get_images_dir('rectangle-lg.png') ?>" alt="" class="helper" style="display:none;">
                       </div>
                     <?php } else { ?>
 
-                      <div class="singlepic">
-                        <img src="<?php echo $multiple_photos[0]['url'] ?>" alt="<?php echo $multiple_photos[0]['title'] ?>" class="actual-image" id="feat-image">
-                      </div>
+                      <?php foreach ($multiple_photos as $p) { ?>
+                        <div class="singlepic" style="background-image:url('<?php echo $project_image['url'] ?>')">
+                          <img id="feat-image" class="helper swiper-single-image" src="<?php echo $p['url'] ?>" alt="<?php echo $p['title'] ?>" />
+                        </div>
+
+                      <?php } ?>
+
 
                     <?php } ?>
 
@@ -125,8 +128,6 @@ get_header(); ?>
                 <?php } ?>
 								
 							</div>
-
-              <div id="sliderDots"></div>
 						</div>	
 						<?php } ?>
 					</div>
@@ -149,20 +150,16 @@ jQuery(document).ready(function($){
 
   /* Slick Carousel */
   if( $('.swipe-projects').length ) {
-    $('.swipe-projects').on('init', function(event, slick){
-      $(".slick-dots").appendTo("#sliderDots");
-    });
     $('.swipe-projects').slick({
       dots: true,
       infinite: true,
       speed: 300,
       slidesToShow: 1,
-      arrows: false,
       centerMode: true,
       variableWidth: true
     });
   }
-
+  
 
   // adjust_featured_image();
   // $(window).on("resize orientationchange",function(){
@@ -184,32 +181,6 @@ jQuery(document).ready(function($){
   //     }
   //   }
   // }
-
-  resize_portrait_image();
-  $(window).on("resize",function(){
-    resize_portrait_image();
-  });
-
-  function resize_portrait_image() {
-    if( $(".singlepic #feat-image").length ) {
-      var image_width = $(".singlepic #feat-image").width();
-      var image_height = $(".singlepic #feat-image").height();
-      var image_src = $(".singlepic #feat-image").attr("src");
-      var is_portrait = false;
-      if( image_height > image_width ) {
-        $(".singlepic").addClass("portrait");
-        $(".singlepic").css("background-image","");
-        is_portrait = true;
-      } else {
-        $(".singlepic").addClass("landscape");
-        $(".singlepic").css("background-image","url("+image_src+")");
-      }
-      if(is_portrait) {
-        $(".project-info.right").css("width", $(".singlepic #feat-image").width()+"px");
-        $(".project-info #textdiv").css("height", $(".singlepic #feat-image").height()+"px");
-      }
-    }
-  }
 
 });
 </script>

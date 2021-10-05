@@ -215,11 +215,16 @@ gulp.task('stylesRTL', () => {
  */
 gulp.task('vendorsJS', () => {
 	return gulp
-		//.src(config.jsVendorSRC, {since: gulp.lastRun('vendorsJS')}) // Only run on changed files.
-		.src([
-		'./assets/js/vendor/swiper.js'
-		])
-		.pipe(plumber(errorHandler))
+	  //.src(config.jsVendorSRC, {since: gulp.lastRun('vendorsJS')}) // Only run on changed files.
+		.src(
+      [
+        './assets/js/vendor/bootstrap.bundle.min.js',
+        './assets/js/vendor/fancybox.js',
+        './assets/js/vendor/swiper.js',
+        './assets/js/vendor/slick.min.js'
+      ]
+    )
+    .pipe(plumber(errorHandler))
 		.pipe(
 			babel({
 				presets: [

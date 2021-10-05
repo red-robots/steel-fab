@@ -1,5 +1,7339 @@
 "use strict";
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/*!
+  * Bootstrap v4.5.2 (https://getbootstrap.com/)
+  * Copyright 2011-2020 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+  */
+!function (t, e) {
+  "object" == (typeof exports === "undefined" ? "undefined" : _typeof(exports)) && "undefined" != typeof module ? e(exports, require("jquery")) : "function" == typeof define && define.amd ? define(["exports", "jquery"], e) : e((t = "undefined" != typeof globalThis ? globalThis : t || self).bootstrap = {}, t.jQuery);
+}(void 0, function (t, e) {
+  "use strict";
+
+  function n(t, e) {
+    for (var n = 0; n < e.length; n++) {
+      var i = e[n];
+      i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(t, i.key, i);
+    }
+  }
+
+  function i(t, e, i) {
+    return e && n(t.prototype, e), i && n(t, i), t;
+  }
+
+  function o() {
+    return (o = Object.assign || function (t) {
+      for (var e = 1; e < arguments.length; e++) {
+        var n = arguments[e];
+
+        for (var i in n) {
+          Object.prototype.hasOwnProperty.call(n, i) && (t[i] = n[i]);
+        }
+      }
+
+      return t;
+    }).apply(this, arguments);
+  }
+
+  e = e && Object.prototype.hasOwnProperty.call(e, "default") ? e.default : e;
+
+  function r(t) {
+    var n = this,
+        i = !1;
+    return e(this).one(s.TRANSITION_END, function () {
+      i = !0;
+    }), setTimeout(function () {
+      i || s.triggerTransitionEnd(n);
+    }, t), this;
+  }
+
+  var s = {
+    TRANSITION_END: "bsTransitionEnd",
+    getUID: function getUID(t) {
+      do {
+        t += ~~(1e6 * Math.random());
+      } while (document.getElementById(t));
+
+      return t;
+    },
+    getSelectorFromElement: function getSelectorFromElement(t) {
+      var e = t.getAttribute("data-target");
+
+      if (!e || "#" === e) {
+        var n = t.getAttribute("href");
+        e = n && "#" !== n ? n.trim() : "";
+      }
+
+      try {
+        return document.querySelector(e) ? e : null;
+      } catch (t) {
+        return null;
+      }
+    },
+    getTransitionDurationFromElement: function getTransitionDurationFromElement(t) {
+      if (!t) return 0;
+      var n = e(t).css("transition-duration"),
+          i = e(t).css("transition-delay"),
+          o = parseFloat(n),
+          r = parseFloat(i);
+      return o || r ? (n = n.split(",")[0], i = i.split(",")[0], 1e3 * (parseFloat(n) + parseFloat(i))) : 0;
+    },
+    reflow: function reflow(t) {
+      return t.offsetHeight;
+    },
+    triggerTransitionEnd: function triggerTransitionEnd(t) {
+      e(t).trigger("transitionend");
+    },
+    supportsTransitionEnd: function supportsTransitionEnd() {
+      return Boolean("transitionend");
+    },
+    isElement: function isElement(t) {
+      return (t[0] || t).nodeType;
+    },
+    typeCheckConfig: function typeCheckConfig(t, e, n) {
+      for (var i in n) {
+        if (Object.prototype.hasOwnProperty.call(n, i)) {
+          var o = n[i],
+              r = e[i],
+              a = r && s.isElement(r) ? "element" : null === (l = r) || "undefined" == typeof l ? "" + l : {}.toString.call(l).match(/\s([a-z]+)/i)[1].toLowerCase();
+          if (!new RegExp(o).test(a)) throw new Error(t.toUpperCase() + ': Option "' + i + '" provided type "' + a + '" but expected type "' + o + '".');
+        }
+      }
+
+      var l;
+    },
+    findShadowRoot: function findShadowRoot(t) {
+      if (!document.documentElement.attachShadow) return null;
+
+      if ("function" == typeof t.getRootNode) {
+        var e = t.getRootNode();
+        return e instanceof ShadowRoot ? e : null;
+      }
+
+      return t instanceof ShadowRoot ? t : t.parentNode ? s.findShadowRoot(t.parentNode) : null;
+    },
+    jQueryDetection: function jQueryDetection() {
+      if ("undefined" == typeof e) throw new TypeError("Bootstrap's JavaScript requires jQuery. jQuery must be included before Bootstrap's JavaScript.");
+      var t = e.fn.jquery.split(" ")[0].split(".");
+      if (t[0] < 2 && t[1] < 9 || 1 === t[0] && 9 === t[1] && t[2] < 1 || t[0] >= 4) throw new Error("Bootstrap's JavaScript requires at least jQuery v1.9.1 but less than v4.0.0");
+    }
+  };
+  s.jQueryDetection(), e.fn.emulateTransitionEnd = r, e.event.special[s.TRANSITION_END] = {
+    bindType: "transitionend",
+    delegateType: "transitionend",
+    handle: function handle(t) {
+      if (e(t.target).is(this)) return t.handleObj.handler.apply(this, arguments);
+    }
+  };
+
+  var a = "alert",
+      l = e.fn[a],
+      c = function () {
+    function t(t) {
+      this._element = t;
+    }
+
+    var n = t.prototype;
+    return n.close = function (t) {
+      var e = this._element;
+      t && (e = this._getRootElement(t)), this._triggerCloseEvent(e).isDefaultPrevented() || this._removeElement(e);
+    }, n.dispose = function () {
+      e.removeData(this._element, "bs.alert"), this._element = null;
+    }, n._getRootElement = function (t) {
+      var n = s.getSelectorFromElement(t),
+          i = !1;
+      return n && (i = document.querySelector(n)), i || (i = e(t).closest(".alert")[0]), i;
+    }, n._triggerCloseEvent = function (t) {
+      var n = e.Event("close.bs.alert");
+      return e(t).trigger(n), n;
+    }, n._removeElement = function (t) {
+      var n = this;
+
+      if (e(t).removeClass("show"), e(t).hasClass("fade")) {
+        var i = s.getTransitionDurationFromElement(t);
+        e(t).one(s.TRANSITION_END, function (e) {
+          return n._destroyElement(t, e);
+        }).emulateTransitionEnd(i);
+      } else this._destroyElement(t);
+    }, n._destroyElement = function (t) {
+      e(t).detach().trigger("closed.bs.alert").remove();
+    }, t._jQueryInterface = function (n) {
+      return this.each(function () {
+        var i = e(this),
+            o = i.data("bs.alert");
+        o || (o = new t(this), i.data("bs.alert", o)), "close" === n && o[n](this);
+      });
+    }, t._handleDismiss = function (t) {
+      return function (e) {
+        e && e.preventDefault(), t.close(this);
+      };
+    }, i(t, null, [{
+      key: "VERSION",
+      get: function get() {
+        return "4.5.2";
+      }
+    }]), t;
+  }();
+
+  e(document).on("click.bs.alert.data-api", '[data-dismiss="alert"]', c._handleDismiss(new c())), e.fn[a] = c._jQueryInterface, e.fn[a].Constructor = c, e.fn[a].noConflict = function () {
+    return e.fn[a] = l, c._jQueryInterface;
+  };
+
+  var h = e.fn.button,
+      u = function () {
+    function t(t) {
+      this._element = t;
+    }
+
+    var n = t.prototype;
+    return n.toggle = function () {
+      var t = !0,
+          n = !0,
+          i = e(this._element).closest('[data-toggle="buttons"]')[0];
+
+      if (i) {
+        var o = this._element.querySelector('input:not([type="hidden"])');
+
+        if (o) {
+          if ("radio" === o.type) if (o.checked && this._element.classList.contains("active")) t = !1;else {
+            var r = i.querySelector(".active");
+            r && e(r).removeClass("active");
+          }
+          t && ("checkbox" !== o.type && "radio" !== o.type || (o.checked = !this._element.classList.contains("active")), e(o).trigger("change")), o.focus(), n = !1;
+        }
+      }
+
+      this._element.hasAttribute("disabled") || this._element.classList.contains("disabled") || (n && this._element.setAttribute("aria-pressed", !this._element.classList.contains("active")), t && e(this._element).toggleClass("active"));
+    }, n.dispose = function () {
+      e.removeData(this._element, "bs.button"), this._element = null;
+    }, t._jQueryInterface = function (n) {
+      return this.each(function () {
+        var i = e(this).data("bs.button");
+        i || (i = new t(this), e(this).data("bs.button", i)), "toggle" === n && i[n]();
+      });
+    }, i(t, null, [{
+      key: "VERSION",
+      get: function get() {
+        return "4.5.2";
+      }
+    }]), t;
+  }();
+
+  e(document).on("click.bs.button.data-api", '[data-toggle^="button"]', function (t) {
+    var n = t.target,
+        i = n;
+    if (e(n).hasClass("btn") || (n = e(n).closest(".btn")[0]), !n || n.hasAttribute("disabled") || n.classList.contains("disabled")) t.preventDefault();else {
+      var o = n.querySelector('input:not([type="hidden"])');
+      if (o && (o.hasAttribute("disabled") || o.classList.contains("disabled"))) return void t.preventDefault();
+      ("LABEL" !== i.tagName || o && "checkbox" !== o.type) && u._jQueryInterface.call(e(n), "toggle");
+    }
+  }).on("focus.bs.button.data-api blur.bs.button.data-api", '[data-toggle^="button"]', function (t) {
+    var n = e(t.target).closest(".btn")[0];
+    e(n).toggleClass("focus", /^focus(in)?$/.test(t.type));
+  }), e(window).on("load.bs.button.data-api", function () {
+    for (var t = [].slice.call(document.querySelectorAll('[data-toggle="buttons"] .btn')), e = 0, n = t.length; e < n; e++) {
+      var i = t[e],
+          o = i.querySelector('input:not([type="hidden"])');
+      o.checked || o.hasAttribute("checked") ? i.classList.add("active") : i.classList.remove("active");
+    }
+
+    for (var r = 0, s = (t = [].slice.call(document.querySelectorAll('[data-toggle="button"]'))).length; r < s; r++) {
+      var a = t[r];
+      "true" === a.getAttribute("aria-pressed") ? a.classList.add("active") : a.classList.remove("active");
+    }
+  }), e.fn.button = u._jQueryInterface, e.fn.button.Constructor = u, e.fn.button.noConflict = function () {
+    return e.fn.button = h, u._jQueryInterface;
+  };
+
+  var f = "carousel",
+      d = ".bs.carousel",
+      p = e.fn[f],
+      m = {
+    interval: 5e3,
+    keyboard: !0,
+    slide: !1,
+    pause: "hover",
+    wrap: !0,
+    touch: !0
+  },
+      g = {
+    interval: "(number|boolean)",
+    keyboard: "boolean",
+    slide: "(boolean|string)",
+    pause: "(string|boolean)",
+    wrap: "boolean",
+    touch: "boolean"
+  },
+      _ = {
+    TOUCH: "touch",
+    PEN: "pen"
+  },
+      v = function () {
+    function t(t, e) {
+      this._items = null, this._interval = null, this._activeElement = null, this._isPaused = !1, this._isSliding = !1, this.touchTimeout = null, this.touchStartX = 0, this.touchDeltaX = 0, this._config = this._getConfig(e), this._element = t, this._indicatorsElement = this._element.querySelector(".carousel-indicators"), this._touchSupported = "ontouchstart" in document.documentElement || navigator.maxTouchPoints > 0, this._pointerEvent = Boolean(window.PointerEvent || window.MSPointerEvent), this._addEventListeners();
+    }
+
+    var n = t.prototype;
+    return n.next = function () {
+      this._isSliding || this._slide("next");
+    }, n.nextWhenVisible = function () {
+      !document.hidden && e(this._element).is(":visible") && "hidden" !== e(this._element).css("visibility") && this.next();
+    }, n.prev = function () {
+      this._isSliding || this._slide("prev");
+    }, n.pause = function (t) {
+      t || (this._isPaused = !0), this._element.querySelector(".carousel-item-next, .carousel-item-prev") && (s.triggerTransitionEnd(this._element), this.cycle(!0)), clearInterval(this._interval), this._interval = null;
+    }, n.cycle = function (t) {
+      t || (this._isPaused = !1), this._interval && (clearInterval(this._interval), this._interval = null), this._config.interval && !this._isPaused && (this._interval = setInterval((document.visibilityState ? this.nextWhenVisible : this.next).bind(this), this._config.interval));
+    }, n.to = function (t) {
+      var n = this;
+      this._activeElement = this._element.querySelector(".active.carousel-item");
+
+      var i = this._getItemIndex(this._activeElement);
+
+      if (!(t > this._items.length - 1 || t < 0)) if (this._isSliding) e(this._element).one("slid.bs.carousel", function () {
+        return n.to(t);
+      });else {
+        if (i === t) return this.pause(), void this.cycle();
+        var o = t > i ? "next" : "prev";
+
+        this._slide(o, this._items[t]);
+      }
+    }, n.dispose = function () {
+      e(this._element).off(d), e.removeData(this._element, "bs.carousel"), this._items = null, this._config = null, this._element = null, this._interval = null, this._isPaused = null, this._isSliding = null, this._activeElement = null, this._indicatorsElement = null;
+    }, n._getConfig = function (t) {
+      return t = o({}, m, t), s.typeCheckConfig(f, t, g), t;
+    }, n._handleSwipe = function () {
+      var t = Math.abs(this.touchDeltaX);
+
+      if (!(t <= 40)) {
+        var e = t / this.touchDeltaX;
+        this.touchDeltaX = 0, e > 0 && this.prev(), e < 0 && this.next();
+      }
+    }, n._addEventListeners = function () {
+      var t = this;
+      this._config.keyboard && e(this._element).on("keydown.bs.carousel", function (e) {
+        return t._keydown(e);
+      }), "hover" === this._config.pause && e(this._element).on("mouseenter.bs.carousel", function (e) {
+        return t.pause(e);
+      }).on("mouseleave.bs.carousel", function (e) {
+        return t.cycle(e);
+      }), this._config.touch && this._addTouchEventListeners();
+    }, n._addTouchEventListeners = function () {
+      var t = this;
+
+      if (this._touchSupported) {
+        var n = function n(e) {
+          t._pointerEvent && _[e.originalEvent.pointerType.toUpperCase()] ? t.touchStartX = e.originalEvent.clientX : t._pointerEvent || (t.touchStartX = e.originalEvent.touches[0].clientX);
+        },
+            i = function i(e) {
+          t._pointerEvent && _[e.originalEvent.pointerType.toUpperCase()] && (t.touchDeltaX = e.originalEvent.clientX - t.touchStartX), t._handleSwipe(), "hover" === t._config.pause && (t.pause(), t.touchTimeout && clearTimeout(t.touchTimeout), t.touchTimeout = setTimeout(function (e) {
+            return t.cycle(e);
+          }, 500 + t._config.interval));
+        };
+
+        e(this._element.querySelectorAll(".carousel-item img")).on("dragstart.bs.carousel", function (t) {
+          return t.preventDefault();
+        }), this._pointerEvent ? (e(this._element).on("pointerdown.bs.carousel", function (t) {
+          return n(t);
+        }), e(this._element).on("pointerup.bs.carousel", function (t) {
+          return i(t);
+        }), this._element.classList.add("pointer-event")) : (e(this._element).on("touchstart.bs.carousel", function (t) {
+          return n(t);
+        }), e(this._element).on("touchmove.bs.carousel", function (e) {
+          return function (e) {
+            e.originalEvent.touches && e.originalEvent.touches.length > 1 ? t.touchDeltaX = 0 : t.touchDeltaX = e.originalEvent.touches[0].clientX - t.touchStartX;
+          }(e);
+        }), e(this._element).on("touchend.bs.carousel", function (t) {
+          return i(t);
+        }));
+      }
+    }, n._keydown = function (t) {
+      if (!/input|textarea/i.test(t.target.tagName)) switch (t.which) {
+        case 37:
+          t.preventDefault(), this.prev();
+          break;
+
+        case 39:
+          t.preventDefault(), this.next();
+      }
+    }, n._getItemIndex = function (t) {
+      return this._items = t && t.parentNode ? [].slice.call(t.parentNode.querySelectorAll(".carousel-item")) : [], this._items.indexOf(t);
+    }, n._getItemByDirection = function (t, e) {
+      var n = "next" === t,
+          i = "prev" === t,
+          o = this._getItemIndex(e),
+          r = this._items.length - 1;
+
+      if ((i && 0 === o || n && o === r) && !this._config.wrap) return e;
+      var s = (o + ("prev" === t ? -1 : 1)) % this._items.length;
+      return -1 === s ? this._items[this._items.length - 1] : this._items[s];
+    }, n._triggerSlideEvent = function (t, n) {
+      var i = this._getItemIndex(t),
+          o = this._getItemIndex(this._element.querySelector(".active.carousel-item")),
+          r = e.Event("slide.bs.carousel", {
+        relatedTarget: t,
+        direction: n,
+        from: o,
+        to: i
+      });
+
+      return e(this._element).trigger(r), r;
+    }, n._setActiveIndicatorElement = function (t) {
+      if (this._indicatorsElement) {
+        var n = [].slice.call(this._indicatorsElement.querySelectorAll(".active"));
+        e(n).removeClass("active");
+
+        var i = this._indicatorsElement.children[this._getItemIndex(t)];
+
+        i && e(i).addClass("active");
+      }
+    }, n._slide = function (t, n) {
+      var i,
+          o,
+          r,
+          a = this,
+          l = this._element.querySelector(".active.carousel-item"),
+          c = this._getItemIndex(l),
+          h = n || l && this._getItemByDirection(t, l),
+          u = this._getItemIndex(h),
+          f = Boolean(this._interval);
+
+      if ("next" === t ? (i = "carousel-item-left", o = "carousel-item-next", r = "left") : (i = "carousel-item-right", o = "carousel-item-prev", r = "right"), h && e(h).hasClass("active")) this._isSliding = !1;else if (!this._triggerSlideEvent(h, r).isDefaultPrevented() && l && h) {
+        this._isSliding = !0, f && this.pause(), this._setActiveIndicatorElement(h);
+        var d = e.Event("slid.bs.carousel", {
+          relatedTarget: h,
+          direction: r,
+          from: c,
+          to: u
+        });
+
+        if (e(this._element).hasClass("slide")) {
+          e(h).addClass(o), s.reflow(h), e(l).addClass(i), e(h).addClass(i);
+          var p = parseInt(h.getAttribute("data-interval"), 10);
+          p ? (this._config.defaultInterval = this._config.defaultInterval || this._config.interval, this._config.interval = p) : this._config.interval = this._config.defaultInterval || this._config.interval;
+          var m = s.getTransitionDurationFromElement(l);
+          e(l).one(s.TRANSITION_END, function () {
+            e(h).removeClass(i + " " + o).addClass("active"), e(l).removeClass("active " + o + " " + i), a._isSliding = !1, setTimeout(function () {
+              return e(a._element).trigger(d);
+            }, 0);
+          }).emulateTransitionEnd(m);
+        } else e(l).removeClass("active"), e(h).addClass("active"), this._isSliding = !1, e(this._element).trigger(d);
+
+        f && this.cycle();
+      }
+    }, t._jQueryInterface = function (n) {
+      return this.each(function () {
+        var i = e(this).data("bs.carousel"),
+            r = o({}, m, e(this).data());
+        "object" == _typeof(n) && (r = o({}, r, n));
+        var s = "string" == typeof n ? n : r.slide;
+        if (i || (i = new t(this, r), e(this).data("bs.carousel", i)), "number" == typeof n) i.to(n);else if ("string" == typeof s) {
+          if ("undefined" == typeof i[s]) throw new TypeError('No method named "' + s + '"');
+          i[s]();
+        } else r.interval && r.ride && (i.pause(), i.cycle());
+      });
+    }, t._dataApiClickHandler = function (n) {
+      var i = s.getSelectorFromElement(this);
+
+      if (i) {
+        var r = e(i)[0];
+
+        if (r && e(r).hasClass("carousel")) {
+          var a = o({}, e(r).data(), e(this).data()),
+              l = this.getAttribute("data-slide-to");
+          l && (a.interval = !1), t._jQueryInterface.call(e(r), a), l && e(r).data("bs.carousel").to(l), n.preventDefault();
+        }
+      }
+    }, i(t, null, [{
+      key: "VERSION",
+      get: function get() {
+        return "4.5.2";
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return m;
+      }
+    }]), t;
+  }();
+
+  e(document).on("click.bs.carousel.data-api", "[data-slide], [data-slide-to]", v._dataApiClickHandler), e(window).on("load.bs.carousel.data-api", function () {
+    for (var t = [].slice.call(document.querySelectorAll('[data-ride="carousel"]')), n = 0, i = t.length; n < i; n++) {
+      var o = e(t[n]);
+
+      v._jQueryInterface.call(o, o.data());
+    }
+  }), e.fn[f] = v._jQueryInterface, e.fn[f].Constructor = v, e.fn[f].noConflict = function () {
+    return e.fn[f] = p, v._jQueryInterface;
+  };
+
+  var b = "collapse",
+      y = e.fn[b],
+      w = {
+    toggle: !0,
+    parent: ""
+  },
+      E = {
+    toggle: "boolean",
+    parent: "(string|element)"
+  },
+      T = function () {
+    function t(t, e) {
+      this._isTransitioning = !1, this._element = t, this._config = this._getConfig(e), this._triggerArray = [].slice.call(document.querySelectorAll('[data-toggle="collapse"][href="#' + t.id + '"],[data-toggle="collapse"][data-target="#' + t.id + '"]'));
+
+      for (var n = [].slice.call(document.querySelectorAll('[data-toggle="collapse"]')), i = 0, o = n.length; i < o; i++) {
+        var r = n[i],
+            a = s.getSelectorFromElement(r),
+            l = [].slice.call(document.querySelectorAll(a)).filter(function (e) {
+          return e === t;
+        });
+        null !== a && l.length > 0 && (this._selector = a, this._triggerArray.push(r));
+      }
+
+      this._parent = this._config.parent ? this._getParent() : null, this._config.parent || this._addAriaAndCollapsedClass(this._element, this._triggerArray), this._config.toggle && this.toggle();
+    }
+
+    var n = t.prototype;
+    return n.toggle = function () {
+      e(this._element).hasClass("show") ? this.hide() : this.show();
+    }, n.show = function () {
+      var n,
+          i,
+          o = this;
+
+      if (!this._isTransitioning && !e(this._element).hasClass("show") && (this._parent && 0 === (n = [].slice.call(this._parent.querySelectorAll(".show, .collapsing")).filter(function (t) {
+        return "string" == typeof o._config.parent ? t.getAttribute("data-parent") === o._config.parent : t.classList.contains("collapse");
+      })).length && (n = null), !(n && (i = e(n).not(this._selector).data("bs.collapse")) && i._isTransitioning))) {
+        var r = e.Event("show.bs.collapse");
+
+        if (e(this._element).trigger(r), !r.isDefaultPrevented()) {
+          n && (t._jQueryInterface.call(e(n).not(this._selector), "hide"), i || e(n).data("bs.collapse", null));
+
+          var a = this._getDimension();
+
+          e(this._element).removeClass("collapse").addClass("collapsing"), this._element.style[a] = 0, this._triggerArray.length && e(this._triggerArray).removeClass("collapsed").attr("aria-expanded", !0), this.setTransitioning(!0);
+          var l = "scroll" + (a[0].toUpperCase() + a.slice(1)),
+              c = s.getTransitionDurationFromElement(this._element);
+          e(this._element).one(s.TRANSITION_END, function () {
+            e(o._element).removeClass("collapsing").addClass("collapse show"), o._element.style[a] = "", o.setTransitioning(!1), e(o._element).trigger("shown.bs.collapse");
+          }).emulateTransitionEnd(c), this._element.style[a] = this._element[l] + "px";
+        }
+      }
+    }, n.hide = function () {
+      var t = this;
+
+      if (!this._isTransitioning && e(this._element).hasClass("show")) {
+        var n = e.Event("hide.bs.collapse");
+
+        if (e(this._element).trigger(n), !n.isDefaultPrevented()) {
+          var i = this._getDimension();
+
+          this._element.style[i] = this._element.getBoundingClientRect()[i] + "px", s.reflow(this._element), e(this._element).addClass("collapsing").removeClass("collapse show");
+          var o = this._triggerArray.length;
+          if (o > 0) for (var r = 0; r < o; r++) {
+            var a = this._triggerArray[r],
+                l = s.getSelectorFromElement(a);
+            if (null !== l) e([].slice.call(document.querySelectorAll(l))).hasClass("show") || e(a).addClass("collapsed").attr("aria-expanded", !1);
+          }
+          this.setTransitioning(!0);
+          this._element.style[i] = "";
+          var c = s.getTransitionDurationFromElement(this._element);
+          e(this._element).one(s.TRANSITION_END, function () {
+            t.setTransitioning(!1), e(t._element).removeClass("collapsing").addClass("collapse").trigger("hidden.bs.collapse");
+          }).emulateTransitionEnd(c);
+        }
+      }
+    }, n.setTransitioning = function (t) {
+      this._isTransitioning = t;
+    }, n.dispose = function () {
+      e.removeData(this._element, "bs.collapse"), this._config = null, this._parent = null, this._element = null, this._triggerArray = null, this._isTransitioning = null;
+    }, n._getConfig = function (t) {
+      return (t = o({}, w, t)).toggle = Boolean(t.toggle), s.typeCheckConfig(b, t, E), t;
+    }, n._getDimension = function () {
+      return e(this._element).hasClass("width") ? "width" : "height";
+    }, n._getParent = function () {
+      var n,
+          i = this;
+      s.isElement(this._config.parent) ? (n = this._config.parent, "undefined" != typeof this._config.parent.jquery && (n = this._config.parent[0])) : n = document.querySelector(this._config.parent);
+      var o = '[data-toggle="collapse"][data-parent="' + this._config.parent + '"]',
+          r = [].slice.call(n.querySelectorAll(o));
+      return e(r).each(function (e, n) {
+        i._addAriaAndCollapsedClass(t._getTargetFromElement(n), [n]);
+      }), n;
+    }, n._addAriaAndCollapsedClass = function (t, n) {
+      var i = e(t).hasClass("show");
+      n.length && e(n).toggleClass("collapsed", !i).attr("aria-expanded", i);
+    }, t._getTargetFromElement = function (t) {
+      var e = s.getSelectorFromElement(t);
+      return e ? document.querySelector(e) : null;
+    }, t._jQueryInterface = function (n) {
+      return this.each(function () {
+        var i = e(this),
+            r = i.data("bs.collapse"),
+            s = o({}, w, i.data(), "object" == _typeof(n) && n ? n : {});
+
+        if (!r && s.toggle && "string" == typeof n && /show|hide/.test(n) && (s.toggle = !1), r || (r = new t(this, s), i.data("bs.collapse", r)), "string" == typeof n) {
+          if ("undefined" == typeof r[n]) throw new TypeError('No method named "' + n + '"');
+          r[n]();
+        }
+      });
+    }, i(t, null, [{
+      key: "VERSION",
+      get: function get() {
+        return "4.5.2";
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return w;
+      }
+    }]), t;
+  }();
+
+  e(document).on("click.bs.collapse.data-api", '[data-toggle="collapse"]', function (t) {
+    "A" === t.currentTarget.tagName && t.preventDefault();
+    var n = e(this),
+        i = s.getSelectorFromElement(this),
+        o = [].slice.call(document.querySelectorAll(i));
+    e(o).each(function () {
+      var t = e(this),
+          i = t.data("bs.collapse") ? "toggle" : n.data();
+
+      T._jQueryInterface.call(t, i);
+    });
+  }), e.fn[b] = T._jQueryInterface, e.fn[b].Constructor = T, e.fn[b].noConflict = function () {
+    return e.fn[b] = y, T._jQueryInterface;
+  };
+
+  var C = "undefined" != typeof window && "undefined" != typeof document && "undefined" != typeof navigator,
+      S = function () {
+    for (var t = ["Edge", "Trident", "Firefox"], e = 0; e < t.length; e += 1) {
+      if (C && navigator.userAgent.indexOf(t[e]) >= 0) return 1;
+    }
+
+    return 0;
+  }();
+
+  var D = C && window.Promise ? function (t) {
+    var e = !1;
+    return function () {
+      e || (e = !0, window.Promise.resolve().then(function () {
+        e = !1, t();
+      }));
+    };
+  } : function (t) {
+    var e = !1;
+    return function () {
+      e || (e = !0, setTimeout(function () {
+        e = !1, t();
+      }, S));
+    };
+  };
+
+  function N(t) {
+    return t && "[object Function]" === {}.toString.call(t);
+  }
+
+  function k(t, e) {
+    if (1 !== t.nodeType) return [];
+    var n = t.ownerDocument.defaultView.getComputedStyle(t, null);
+    return e ? n[e] : n;
+  }
+
+  function A(t) {
+    return "HTML" === t.nodeName ? t : t.parentNode || t.host;
+  }
+
+  function I(t) {
+    if (!t) return document.body;
+
+    switch (t.nodeName) {
+      case "HTML":
+      case "BODY":
+        return t.ownerDocument.body;
+
+      case "#document":
+        return t.body;
+    }
+
+    var e = k(t),
+        n = e.overflow,
+        i = e.overflowX,
+        o = e.overflowY;
+    return /(auto|scroll|overlay)/.test(n + o + i) ? t : I(A(t));
+  }
+
+  function O(t) {
+    return t && t.referenceNode ? t.referenceNode : t;
+  }
+
+  var x = C && !(!window.MSInputMethodContext || !document.documentMode),
+      j = C && /MSIE 10/.test(navigator.userAgent);
+
+  function L(t) {
+    return 11 === t ? x : 10 === t ? j : x || j;
+  }
+
+  function P(t) {
+    if (!t) return document.documentElement;
+
+    for (var e = L(10) ? document.body : null, n = t.offsetParent || null; n === e && t.nextElementSibling;) {
+      n = (t = t.nextElementSibling).offsetParent;
+    }
+
+    var i = n && n.nodeName;
+    return i && "BODY" !== i && "HTML" !== i ? -1 !== ["TH", "TD", "TABLE"].indexOf(n.nodeName) && "static" === k(n, "position") ? P(n) : n : t ? t.ownerDocument.documentElement : document.documentElement;
+  }
+
+  function F(t) {
+    return null !== t.parentNode ? F(t.parentNode) : t;
+  }
+
+  function R(t, e) {
+    if (!(t && t.nodeType && e && e.nodeType)) return document.documentElement;
+    var n = t.compareDocumentPosition(e) & Node.DOCUMENT_POSITION_FOLLOWING,
+        i = n ? t : e,
+        o = n ? e : t,
+        r = document.createRange();
+    r.setStart(i, 0), r.setEnd(o, 0);
+    var s,
+        a,
+        l = r.commonAncestorContainer;
+    if (t !== l && e !== l || i.contains(o)) return "BODY" === (a = (s = l).nodeName) || "HTML" !== a && P(s.firstElementChild) !== s ? P(l) : l;
+    var c = F(t);
+    return c.host ? R(c.host, e) : R(t, F(e).host);
+  }
+
+  function H(t) {
+    var e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : "top",
+        n = "top" === e ? "scrollTop" : "scrollLeft",
+        i = t.nodeName;
+
+    if ("BODY" === i || "HTML" === i) {
+      var o = t.ownerDocument.documentElement,
+          r = t.ownerDocument.scrollingElement || o;
+      return r[n];
+    }
+
+    return t[n];
+  }
+
+  function M(t, e) {
+    var n = arguments.length > 2 && void 0 !== arguments[2] && arguments[2],
+        i = H(e, "top"),
+        o = H(e, "left"),
+        r = n ? -1 : 1;
+    return t.top += i * r, t.bottom += i * r, t.left += o * r, t.right += o * r, t;
+  }
+
+  function B(t, e) {
+    var n = "x" === e ? "Left" : "Top",
+        i = "Left" === n ? "Right" : "Bottom";
+    return parseFloat(t["border" + n + "Width"]) + parseFloat(t["border" + i + "Width"]);
+  }
+
+  function q(t, e, n, i) {
+    return Math.max(e["offset" + t], e["scroll" + t], n["client" + t], n["offset" + t], n["scroll" + t], L(10) ? parseInt(n["offset" + t]) + parseInt(i["margin" + ("Height" === t ? "Top" : "Left")]) + parseInt(i["margin" + ("Height" === t ? "Bottom" : "Right")]) : 0);
+  }
+
+  function Q(t) {
+    var e = t.body,
+        n = t.documentElement,
+        i = L(10) && getComputedStyle(n);
+    return {
+      height: q("Height", e, n, i),
+      width: q("Width", e, n, i)
+    };
+  }
+
+  var W = function W(t, e) {
+    if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
+  },
+      U = function () {
+    function t(t, e) {
+      for (var n = 0; n < e.length; n++) {
+        var i = e[n];
+        i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(t, i.key, i);
+      }
+    }
+
+    return function (e, n, i) {
+      return n && t(e.prototype, n), i && t(e, i), e;
+    };
+  }(),
+      V = function V(t, e, n) {
+    return e in t ? Object.defineProperty(t, e, {
+      value: n,
+      enumerable: !0,
+      configurable: !0,
+      writable: !0
+    }) : t[e] = n, t;
+  },
+      Y = Object.assign || function (t) {
+    for (var e = 1; e < arguments.length; e++) {
+      var n = arguments[e];
+
+      for (var i in n) {
+        Object.prototype.hasOwnProperty.call(n, i) && (t[i] = n[i]);
+      }
+    }
+
+    return t;
+  };
+
+  function z(t) {
+    return Y({}, t, {
+      right: t.left + t.width,
+      bottom: t.top + t.height
+    });
+  }
+
+  function X(t) {
+    var e = {};
+
+    try {
+      if (L(10)) {
+        e = t.getBoundingClientRect();
+        var n = H(t, "top"),
+            i = H(t, "left");
+        e.top += n, e.left += i, e.bottom += n, e.right += i;
+      } else e = t.getBoundingClientRect();
+    } catch (t) {}
+
+    var o = {
+      left: e.left,
+      top: e.top,
+      width: e.right - e.left,
+      height: e.bottom - e.top
+    },
+        r = "HTML" === t.nodeName ? Q(t.ownerDocument) : {},
+        s = r.width || t.clientWidth || o.width,
+        a = r.height || t.clientHeight || o.height,
+        l = t.offsetWidth - s,
+        c = t.offsetHeight - a;
+
+    if (l || c) {
+      var h = k(t);
+      l -= B(h, "x"), c -= B(h, "y"), o.width -= l, o.height -= c;
+    }
+
+    return z(o);
+  }
+
+  function K(t, e) {
+    var n = arguments.length > 2 && void 0 !== arguments[2] && arguments[2],
+        i = L(10),
+        o = "HTML" === e.nodeName,
+        r = X(t),
+        s = X(e),
+        a = I(t),
+        l = k(e),
+        c = parseFloat(l.borderTopWidth),
+        h = parseFloat(l.borderLeftWidth);
+    n && o && (s.top = Math.max(s.top, 0), s.left = Math.max(s.left, 0));
+    var u = z({
+      top: r.top - s.top - c,
+      left: r.left - s.left - h,
+      width: r.width,
+      height: r.height
+    });
+
+    if (u.marginTop = 0, u.marginLeft = 0, !i && o) {
+      var f = parseFloat(l.marginTop),
+          d = parseFloat(l.marginLeft);
+      u.top -= c - f, u.bottom -= c - f, u.left -= h - d, u.right -= h - d, u.marginTop = f, u.marginLeft = d;
+    }
+
+    return (i && !n ? e.contains(a) : e === a && "BODY" !== a.nodeName) && (u = M(u, e)), u;
+  }
+
+  function G(t) {
+    var e = arguments.length > 1 && void 0 !== arguments[1] && arguments[1],
+        n = t.ownerDocument.documentElement,
+        i = K(t, n),
+        o = Math.max(n.clientWidth, window.innerWidth || 0),
+        r = Math.max(n.clientHeight, window.innerHeight || 0),
+        s = e ? 0 : H(n),
+        a = e ? 0 : H(n, "left"),
+        l = {
+      top: s - i.top + i.marginTop,
+      left: a - i.left + i.marginLeft,
+      width: o,
+      height: r
+    };
+    return z(l);
+  }
+
+  function $(t) {
+    var e = t.nodeName;
+    if ("BODY" === e || "HTML" === e) return !1;
+    if ("fixed" === k(t, "position")) return !0;
+    var n = A(t);
+    return !!n && $(n);
+  }
+
+  function J(t) {
+    if (!t || !t.parentElement || L()) return document.documentElement;
+
+    for (var e = t.parentElement; e && "none" === k(e, "transform");) {
+      e = e.parentElement;
+    }
+
+    return e || document.documentElement;
+  }
+
+  function Z(t, e, n, i) {
+    var o = arguments.length > 4 && void 0 !== arguments[4] && arguments[4],
+        r = {
+      top: 0,
+      left: 0
+    },
+        s = o ? J(t) : R(t, O(e));
+    if ("viewport" === i) r = G(s, o);else {
+      var a = void 0;
+      "scrollParent" === i ? "BODY" === (a = I(A(e))).nodeName && (a = t.ownerDocument.documentElement) : a = "window" === i ? t.ownerDocument.documentElement : i;
+      var l = K(a, s, o);
+      if ("HTML" !== a.nodeName || $(s)) r = l;else {
+        var c = Q(t.ownerDocument),
+            h = c.height,
+            u = c.width;
+        r.top += l.top - l.marginTop, r.bottom = h + l.top, r.left += l.left - l.marginLeft, r.right = u + l.left;
+      }
+    }
+    var f = "number" == typeof (n = n || 0);
+    return r.left += f ? n : n.left || 0, r.top += f ? n : n.top || 0, r.right -= f ? n : n.right || 0, r.bottom -= f ? n : n.bottom || 0, r;
+  }
+
+  function tt(t) {
+    return t.width * t.height;
+  }
+
+  function et(t, e, n, i, o) {
+    var r = arguments.length > 5 && void 0 !== arguments[5] ? arguments[5] : 0;
+    if (-1 === t.indexOf("auto")) return t;
+    var s = Z(n, i, r, o),
+        a = {
+      top: {
+        width: s.width,
+        height: e.top - s.top
+      },
+      right: {
+        width: s.right - e.right,
+        height: s.height
+      },
+      bottom: {
+        width: s.width,
+        height: s.bottom - e.bottom
+      },
+      left: {
+        width: e.left - s.left,
+        height: s.height
+      }
+    },
+        l = Object.keys(a).map(function (t) {
+      return Y({
+        key: t
+      }, a[t], {
+        area: tt(a[t])
+      });
+    }).sort(function (t, e) {
+      return e.area - t.area;
+    }),
+        c = l.filter(function (t) {
+      var e = t.width,
+          i = t.height;
+      return e >= n.clientWidth && i >= n.clientHeight;
+    }),
+        h = c.length > 0 ? c[0].key : l[0].key,
+        u = t.split("-")[1];
+    return h + (u ? "-" + u : "");
+  }
+
+  function nt(t, e, n) {
+    var i = arguments.length > 3 && void 0 !== arguments[3] ? arguments[3] : null,
+        o = i ? J(e) : R(e, O(n));
+    return K(n, o, i);
+  }
+
+  function it(t) {
+    var e = t.ownerDocument.defaultView.getComputedStyle(t),
+        n = parseFloat(e.marginTop || 0) + parseFloat(e.marginBottom || 0),
+        i = parseFloat(e.marginLeft || 0) + parseFloat(e.marginRight || 0);
+    return {
+      width: t.offsetWidth + i,
+      height: t.offsetHeight + n
+    };
+  }
+
+  function ot(t) {
+    var e = {
+      left: "right",
+      right: "left",
+      bottom: "top",
+      top: "bottom"
+    };
+    return t.replace(/left|right|bottom|top/g, function (t) {
+      return e[t];
+    });
+  }
+
+  function rt(t, e, n) {
+    n = n.split("-")[0];
+    var i = it(t),
+        o = {
+      width: i.width,
+      height: i.height
+    },
+        r = -1 !== ["right", "left"].indexOf(n),
+        s = r ? "top" : "left",
+        a = r ? "left" : "top",
+        l = r ? "height" : "width",
+        c = r ? "width" : "height";
+    return o[s] = e[s] + e[l] / 2 - i[l] / 2, o[a] = n === a ? e[a] - i[c] : e[ot(a)], o;
+  }
+
+  function st(t, e) {
+    return Array.prototype.find ? t.find(e) : t.filter(e)[0];
+  }
+
+  function at(t, e, n) {
+    return (void 0 === n ? t : t.slice(0, function (t, e, n) {
+      if (Array.prototype.findIndex) return t.findIndex(function (t) {
+        return t[e] === n;
+      });
+      var i = st(t, function (t) {
+        return t[e] === n;
+      });
+      return t.indexOf(i);
+    }(t, "name", n))).forEach(function (t) {
+      t.function && console.warn("`modifier.function` is deprecated, use `modifier.fn`!");
+      var n = t.function || t.fn;
+      t.enabled && N(n) && (e.offsets.popper = z(e.offsets.popper), e.offsets.reference = z(e.offsets.reference), e = n(e, t));
+    }), e;
+  }
+
+  function lt() {
+    if (!this.state.isDestroyed) {
+      var t = {
+        instance: this,
+        styles: {},
+        arrowStyles: {},
+        attributes: {},
+        flipped: !1,
+        offsets: {}
+      };
+      t.offsets.reference = nt(this.state, this.popper, this.reference, this.options.positionFixed), t.placement = et(this.options.placement, t.offsets.reference, this.popper, this.reference, this.options.modifiers.flip.boundariesElement, this.options.modifiers.flip.padding), t.originalPlacement = t.placement, t.positionFixed = this.options.positionFixed, t.offsets.popper = rt(this.popper, t.offsets.reference, t.placement), t.offsets.popper.position = this.options.positionFixed ? "fixed" : "absolute", t = at(this.modifiers, t), this.state.isCreated ? this.options.onUpdate(t) : (this.state.isCreated = !0, this.options.onCreate(t));
+    }
+  }
+
+  function ct(t, e) {
+    return t.some(function (t) {
+      var n = t.name;
+      return t.enabled && n === e;
+    });
+  }
+
+  function ht(t) {
+    for (var e = [!1, "ms", "Webkit", "Moz", "O"], n = t.charAt(0).toUpperCase() + t.slice(1), i = 0; i < e.length; i++) {
+      var o = e[i],
+          r = o ? "" + o + n : t;
+      if ("undefined" != typeof document.body.style[r]) return r;
+    }
+
+    return null;
+  }
+
+  function ut() {
+    return this.state.isDestroyed = !0, ct(this.modifiers, "applyStyle") && (this.popper.removeAttribute("x-placement"), this.popper.style.position = "", this.popper.style.top = "", this.popper.style.left = "", this.popper.style.right = "", this.popper.style.bottom = "", this.popper.style.willChange = "", this.popper.style[ht("transform")] = ""), this.disableEventListeners(), this.options.removeOnDestroy && this.popper.parentNode.removeChild(this.popper), this;
+  }
+
+  function ft(t) {
+    var e = t.ownerDocument;
+    return e ? e.defaultView : window;
+  }
+
+  function dt(t, e, n, i) {
+    n.updateBound = i, ft(t).addEventListener("resize", n.updateBound, {
+      passive: !0
+    });
+    var o = I(t);
+    return function t(e, n, i, o) {
+      var r = "BODY" === e.nodeName,
+          s = r ? e.ownerDocument.defaultView : e;
+      s.addEventListener(n, i, {
+        passive: !0
+      }), r || t(I(s.parentNode), n, i, o), o.push(s);
+    }(o, "scroll", n.updateBound, n.scrollParents), n.scrollElement = o, n.eventsEnabled = !0, n;
+  }
+
+  function pt() {
+    this.state.eventsEnabled || (this.state = dt(this.reference, this.options, this.state, this.scheduleUpdate));
+  }
+
+  function mt() {
+    var t, e;
+    this.state.eventsEnabled && (cancelAnimationFrame(this.scheduleUpdate), this.state = (t = this.reference, e = this.state, ft(t).removeEventListener("resize", e.updateBound), e.scrollParents.forEach(function (t) {
+      t.removeEventListener("scroll", e.updateBound);
+    }), e.updateBound = null, e.scrollParents = [], e.scrollElement = null, e.eventsEnabled = !1, e));
+  }
+
+  function gt(t) {
+    return "" !== t && !isNaN(parseFloat(t)) && isFinite(t);
+  }
+
+  function _t(t, e) {
+    Object.keys(e).forEach(function (n) {
+      var i = "";
+      -1 !== ["width", "height", "top", "right", "bottom", "left"].indexOf(n) && gt(e[n]) && (i = "px"), t.style[n] = e[n] + i;
+    });
+  }
+
+  var vt = C && /Firefox/i.test(navigator.userAgent);
+
+  function bt(t, e, n) {
+    var i = st(t, function (t) {
+      return t.name === e;
+    }),
+        o = !!i && t.some(function (t) {
+      return t.name === n && t.enabled && t.order < i.order;
+    });
+
+    if (!o) {
+      var r = "`" + e + "`",
+          s = "`" + n + "`";
+      console.warn(s + " modifier is required by " + r + " modifier in order to work, be sure to include it before " + r + "!");
+    }
+
+    return o;
+  }
+
+  var yt = ["auto-start", "auto", "auto-end", "top-start", "top", "top-end", "right-start", "right", "right-end", "bottom-end", "bottom", "bottom-start", "left-end", "left", "left-start"],
+      wt = yt.slice(3);
+
+  function Et(t) {
+    var e = arguments.length > 1 && void 0 !== arguments[1] && arguments[1],
+        n = wt.indexOf(t),
+        i = wt.slice(n + 1).concat(wt.slice(0, n));
+    return e ? i.reverse() : i;
+  }
+
+  var Tt = "flip",
+      Ct = "clockwise",
+      St = "counterclockwise";
+
+  function Dt(t, e, n, i) {
+    var o = [0, 0],
+        r = -1 !== ["right", "left"].indexOf(i),
+        s = t.split(/(\+|\-)/).map(function (t) {
+      return t.trim();
+    }),
+        a = s.indexOf(st(s, function (t) {
+      return -1 !== t.search(/,|\s/);
+    }));
+    s[a] && -1 === s[a].indexOf(",") && console.warn("Offsets separated by white space(s) are deprecated, use a comma (,) instead.");
+    var l = /\s*,\s*|\s+/,
+        c = -1 !== a ? [s.slice(0, a).concat([s[a].split(l)[0]]), [s[a].split(l)[1]].concat(s.slice(a + 1))] : [s];
+    return (c = c.map(function (t, i) {
+      var o = (1 === i ? !r : r) ? "height" : "width",
+          s = !1;
+      return t.reduce(function (t, e) {
+        return "" === t[t.length - 1] && -1 !== ["+", "-"].indexOf(e) ? (t[t.length - 1] = e, s = !0, t) : s ? (t[t.length - 1] += e, s = !1, t) : t.concat(e);
+      }, []).map(function (t) {
+        return function (t, e, n, i) {
+          var o = t.match(/((?:\-|\+)?\d*\.?\d*)(.*)/),
+              r = +o[1],
+              s = o[2];
+          if (!r) return t;
+
+          if (0 === s.indexOf("%")) {
+            var a = void 0;
+
+            switch (s) {
+              case "%p":
+                a = n;
+                break;
+
+              case "%":
+              case "%r":
+              default:
+                a = i;
+            }
+
+            return z(a)[e] / 100 * r;
+          }
+
+          if ("vh" === s || "vw" === s) {
+            return ("vh" === s ? Math.max(document.documentElement.clientHeight, window.innerHeight || 0) : Math.max(document.documentElement.clientWidth, window.innerWidth || 0)) / 100 * r;
+          }
+
+          return r;
+        }(t, o, e, n);
+      });
+    })).forEach(function (t, e) {
+      t.forEach(function (n, i) {
+        gt(n) && (o[e] += n * ("-" === t[i - 1] ? -1 : 1));
+      });
+    }), o;
+  }
+
+  var Nt = {
+    placement: "bottom",
+    positionFixed: !1,
+    eventsEnabled: !0,
+    removeOnDestroy: !1,
+    onCreate: function onCreate() {},
+    onUpdate: function onUpdate() {},
+    modifiers: {
+      shift: {
+        order: 100,
+        enabled: !0,
+        fn: function fn(t) {
+          var e = t.placement,
+              n = e.split("-")[0],
+              i = e.split("-")[1];
+
+          if (i) {
+            var o = t.offsets,
+                r = o.reference,
+                s = o.popper,
+                a = -1 !== ["bottom", "top"].indexOf(n),
+                l = a ? "left" : "top",
+                c = a ? "width" : "height",
+                h = {
+              start: V({}, l, r[l]),
+              end: V({}, l, r[l] + r[c] - s[c])
+            };
+            t.offsets.popper = Y({}, s, h[i]);
+          }
+
+          return t;
+        }
+      },
+      offset: {
+        order: 200,
+        enabled: !0,
+        fn: function fn(t, e) {
+          var n = e.offset,
+              i = t.placement,
+              o = t.offsets,
+              r = o.popper,
+              s = o.reference,
+              a = i.split("-")[0],
+              l = void 0;
+          return l = gt(+n) ? [+n, 0] : Dt(n, r, s, a), "left" === a ? (r.top += l[0], r.left -= l[1]) : "right" === a ? (r.top += l[0], r.left += l[1]) : "top" === a ? (r.left += l[0], r.top -= l[1]) : "bottom" === a && (r.left += l[0], r.top += l[1]), t.popper = r, t;
+        },
+        offset: 0
+      },
+      preventOverflow: {
+        order: 300,
+        enabled: !0,
+        fn: function fn(t, e) {
+          var n = e.boundariesElement || P(t.instance.popper);
+          t.instance.reference === n && (n = P(n));
+          var i = ht("transform"),
+              o = t.instance.popper.style,
+              r = o.top,
+              s = o.left,
+              a = o[i];
+          o.top = "", o.left = "", o[i] = "";
+          var l = Z(t.instance.popper, t.instance.reference, e.padding, n, t.positionFixed);
+          o.top = r, o.left = s, o[i] = a, e.boundaries = l;
+          var c = e.priority,
+              h = t.offsets.popper,
+              u = {
+            primary: function primary(t) {
+              var n = h[t];
+              return h[t] < l[t] && !e.escapeWithReference && (n = Math.max(h[t], l[t])), V({}, t, n);
+            },
+            secondary: function secondary(t) {
+              var n = "right" === t ? "left" : "top",
+                  i = h[n];
+              return h[t] > l[t] && !e.escapeWithReference && (i = Math.min(h[n], l[t] - ("right" === t ? h.width : h.height))), V({}, n, i);
+            }
+          };
+          return c.forEach(function (t) {
+            var e = -1 !== ["left", "top"].indexOf(t) ? "primary" : "secondary";
+            h = Y({}, h, u[e](t));
+          }), t.offsets.popper = h, t;
+        },
+        priority: ["left", "right", "top", "bottom"],
+        padding: 5,
+        boundariesElement: "scrollParent"
+      },
+      keepTogether: {
+        order: 400,
+        enabled: !0,
+        fn: function fn(t) {
+          var e = t.offsets,
+              n = e.popper,
+              i = e.reference,
+              o = t.placement.split("-")[0],
+              r = Math.floor,
+              s = -1 !== ["top", "bottom"].indexOf(o),
+              a = s ? "right" : "bottom",
+              l = s ? "left" : "top",
+              c = s ? "width" : "height";
+          return n[a] < r(i[l]) && (t.offsets.popper[l] = r(i[l]) - n[c]), n[l] > r(i[a]) && (t.offsets.popper[l] = r(i[a])), t;
+        }
+      },
+      arrow: {
+        order: 500,
+        enabled: !0,
+        fn: function fn(t, e) {
+          var n;
+          if (!bt(t.instance.modifiers, "arrow", "keepTogether")) return t;
+          var i = e.element;
+
+          if ("string" == typeof i) {
+            if (!(i = t.instance.popper.querySelector(i))) return t;
+          } else if (!t.instance.popper.contains(i)) return console.warn("WARNING: `arrow.element` must be child of its popper element!"), t;
+
+          var o = t.placement.split("-")[0],
+              r = t.offsets,
+              s = r.popper,
+              a = r.reference,
+              l = -1 !== ["left", "right"].indexOf(o),
+              c = l ? "height" : "width",
+              h = l ? "Top" : "Left",
+              u = h.toLowerCase(),
+              f = l ? "left" : "top",
+              d = l ? "bottom" : "right",
+              p = it(i)[c];
+          a[d] - p < s[u] && (t.offsets.popper[u] -= s[u] - (a[d] - p)), a[u] + p > s[d] && (t.offsets.popper[u] += a[u] + p - s[d]), t.offsets.popper = z(t.offsets.popper);
+
+          var m = a[u] + a[c] / 2 - p / 2,
+              g = k(t.instance.popper),
+              _ = parseFloat(g["margin" + h]),
+              v = parseFloat(g["border" + h + "Width"]),
+              b = m - t.offsets.popper[u] - _ - v;
+
+          return b = Math.max(Math.min(s[c] - p, b), 0), t.arrowElement = i, t.offsets.arrow = (V(n = {}, u, Math.round(b)), V(n, f, ""), n), t;
+        },
+        element: "[x-arrow]"
+      },
+      flip: {
+        order: 600,
+        enabled: !0,
+        fn: function fn(t, e) {
+          if (ct(t.instance.modifiers, "inner")) return t;
+          if (t.flipped && t.placement === t.originalPlacement) return t;
+          var n = Z(t.instance.popper, t.instance.reference, e.padding, e.boundariesElement, t.positionFixed),
+              i = t.placement.split("-")[0],
+              o = ot(i),
+              r = t.placement.split("-")[1] || "",
+              s = [];
+
+          switch (e.behavior) {
+            case Tt:
+              s = [i, o];
+              break;
+
+            case Ct:
+              s = Et(i);
+              break;
+
+            case St:
+              s = Et(i, !0);
+              break;
+
+            default:
+              s = e.behavior;
+          }
+
+          return s.forEach(function (a, l) {
+            if (i !== a || s.length === l + 1) return t;
+            i = t.placement.split("-")[0], o = ot(i);
+
+            var c = t.offsets.popper,
+                h = t.offsets.reference,
+                u = Math.floor,
+                f = "left" === i && u(c.right) > u(h.left) || "right" === i && u(c.left) < u(h.right) || "top" === i && u(c.bottom) > u(h.top) || "bottom" === i && u(c.top) < u(h.bottom),
+                d = u(c.left) < u(n.left),
+                p = u(c.right) > u(n.right),
+                m = u(c.top) < u(n.top),
+                g = u(c.bottom) > u(n.bottom),
+                _ = "left" === i && d || "right" === i && p || "top" === i && m || "bottom" === i && g,
+                v = -1 !== ["top", "bottom"].indexOf(i),
+                b = !!e.flipVariations && (v && "start" === r && d || v && "end" === r && p || !v && "start" === r && m || !v && "end" === r && g),
+                y = !!e.flipVariationsByContent && (v && "start" === r && p || v && "end" === r && d || !v && "start" === r && g || !v && "end" === r && m),
+                w = b || y;
+
+            (f || _ || w) && (t.flipped = !0, (f || _) && (i = s[l + 1]), w && (r = function (t) {
+              return "end" === t ? "start" : "start" === t ? "end" : t;
+            }(r)), t.placement = i + (r ? "-" + r : ""), t.offsets.popper = Y({}, t.offsets.popper, rt(t.instance.popper, t.offsets.reference, t.placement)), t = at(t.instance.modifiers, t, "flip"));
+          }), t;
+        },
+        behavior: "flip",
+        padding: 5,
+        boundariesElement: "viewport",
+        flipVariations: !1,
+        flipVariationsByContent: !1
+      },
+      inner: {
+        order: 700,
+        enabled: !1,
+        fn: function fn(t) {
+          var e = t.placement,
+              n = e.split("-")[0],
+              i = t.offsets,
+              o = i.popper,
+              r = i.reference,
+              s = -1 !== ["left", "right"].indexOf(n),
+              a = -1 === ["top", "left"].indexOf(n);
+          return o[s ? "left" : "top"] = r[n] - (a ? o[s ? "width" : "height"] : 0), t.placement = ot(e), t.offsets.popper = z(o), t;
+        }
+      },
+      hide: {
+        order: 800,
+        enabled: !0,
+        fn: function fn(t) {
+          if (!bt(t.instance.modifiers, "hide", "preventOverflow")) return t;
+          var e = t.offsets.reference,
+              n = st(t.instance.modifiers, function (t) {
+            return "preventOverflow" === t.name;
+          }).boundaries;
+
+          if (e.bottom < n.top || e.left > n.right || e.top > n.bottom || e.right < n.left) {
+            if (!0 === t.hide) return t;
+            t.hide = !0, t.attributes["x-out-of-boundaries"] = "";
+          } else {
+            if (!1 === t.hide) return t;
+            t.hide = !1, t.attributes["x-out-of-boundaries"] = !1;
+          }
+
+          return t;
+        }
+      },
+      computeStyle: {
+        order: 850,
+        enabled: !0,
+        fn: function fn(t, e) {
+          var n = e.x,
+              i = e.y,
+              o = t.offsets.popper,
+              r = st(t.instance.modifiers, function (t) {
+            return "applyStyle" === t.name;
+          }).gpuAcceleration;
+          void 0 !== r && console.warn("WARNING: `gpuAcceleration` option moved to `computeStyle` modifier and will not be supported in future versions of Popper.js!");
+
+          var s = void 0 !== r ? r : e.gpuAcceleration,
+              a = P(t.instance.popper),
+              l = X(a),
+              c = {
+            position: o.position
+          },
+              h = function (t, e) {
+            var n = t.offsets,
+                i = n.popper,
+                o = n.reference,
+                r = Math.round,
+                s = Math.floor,
+                a = function a(t) {
+              return t;
+            },
+                l = r(o.width),
+                c = r(i.width),
+                h = -1 !== ["left", "right"].indexOf(t.placement),
+                u = -1 !== t.placement.indexOf("-"),
+                f = e ? h || u || l % 2 == c % 2 ? r : s : a,
+                d = e ? r : a;
+
+            return {
+              left: f(l % 2 == 1 && c % 2 == 1 && !u && e ? i.left - 1 : i.left),
+              top: d(i.top),
+              bottom: d(i.bottom),
+              right: f(i.right)
+            };
+          }(t, window.devicePixelRatio < 2 || !vt),
+              u = "bottom" === n ? "top" : "bottom",
+              f = "right" === i ? "left" : "right",
+              d = ht("transform"),
+              p = void 0,
+              m = void 0;
+
+          if (m = "bottom" === u ? "HTML" === a.nodeName ? -a.clientHeight + h.bottom : -l.height + h.bottom : h.top, p = "right" === f ? "HTML" === a.nodeName ? -a.clientWidth + h.right : -l.width + h.right : h.left, s && d) c[d] = "translate3d(" + p + "px, " + m + "px, 0)", c[u] = 0, c[f] = 0, c.willChange = "transform";else {
+            var g = "bottom" === u ? -1 : 1,
+                _ = "right" === f ? -1 : 1;
+
+            c[u] = m * g, c[f] = p * _, c.willChange = u + ", " + f;
+          }
+          var v = {
+            "x-placement": t.placement
+          };
+          return t.attributes = Y({}, v, t.attributes), t.styles = Y({}, c, t.styles), t.arrowStyles = Y({}, t.offsets.arrow, t.arrowStyles), t;
+        },
+        gpuAcceleration: !0,
+        x: "bottom",
+        y: "right"
+      },
+      applyStyle: {
+        order: 900,
+        enabled: !0,
+        fn: function fn(t) {
+          var e, n;
+          return _t(t.instance.popper, t.styles), e = t.instance.popper, n = t.attributes, Object.keys(n).forEach(function (t) {
+            !1 !== n[t] ? e.setAttribute(t, n[t]) : e.removeAttribute(t);
+          }), t.arrowElement && Object.keys(t.arrowStyles).length && _t(t.arrowElement, t.arrowStyles), t;
+        },
+        onLoad: function onLoad(t, e, n, i, o) {
+          var r = nt(o, e, t, n.positionFixed),
+              s = et(n.placement, r, e, t, n.modifiers.flip.boundariesElement, n.modifiers.flip.padding);
+          return e.setAttribute("x-placement", s), _t(e, {
+            position: n.positionFixed ? "fixed" : "absolute"
+          }), n;
+        },
+        gpuAcceleration: void 0
+      }
+    }
+  },
+      kt = function () {
+    function t(e, n) {
+      var i = this,
+          o = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : {};
+      W(this, t), this.scheduleUpdate = function () {
+        return requestAnimationFrame(i.update);
+      }, this.update = D(this.update.bind(this)), this.options = Y({}, t.Defaults, o), this.state = {
+        isDestroyed: !1,
+        isCreated: !1,
+        scrollParents: []
+      }, this.reference = e && e.jquery ? e[0] : e, this.popper = n && n.jquery ? n[0] : n, this.options.modifiers = {}, Object.keys(Y({}, t.Defaults.modifiers, o.modifiers)).forEach(function (e) {
+        i.options.modifiers[e] = Y({}, t.Defaults.modifiers[e] || {}, o.modifiers ? o.modifiers[e] : {});
+      }), this.modifiers = Object.keys(this.options.modifiers).map(function (t) {
+        return Y({
+          name: t
+        }, i.options.modifiers[t]);
+      }).sort(function (t, e) {
+        return t.order - e.order;
+      }), this.modifiers.forEach(function (t) {
+        t.enabled && N(t.onLoad) && t.onLoad(i.reference, i.popper, i.options, t, i.state);
+      }), this.update();
+      var r = this.options.eventsEnabled;
+      r && this.enableEventListeners(), this.state.eventsEnabled = r;
+    }
+
+    return U(t, [{
+      key: "update",
+      value: function value() {
+        return lt.call(this);
+      }
+    }, {
+      key: "destroy",
+      value: function value() {
+        return ut.call(this);
+      }
+    }, {
+      key: "enableEventListeners",
+      value: function value() {
+        return pt.call(this);
+      }
+    }, {
+      key: "disableEventListeners",
+      value: function value() {
+        return mt.call(this);
+      }
+    }]), t;
+  }();
+
+  kt.Utils = ("undefined" != typeof window ? window : global).PopperUtils, kt.placements = yt, kt.Defaults = Nt;
+
+  var At = "dropdown",
+      It = e.fn[At],
+      Ot = new RegExp("38|40|27"),
+      xt = {
+    offset: 0,
+    flip: !0,
+    boundary: "scrollParent",
+    reference: "toggle",
+    display: "dynamic",
+    popperConfig: null
+  },
+      jt = {
+    offset: "(number|string|function)",
+    flip: "boolean",
+    boundary: "(string|element)",
+    reference: "(string|element)",
+    display: "string",
+    popperConfig: "(null|object)"
+  },
+      Lt = function () {
+    function t(t, e) {
+      this._element = t, this._popper = null, this._config = this._getConfig(e), this._menu = this._getMenuElement(), this._inNavbar = this._detectNavbar(), this._addEventListeners();
+    }
+
+    var n = t.prototype;
+    return n.toggle = function () {
+      if (!this._element.disabled && !e(this._element).hasClass("disabled")) {
+        var n = e(this._menu).hasClass("show");
+        t._clearMenus(), n || this.show(!0);
+      }
+    }, n.show = function (n) {
+      if (void 0 === n && (n = !1), !(this._element.disabled || e(this._element).hasClass("disabled") || e(this._menu).hasClass("show"))) {
+        var i = {
+          relatedTarget: this._element
+        },
+            o = e.Event("show.bs.dropdown", i),
+            r = t._getParentFromElement(this._element);
+
+        if (e(r).trigger(o), !o.isDefaultPrevented()) {
+          if (!this._inNavbar && n) {
+            if ("undefined" == typeof kt) throw new TypeError("Bootstrap's dropdowns require Popper.js (https://popper.js.org/)");
+            var a = this._element;
+            "parent" === this._config.reference ? a = r : s.isElement(this._config.reference) && (a = this._config.reference, "undefined" != typeof this._config.reference.jquery && (a = this._config.reference[0])), "scrollParent" !== this._config.boundary && e(r).addClass("position-static"), this._popper = new kt(a, this._menu, this._getPopperConfig());
+          }
+
+          "ontouchstart" in document.documentElement && 0 === e(r).closest(".navbar-nav").length && e(document.body).children().on("mouseover", null, e.noop), this._element.focus(), this._element.setAttribute("aria-expanded", !0), e(this._menu).toggleClass("show"), e(r).toggleClass("show").trigger(e.Event("shown.bs.dropdown", i));
+        }
+      }
+    }, n.hide = function () {
+      if (!this._element.disabled && !e(this._element).hasClass("disabled") && e(this._menu).hasClass("show")) {
+        var n = {
+          relatedTarget: this._element
+        },
+            i = e.Event("hide.bs.dropdown", n),
+            o = t._getParentFromElement(this._element);
+
+        e(o).trigger(i), i.isDefaultPrevented() || (this._popper && this._popper.destroy(), e(this._menu).toggleClass("show"), e(o).toggleClass("show").trigger(e.Event("hidden.bs.dropdown", n)));
+      }
+    }, n.dispose = function () {
+      e.removeData(this._element, "bs.dropdown"), e(this._element).off(".bs.dropdown"), this._element = null, this._menu = null, null !== this._popper && (this._popper.destroy(), this._popper = null);
+    }, n.update = function () {
+      this._inNavbar = this._detectNavbar(), null !== this._popper && this._popper.scheduleUpdate();
+    }, n._addEventListeners = function () {
+      var t = this;
+      e(this._element).on("click.bs.dropdown", function (e) {
+        e.preventDefault(), e.stopPropagation(), t.toggle();
+      });
+    }, n._getConfig = function (t) {
+      return t = o({}, this.constructor.Default, e(this._element).data(), t), s.typeCheckConfig(At, t, this.constructor.DefaultType), t;
+    }, n._getMenuElement = function () {
+      if (!this._menu) {
+        var e = t._getParentFromElement(this._element);
+
+        e && (this._menu = e.querySelector(".dropdown-menu"));
+      }
+
+      return this._menu;
+    }, n._getPlacement = function () {
+      var t = e(this._element.parentNode),
+          n = "bottom-start";
+      return t.hasClass("dropup") ? n = e(this._menu).hasClass("dropdown-menu-right") ? "top-end" : "top-start" : t.hasClass("dropright") ? n = "right-start" : t.hasClass("dropleft") ? n = "left-start" : e(this._menu).hasClass("dropdown-menu-right") && (n = "bottom-end"), n;
+    }, n._detectNavbar = function () {
+      return e(this._element).closest(".navbar").length > 0;
+    }, n._getOffset = function () {
+      var t = this,
+          e = {};
+      return "function" == typeof this._config.offset ? e.fn = function (e) {
+        return e.offsets = o({}, e.offsets, t._config.offset(e.offsets, t._element) || {}), e;
+      } : e.offset = this._config.offset, e;
+    }, n._getPopperConfig = function () {
+      var t = {
+        placement: this._getPlacement(),
+        modifiers: {
+          offset: this._getOffset(),
+          flip: {
+            enabled: this._config.flip
+          },
+          preventOverflow: {
+            boundariesElement: this._config.boundary
+          }
+        }
+      };
+      return "static" === this._config.display && (t.modifiers.applyStyle = {
+        enabled: !1
+      }), o({}, t, this._config.popperConfig);
+    }, t._jQueryInterface = function (n) {
+      return this.each(function () {
+        var i = e(this).data("bs.dropdown");
+
+        if (i || (i = new t(this, "object" == _typeof(n) ? n : null), e(this).data("bs.dropdown", i)), "string" == typeof n) {
+          if ("undefined" == typeof i[n]) throw new TypeError('No method named "' + n + '"');
+          i[n]();
+        }
+      });
+    }, t._clearMenus = function (n) {
+      if (!n || 3 !== n.which && ("keyup" !== n.type || 9 === n.which)) for (var i = [].slice.call(document.querySelectorAll('[data-toggle="dropdown"]')), o = 0, r = i.length; o < r; o++) {
+        var s = t._getParentFromElement(i[o]),
+            a = e(i[o]).data("bs.dropdown"),
+            l = {
+          relatedTarget: i[o]
+        };
+
+        if (n && "click" === n.type && (l.clickEvent = n), a) {
+          var c = a._menu;
+
+          if (e(s).hasClass("show") && !(n && ("click" === n.type && /input|textarea/i.test(n.target.tagName) || "keyup" === n.type && 9 === n.which) && e.contains(s, n.target))) {
+            var h = e.Event("hide.bs.dropdown", l);
+            e(s).trigger(h), h.isDefaultPrevented() || ("ontouchstart" in document.documentElement && e(document.body).children().off("mouseover", null, e.noop), i[o].setAttribute("aria-expanded", "false"), a._popper && a._popper.destroy(), e(c).removeClass("show"), e(s).removeClass("show").trigger(e.Event("hidden.bs.dropdown", l)));
+          }
+        }
+      }
+    }, t._getParentFromElement = function (t) {
+      var e,
+          n = s.getSelectorFromElement(t);
+      return n && (e = document.querySelector(n)), e || t.parentNode;
+    }, t._dataApiKeydownHandler = function (n) {
+      if (!(/input|textarea/i.test(n.target.tagName) ? 32 === n.which || 27 !== n.which && (40 !== n.which && 38 !== n.which || e(n.target).closest(".dropdown-menu").length) : !Ot.test(n.which)) && !this.disabled && !e(this).hasClass("disabled")) {
+        var i = t._getParentFromElement(this),
+            o = e(i).hasClass("show");
+
+        if (o || 27 !== n.which) {
+          if (n.preventDefault(), n.stopPropagation(), !o || o && (27 === n.which || 32 === n.which)) return 27 === n.which && e(i.querySelector('[data-toggle="dropdown"]')).trigger("focus"), void e(this).trigger("click");
+          var r = [].slice.call(i.querySelectorAll(".dropdown-menu .dropdown-item:not(.disabled):not(:disabled)")).filter(function (t) {
+            return e(t).is(":visible");
+          });
+
+          if (0 !== r.length) {
+            var s = r.indexOf(n.target);
+            38 === n.which && s > 0 && s--, 40 === n.which && s < r.length - 1 && s++, s < 0 && (s = 0), r[s].focus();
+          }
+        }
+      }
+    }, i(t, null, [{
+      key: "VERSION",
+      get: function get() {
+        return "4.5.2";
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return xt;
+      }
+    }, {
+      key: "DefaultType",
+      get: function get() {
+        return jt;
+      }
+    }]), t;
+  }();
+
+  e(document).on("keydown.bs.dropdown.data-api", '[data-toggle="dropdown"]', Lt._dataApiKeydownHandler).on("keydown.bs.dropdown.data-api", ".dropdown-menu", Lt._dataApiKeydownHandler).on("click.bs.dropdown.data-api keyup.bs.dropdown.data-api", Lt._clearMenus).on("click.bs.dropdown.data-api", '[data-toggle="dropdown"]', function (t) {
+    t.preventDefault(), t.stopPropagation(), Lt._jQueryInterface.call(e(this), "toggle");
+  }).on("click.bs.dropdown.data-api", ".dropdown form", function (t) {
+    t.stopPropagation();
+  }), e.fn[At] = Lt._jQueryInterface, e.fn[At].Constructor = Lt, e.fn[At].noConflict = function () {
+    return e.fn[At] = It, Lt._jQueryInterface;
+  };
+
+  var Pt = e.fn.modal,
+      Ft = {
+    backdrop: !0,
+    keyboard: !0,
+    focus: !0,
+    show: !0
+  },
+      Rt = {
+    backdrop: "(boolean|string)",
+    keyboard: "boolean",
+    focus: "boolean",
+    show: "boolean"
+  },
+      Ht = function () {
+    function t(t, e) {
+      this._config = this._getConfig(e), this._element = t, this._dialog = t.querySelector(".modal-dialog"), this._backdrop = null, this._isShown = !1, this._isBodyOverflowing = !1, this._ignoreBackdropClick = !1, this._isTransitioning = !1, this._scrollbarWidth = 0;
+    }
+
+    var n = t.prototype;
+    return n.toggle = function (t) {
+      return this._isShown ? this.hide() : this.show(t);
+    }, n.show = function (t) {
+      var n = this;
+
+      if (!this._isShown && !this._isTransitioning) {
+        e(this._element).hasClass("fade") && (this._isTransitioning = !0);
+        var i = e.Event("show.bs.modal", {
+          relatedTarget: t
+        });
+        e(this._element).trigger(i), this._isShown || i.isDefaultPrevented() || (this._isShown = !0, this._checkScrollbar(), this._setScrollbar(), this._adjustDialog(), this._setEscapeEvent(), this._setResizeEvent(), e(this._element).on("click.dismiss.bs.modal", '[data-dismiss="modal"]', function (t) {
+          return n.hide(t);
+        }), e(this._dialog).on("mousedown.dismiss.bs.modal", function () {
+          e(n._element).one("mouseup.dismiss.bs.modal", function (t) {
+            e(t.target).is(n._element) && (n._ignoreBackdropClick = !0);
+          });
+        }), this._showBackdrop(function () {
+          return n._showElement(t);
+        }));
+      }
+    }, n.hide = function (t) {
+      var n = this;
+
+      if (t && t.preventDefault(), this._isShown && !this._isTransitioning) {
+        var i = e.Event("hide.bs.modal");
+
+        if (e(this._element).trigger(i), this._isShown && !i.isDefaultPrevented()) {
+          this._isShown = !1;
+          var o = e(this._element).hasClass("fade");
+
+          if (o && (this._isTransitioning = !0), this._setEscapeEvent(), this._setResizeEvent(), e(document).off("focusin.bs.modal"), e(this._element).removeClass("show"), e(this._element).off("click.dismiss.bs.modal"), e(this._dialog).off("mousedown.dismiss.bs.modal"), o) {
+            var r = s.getTransitionDurationFromElement(this._element);
+            e(this._element).one(s.TRANSITION_END, function (t) {
+              return n._hideModal(t);
+            }).emulateTransitionEnd(r);
+          } else this._hideModal();
+        }
+      }
+    }, n.dispose = function () {
+      [window, this._element, this._dialog].forEach(function (t) {
+        return e(t).off(".bs.modal");
+      }), e(document).off("focusin.bs.modal"), e.removeData(this._element, "bs.modal"), this._config = null, this._element = null, this._dialog = null, this._backdrop = null, this._isShown = null, this._isBodyOverflowing = null, this._ignoreBackdropClick = null, this._isTransitioning = null, this._scrollbarWidth = null;
+    }, n.handleUpdate = function () {
+      this._adjustDialog();
+    }, n._getConfig = function (t) {
+      return t = o({}, Ft, t), s.typeCheckConfig("modal", t, Rt), t;
+    }, n._triggerBackdropTransition = function () {
+      var t = this;
+
+      if ("static" === this._config.backdrop) {
+        var n = e.Event("hidePrevented.bs.modal");
+        if (e(this._element).trigger(n), n.defaultPrevented) return;
+        var i = this._element.scrollHeight > document.documentElement.clientHeight;
+        i || (this._element.style.overflowY = "hidden"), this._element.classList.add("modal-static");
+        var o = s.getTransitionDurationFromElement(this._dialog);
+        e(this._element).off(s.TRANSITION_END), e(this._element).one(s.TRANSITION_END, function () {
+          t._element.classList.remove("modal-static"), i || e(t._element).one(s.TRANSITION_END, function () {
+            t._element.style.overflowY = "";
+          }).emulateTransitionEnd(t._element, o);
+        }).emulateTransitionEnd(o), this._element.focus();
+      } else this.hide();
+    }, n._showElement = function (t) {
+      var n = this,
+          i = e(this._element).hasClass("fade"),
+          o = this._dialog ? this._dialog.querySelector(".modal-body") : null;
+      this._element.parentNode && this._element.parentNode.nodeType === Node.ELEMENT_NODE || document.body.appendChild(this._element), this._element.style.display = "block", this._element.removeAttribute("aria-hidden"), this._element.setAttribute("aria-modal", !0), this._element.setAttribute("role", "dialog"), e(this._dialog).hasClass("modal-dialog-scrollable") && o ? o.scrollTop = 0 : this._element.scrollTop = 0, i && s.reflow(this._element), e(this._element).addClass("show"), this._config.focus && this._enforceFocus();
+
+      var r = e.Event("shown.bs.modal", {
+        relatedTarget: t
+      }),
+          a = function a() {
+        n._config.focus && n._element.focus(), n._isTransitioning = !1, e(n._element).trigger(r);
+      };
+
+      if (i) {
+        var l = s.getTransitionDurationFromElement(this._dialog);
+        e(this._dialog).one(s.TRANSITION_END, a).emulateTransitionEnd(l);
+      } else a();
+    }, n._enforceFocus = function () {
+      var t = this;
+      e(document).off("focusin.bs.modal").on("focusin.bs.modal", function (n) {
+        document !== n.target && t._element !== n.target && 0 === e(t._element).has(n.target).length && t._element.focus();
+      });
+    }, n._setEscapeEvent = function () {
+      var t = this;
+      this._isShown ? e(this._element).on("keydown.dismiss.bs.modal", function (e) {
+        t._config.keyboard && 27 === e.which ? (e.preventDefault(), t.hide()) : t._config.keyboard || 27 !== e.which || t._triggerBackdropTransition();
+      }) : this._isShown || e(this._element).off("keydown.dismiss.bs.modal");
+    }, n._setResizeEvent = function () {
+      var t = this;
+      this._isShown ? e(window).on("resize.bs.modal", function (e) {
+        return t.handleUpdate(e);
+      }) : e(window).off("resize.bs.modal");
+    }, n._hideModal = function () {
+      var t = this;
+      this._element.style.display = "none", this._element.setAttribute("aria-hidden", !0), this._element.removeAttribute("aria-modal"), this._element.removeAttribute("role"), this._isTransitioning = !1, this._showBackdrop(function () {
+        e(document.body).removeClass("modal-open"), t._resetAdjustments(), t._resetScrollbar(), e(t._element).trigger("hidden.bs.modal");
+      });
+    }, n._removeBackdrop = function () {
+      this._backdrop && (e(this._backdrop).remove(), this._backdrop = null);
+    }, n._showBackdrop = function (t) {
+      var n = this,
+          i = e(this._element).hasClass("fade") ? "fade" : "";
+
+      if (this._isShown && this._config.backdrop) {
+        if (this._backdrop = document.createElement("div"), this._backdrop.className = "modal-backdrop", i && this._backdrop.classList.add(i), e(this._backdrop).appendTo(document.body), e(this._element).on("click.dismiss.bs.modal", function (t) {
+          n._ignoreBackdropClick ? n._ignoreBackdropClick = !1 : t.target === t.currentTarget && n._triggerBackdropTransition();
+        }), i && s.reflow(this._backdrop), e(this._backdrop).addClass("show"), !t) return;
+        if (!i) return void t();
+        var o = s.getTransitionDurationFromElement(this._backdrop);
+        e(this._backdrop).one(s.TRANSITION_END, t).emulateTransitionEnd(o);
+      } else if (!this._isShown && this._backdrop) {
+        e(this._backdrop).removeClass("show");
+
+        var r = function r() {
+          n._removeBackdrop(), t && t();
+        };
+
+        if (e(this._element).hasClass("fade")) {
+          var a = s.getTransitionDurationFromElement(this._backdrop);
+          e(this._backdrop).one(s.TRANSITION_END, r).emulateTransitionEnd(a);
+        } else r();
+      } else t && t();
+    }, n._adjustDialog = function () {
+      var t = this._element.scrollHeight > document.documentElement.clientHeight;
+      !this._isBodyOverflowing && t && (this._element.style.paddingLeft = this._scrollbarWidth + "px"), this._isBodyOverflowing && !t && (this._element.style.paddingRight = this._scrollbarWidth + "px");
+    }, n._resetAdjustments = function () {
+      this._element.style.paddingLeft = "", this._element.style.paddingRight = "";
+    }, n._checkScrollbar = function () {
+      var t = document.body.getBoundingClientRect();
+      this._isBodyOverflowing = Math.round(t.left + t.right) < window.innerWidth, this._scrollbarWidth = this._getScrollbarWidth();
+    }, n._setScrollbar = function () {
+      var t = this;
+
+      if (this._isBodyOverflowing) {
+        var n = [].slice.call(document.querySelectorAll(".fixed-top, .fixed-bottom, .is-fixed, .sticky-top")),
+            i = [].slice.call(document.querySelectorAll(".sticky-top"));
+        e(n).each(function (n, i) {
+          var o = i.style.paddingRight,
+              r = e(i).css("padding-right");
+          e(i).data("padding-right", o).css("padding-right", parseFloat(r) + t._scrollbarWidth + "px");
+        }), e(i).each(function (n, i) {
+          var o = i.style.marginRight,
+              r = e(i).css("margin-right");
+          e(i).data("margin-right", o).css("margin-right", parseFloat(r) - t._scrollbarWidth + "px");
+        });
+        var o = document.body.style.paddingRight,
+            r = e(document.body).css("padding-right");
+        e(document.body).data("padding-right", o).css("padding-right", parseFloat(r) + this._scrollbarWidth + "px");
+      }
+
+      e(document.body).addClass("modal-open");
+    }, n._resetScrollbar = function () {
+      var t = [].slice.call(document.querySelectorAll(".fixed-top, .fixed-bottom, .is-fixed, .sticky-top"));
+      e(t).each(function (t, n) {
+        var i = e(n).data("padding-right");
+        e(n).removeData("padding-right"), n.style.paddingRight = i || "";
+      });
+      var n = [].slice.call(document.querySelectorAll(".sticky-top"));
+      e(n).each(function (t, n) {
+        var i = e(n).data("margin-right");
+        "undefined" != typeof i && e(n).css("margin-right", i).removeData("margin-right");
+      });
+      var i = e(document.body).data("padding-right");
+      e(document.body).removeData("padding-right"), document.body.style.paddingRight = i || "";
+    }, n._getScrollbarWidth = function () {
+      var t = document.createElement("div");
+      t.className = "modal-scrollbar-measure", document.body.appendChild(t);
+      var e = t.getBoundingClientRect().width - t.clientWidth;
+      return document.body.removeChild(t), e;
+    }, t._jQueryInterface = function (n, i) {
+      return this.each(function () {
+        var r = e(this).data("bs.modal"),
+            s = o({}, Ft, e(this).data(), "object" == _typeof(n) && n ? n : {});
+
+        if (r || (r = new t(this, s), e(this).data("bs.modal", r)), "string" == typeof n) {
+          if ("undefined" == typeof r[n]) throw new TypeError('No method named "' + n + '"');
+          r[n](i);
+        } else s.show && r.show(i);
+      });
+    }, i(t, null, [{
+      key: "VERSION",
+      get: function get() {
+        return "4.5.2";
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return Ft;
+      }
+    }]), t;
+  }();
+
+  e(document).on("click.bs.modal.data-api", '[data-toggle="modal"]', function (t) {
+    var n,
+        i = this,
+        r = s.getSelectorFromElement(this);
+    r && (n = document.querySelector(r));
+    var a = e(n).data("bs.modal") ? "toggle" : o({}, e(n).data(), e(this).data());
+    "A" !== this.tagName && "AREA" !== this.tagName || t.preventDefault();
+    var l = e(n).one("show.bs.modal", function (t) {
+      t.isDefaultPrevented() || l.one("hidden.bs.modal", function () {
+        e(i).is(":visible") && i.focus();
+      });
+    });
+
+    Ht._jQueryInterface.call(e(n), a, this);
+  }), e.fn.modal = Ht._jQueryInterface, e.fn.modal.Constructor = Ht, e.fn.modal.noConflict = function () {
+    return e.fn.modal = Pt, Ht._jQueryInterface;
+  };
+  var Mt = ["background", "cite", "href", "itemtype", "longdesc", "poster", "src", "xlink:href"],
+      Bt = {
+    "*": ["class", "dir", "id", "lang", "role", /^aria-[\w-]*$/i],
+    a: ["target", "href", "title", "rel"],
+    area: [],
+    b: [],
+    br: [],
+    col: [],
+    code: [],
+    div: [],
+    em: [],
+    hr: [],
+    h1: [],
+    h2: [],
+    h3: [],
+    h4: [],
+    h5: [],
+    h6: [],
+    i: [],
+    img: ["src", "srcset", "alt", "title", "width", "height"],
+    li: [],
+    ol: [],
+    p: [],
+    pre: [],
+    s: [],
+    small: [],
+    span: [],
+    sub: [],
+    sup: [],
+    strong: [],
+    u: [],
+    ul: []
+  },
+      qt = /^(?:(?:https?|mailto|ftp|tel|file):|[^#&/:?]*(?:[#/?]|$))/gi,
+      Qt = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[\d+/a-z]+=*$/i;
+
+  function Wt(t, e, n) {
+    if (0 === t.length) return t;
+    if (n && "function" == typeof n) return n(t);
+
+    for (var i = new window.DOMParser().parseFromString(t, "text/html"), o = Object.keys(e), r = [].slice.call(i.body.querySelectorAll("*")), s = function s(t, n) {
+      var i = r[t],
+          s = i.nodeName.toLowerCase();
+      if (-1 === o.indexOf(i.nodeName.toLowerCase())) return i.parentNode.removeChild(i), "continue";
+      var a = [].slice.call(i.attributes),
+          l = [].concat(e["*"] || [], e[s] || []);
+      a.forEach(function (t) {
+        (function (t, e) {
+          var n = t.nodeName.toLowerCase();
+          if (-1 !== e.indexOf(n)) return -1 === Mt.indexOf(n) || Boolean(t.nodeValue.match(qt) || t.nodeValue.match(Qt));
+
+          for (var i = e.filter(function (t) {
+            return t instanceof RegExp;
+          }), o = 0, r = i.length; o < r; o++) {
+            if (n.match(i[o])) return !0;
+          }
+
+          return !1;
+        })(t, l) || i.removeAttribute(t.nodeName);
+      });
+    }, a = 0, l = r.length; a < l; a++) {
+      s(a);
+    }
+
+    return i.body.innerHTML;
+  }
+
+  var Ut = "tooltip",
+      Vt = e.fn[Ut],
+      Yt = new RegExp("(^|\\s)bs-tooltip\\S+", "g"),
+      zt = ["sanitize", "whiteList", "sanitizeFn"],
+      Xt = {
+    animation: "boolean",
+    template: "string",
+    title: "(string|element|function)",
+    trigger: "string",
+    delay: "(number|object)",
+    html: "boolean",
+    selector: "(string|boolean)",
+    placement: "(string|function)",
+    offset: "(number|string|function)",
+    container: "(string|element|boolean)",
+    fallbackPlacement: "(string|array)",
+    boundary: "(string|element)",
+    sanitize: "boolean",
+    sanitizeFn: "(null|function)",
+    whiteList: "object",
+    popperConfig: "(null|object)"
+  },
+      Kt = {
+    AUTO: "auto",
+    TOP: "top",
+    RIGHT: "right",
+    BOTTOM: "bottom",
+    LEFT: "left"
+  },
+      Gt = {
+    animation: !0,
+    template: '<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>',
+    trigger: "hover focus",
+    title: "",
+    delay: 0,
+    html: !1,
+    selector: !1,
+    placement: "top",
+    offset: 0,
+    container: !1,
+    fallbackPlacement: "flip",
+    boundary: "scrollParent",
+    sanitize: !0,
+    sanitizeFn: null,
+    whiteList: Bt,
+    popperConfig: null
+  },
+      $t = {
+    HIDE: "hide.bs.tooltip",
+    HIDDEN: "hidden.bs.tooltip",
+    SHOW: "show.bs.tooltip",
+    SHOWN: "shown.bs.tooltip",
+    INSERTED: "inserted.bs.tooltip",
+    CLICK: "click.bs.tooltip",
+    FOCUSIN: "focusin.bs.tooltip",
+    FOCUSOUT: "focusout.bs.tooltip",
+    MOUSEENTER: "mouseenter.bs.tooltip",
+    MOUSELEAVE: "mouseleave.bs.tooltip"
+  },
+      Jt = function () {
+    function t(t, e) {
+      if ("undefined" == typeof kt) throw new TypeError("Bootstrap's tooltips require Popper.js (https://popper.js.org/)");
+      this._isEnabled = !0, this._timeout = 0, this._hoverState = "", this._activeTrigger = {}, this._popper = null, this.element = t, this.config = this._getConfig(e), this.tip = null, this._setListeners();
+    }
+
+    var n = t.prototype;
+    return n.enable = function () {
+      this._isEnabled = !0;
+    }, n.disable = function () {
+      this._isEnabled = !1;
+    }, n.toggleEnabled = function () {
+      this._isEnabled = !this._isEnabled;
+    }, n.toggle = function (t) {
+      if (this._isEnabled) if (t) {
+        var n = this.constructor.DATA_KEY,
+            i = e(t.currentTarget).data(n);
+        i || (i = new this.constructor(t.currentTarget, this._getDelegateConfig()), e(t.currentTarget).data(n, i)), i._activeTrigger.click = !i._activeTrigger.click, i._isWithActiveTrigger() ? i._enter(null, i) : i._leave(null, i);
+      } else {
+        if (e(this.getTipElement()).hasClass("show")) return void this._leave(null, this);
+
+        this._enter(null, this);
+      }
+    }, n.dispose = function () {
+      clearTimeout(this._timeout), e.removeData(this.element, this.constructor.DATA_KEY), e(this.element).off(this.constructor.EVENT_KEY), e(this.element).closest(".modal").off("hide.bs.modal", this._hideModalHandler), this.tip && e(this.tip).remove(), this._isEnabled = null, this._timeout = null, this._hoverState = null, this._activeTrigger = null, this._popper && this._popper.destroy(), this._popper = null, this.element = null, this.config = null, this.tip = null;
+    }, n.show = function () {
+      var t = this;
+      if ("none" === e(this.element).css("display")) throw new Error("Please use show on visible elements");
+      var n = e.Event(this.constructor.Event.SHOW);
+
+      if (this.isWithContent() && this._isEnabled) {
+        e(this.element).trigger(n);
+        var i = s.findShadowRoot(this.element),
+            o = e.contains(null !== i ? i : this.element.ownerDocument.documentElement, this.element);
+        if (n.isDefaultPrevented() || !o) return;
+        var r = this.getTipElement(),
+            a = s.getUID(this.constructor.NAME);
+        r.setAttribute("id", a), this.element.setAttribute("aria-describedby", a), this.setContent(), this.config.animation && e(r).addClass("fade");
+
+        var l = "function" == typeof this.config.placement ? this.config.placement.call(this, r, this.element) : this.config.placement,
+            c = this._getAttachment(l);
+
+        this.addAttachmentClass(c);
+
+        var h = this._getContainer();
+
+        e(r).data(this.constructor.DATA_KEY, this), e.contains(this.element.ownerDocument.documentElement, this.tip) || e(r).appendTo(h), e(this.element).trigger(this.constructor.Event.INSERTED), this._popper = new kt(this.element, r, this._getPopperConfig(c)), e(r).addClass("show"), "ontouchstart" in document.documentElement && e(document.body).children().on("mouseover", null, e.noop);
+
+        var u = function u() {
+          t.config.animation && t._fixTransition();
+          var n = t._hoverState;
+          t._hoverState = null, e(t.element).trigger(t.constructor.Event.SHOWN), "out" === n && t._leave(null, t);
+        };
+
+        if (e(this.tip).hasClass("fade")) {
+          var f = s.getTransitionDurationFromElement(this.tip);
+          e(this.tip).one(s.TRANSITION_END, u).emulateTransitionEnd(f);
+        } else u();
+      }
+    }, n.hide = function (t) {
+      var n = this,
+          i = this.getTipElement(),
+          o = e.Event(this.constructor.Event.HIDE),
+          r = function r() {
+        "show" !== n._hoverState && i.parentNode && i.parentNode.removeChild(i), n._cleanTipClass(), n.element.removeAttribute("aria-describedby"), e(n.element).trigger(n.constructor.Event.HIDDEN), null !== n._popper && n._popper.destroy(), t && t();
+      };
+
+      if (e(this.element).trigger(o), !o.isDefaultPrevented()) {
+        if (e(i).removeClass("show"), "ontouchstart" in document.documentElement && e(document.body).children().off("mouseover", null, e.noop), this._activeTrigger.click = !1, this._activeTrigger.focus = !1, this._activeTrigger.hover = !1, e(this.tip).hasClass("fade")) {
+          var a = s.getTransitionDurationFromElement(i);
+          e(i).one(s.TRANSITION_END, r).emulateTransitionEnd(a);
+        } else r();
+
+        this._hoverState = "";
+      }
+    }, n.update = function () {
+      null !== this._popper && this._popper.scheduleUpdate();
+    }, n.isWithContent = function () {
+      return Boolean(this.getTitle());
+    }, n.addAttachmentClass = function (t) {
+      e(this.getTipElement()).addClass("bs-tooltip-" + t);
+    }, n.getTipElement = function () {
+      return this.tip = this.tip || e(this.config.template)[0], this.tip;
+    }, n.setContent = function () {
+      var t = this.getTipElement();
+      this.setElementContent(e(t.querySelectorAll(".tooltip-inner")), this.getTitle()), e(t).removeClass("fade show");
+    }, n.setElementContent = function (t, n) {
+      "object" != _typeof(n) || !n.nodeType && !n.jquery ? this.config.html ? (this.config.sanitize && (n = Wt(n, this.config.whiteList, this.config.sanitizeFn)), t.html(n)) : t.text(n) : this.config.html ? e(n).parent().is(t) || t.empty().append(n) : t.text(e(n).text());
+    }, n.getTitle = function () {
+      var t = this.element.getAttribute("data-original-title");
+      return t || (t = "function" == typeof this.config.title ? this.config.title.call(this.element) : this.config.title), t;
+    }, n._getPopperConfig = function (t) {
+      var e = this;
+      return o({}, {
+        placement: t,
+        modifiers: {
+          offset: this._getOffset(),
+          flip: {
+            behavior: this.config.fallbackPlacement
+          },
+          arrow: {
+            element: ".arrow"
+          },
+          preventOverflow: {
+            boundariesElement: this.config.boundary
+          }
+        },
+        onCreate: function onCreate(t) {
+          t.originalPlacement !== t.placement && e._handlePopperPlacementChange(t);
+        },
+        onUpdate: function onUpdate(t) {
+          return e._handlePopperPlacementChange(t);
+        }
+      }, this.config.popperConfig);
+    }, n._getOffset = function () {
+      var t = this,
+          e = {};
+      return "function" == typeof this.config.offset ? e.fn = function (e) {
+        return e.offsets = o({}, e.offsets, t.config.offset(e.offsets, t.element) || {}), e;
+      } : e.offset = this.config.offset, e;
+    }, n._getContainer = function () {
+      return !1 === this.config.container ? document.body : s.isElement(this.config.container) ? e(this.config.container) : e(document).find(this.config.container);
+    }, n._getAttachment = function (t) {
+      return Kt[t.toUpperCase()];
+    }, n._setListeners = function () {
+      var t = this;
+      this.config.trigger.split(" ").forEach(function (n) {
+        if ("click" === n) e(t.element).on(t.constructor.Event.CLICK, t.config.selector, function (e) {
+          return t.toggle(e);
+        });else if ("manual" !== n) {
+          var i = "hover" === n ? t.constructor.Event.MOUSEENTER : t.constructor.Event.FOCUSIN,
+              o = "hover" === n ? t.constructor.Event.MOUSELEAVE : t.constructor.Event.FOCUSOUT;
+          e(t.element).on(i, t.config.selector, function (e) {
+            return t._enter(e);
+          }).on(o, t.config.selector, function (e) {
+            return t._leave(e);
+          });
+        }
+      }), this._hideModalHandler = function () {
+        t.element && t.hide();
+      }, e(this.element).closest(".modal").on("hide.bs.modal", this._hideModalHandler), this.config.selector ? this.config = o({}, this.config, {
+        trigger: "manual",
+        selector: ""
+      }) : this._fixTitle();
+    }, n._fixTitle = function () {
+      var t = _typeof(this.element.getAttribute("data-original-title"));
+
+      (this.element.getAttribute("title") || "string" !== t) && (this.element.setAttribute("data-original-title", this.element.getAttribute("title") || ""), this.element.setAttribute("title", ""));
+    }, n._enter = function (t, n) {
+      var i = this.constructor.DATA_KEY;
+      (n = n || e(t.currentTarget).data(i)) || (n = new this.constructor(t.currentTarget, this._getDelegateConfig()), e(t.currentTarget).data(i, n)), t && (n._activeTrigger["focusin" === t.type ? "focus" : "hover"] = !0), e(n.getTipElement()).hasClass("show") || "show" === n._hoverState ? n._hoverState = "show" : (clearTimeout(n._timeout), n._hoverState = "show", n.config.delay && n.config.delay.show ? n._timeout = setTimeout(function () {
+        "show" === n._hoverState && n.show();
+      }, n.config.delay.show) : n.show());
+    }, n._leave = function (t, n) {
+      var i = this.constructor.DATA_KEY;
+      (n = n || e(t.currentTarget).data(i)) || (n = new this.constructor(t.currentTarget, this._getDelegateConfig()), e(t.currentTarget).data(i, n)), t && (n._activeTrigger["focusout" === t.type ? "focus" : "hover"] = !1), n._isWithActiveTrigger() || (clearTimeout(n._timeout), n._hoverState = "out", n.config.delay && n.config.delay.hide ? n._timeout = setTimeout(function () {
+        "out" === n._hoverState && n.hide();
+      }, n.config.delay.hide) : n.hide());
+    }, n._isWithActiveTrigger = function () {
+      for (var t in this._activeTrigger) {
+        if (this._activeTrigger[t]) return !0;
+      }
+
+      return !1;
+    }, n._getConfig = function (t) {
+      var n = e(this.element).data();
+      return Object.keys(n).forEach(function (t) {
+        -1 !== zt.indexOf(t) && delete n[t];
+      }), "number" == typeof (t = o({}, this.constructor.Default, n, "object" == _typeof(t) && t ? t : {})).delay && (t.delay = {
+        show: t.delay,
+        hide: t.delay
+      }), "number" == typeof t.title && (t.title = t.title.toString()), "number" == typeof t.content && (t.content = t.content.toString()), s.typeCheckConfig(Ut, t, this.constructor.DefaultType), t.sanitize && (t.template = Wt(t.template, t.whiteList, t.sanitizeFn)), t;
+    }, n._getDelegateConfig = function () {
+      var t = {};
+      if (this.config) for (var e in this.config) {
+        this.constructor.Default[e] !== this.config[e] && (t[e] = this.config[e]);
+      }
+      return t;
+    }, n._cleanTipClass = function () {
+      var t = e(this.getTipElement()),
+          n = t.attr("class").match(Yt);
+      null !== n && n.length && t.removeClass(n.join(""));
+    }, n._handlePopperPlacementChange = function (t) {
+      this.tip = t.instance.popper, this._cleanTipClass(), this.addAttachmentClass(this._getAttachment(t.placement));
+    }, n._fixTransition = function () {
+      var t = this.getTipElement(),
+          n = this.config.animation;
+      null === t.getAttribute("x-placement") && (e(t).removeClass("fade"), this.config.animation = !1, this.hide(), this.show(), this.config.animation = n);
+    }, t._jQueryInterface = function (n) {
+      return this.each(function () {
+        var i = e(this).data("bs.tooltip"),
+            o = "object" == _typeof(n) && n;
+
+        if ((i || !/dispose|hide/.test(n)) && (i || (i = new t(this, o), e(this).data("bs.tooltip", i)), "string" == typeof n)) {
+          if ("undefined" == typeof i[n]) throw new TypeError('No method named "' + n + '"');
+          i[n]();
+        }
+      });
+    }, i(t, null, [{
+      key: "VERSION",
+      get: function get() {
+        return "4.5.2";
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return Gt;
+      }
+    }, {
+      key: "NAME",
+      get: function get() {
+        return Ut;
+      }
+    }, {
+      key: "DATA_KEY",
+      get: function get() {
+        return "bs.tooltip";
+      }
+    }, {
+      key: "Event",
+      get: function get() {
+        return $t;
+      }
+    }, {
+      key: "EVENT_KEY",
+      get: function get() {
+        return ".bs.tooltip";
+      }
+    }, {
+      key: "DefaultType",
+      get: function get() {
+        return Xt;
+      }
+    }]), t;
+  }();
+
+  e.fn[Ut] = Jt._jQueryInterface, e.fn[Ut].Constructor = Jt, e.fn[Ut].noConflict = function () {
+    return e.fn[Ut] = Vt, Jt._jQueryInterface;
+  };
+
+  var Zt = "popover",
+      te = e.fn[Zt],
+      ee = new RegExp("(^|\\s)bs-popover\\S+", "g"),
+      ne = o({}, Jt.Default, {
+    placement: "right",
+    trigger: "click",
+    content: "",
+    template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
+  }),
+      ie = o({}, Jt.DefaultType, {
+    content: "(string|element|function)"
+  }),
+      oe = {
+    HIDE: "hide.bs.popover",
+    HIDDEN: "hidden.bs.popover",
+    SHOW: "show.bs.popover",
+    SHOWN: "shown.bs.popover",
+    INSERTED: "inserted.bs.popover",
+    CLICK: "click.bs.popover",
+    FOCUSIN: "focusin.bs.popover",
+    FOCUSOUT: "focusout.bs.popover",
+    MOUSEENTER: "mouseenter.bs.popover",
+    MOUSELEAVE: "mouseleave.bs.popover"
+  },
+      re = function (t) {
+    var n, o;
+
+    function r() {
+      return t.apply(this, arguments) || this;
+    }
+
+    o = t, (n = r).prototype = Object.create(o.prototype), n.prototype.constructor = n, n.__proto__ = o;
+    var s = r.prototype;
+    return s.isWithContent = function () {
+      return this.getTitle() || this._getContent();
+    }, s.addAttachmentClass = function (t) {
+      e(this.getTipElement()).addClass("bs-popover-" + t);
+    }, s.getTipElement = function () {
+      return this.tip = this.tip || e(this.config.template)[0], this.tip;
+    }, s.setContent = function () {
+      var t = e(this.getTipElement());
+      this.setElementContent(t.find(".popover-header"), this.getTitle());
+
+      var n = this._getContent();
+
+      "function" == typeof n && (n = n.call(this.element)), this.setElementContent(t.find(".popover-body"), n), t.removeClass("fade show");
+    }, s._getContent = function () {
+      return this.element.getAttribute("data-content") || this.config.content;
+    }, s._cleanTipClass = function () {
+      var t = e(this.getTipElement()),
+          n = t.attr("class").match(ee);
+      null !== n && n.length > 0 && t.removeClass(n.join(""));
+    }, r._jQueryInterface = function (t) {
+      return this.each(function () {
+        var n = e(this).data("bs.popover"),
+            i = "object" == _typeof(t) ? t : null;
+
+        if ((n || !/dispose|hide/.test(t)) && (n || (n = new r(this, i), e(this).data("bs.popover", n)), "string" == typeof t)) {
+          if ("undefined" == typeof n[t]) throw new TypeError('No method named "' + t + '"');
+          n[t]();
+        }
+      });
+    }, i(r, null, [{
+      key: "VERSION",
+      get: function get() {
+        return "4.5.2";
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return ne;
+      }
+    }, {
+      key: "NAME",
+      get: function get() {
+        return Zt;
+      }
+    }, {
+      key: "DATA_KEY",
+      get: function get() {
+        return "bs.popover";
+      }
+    }, {
+      key: "Event",
+      get: function get() {
+        return oe;
+      }
+    }, {
+      key: "EVENT_KEY",
+      get: function get() {
+        return ".bs.popover";
+      }
+    }, {
+      key: "DefaultType",
+      get: function get() {
+        return ie;
+      }
+    }]), r;
+  }(Jt);
+
+  e.fn[Zt] = re._jQueryInterface, e.fn[Zt].Constructor = re, e.fn[Zt].noConflict = function () {
+    return e.fn[Zt] = te, re._jQueryInterface;
+  };
+
+  var se = "scrollspy",
+      ae = e.fn[se],
+      le = {
+    offset: 10,
+    method: "auto",
+    target: ""
+  },
+      ce = {
+    offset: "number",
+    method: "string",
+    target: "(string|element)"
+  },
+      he = function () {
+    function t(t, n) {
+      var i = this;
+      this._element = t, this._scrollElement = "BODY" === t.tagName ? window : t, this._config = this._getConfig(n), this._selector = this._config.target + " .nav-link," + this._config.target + " .list-group-item," + this._config.target + " .dropdown-item", this._offsets = [], this._targets = [], this._activeTarget = null, this._scrollHeight = 0, e(this._scrollElement).on("scroll.bs.scrollspy", function (t) {
+        return i._process(t);
+      }), this.refresh(), this._process();
+    }
+
+    var n = t.prototype;
+    return n.refresh = function () {
+      var t = this,
+          n = this._scrollElement === this._scrollElement.window ? "offset" : "position",
+          i = "auto" === this._config.method ? n : this._config.method,
+          o = "position" === i ? this._getScrollTop() : 0;
+      this._offsets = [], this._targets = [], this._scrollHeight = this._getScrollHeight(), [].slice.call(document.querySelectorAll(this._selector)).map(function (t) {
+        var n,
+            r = s.getSelectorFromElement(t);
+
+        if (r && (n = document.querySelector(r)), n) {
+          var a = n.getBoundingClientRect();
+          if (a.width || a.height) return [e(n)[i]().top + o, r];
+        }
+
+        return null;
+      }).filter(function (t) {
+        return t;
+      }).sort(function (t, e) {
+        return t[0] - e[0];
+      }).forEach(function (e) {
+        t._offsets.push(e[0]), t._targets.push(e[1]);
+      });
+    }, n.dispose = function () {
+      e.removeData(this._element, "bs.scrollspy"), e(this._scrollElement).off(".bs.scrollspy"), this._element = null, this._scrollElement = null, this._config = null, this._selector = null, this._offsets = null, this._targets = null, this._activeTarget = null, this._scrollHeight = null;
+    }, n._getConfig = function (t) {
+      if ("string" != typeof (t = o({}, le, "object" == _typeof(t) && t ? t : {})).target && s.isElement(t.target)) {
+        var n = e(t.target).attr("id");
+        n || (n = s.getUID(se), e(t.target).attr("id", n)), t.target = "#" + n;
+      }
+
+      return s.typeCheckConfig(se, t, ce), t;
+    }, n._getScrollTop = function () {
+      return this._scrollElement === window ? this._scrollElement.pageYOffset : this._scrollElement.scrollTop;
+    }, n._getScrollHeight = function () {
+      return this._scrollElement.scrollHeight || Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+    }, n._getOffsetHeight = function () {
+      return this._scrollElement === window ? window.innerHeight : this._scrollElement.getBoundingClientRect().height;
+    }, n._process = function () {
+      var t = this._getScrollTop() + this._config.offset,
+          e = this._getScrollHeight(),
+          n = this._config.offset + e - this._getOffsetHeight();
+
+      if (this._scrollHeight !== e && this.refresh(), t >= n) {
+        var i = this._targets[this._targets.length - 1];
+        this._activeTarget !== i && this._activate(i);
+      } else {
+        if (this._activeTarget && t < this._offsets[0] && this._offsets[0] > 0) return this._activeTarget = null, void this._clear();
+
+        for (var o = this._offsets.length; o--;) {
+          this._activeTarget !== this._targets[o] && t >= this._offsets[o] && ("undefined" == typeof this._offsets[o + 1] || t < this._offsets[o + 1]) && this._activate(this._targets[o]);
+        }
+      }
+    }, n._activate = function (t) {
+      this._activeTarget = t, this._clear();
+
+      var n = this._selector.split(",").map(function (e) {
+        return e + '[data-target="' + t + '"],' + e + '[href="' + t + '"]';
+      }),
+          i = e([].slice.call(document.querySelectorAll(n.join(","))));
+
+      i.hasClass("dropdown-item") ? (i.closest(".dropdown").find(".dropdown-toggle").addClass("active"), i.addClass("active")) : (i.addClass("active"), i.parents(".nav, .list-group").prev(".nav-link, .list-group-item").addClass("active"), i.parents(".nav, .list-group").prev(".nav-item").children(".nav-link").addClass("active")), e(this._scrollElement).trigger("activate.bs.scrollspy", {
+        relatedTarget: t
+      });
+    }, n._clear = function () {
+      [].slice.call(document.querySelectorAll(this._selector)).filter(function (t) {
+        return t.classList.contains("active");
+      }).forEach(function (t) {
+        return t.classList.remove("active");
+      });
+    }, t._jQueryInterface = function (n) {
+      return this.each(function () {
+        var i = e(this).data("bs.scrollspy");
+
+        if (i || (i = new t(this, "object" == _typeof(n) && n), e(this).data("bs.scrollspy", i)), "string" == typeof n) {
+          if ("undefined" == typeof i[n]) throw new TypeError('No method named "' + n + '"');
+          i[n]();
+        }
+      });
+    }, i(t, null, [{
+      key: "VERSION",
+      get: function get() {
+        return "4.5.2";
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return le;
+      }
+    }]), t;
+  }();
+
+  e(window).on("load.bs.scrollspy.data-api", function () {
+    for (var t = [].slice.call(document.querySelectorAll('[data-spy="scroll"]')), n = t.length; n--;) {
+      var i = e(t[n]);
+
+      he._jQueryInterface.call(i, i.data());
+    }
+  }), e.fn[se] = he._jQueryInterface, e.fn[se].Constructor = he, e.fn[se].noConflict = function () {
+    return e.fn[se] = ae, he._jQueryInterface;
+  };
+
+  var ue = e.fn.tab,
+      fe = function () {
+    function t(t) {
+      this._element = t;
+    }
+
+    var n = t.prototype;
+    return n.show = function () {
+      var t = this;
+
+      if (!(this._element.parentNode && this._element.parentNode.nodeType === Node.ELEMENT_NODE && e(this._element).hasClass("active") || e(this._element).hasClass("disabled"))) {
+        var n,
+            i,
+            o = e(this._element).closest(".nav, .list-group")[0],
+            r = s.getSelectorFromElement(this._element);
+
+        if (o) {
+          var a = "UL" === o.nodeName || "OL" === o.nodeName ? "> li > .active" : ".active";
+          i = (i = e.makeArray(e(o).find(a)))[i.length - 1];
+        }
+
+        var l = e.Event("hide.bs.tab", {
+          relatedTarget: this._element
+        }),
+            c = e.Event("show.bs.tab", {
+          relatedTarget: i
+        });
+
+        if (i && e(i).trigger(l), e(this._element).trigger(c), !c.isDefaultPrevented() && !l.isDefaultPrevented()) {
+          r && (n = document.querySelector(r)), this._activate(this._element, o);
+
+          var h = function h() {
+            var n = e.Event("hidden.bs.tab", {
+              relatedTarget: t._element
+            }),
+                o = e.Event("shown.bs.tab", {
+              relatedTarget: i
+            });
+            e(i).trigger(n), e(t._element).trigger(o);
+          };
+
+          n ? this._activate(n, n.parentNode, h) : h();
+        }
+      }
+    }, n.dispose = function () {
+      e.removeData(this._element, "bs.tab"), this._element = null;
+    }, n._activate = function (t, n, i) {
+      var o = this,
+          r = (!n || "UL" !== n.nodeName && "OL" !== n.nodeName ? e(n).children(".active") : e(n).find("> li > .active"))[0],
+          a = i && r && e(r).hasClass("fade"),
+          l = function l() {
+        return o._transitionComplete(t, r, i);
+      };
+
+      if (r && a) {
+        var c = s.getTransitionDurationFromElement(r);
+        e(r).removeClass("show").one(s.TRANSITION_END, l).emulateTransitionEnd(c);
+      } else l();
+    }, n._transitionComplete = function (t, n, i) {
+      if (n) {
+        e(n).removeClass("active");
+        var o = e(n.parentNode).find("> .dropdown-menu .active")[0];
+        o && e(o).removeClass("active"), "tab" === n.getAttribute("role") && n.setAttribute("aria-selected", !1);
+      }
+
+      if (e(t).addClass("active"), "tab" === t.getAttribute("role") && t.setAttribute("aria-selected", !0), s.reflow(t), t.classList.contains("fade") && t.classList.add("show"), t.parentNode && e(t.parentNode).hasClass("dropdown-menu")) {
+        var r = e(t).closest(".dropdown")[0];
+
+        if (r) {
+          var a = [].slice.call(r.querySelectorAll(".dropdown-toggle"));
+          e(a).addClass("active");
+        }
+
+        t.setAttribute("aria-expanded", !0);
+      }
+
+      i && i();
+    }, t._jQueryInterface = function (n) {
+      return this.each(function () {
+        var i = e(this),
+            o = i.data("bs.tab");
+
+        if (o || (o = new t(this), i.data("bs.tab", o)), "string" == typeof n) {
+          if ("undefined" == typeof o[n]) throw new TypeError('No method named "' + n + '"');
+          o[n]();
+        }
+      });
+    }, i(t, null, [{
+      key: "VERSION",
+      get: function get() {
+        return "4.5.2";
+      }
+    }]), t;
+  }();
+
+  e(document).on("click.bs.tab.data-api", '[data-toggle="tab"], [data-toggle="pill"], [data-toggle="list"]', function (t) {
+    t.preventDefault(), fe._jQueryInterface.call(e(this), "show");
+  }), e.fn.tab = fe._jQueryInterface, e.fn.tab.Constructor = fe, e.fn.tab.noConflict = function () {
+    return e.fn.tab = ue, fe._jQueryInterface;
+  };
+
+  var de = e.fn.toast,
+      pe = {
+    animation: "boolean",
+    autohide: "boolean",
+    delay: "number"
+  },
+      me = {
+    animation: !0,
+    autohide: !0,
+    delay: 500
+  },
+      ge = function () {
+    function t(t, e) {
+      this._element = t, this._config = this._getConfig(e), this._timeout = null, this._setListeners();
+    }
+
+    var n = t.prototype;
+    return n.show = function () {
+      var t = this,
+          n = e.Event("show.bs.toast");
+
+      if (e(this._element).trigger(n), !n.isDefaultPrevented()) {
+        this._clearTimeout(), this._config.animation && this._element.classList.add("fade");
+
+        var i = function i() {
+          t._element.classList.remove("showing"), t._element.classList.add("show"), e(t._element).trigger("shown.bs.toast"), t._config.autohide && (t._timeout = setTimeout(function () {
+            t.hide();
+          }, t._config.delay));
+        };
+
+        if (this._element.classList.remove("hide"), s.reflow(this._element), this._element.classList.add("showing"), this._config.animation) {
+          var o = s.getTransitionDurationFromElement(this._element);
+          e(this._element).one(s.TRANSITION_END, i).emulateTransitionEnd(o);
+        } else i();
+      }
+    }, n.hide = function () {
+      if (this._element.classList.contains("show")) {
+        var t = e.Event("hide.bs.toast");
+        e(this._element).trigger(t), t.isDefaultPrevented() || this._close();
+      }
+    }, n.dispose = function () {
+      this._clearTimeout(), this._element.classList.contains("show") && this._element.classList.remove("show"), e(this._element).off("click.dismiss.bs.toast"), e.removeData(this._element, "bs.toast"), this._element = null, this._config = null;
+    }, n._getConfig = function (t) {
+      return t = o({}, me, e(this._element).data(), "object" == _typeof(t) && t ? t : {}), s.typeCheckConfig("toast", t, this.constructor.DefaultType), t;
+    }, n._setListeners = function () {
+      var t = this;
+      e(this._element).on("click.dismiss.bs.toast", '[data-dismiss="toast"]', function () {
+        return t.hide();
+      });
+    }, n._close = function () {
+      var t = this,
+          n = function n() {
+        t._element.classList.add("hide"), e(t._element).trigger("hidden.bs.toast");
+      };
+
+      if (this._element.classList.remove("show"), this._config.animation) {
+        var i = s.getTransitionDurationFromElement(this._element);
+        e(this._element).one(s.TRANSITION_END, n).emulateTransitionEnd(i);
+      } else n();
+    }, n._clearTimeout = function () {
+      clearTimeout(this._timeout), this._timeout = null;
+    }, t._jQueryInterface = function (n) {
+      return this.each(function () {
+        var i = e(this),
+            o = i.data("bs.toast");
+
+        if (o || (o = new t(this, "object" == _typeof(n) && n), i.data("bs.toast", o)), "string" == typeof n) {
+          if ("undefined" == typeof o[n]) throw new TypeError('No method named "' + n + '"');
+          o[n](this);
+        }
+      });
+    }, i(t, null, [{
+      key: "VERSION",
+      get: function get() {
+        return "4.5.2";
+      }
+    }, {
+      key: "DefaultType",
+      get: function get() {
+        return pe;
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return me;
+      }
+    }]), t;
+  }();
+
+  e.fn.toast = ge._jQueryInterface, e.fn.toast.Constructor = ge, e.fn.toast.noConflict = function () {
+    return e.fn.toast = de, ge._jQueryInterface;
+  }, t.Alert = c, t.Button = u, t.Carousel = v, t.Collapse = T, t.Dropdown = Lt, t.Modal = Ht, t.Popover = re, t.Scrollspy = he, t.Tab = fe, t.Toast = ge, t.Tooltip = Jt, t.Util = s, Object.defineProperty(t, "__esModule", {
+    value: !0
+  });
+});
+"use strict";
+
+// ==================================================
+// fancyBox v3.5.7
+//
+// Licensed GPLv3 for open source use
+// or fancyBox Commercial License for commercial use
+//
+// http://fancyapps.com/fancybox/
+// Copyright 2019 fancyApps
+//
+// ==================================================
+(function (window, document, $, undefined) {
+  "use strict";
+
+  window.console = window.console || {
+    info: function info(stuff) {}
+  }; // If there's no jQuery, fancyBox can't work
+  // =========================================
+
+  if (!$) {
+    return;
+  } // Check if fancyBox is already initialized
+  // ========================================
+
+
+  if ($.fn.fancybox) {
+    console.info("fancyBox already initialized");
+    return;
+  } // Private default settings
+  // ========================
+
+
+  var defaults = {
+    // Close existing modals
+    // Set this to false if you do not need to stack multiple instances
+    closeExisting: false,
+    // Enable infinite gallery navigation
+    loop: false,
+    // Horizontal space between slides
+    gutter: 50,
+    // Enable keyboard navigation
+    keyboard: true,
+    // Should allow caption to overlap the content
+    preventCaptionOverlap: true,
+    // Should display navigation arrows at the screen edges
+    arrows: true,
+    // Should display counter at the top left corner
+    infobar: true,
+    // Should display close button (using `btnTpl.smallBtn` template) over the content
+    // Can be true, false, "auto"
+    // If "auto" - will be automatically enabled for "html", "inline" or "ajax" items
+    smallBtn: "auto",
+    // Should display toolbar (buttons at the top)
+    // Can be true, false, "auto"
+    // If "auto" - will be automatically hidden if "smallBtn" is enabled
+    toolbar: "auto",
+    // What buttons should appear in the top right corner.
+    // Buttons will be created using templates from `btnTpl` option
+    // and they will be placed into toolbar (class="fancybox-toolbar"` element)
+    buttons: ["zoom", //"share",
+    "slideShow", //"fullScreen",
+    //"download",
+    "thumbs", "close"],
+    // Detect "idle" time in seconds
+    idleTime: 3,
+    // Disable right-click and use simple image protection for images
+    protect: false,
+    // Shortcut to make content "modal" - disable keyboard navigtion, hide buttons, etc
+    modal: false,
+    image: {
+      // Wait for images to load before displaying
+      //   true  - wait for image to load and then display;
+      //   false - display thumbnail and load the full-sized image over top,
+      //           requires predefined image dimensions (`data-width` and `data-height` attributes)
+      preload: false
+    },
+    ajax: {
+      // Object containing settings for ajax request
+      settings: {
+        // This helps to indicate that request comes from the modal
+        // Feel free to change naming
+        data: {
+          fancybox: true
+        }
+      }
+    },
+    iframe: {
+      // Iframe template
+      tpl: '<iframe id="fancybox-frame{rnd}" name="fancybox-frame{rnd}" class="fancybox-iframe" allowfullscreen="allowfullscreen" allow="autoplay; fullscreen" src=""></iframe>',
+      // Preload iframe before displaying it
+      // This allows to calculate iframe content width and height
+      // (note: Due to "Same Origin Policy", you can't get cross domain data).
+      preload: true,
+      // Custom CSS styling for iframe wrapping element
+      // You can use this to set custom iframe dimensions
+      css: {},
+      // Iframe tag attributes
+      attr: {
+        scrolling: "auto"
+      }
+    },
+    // For HTML5 video only
+    video: {
+      tpl: '<video class="fancybox-video" controls controlsList="nodownload" poster="{{poster}}">' + '<source src="{{src}}" type="{{format}}" />' + 'Sorry, your browser doesn\'t support embedded videos, <a href="{{src}}">download</a> and watch with your favorite video player!' + "</video>",
+      format: "",
+      // custom video format
+      autoStart: true
+    },
+    // Default content type if cannot be detected automatically
+    defaultType: "image",
+    // Open/close animation type
+    // Possible values:
+    //   false            - disable
+    //   "zoom"           - zoom images from/to thumbnail
+    //   "fade"
+    //   "zoom-in-out"
+    //
+    animationEffect: "zoom",
+    // Duration in ms for open/close animation
+    animationDuration: 366,
+    // Should image change opacity while zooming
+    // If opacity is "auto", then opacity will be changed if image and thumbnail have different aspect ratios
+    zoomOpacity: "auto",
+    // Transition effect between slides
+    //
+    // Possible values:
+    //   false            - disable
+    //   "fade'
+    //   "slide'
+    //   "circular'
+    //   "tube'
+    //   "zoom-in-out'
+    //   "rotate'
+    //
+    transitionEffect: "fade",
+    // Duration in ms for transition animation
+    transitionDuration: 366,
+    // Custom CSS class for slide element
+    slideClass: "",
+    // Custom CSS class for layout
+    baseClass: "",
+    // Base template for layout
+    baseTpl: '<div class="fancybox-container" role="dialog" tabindex="-1">' + '<div class="fancybox-bg"></div>' + '<div class="fancybox-inner">' + '<div class="fancybox-infobar"><span data-fancybox-index></span>&nbsp;/&nbsp;<span data-fancybox-count></span></div>' + '<div class="fancybox-toolbar">{{buttons}}</div>' + '<div class="fancybox-navigation">{{arrows}}</div>' + '<div class="fancybox-stage"></div>' + '<div class="fancybox-caption"><div class="fancybox-caption__body"></div></div>' + "</div>" + "</div>",
+    // Loading indicator template
+    spinnerTpl: '<div class="fancybox-loading"></div>',
+    // Error message template
+    errorTpl: '<div class="fancybox-error"><p>{{ERROR}}</p></div>',
+    btnTpl: {
+      download: '<a download data-fancybox-download class="fancybox-button fancybox-button--download" title="{{DOWNLOAD}}" href="javascript:;">' + '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.62 17.09V19H5.38v-1.91zm-2.97-6.96L17 11.45l-5 4.87-5-4.87 1.36-1.32 2.68 2.64V5h1.92v7.77z"/></svg>' + "</a>",
+      zoom: '<button data-fancybox-zoom class="fancybox-button fancybox-button--zoom" title="{{ZOOM}}">' + '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.7 17.3l-3-3a5.9 5.9 0 0 0-.6-7.6 5.9 5.9 0 0 0-8.4 0 5.9 5.9 0 0 0 0 8.4 5.9 5.9 0 0 0 7.7.7l3 3a1 1 0 0 0 1.3 0c.4-.5.4-1 0-1.5zM8.1 13.8a4 4 0 0 1 0-5.7 4 4 0 0 1 5.7 0 4 4 0 0 1 0 5.7 4 4 0 0 1-5.7 0z"/></svg>' + "</button>",
+      close: '<button data-fancybox-close class="fancybox-button fancybox-button--close" title="{{CLOSE}}">' + '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 10.6L6.6 5.2 5.2 6.6l5.4 5.4-5.4 5.4 1.4 1.4 5.4-5.4 5.4 5.4 1.4-1.4-5.4-5.4 5.4-5.4-1.4-1.4-5.4 5.4z"/></svg>' + "</button>",
+      // Arrows
+      arrowLeft: '<button data-fancybox-prev class="fancybox-button fancybox-button--arrow_left" title="{{PREV}}">' + '<div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.28 15.7l-1.34 1.37L5 12l4.94-5.07 1.34 1.38-2.68 2.72H19v1.94H8.6z"/></svg></div>' + "</button>",
+      arrowRight: '<button data-fancybox-next class="fancybox-button fancybox-button--arrow_right" title="{{NEXT}}">' + '<div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.4 12.97l-2.68 2.72 1.34 1.38L19 12l-4.94-5.07-1.34 1.38 2.68 2.72H5v1.94z"/></svg></div>' + "</button>",
+      // This small close button will be appended to your html/inline/ajax content by default,
+      // if "smallBtn" option is not set to false
+      smallBtn: '<button type="button" data-fancybox-close class="fancybox-button fancybox-close-small" title="{{CLOSE}}">' + '<svg xmlns="http://www.w3.org/2000/svg" version="1" viewBox="0 0 24 24"><path d="M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z"/></svg>' + "</button>"
+    },
+    // Container is injected into this element
+    parentEl: "body",
+    // Hide browser vertical scrollbars; use at your own risk
+    hideScrollbar: true,
+    // Focus handling
+    // ==============
+    // Try to focus on the first focusable element after opening
+    autoFocus: true,
+    // Put focus back to active element after closing
+    backFocus: true,
+    // Do not let user to focus on element outside modal content
+    trapFocus: true,
+    // Module specific options
+    // =======================
+    fullScreen: {
+      autoStart: false
+    },
+    // Set `touch: false` to disable panning/swiping
+    touch: {
+      vertical: true,
+      // Allow to drag content vertically
+      momentum: true // Continue movement after releasing mouse/touch when panning
+
+    },
+    // Hash value when initializing manually,
+    // set `false` to disable hash change
+    hash: null,
+    // Customize or add new media types
+    // Example:
+
+    /*
+      media : {
+        youtube : {
+          params : {
+            autoplay : 0
+          }
+        }
+      }
+    */
+    media: {},
+    slideShow: {
+      autoStart: false,
+      speed: 3000
+    },
+    thumbs: {
+      autoStart: false,
+      // Display thumbnails on opening
+      hideOnClose: true,
+      // Hide thumbnail grid when closing animation starts
+      parentEl: ".fancybox-container",
+      // Container is injected into this element
+      axis: "y" // Vertical (y) or horizontal (x) scrolling
+
+    },
+    // Use mousewheel to navigate gallery
+    // If 'auto' - enabled for images only
+    wheel: "auto",
+    // Callbacks
+    //==========
+    // See Documentation/API/Events for more information
+    // Example:
+
+    /*
+      afterShow: function( instance, current ) {
+        console.info( 'Clicked element:' );
+        console.info( current.opts.$orig );
+      }
+    */
+    onInit: $.noop,
+    // When instance has been initialized
+    beforeLoad: $.noop,
+    // Before the content of a slide is being loaded
+    afterLoad: $.noop,
+    // When the content of a slide is done loading
+    beforeShow: $.noop,
+    // Before open animation starts
+    afterShow: $.noop,
+    // When content is done loading and animating
+    beforeClose: $.noop,
+    // Before the instance attempts to close. Return false to cancel the close.
+    afterClose: $.noop,
+    // After instance has been closed
+    onActivate: $.noop,
+    // When instance is brought to front
+    onDeactivate: $.noop,
+    // When other instance has been activated
+    // Interaction
+    // ===========
+    // Use options below to customize taken action when user clicks or double clicks on the fancyBox area,
+    // each option can be string or method that returns value.
+    //
+    // Possible values:
+    //   "close"           - close instance
+    //   "next"            - move to next gallery item
+    //   "nextOrClose"     - move to next gallery item or close if gallery has only one item
+    //   "toggleControls"  - show/hide controls
+    //   "zoom"            - zoom image (if loaded)
+    //   false             - do nothing
+    // Clicked on the content
+    clickContent: function clickContent(current, event) {
+      return current.type === "image" ? "zoom" : false;
+    },
+    // Clicked on the slide
+    clickSlide: "close",
+    // Clicked on the background (backdrop) element;
+    // if you have not changed the layout, then most likely you need to use `clickSlide` option
+    clickOutside: "close",
+    // Same as previous two, but for double click
+    dblclickContent: false,
+    dblclickSlide: false,
+    dblclickOutside: false,
+    // Custom options when mobile device is detected
+    // =============================================
+    mobile: {
+      preventCaptionOverlap: false,
+      idleTime: false,
+      clickContent: function clickContent(current, event) {
+        return current.type === "image" ? "toggleControls" : false;
+      },
+      clickSlide: function clickSlide(current, event) {
+        return current.type === "image" ? "toggleControls" : "close";
+      },
+      dblclickContent: function dblclickContent(current, event) {
+        return current.type === "image" ? "zoom" : false;
+      },
+      dblclickSlide: function dblclickSlide(current, event) {
+        return current.type === "image" ? "zoom" : false;
+      }
+    },
+    // Internationalization
+    // ====================
+    lang: "en",
+    i18n: {
+      en: {
+        CLOSE: "Close",
+        NEXT: "Next",
+        PREV: "Previous",
+        ERROR: "The requested content cannot be loaded. <br/> Please try again later.",
+        PLAY_START: "Start slideshow",
+        PLAY_STOP: "Pause slideshow",
+        FULL_SCREEN: "Full screen",
+        THUMBS: "Thumbnails",
+        DOWNLOAD: "Download",
+        SHARE: "Share",
+        ZOOM: "Zoom"
+      },
+      de: {
+        CLOSE: "Schlie&szlig;en",
+        NEXT: "Weiter",
+        PREV: "Zur&uuml;ck",
+        ERROR: "Die angeforderten Daten konnten nicht geladen werden. <br/> Bitte versuchen Sie es sp&auml;ter nochmal.",
+        PLAY_START: "Diaschau starten",
+        PLAY_STOP: "Diaschau beenden",
+        FULL_SCREEN: "Vollbild",
+        THUMBS: "Vorschaubilder",
+        DOWNLOAD: "Herunterladen",
+        SHARE: "Teilen",
+        ZOOM: "Vergr&ouml;&szlig;ern"
+      }
+    }
+  }; // Few useful variables and methods
+  // ================================
+
+  var $W = $(window);
+  var $D = $(document);
+  var called = 0; // Check if an object is a jQuery object and not a native JavaScript object
+  // ========================================================================
+
+  var isQuery = function isQuery(obj) {
+    return obj && obj.hasOwnProperty && obj instanceof $;
+  }; // Handle multiple browsers for "requestAnimationFrame" and "cancelAnimationFrame"
+  // ===============================================================================
+
+
+  var requestAFrame = function () {
+    return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || // if all else fails, use setTimeout
+    function (callback) {
+      return window.setTimeout(callback, 1000 / 60);
+    };
+  }();
+
+  var cancelAFrame = function () {
+    return window.cancelAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame || window.oCancelAnimationFrame || function (id) {
+      window.clearTimeout(id);
+    };
+  }(); // Detect the supported transition-end event property name
+  // =======================================================
+
+
+  var transitionEnd = function () {
+    var el = document.createElement("fakeelement"),
+        t;
+    var transitions = {
+      transition: "transitionend",
+      OTransition: "oTransitionEnd",
+      MozTransition: "transitionend",
+      WebkitTransition: "webkitTransitionEnd"
+    };
+
+    for (t in transitions) {
+      if (el.style[t] !== undefined) {
+        return transitions[t];
+      }
+    }
+
+    return "transitionend";
+  }(); // Force redraw on an element.
+  // This helps in cases where the browser doesn't redraw an updated element properly
+  // ================================================================================
+
+
+  var forceRedraw = function forceRedraw($el) {
+    return $el && $el.length && $el[0].offsetHeight;
+  }; // Exclude array (`buttons`) options from deep merging
+  // ===================================================
+
+
+  var mergeOpts = function mergeOpts(opts1, opts2) {
+    var rez = $.extend(true, {}, opts1, opts2);
+    $.each(opts2, function (key, value) {
+      if ($.isArray(value)) {
+        rez[key] = value;
+      }
+    });
+    return rez;
+  }; // How much of an element is visible in viewport
+  // =============================================
+
+
+  var inViewport = function inViewport(elem) {
+    var elemCenter, rez;
+
+    if (!elem || elem.ownerDocument !== document) {
+      return false;
+    }
+
+    $(".fancybox-container").css("pointer-events", "none");
+    elemCenter = {
+      x: elem.getBoundingClientRect().left + elem.offsetWidth / 2,
+      y: elem.getBoundingClientRect().top + elem.offsetHeight / 2
+    };
+    rez = document.elementFromPoint(elemCenter.x, elemCenter.y) === elem;
+    $(".fancybox-container").css("pointer-events", "");
+    return rez;
+  }; // Class definition
+  // ================
+
+
+  var FancyBox = function FancyBox(content, opts, index) {
+    var self = this;
+    self.opts = mergeOpts({
+      index: index
+    }, $.fancybox.defaults);
+
+    if ($.isPlainObject(opts)) {
+      self.opts = mergeOpts(self.opts, opts);
+    }
+
+    if ($.fancybox.isMobile) {
+      self.opts = mergeOpts(self.opts, self.opts.mobile);
+    }
+
+    self.id = self.opts.id || ++called;
+    self.currIndex = parseInt(self.opts.index, 10) || 0;
+    self.prevIndex = null;
+    self.prevPos = null;
+    self.currPos = 0;
+    self.firstRun = true; // All group items
+
+    self.group = []; // Existing slides (for current, next and previous gallery items)
+
+    self.slides = {}; // Create group elements
+
+    self.addContent(content);
+
+    if (!self.group.length) {
+      return;
+    }
+
+    self.init();
+  };
+
+  $.extend(FancyBox.prototype, {
+    // Create DOM structure
+    // ====================
+    init: function init() {
+      var self = this,
+          firstItem = self.group[self.currIndex],
+          firstItemOpts = firstItem.opts,
+          $container,
+          buttonStr;
+
+      if (firstItemOpts.closeExisting) {
+        $.fancybox.close(true);
+      } // Hide scrollbars
+      // ===============
+
+
+      $("body").addClass("fancybox-active");
+
+      if (!$.fancybox.getInstance() && firstItemOpts.hideScrollbar !== false && !$.fancybox.isMobile && document.body.scrollHeight > window.innerHeight) {
+        $("head").append('<style id="fancybox-style-noscroll" type="text/css">.compensate-for-scrollbar{margin-right:' + (window.innerWidth - document.documentElement.clientWidth) + "px;}</style>");
+        $("body").addClass("compensate-for-scrollbar");
+      } // Build html markup and set references
+      // ====================================
+      // Build html code for buttons and insert into main template
+
+
+      buttonStr = "";
+      $.each(firstItemOpts.buttons, function (index, value) {
+        buttonStr += firstItemOpts.btnTpl[value] || "";
+      }); // Create markup from base template, it will be initially hidden to
+      // avoid unnecessary work like painting while initializing is not complete
+
+      $container = $(self.translate(self, firstItemOpts.baseTpl.replace("{{buttons}}", buttonStr).replace("{{arrows}}", firstItemOpts.btnTpl.arrowLeft + firstItemOpts.btnTpl.arrowRight))).attr("id", "fancybox-container-" + self.id).addClass(firstItemOpts.baseClass).data("FancyBox", self).appendTo(firstItemOpts.parentEl); // Create object holding references to jQuery wrapped nodes
+
+      self.$refs = {
+        container: $container
+      };
+      ["bg", "inner", "infobar", "toolbar", "stage", "caption", "navigation"].forEach(function (item) {
+        self.$refs[item] = $container.find(".fancybox-" + item);
+      });
+      self.trigger("onInit"); // Enable events, deactive previous instances
+
+      self.activate(); // Build slides, load and reveal content
+
+      self.jumpTo(self.currIndex);
+    },
+    // Simple i18n support - replaces object keys found in template
+    // with corresponding values
+    // ============================================================
+    translate: function translate(obj, str) {
+      var arr = obj.opts.i18n[obj.opts.lang] || obj.opts.i18n.en;
+      return str.replace(/\{\{(\w+)\}\}/g, function (match, n) {
+        return arr[n] === undefined ? match : arr[n];
+      });
+    },
+    // Populate current group with fresh content
+    // Check if each object has valid type and content
+    // ===============================================
+    addContent: function addContent(content) {
+      var self = this,
+          items = $.makeArray(content),
+          thumbs;
+      $.each(items, function (i, item) {
+        var obj = {},
+            opts = {},
+            $item,
+            type,
+            found,
+            src,
+            srcParts; // Step 1 - Make sure we have an object
+        // ====================================
+
+        if ($.isPlainObject(item)) {
+          // We probably have manual usage here, something like
+          // $.fancybox.open( [ { src : "image.jpg", type : "image" } ] )
+          obj = item;
+          opts = item.opts || item;
+        } else if ($.type(item) === "object" && $(item).length) {
+          // Here we probably have jQuery collection returned by some selector
+          $item = $(item); // Support attributes like `data-options='{"touch" : false}'` and `data-touch='false'`
+
+          opts = $item.data() || {};
+          opts = $.extend(true, {}, opts, opts.options); // Here we store clicked element
+
+          opts.$orig = $item;
+          obj.src = self.opts.src || opts.src || $item.attr("href"); // Assume that simple syntax is used, for example:
+          //   `$.fancybox.open( $("#test"), {} );`
+
+          if (!obj.type && !obj.src) {
+            obj.type = "inline";
+            obj.src = item;
+          }
+        } else {
+          // Assume we have a simple html code, for example:
+          //   $.fancybox.open( '<div><h1>Hi!</h1></div>' );
+          obj = {
+            type: "html",
+            src: item + ""
+          };
+        } // Each gallery object has full collection of options
+
+
+        obj.opts = $.extend(true, {}, self.opts, opts); // Do not merge buttons array
+
+        if ($.isArray(opts.buttons)) {
+          obj.opts.buttons = opts.buttons;
+        }
+
+        if ($.fancybox.isMobile && obj.opts.mobile) {
+          obj.opts = mergeOpts(obj.opts, obj.opts.mobile);
+        } // Step 2 - Make sure we have content type, if not - try to guess
+        // ==============================================================
+
+
+        type = obj.type || obj.opts.type;
+        src = obj.src || "";
+
+        if (!type && src) {
+          if (found = src.match(/\.(mp4|mov|ogv|webm)((\?|#).*)?$/i)) {
+            type = "video";
+
+            if (!obj.opts.video.format) {
+              obj.opts.video.format = "video/" + (found[1] === "ogv" ? "ogg" : found[1]);
+            }
+          } else if (src.match(/(^data:image\/[a-z0-9+\/=]*,)|(\.(jp(e|g|eg)|gif|png|bmp|webp|svg|ico)((\?|#).*)?$)/i)) {
+            type = "image";
+          } else if (src.match(/\.(pdf)((\?|#).*)?$/i)) {
+            type = "iframe";
+            obj = $.extend(true, obj, {
+              contentType: "pdf",
+              opts: {
+                iframe: {
+                  preload: false
+                }
+              }
+            });
+          } else if (src.charAt(0) === "#") {
+            type = "inline";
+          }
+        }
+
+        if (type) {
+          obj.type = type;
+        } else {
+          self.trigger("objectNeedsType", obj);
+        }
+
+        if (!obj.contentType) {
+          obj.contentType = $.inArray(obj.type, ["html", "inline", "ajax"]) > -1 ? "html" : obj.type;
+        } // Step 3 - Some adjustments
+        // =========================
+
+
+        obj.index = self.group.length;
+
+        if (obj.opts.smallBtn == "auto") {
+          obj.opts.smallBtn = $.inArray(obj.type, ["html", "inline", "ajax"]) > -1;
+        }
+
+        if (obj.opts.toolbar === "auto") {
+          obj.opts.toolbar = !obj.opts.smallBtn;
+        } // Find thumbnail image, check if exists and if is in the viewport
+
+
+        obj.$thumb = obj.opts.$thumb || null;
+
+        if (obj.opts.$trigger && obj.index === self.opts.index) {
+          obj.$thumb = obj.opts.$trigger.find("img:first");
+
+          if (obj.$thumb.length) {
+            obj.opts.$orig = obj.opts.$trigger;
+          }
+        }
+
+        if (!(obj.$thumb && obj.$thumb.length) && obj.opts.$orig) {
+          obj.$thumb = obj.opts.$orig.find("img:first");
+        }
+
+        if (obj.$thumb && !obj.$thumb.length) {
+          obj.$thumb = null;
+        }
+
+        obj.thumb = obj.opts.thumb || (obj.$thumb ? obj.$thumb[0].src : null); // "caption" is a "special" option, it can be used to customize caption per gallery item
+
+        if ($.type(obj.opts.caption) === "function") {
+          obj.opts.caption = obj.opts.caption.apply(item, [self, obj]);
+        }
+
+        if ($.type(self.opts.caption) === "function") {
+          obj.opts.caption = self.opts.caption.apply(item, [self, obj]);
+        } // Make sure we have caption as a string or jQuery object
+
+
+        if (!(obj.opts.caption instanceof $)) {
+          obj.opts.caption = obj.opts.caption === undefined ? "" : obj.opts.caption + "";
+        } // Check if url contains "filter" used to filter the content
+        // Example: "ajax.html #something"
+
+
+        if (obj.type === "ajax") {
+          srcParts = src.split(/\s+/, 2);
+
+          if (srcParts.length > 1) {
+            obj.src = srcParts.shift();
+            obj.opts.filter = srcParts.shift();
+          }
+        } // Hide all buttons and disable interactivity for modal items
+
+
+        if (obj.opts.modal) {
+          obj.opts = $.extend(true, obj.opts, {
+            trapFocus: true,
+            // Remove buttons
+            infobar: 0,
+            toolbar: 0,
+            smallBtn: 0,
+            // Disable keyboard navigation
+            keyboard: 0,
+            // Disable some modules
+            slideShow: 0,
+            fullScreen: 0,
+            thumbs: 0,
+            touch: 0,
+            // Disable click event handlers
+            clickContent: false,
+            clickSlide: false,
+            clickOutside: false,
+            dblclickContent: false,
+            dblclickSlide: false,
+            dblclickOutside: false
+          });
+        } // Step 4 - Add processed object to group
+        // ======================================
+
+
+        self.group.push(obj);
+      }); // Update controls if gallery is already opened
+
+      if (Object.keys(self.slides).length) {
+        self.updateControls(); // Update thumbnails, if needed
+
+        thumbs = self.Thumbs;
+
+        if (thumbs && thumbs.isActive) {
+          thumbs.create();
+          thumbs.focus();
+        }
+      }
+    },
+    // Attach an event handler functions for:
+    //   - navigation buttons
+    //   - browser scrolling, resizing;
+    //   - focusing
+    //   - keyboard
+    //   - detecting inactivity
+    // ======================================
+    addEvents: function addEvents() {
+      var self = this;
+      self.removeEvents(); // Make navigation elements clickable
+      // ==================================
+
+      self.$refs.container.on("click.fb-close", "[data-fancybox-close]", function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        self.close(e);
+      }).on("touchstart.fb-prev click.fb-prev", "[data-fancybox-prev]", function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        self.previous();
+      }).on("touchstart.fb-next click.fb-next", "[data-fancybox-next]", function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        self.next();
+      }).on("click.fb", "[data-fancybox-zoom]", function (e) {
+        // Click handler for zoom button
+        self[self.isScaledDown() ? "scaleToActual" : "scaleToFit"]();
+      }); // Handle page scrolling and browser resizing
+      // ==========================================
+
+      $W.on("orientationchange.fb resize.fb", function (e) {
+        if (e && e.originalEvent && e.originalEvent.type === "resize") {
+          if (self.requestId) {
+            cancelAFrame(self.requestId);
+          }
+
+          self.requestId = requestAFrame(function () {
+            self.update(e);
+          });
+        } else {
+          if (self.current && self.current.type === "iframe") {
+            self.$refs.stage.hide();
+          }
+
+          setTimeout(function () {
+            self.$refs.stage.show();
+            self.update(e);
+          }, $.fancybox.isMobile ? 600 : 250);
+        }
+      });
+      $D.on("keydown.fb", function (e) {
+        var instance = $.fancybox ? $.fancybox.getInstance() : null,
+            current = instance.current,
+            keycode = e.keyCode || e.which; // Trap keyboard focus inside of the modal
+        // =======================================
+
+        if (keycode == 9) {
+          if (current.opts.trapFocus) {
+            self.focus(e);
+          }
+
+          return;
+        } // Enable keyboard navigation
+        // ==========================
+
+
+        if (!current.opts.keyboard || e.ctrlKey || e.altKey || e.shiftKey || $(e.target).is("input,textarea,video,audio,select")) {
+          return;
+        } // Backspace and Esc keys
+
+
+        if (keycode === 8 || keycode === 27) {
+          e.preventDefault();
+          self.close(e);
+          return;
+        } // Left arrow and Up arrow
+
+
+        if (keycode === 37 || keycode === 38) {
+          e.preventDefault();
+          self.previous();
+          return;
+        } // Righ arrow and Down arrow
+
+
+        if (keycode === 39 || keycode === 40) {
+          e.preventDefault();
+          self.next();
+          return;
+        }
+
+        self.trigger("afterKeydown", e, keycode);
+      }); // Hide controls after some inactivity period
+
+      if (self.group[self.currIndex].opts.idleTime) {
+        self.idleSecondsCounter = 0;
+        $D.on("mousemove.fb-idle mouseleave.fb-idle mousedown.fb-idle touchstart.fb-idle touchmove.fb-idle scroll.fb-idle keydown.fb-idle", function (e) {
+          self.idleSecondsCounter = 0;
+
+          if (self.isIdle) {
+            self.showControls();
+          }
+
+          self.isIdle = false;
+        });
+        self.idleInterval = window.setInterval(function () {
+          self.idleSecondsCounter++;
+
+          if (self.idleSecondsCounter >= self.group[self.currIndex].opts.idleTime && !self.isDragging) {
+            self.isIdle = true;
+            self.idleSecondsCounter = 0;
+            self.hideControls();
+          }
+        }, 1000);
+      }
+    },
+    // Remove events added by the core
+    // ===============================
+    removeEvents: function removeEvents() {
+      var self = this;
+      $W.off("orientationchange.fb resize.fb");
+      $D.off("keydown.fb .fb-idle");
+      this.$refs.container.off(".fb-close .fb-prev .fb-next");
+
+      if (self.idleInterval) {
+        window.clearInterval(self.idleInterval);
+        self.idleInterval = null;
+      }
+    },
+    // Change to previous gallery item
+    // ===============================
+    previous: function previous(duration) {
+      return this.jumpTo(this.currPos - 1, duration);
+    },
+    // Change to next gallery item
+    // ===========================
+    next: function next(duration) {
+      return this.jumpTo(this.currPos + 1, duration);
+    },
+    // Switch to selected gallery item
+    // ===============================
+    jumpTo: function jumpTo(pos, duration) {
+      var self = this,
+          groupLen = self.group.length,
+          firstRun,
+          isMoved,
+          loop,
+          current,
+          previous,
+          slidePos,
+          stagePos,
+          prop,
+          diff;
+
+      if (self.isDragging || self.isClosing || self.isAnimating && self.firstRun) {
+        return;
+      } // Should loop?
+
+
+      pos = parseInt(pos, 10);
+      loop = self.current ? self.current.opts.loop : self.opts.loop;
+
+      if (!loop && (pos < 0 || pos >= groupLen)) {
+        return false;
+      } // Check if opening for the first time; this helps to speed things up
+
+
+      firstRun = self.firstRun = !Object.keys(self.slides).length; // Create slides
+
+      previous = self.current;
+      self.prevIndex = self.currIndex;
+      self.prevPos = self.currPos;
+      current = self.createSlide(pos);
+
+      if (groupLen > 1) {
+        if (loop || current.index < groupLen - 1) {
+          self.createSlide(pos + 1);
+        }
+
+        if (loop || current.index > 0) {
+          self.createSlide(pos - 1);
+        }
+      }
+
+      self.current = current;
+      self.currIndex = current.index;
+      self.currPos = current.pos;
+      self.trigger("beforeShow", firstRun);
+      self.updateControls(); // Validate duration length
+
+      current.forcedDuration = undefined;
+
+      if ($.isNumeric(duration)) {
+        current.forcedDuration = duration;
+      } else {
+        duration = current.opts[firstRun ? "animationDuration" : "transitionDuration"];
+      }
+
+      duration = parseInt(duration, 10); // Check if user has swiped the slides or if still animating
+
+      isMoved = self.isMoved(current); // Make sure current slide is visible
+
+      current.$slide.addClass("fancybox-slide--current"); // Fresh start - reveal container, current slide and start loading content
+
+      if (firstRun) {
+        if (current.opts.animationEffect && duration) {
+          self.$refs.container.css("transition-duration", duration + "ms");
+        }
+
+        self.$refs.container.addClass("fancybox-is-open").trigger("focus"); // Attempt to load content into slide
+        // This will later call `afterLoad` -> `revealContent`
+
+        self.loadSlide(current);
+        self.preload("image");
+        return;
+      } // Get actual slide/stage positions (before cleaning up)
+
+
+      slidePos = $.fancybox.getTranslate(previous.$slide);
+      stagePos = $.fancybox.getTranslate(self.$refs.stage); // Clean up all slides
+
+      $.each(self.slides, function (index, slide) {
+        $.fancybox.stop(slide.$slide, true);
+      });
+
+      if (previous.pos !== current.pos) {
+        previous.isComplete = false;
+      }
+
+      previous.$slide.removeClass("fancybox-slide--complete fancybox-slide--current"); // If slides are out of place, then animate them to correct position
+
+      if (isMoved) {
+        // Calculate horizontal swipe distance
+        diff = slidePos.left - (previous.pos * slidePos.width + previous.pos * previous.opts.gutter);
+        $.each(self.slides, function (index, slide) {
+          slide.$slide.removeClass("fancybox-animated").removeClass(function (index, className) {
+            return (className.match(/(^|\s)fancybox-fx-\S+/g) || []).join(" ");
+          }); // Make sure that each slide is in equal distance
+          // This is mostly needed for freshly added slides, because they are not yet positioned
+
+          var leftPos = slide.pos * slidePos.width + slide.pos * slide.opts.gutter;
+          $.fancybox.setTranslate(slide.$slide, {
+            top: 0,
+            left: leftPos - stagePos.left + diff
+          });
+
+          if (slide.pos !== current.pos) {
+            slide.$slide.addClass("fancybox-slide--" + (slide.pos > current.pos ? "next" : "previous"));
+          } // Redraw to make sure that transition will start
+
+
+          forceRedraw(slide.$slide); // Animate the slide
+
+          $.fancybox.animate(slide.$slide, {
+            top: 0,
+            left: (slide.pos - current.pos) * slidePos.width + (slide.pos - current.pos) * slide.opts.gutter
+          }, duration, function () {
+            slide.$slide.css({
+              transform: "",
+              opacity: ""
+            }).removeClass("fancybox-slide--next fancybox-slide--previous");
+
+            if (slide.pos === self.currPos) {
+              self.complete();
+            }
+          });
+        });
+      } else if (duration && current.opts.transitionEffect) {
+        // Set transition effect for previously active slide
+        prop = "fancybox-animated fancybox-fx-" + current.opts.transitionEffect;
+        previous.$slide.addClass("fancybox-slide--" + (previous.pos > current.pos ? "next" : "previous"));
+        $.fancybox.animate(previous.$slide, prop, duration, function () {
+          previous.$slide.removeClass(prop).removeClass("fancybox-slide--next fancybox-slide--previous");
+        }, false);
+      }
+
+      if (current.isLoaded) {
+        self.revealContent(current);
+      } else {
+        self.loadSlide(current);
+      }
+
+      self.preload("image");
+    },
+    // Create new "slide" element
+    // These are gallery items  that are actually added to DOM
+    // =======================================================
+    createSlide: function createSlide(pos) {
+      var self = this,
+          $slide,
+          index;
+      index = pos % self.group.length;
+      index = index < 0 ? self.group.length + index : index;
+
+      if (!self.slides[pos] && self.group[index]) {
+        $slide = $('<div class="fancybox-slide"></div>').appendTo(self.$refs.stage);
+        self.slides[pos] = $.extend(true, {}, self.group[index], {
+          pos: pos,
+          $slide: $slide,
+          isLoaded: false
+        });
+        self.updateSlide(self.slides[pos]);
+      }
+
+      return self.slides[pos];
+    },
+    // Scale image to the actual size of the image;
+    // x and y values should be relative to the slide
+    // ==============================================
+    scaleToActual: function scaleToActual(x, y, duration) {
+      var self = this,
+          current = self.current,
+          $content = current.$content,
+          canvasWidth = $.fancybox.getTranslate(current.$slide).width,
+          canvasHeight = $.fancybox.getTranslate(current.$slide).height,
+          newImgWidth = current.width,
+          newImgHeight = current.height,
+          imgPos,
+          posX,
+          posY,
+          scaleX,
+          scaleY;
+
+      if (self.isAnimating || self.isMoved() || !$content || !(current.type == "image" && current.isLoaded && !current.hasError)) {
+        return;
+      }
+
+      self.isAnimating = true;
+      $.fancybox.stop($content);
+      x = x === undefined ? canvasWidth * 0.5 : x;
+      y = y === undefined ? canvasHeight * 0.5 : y;
+      imgPos = $.fancybox.getTranslate($content);
+      imgPos.top -= $.fancybox.getTranslate(current.$slide).top;
+      imgPos.left -= $.fancybox.getTranslate(current.$slide).left;
+      scaleX = newImgWidth / imgPos.width;
+      scaleY = newImgHeight / imgPos.height; // Get center position for original image
+
+      posX = canvasWidth * 0.5 - newImgWidth * 0.5;
+      posY = canvasHeight * 0.5 - newImgHeight * 0.5; // Make sure image does not move away from edges
+
+      if (newImgWidth > canvasWidth) {
+        posX = imgPos.left * scaleX - (x * scaleX - x);
+
+        if (posX > 0) {
+          posX = 0;
+        }
+
+        if (posX < canvasWidth - newImgWidth) {
+          posX = canvasWidth - newImgWidth;
+        }
+      }
+
+      if (newImgHeight > canvasHeight) {
+        posY = imgPos.top * scaleY - (y * scaleY - y);
+
+        if (posY > 0) {
+          posY = 0;
+        }
+
+        if (posY < canvasHeight - newImgHeight) {
+          posY = canvasHeight - newImgHeight;
+        }
+      }
+
+      self.updateCursor(newImgWidth, newImgHeight);
+      $.fancybox.animate($content, {
+        top: posY,
+        left: posX,
+        scaleX: scaleX,
+        scaleY: scaleY
+      }, duration || 366, function () {
+        self.isAnimating = false;
+      }); // Stop slideshow
+
+      if (self.SlideShow && self.SlideShow.isActive) {
+        self.SlideShow.stop();
+      }
+    },
+    // Scale image to fit inside parent element
+    // ========================================
+    scaleToFit: function scaleToFit(duration) {
+      var self = this,
+          current = self.current,
+          $content = current.$content,
+          end;
+
+      if (self.isAnimating || self.isMoved() || !$content || !(current.type == "image" && current.isLoaded && !current.hasError)) {
+        return;
+      }
+
+      self.isAnimating = true;
+      $.fancybox.stop($content);
+      end = self.getFitPos(current);
+      self.updateCursor(end.width, end.height);
+      $.fancybox.animate($content, {
+        top: end.top,
+        left: end.left,
+        scaleX: end.width / $content.width(),
+        scaleY: end.height / $content.height()
+      }, duration || 366, function () {
+        self.isAnimating = false;
+      });
+    },
+    // Calculate image size to fit inside viewport
+    // ===========================================
+    getFitPos: function getFitPos(slide) {
+      var self = this,
+          $content = slide.$content,
+          $slide = slide.$slide,
+          width = slide.width || slide.opts.width,
+          height = slide.height || slide.opts.height,
+          maxWidth,
+          maxHeight,
+          minRatio,
+          aspectRatio,
+          rez = {};
+
+      if (!slide.isLoaded || !$content || !$content.length) {
+        return false;
+      }
+
+      maxWidth = $.fancybox.getTranslate(self.$refs.stage).width;
+      maxHeight = $.fancybox.getTranslate(self.$refs.stage).height;
+      maxWidth -= parseFloat($slide.css("paddingLeft")) + parseFloat($slide.css("paddingRight")) + parseFloat($content.css("marginLeft")) + parseFloat($content.css("marginRight"));
+      maxHeight -= parseFloat($slide.css("paddingTop")) + parseFloat($slide.css("paddingBottom")) + parseFloat($content.css("marginTop")) + parseFloat($content.css("marginBottom"));
+
+      if (!width || !height) {
+        width = maxWidth;
+        height = maxHeight;
+      }
+
+      minRatio = Math.min(1, maxWidth / width, maxHeight / height);
+      width = minRatio * width;
+      height = minRatio * height; // Adjust width/height to precisely fit into container
+
+      if (width > maxWidth - 0.5) {
+        width = maxWidth;
+      }
+
+      if (height > maxHeight - 0.5) {
+        height = maxHeight;
+      }
+
+      if (slide.type === "image") {
+        rez.top = Math.floor((maxHeight - height) * 0.5) + parseFloat($slide.css("paddingTop"));
+        rez.left = Math.floor((maxWidth - width) * 0.5) + parseFloat($slide.css("paddingLeft"));
+      } else if (slide.contentType === "video") {
+        // Force aspect ratio for the video
+        // "I say the whole world must learn of our peaceful ways… by force!"
+        aspectRatio = slide.opts.width && slide.opts.height ? width / height : slide.opts.ratio || 16 / 9;
+
+        if (height > width / aspectRatio) {
+          height = width / aspectRatio;
+        } else if (width > height * aspectRatio) {
+          width = height * aspectRatio;
+        }
+      }
+
+      rez.width = width;
+      rez.height = height;
+      return rez;
+    },
+    // Update content size and position for all slides
+    // ==============================================
+    update: function update(e) {
+      var self = this;
+      $.each(self.slides, function (key, slide) {
+        self.updateSlide(slide, e);
+      });
+    },
+    // Update slide content position and size
+    // ======================================
+    updateSlide: function updateSlide(slide, e) {
+      var self = this,
+          $content = slide && slide.$content,
+          width = slide.width || slide.opts.width,
+          height = slide.height || slide.opts.height,
+          $slide = slide.$slide; // First, prevent caption overlap, if needed
+
+      self.adjustCaption(slide); // Then resize content to fit inside the slide
+
+      if ($content && (width || height || slide.contentType === "video") && !slide.hasError) {
+        $.fancybox.stop($content);
+        $.fancybox.setTranslate($content, self.getFitPos(slide));
+
+        if (slide.pos === self.currPos) {
+          self.isAnimating = false;
+          self.updateCursor();
+        }
+      } // Then some adjustments
+
+
+      self.adjustLayout(slide);
+
+      if ($slide.length) {
+        $slide.trigger("refresh");
+
+        if (slide.pos === self.currPos) {
+          self.$refs.toolbar.add(self.$refs.navigation.find(".fancybox-button--arrow_right")).toggleClass("compensate-for-scrollbar", $slide.get(0).scrollHeight > $slide.get(0).clientHeight);
+        }
+      }
+
+      self.trigger("onUpdate", slide, e);
+    },
+    // Horizontally center slide
+    // =========================
+    centerSlide: function centerSlide(duration) {
+      var self = this,
+          current = self.current,
+          $slide = current.$slide;
+
+      if (self.isClosing || !current) {
+        return;
+      }
+
+      $slide.siblings().css({
+        transform: "",
+        opacity: ""
+      });
+      $slide.parent().children().removeClass("fancybox-slide--previous fancybox-slide--next");
+      $.fancybox.animate($slide, {
+        top: 0,
+        left: 0,
+        opacity: 1
+      }, duration === undefined ? 0 : duration, function () {
+        // Clean up
+        $slide.css({
+          transform: "",
+          opacity: ""
+        });
+
+        if (!current.isComplete) {
+          self.complete();
+        }
+      }, false);
+    },
+    // Check if current slide is moved (swiped)
+    // ========================================
+    isMoved: function isMoved(slide) {
+      var current = slide || this.current,
+          slidePos,
+          stagePos;
+
+      if (!current) {
+        return false;
+      }
+
+      stagePos = $.fancybox.getTranslate(this.$refs.stage);
+      slidePos = $.fancybox.getTranslate(current.$slide);
+      return !current.$slide.hasClass("fancybox-animated") && (Math.abs(slidePos.top - stagePos.top) > 0.5 || Math.abs(slidePos.left - stagePos.left) > 0.5);
+    },
+    // Update cursor style depending if content can be zoomed
+    // ======================================================
+    updateCursor: function updateCursor(nextWidth, nextHeight) {
+      var self = this,
+          current = self.current,
+          $container = self.$refs.container,
+          canPan,
+          isZoomable;
+
+      if (!current || self.isClosing || !self.Guestures) {
+        return;
+      }
+
+      $container.removeClass("fancybox-is-zoomable fancybox-can-zoomIn fancybox-can-zoomOut fancybox-can-swipe fancybox-can-pan");
+      canPan = self.canPan(nextWidth, nextHeight);
+      isZoomable = canPan ? true : self.isZoomable();
+      $container.toggleClass("fancybox-is-zoomable", isZoomable);
+      $("[data-fancybox-zoom]").prop("disabled", !isZoomable);
+
+      if (canPan) {
+        $container.addClass("fancybox-can-pan");
+      } else if (isZoomable && (current.opts.clickContent === "zoom" || $.isFunction(current.opts.clickContent) && current.opts.clickContent(current) == "zoom")) {
+        $container.addClass("fancybox-can-zoomIn");
+      } else if (current.opts.touch && (current.opts.touch.vertical || self.group.length > 1) && current.contentType !== "video") {
+        $container.addClass("fancybox-can-swipe");
+      }
+    },
+    // Check if current slide is zoomable
+    // ==================================
+    isZoomable: function isZoomable() {
+      var self = this,
+          current = self.current,
+          fitPos; // Assume that slide is zoomable if:
+      //   - image is still loading
+      //   - actual size of the image is smaller than available area
+
+      if (current && !self.isClosing && current.type === "image" && !current.hasError) {
+        if (!current.isLoaded) {
+          return true;
+        }
+
+        fitPos = self.getFitPos(current);
+
+        if (fitPos && (current.width > fitPos.width || current.height > fitPos.height)) {
+          return true;
+        }
+      }
+
+      return false;
+    },
+    // Check if current image dimensions are smaller than actual
+    // =========================================================
+    isScaledDown: function isScaledDown(nextWidth, nextHeight) {
+      var self = this,
+          rez = false,
+          current = self.current,
+          $content = current.$content;
+
+      if (nextWidth !== undefined && nextHeight !== undefined) {
+        rez = nextWidth < current.width && nextHeight < current.height;
+      } else if ($content) {
+        rez = $.fancybox.getTranslate($content);
+        rez = rez.width < current.width && rez.height < current.height;
+      }
+
+      return rez;
+    },
+    // Check if image dimensions exceed parent element
+    // ===============================================
+    canPan: function canPan(nextWidth, nextHeight) {
+      var self = this,
+          current = self.current,
+          pos = null,
+          rez = false;
+
+      if (current.type === "image" && (current.isComplete || nextWidth && nextHeight) && !current.hasError) {
+        rez = self.getFitPos(current);
+
+        if (nextWidth !== undefined && nextHeight !== undefined) {
+          pos = {
+            width: nextWidth,
+            height: nextHeight
+          };
+        } else if (current.isComplete) {
+          pos = $.fancybox.getTranslate(current.$content);
+        }
+
+        if (pos && rez) {
+          rez = Math.abs(pos.width - rez.width) > 1.5 || Math.abs(pos.height - rez.height) > 1.5;
+        }
+      }
+
+      return rez;
+    },
+    // Load content into the slide
+    // ===========================
+    loadSlide: function loadSlide(slide) {
+      var self = this,
+          type,
+          $slide,
+          ajaxLoad;
+
+      if (slide.isLoading || slide.isLoaded) {
+        return;
+      }
+
+      slide.isLoading = true;
+
+      if (self.trigger("beforeLoad", slide) === false) {
+        slide.isLoading = false;
+        return false;
+      }
+
+      type = slide.type;
+      $slide = slide.$slide;
+      $slide.off("refresh").trigger("onReset").addClass(slide.opts.slideClass); // Create content depending on the type
+
+      switch (type) {
+        case "image":
+          self.setImage(slide);
+          break;
+
+        case "iframe":
+          self.setIframe(slide);
+          break;
+
+        case "html":
+          self.setContent(slide, slide.src || slide.content);
+          break;
+
+        case "video":
+          self.setContent(slide, slide.opts.video.tpl.replace(/\{\{src\}\}/gi, slide.src).replace("{{format}}", slide.opts.videoFormat || slide.opts.video.format || "").replace("{{poster}}", slide.thumb || ""));
+          break;
+
+        case "inline":
+          if ($(slide.src).length) {
+            self.setContent(slide, $(slide.src));
+          } else {
+            self.setError(slide);
+          }
+
+          break;
+
+        case "ajax":
+          self.showLoading(slide);
+          ajaxLoad = $.ajax($.extend({}, slide.opts.ajax.settings, {
+            url: slide.src,
+            success: function success(data, textStatus) {
+              if (textStatus === "success") {
+                self.setContent(slide, data);
+              }
+            },
+            error: function error(jqXHR, textStatus) {
+              if (jqXHR && textStatus !== "abort") {
+                self.setError(slide);
+              }
+            }
+          }));
+          $slide.one("onReset", function () {
+            ajaxLoad.abort();
+          });
+          break;
+
+        default:
+          self.setError(slide);
+          break;
+      }
+
+      return true;
+    },
+    // Use thumbnail image, if possible
+    // ================================
+    setImage: function setImage(slide) {
+      var self = this,
+          ghost; // Check if need to show loading icon
+
+      setTimeout(function () {
+        var $img = slide.$image;
+
+        if (!self.isClosing && slide.isLoading && (!$img || !$img.length || !$img[0].complete) && !slide.hasError) {
+          self.showLoading(slide);
+        }
+      }, 50); //Check if image has srcset
+
+      self.checkSrcset(slide); // This will be wrapper containing both ghost and actual image
+
+      slide.$content = $('<div class="fancybox-content"></div>').addClass("fancybox-is-hidden").appendTo(slide.$slide.addClass("fancybox-slide--image")); // If we have a thumbnail, we can display it while actual image is loading
+      // Users will not stare at black screen and actual image will appear gradually
+
+      if (slide.opts.preload !== false && slide.opts.width && slide.opts.height && slide.thumb) {
+        slide.width = slide.opts.width;
+        slide.height = slide.opts.height;
+        ghost = document.createElement("img");
+
+        ghost.onerror = function () {
+          $(this).remove();
+          slide.$ghost = null;
+        };
+
+        ghost.onload = function () {
+          self.afterLoad(slide);
+        };
+
+        slide.$ghost = $(ghost).addClass("fancybox-image").appendTo(slide.$content).attr("src", slide.thumb);
+      } // Start loading actual image
+
+
+      self.setBigImage(slide);
+    },
+    // Check if image has srcset and get the source
+    // ============================================
+    checkSrcset: function checkSrcset(slide) {
+      var srcset = slide.opts.srcset || slide.opts.image.srcset,
+          found,
+          temp,
+          pxRatio,
+          windowWidth; // If we have "srcset", then we need to find first matching "src" value.
+      // This is necessary, because when you set an src attribute, the browser will preload the image
+      // before any javascript or even CSS is applied.
+
+      if (srcset) {
+        pxRatio = window.devicePixelRatio || 1;
+        windowWidth = window.innerWidth * pxRatio;
+        temp = srcset.split(",").map(function (el) {
+          var ret = {};
+          el.trim().split(/\s+/).forEach(function (el, i) {
+            var value = parseInt(el.substring(0, el.length - 1), 10);
+
+            if (i === 0) {
+              return ret.url = el;
+            }
+
+            if (value) {
+              ret.value = value;
+              ret.postfix = el[el.length - 1];
+            }
+          });
+          return ret;
+        }); // Sort by value
+
+        temp.sort(function (a, b) {
+          return a.value - b.value;
+        }); // Ok, now we have an array of all srcset values
+
+        for (var j = 0; j < temp.length; j++) {
+          var el = temp[j];
+
+          if (el.postfix === "w" && el.value >= windowWidth || el.postfix === "x" && el.value >= pxRatio) {
+            found = el;
+            break;
+          }
+        } // If not found, take the last one
+
+
+        if (!found && temp.length) {
+          found = temp[temp.length - 1];
+        }
+
+        if (found) {
+          slide.src = found.url; // If we have default width/height values, we can calculate height for matching source
+
+          if (slide.width && slide.height && found.postfix == "w") {
+            slide.height = slide.width / slide.height * found.value;
+            slide.width = found.value;
+          }
+
+          slide.opts.srcset = srcset;
+        }
+      }
+    },
+    // Create full-size image
+    // ======================
+    setBigImage: function setBigImage(slide) {
+      var self = this,
+          img = document.createElement("img"),
+          $img = $(img);
+      slide.$image = $img.one("error", function () {
+        self.setError(slide);
+      }).one("load", function () {
+        var sizes;
+
+        if (!slide.$ghost) {
+          self.resolveImageSlideSize(slide, this.naturalWidth, this.naturalHeight);
+          self.afterLoad(slide);
+        }
+
+        if (self.isClosing) {
+          return;
+        }
+
+        if (slide.opts.srcset) {
+          sizes = slide.opts.sizes;
+
+          if (!sizes || sizes === "auto") {
+            sizes = (slide.width / slide.height > 1 && $W.width() / $W.height() > 1 ? "100" : Math.round(slide.width / slide.height * 100)) + "vw";
+          }
+
+          $img.attr("sizes", sizes).attr("srcset", slide.opts.srcset);
+        } // Hide temporary image after some delay
+
+
+        if (slide.$ghost) {
+          setTimeout(function () {
+            if (slide.$ghost && !self.isClosing) {
+              slide.$ghost.hide();
+            }
+          }, Math.min(300, Math.max(1000, slide.height / 1600)));
+        }
+
+        self.hideLoading(slide);
+      }).addClass("fancybox-image").attr("src", slide.src).appendTo(slide.$content);
+
+      if ((img.complete || img.readyState == "complete") && $img.naturalWidth && $img.naturalHeight) {
+        $img.trigger("load");
+      } else if (img.error) {
+        $img.trigger("error");
+      }
+    },
+    // Computes the slide size from image size and maxWidth/maxHeight
+    // ==============================================================
+    resolveImageSlideSize: function resolveImageSlideSize(slide, imgWidth, imgHeight) {
+      var maxWidth = parseInt(slide.opts.width, 10),
+          maxHeight = parseInt(slide.opts.height, 10); // Sets the default values from the image
+
+      slide.width = imgWidth;
+      slide.height = imgHeight;
+
+      if (maxWidth > 0) {
+        slide.width = maxWidth;
+        slide.height = Math.floor(maxWidth * imgHeight / imgWidth);
+      }
+
+      if (maxHeight > 0) {
+        slide.width = Math.floor(maxHeight * imgWidth / imgHeight);
+        slide.height = maxHeight;
+      }
+    },
+    // Create iframe wrapper, iframe and bindings
+    // ==========================================
+    setIframe: function setIframe(slide) {
+      var self = this,
+          opts = slide.opts.iframe,
+          $slide = slide.$slide,
+          $iframe;
+      slide.$content = $('<div class="fancybox-content' + (opts.preload ? " fancybox-is-hidden" : "") + '"></div>').css(opts.css).appendTo($slide);
+      $slide.addClass("fancybox-slide--" + slide.contentType);
+      slide.$iframe = $iframe = $(opts.tpl.replace(/\{rnd\}/g, new Date().getTime())).attr(opts.attr).appendTo(slide.$content);
+
+      if (opts.preload) {
+        self.showLoading(slide); // Unfortunately, it is not always possible to determine if iframe is successfully loaded
+        // (due to browser security policy)
+
+        $iframe.on("load.fb error.fb", function (e) {
+          this.isReady = 1;
+          slide.$slide.trigger("refresh");
+          self.afterLoad(slide);
+        }); // Recalculate iframe content size
+        // ===============================
+
+        $slide.on("refresh.fb", function () {
+          var $content = slide.$content,
+              frameWidth = opts.css.width,
+              frameHeight = opts.css.height,
+              $contents,
+              $body;
+
+          if ($iframe[0].isReady !== 1) {
+            return;
+          }
+
+          try {
+            $contents = $iframe.contents();
+            $body = $contents.find("body");
+          } catch (ignore) {} // Calculate content dimensions, if it is accessible
+
+
+          if ($body && $body.length && $body.children().length) {
+            // Avoid scrolling to top (if multiple instances)
+            $slide.css("overflow", "visible");
+            $content.css({
+              width: "100%",
+              "max-width": "100%",
+              height: "9999px"
+            });
+
+            if (frameWidth === undefined) {
+              frameWidth = Math.ceil(Math.max($body[0].clientWidth, $body.outerWidth(true)));
+            }
+
+            $content.css("width", frameWidth ? frameWidth : "").css("max-width", "");
+
+            if (frameHeight === undefined) {
+              frameHeight = Math.ceil(Math.max($body[0].clientHeight, $body.outerHeight(true)));
+            }
+
+            $content.css("height", frameHeight ? frameHeight : "");
+            $slide.css("overflow", "auto");
+          }
+
+          $content.removeClass("fancybox-is-hidden");
+        });
+      } else {
+        self.afterLoad(slide);
+      }
+
+      $iframe.attr("src", slide.src); // Remove iframe if closing or changing gallery item
+
+      $slide.one("onReset", function () {
+        // This helps IE not to throw errors when closing
+        try {
+          $(this).find("iframe").hide().unbind().attr("src", "//about:blank");
+        } catch (ignore) {}
+
+        $(this).off("refresh.fb").empty();
+        slide.isLoaded = false;
+        slide.isRevealed = false;
+      });
+    },
+    // Wrap and append content to the slide
+    // ======================================
+    setContent: function setContent(slide, content) {
+      var self = this;
+
+      if (self.isClosing) {
+        return;
+      }
+
+      self.hideLoading(slide);
+
+      if (slide.$content) {
+        $.fancybox.stop(slide.$content);
+      }
+
+      slide.$slide.empty(); // If content is a jQuery object, then it will be moved to the slide.
+      // The placeholder is created so we will know where to put it back.
+
+      if (isQuery(content) && content.parent().length) {
+        // Make sure content is not already moved to fancyBox
+        if (content.hasClass("fancybox-content") || content.parent().hasClass("fancybox-content")) {
+          content.parents(".fancybox-slide").trigger("onReset");
+        } // Create temporary element marking original place of the content
+
+
+        slide.$placeholder = $("<div>").hide().insertAfter(content); // Make sure content is visible
+
+        content.css("display", "inline-block");
+      } else if (!slide.hasError) {
+        // If content is just a plain text, try to convert it to html
+        if ($.type(content) === "string") {
+          content = $("<div>").append($.trim(content)).contents();
+        } // If "filter" option is provided, then filter content
+
+
+        if (slide.opts.filter) {
+          content = $("<div>").html(content).find(slide.opts.filter);
+        }
+      }
+
+      slide.$slide.one("onReset", function () {
+        // Pause all html5 video/audio
+        $(this).find("video,audio").trigger("pause"); // Put content back
+
+        if (slide.$placeholder) {
+          slide.$placeholder.after(content.removeClass("fancybox-content").hide()).remove();
+          slide.$placeholder = null;
+        } // Remove custom close button
+
+
+        if (slide.$smallBtn) {
+          slide.$smallBtn.remove();
+          slide.$smallBtn = null;
+        } // Remove content and mark slide as not loaded
+
+
+        if (!slide.hasError) {
+          $(this).empty();
+          slide.isLoaded = false;
+          slide.isRevealed = false;
+        }
+      });
+      $(content).appendTo(slide.$slide);
+
+      if ($(content).is("video,audio")) {
+        $(content).addClass("fancybox-video");
+        $(content).wrap("<div></div>");
+        slide.contentType = "video";
+        slide.opts.width = slide.opts.width || $(content).attr("width");
+        slide.opts.height = slide.opts.height || $(content).attr("height");
+      }
+
+      slide.$content = slide.$slide.children().filter("div,form,main,video,audio,article,.fancybox-content").first();
+      slide.$content.siblings().hide(); // Re-check if there is a valid content
+      // (in some cases, ajax response can contain various elements or plain text)
+
+      if (!slide.$content.length) {
+        slide.$content = slide.$slide.wrapInner("<div></div>").children().first();
+      }
+
+      slide.$content.addClass("fancybox-content");
+      slide.$slide.addClass("fancybox-slide--" + slide.contentType);
+      self.afterLoad(slide);
+    },
+    // Display error message
+    // =====================
+    setError: function setError(slide) {
+      slide.hasError = true;
+      slide.$slide.trigger("onReset").removeClass("fancybox-slide--" + slide.contentType).addClass("fancybox-slide--error");
+      slide.contentType = "html";
+      this.setContent(slide, this.translate(slide, slide.opts.errorTpl));
+
+      if (slide.pos === this.currPos) {
+        this.isAnimating = false;
+      }
+    },
+    // Show loading icon inside the slide
+    // ==================================
+    showLoading: function showLoading(slide) {
+      var self = this;
+      slide = slide || self.current;
+
+      if (slide && !slide.$spinner) {
+        slide.$spinner = $(self.translate(self, self.opts.spinnerTpl)).appendTo(slide.$slide).hide().fadeIn("fast");
+      }
+    },
+    // Remove loading icon from the slide
+    // ==================================
+    hideLoading: function hideLoading(slide) {
+      var self = this;
+      slide = slide || self.current;
+
+      if (slide && slide.$spinner) {
+        slide.$spinner.stop().remove();
+        delete slide.$spinner;
+      }
+    },
+    // Adjustments after slide content has been loaded
+    // ===============================================
+    afterLoad: function afterLoad(slide) {
+      var self = this;
+
+      if (self.isClosing) {
+        return;
+      }
+
+      slide.isLoading = false;
+      slide.isLoaded = true;
+      self.trigger("afterLoad", slide);
+      self.hideLoading(slide); // Add small close button
+
+      if (slide.opts.smallBtn && (!slide.$smallBtn || !slide.$smallBtn.length)) {
+        slide.$smallBtn = $(self.translate(slide, slide.opts.btnTpl.smallBtn)).appendTo(slide.$content);
+      } // Disable right click
+
+
+      if (slide.opts.protect && slide.$content && !slide.hasError) {
+        slide.$content.on("contextmenu.fb", function (e) {
+          if (e.button == 2) {
+            e.preventDefault();
+          }
+
+          return true;
+        }); // Add fake element on top of the image
+        // This makes a bit harder for user to select image
+
+        if (slide.type === "image") {
+          $('<div class="fancybox-spaceball"></div>').appendTo(slide.$content);
+        }
+      }
+
+      self.adjustCaption(slide);
+      self.adjustLayout(slide);
+
+      if (slide.pos === self.currPos) {
+        self.updateCursor();
+      }
+
+      self.revealContent(slide);
+    },
+    // Prevent caption overlap,
+    // fix css inconsistency across browsers
+    // =====================================
+    adjustCaption: function adjustCaption(slide) {
+      var self = this,
+          current = slide || self.current,
+          caption = current.opts.caption,
+          preventOverlap = current.opts.preventCaptionOverlap,
+          $caption = self.$refs.caption,
+          $clone,
+          captionH = false;
+      $caption.toggleClass("fancybox-caption--separate", preventOverlap);
+
+      if (preventOverlap && caption && caption.length) {
+        if (current.pos !== self.currPos) {
+          $clone = $caption.clone().appendTo($caption.parent());
+          $clone.children().eq(0).empty().html(caption);
+          captionH = $clone.outerHeight(true);
+          $clone.empty().remove();
+        } else if (self.$caption) {
+          captionH = self.$caption.outerHeight(true);
+        }
+
+        current.$slide.css("padding-bottom", captionH || "");
+      }
+    },
+    // Simple hack to fix inconsistency across browsers, described here (affects Edge, too):
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=748518
+    // ====================================================================================
+    adjustLayout: function adjustLayout(slide) {
+      var self = this,
+          current = slide || self.current,
+          scrollHeight,
+          marginBottom,
+          inlinePadding,
+          actualPadding;
+
+      if (current.isLoaded && current.opts.disableLayoutFix !== true) {
+        current.$content.css("margin-bottom", ""); // If we would always set margin-bottom for the content,
+        // then it would potentially break vertical align
+
+        if (current.$content.outerHeight() > current.$slide.height() + 0.5) {
+          inlinePadding = current.$slide[0].style["padding-bottom"];
+          actualPadding = current.$slide.css("padding-bottom");
+
+          if (parseFloat(actualPadding) > 0) {
+            scrollHeight = current.$slide[0].scrollHeight;
+            current.$slide.css("padding-bottom", 0);
+
+            if (Math.abs(scrollHeight - current.$slide[0].scrollHeight) < 1) {
+              marginBottom = actualPadding;
+            }
+
+            current.$slide.css("padding-bottom", inlinePadding);
+          }
+        }
+
+        current.$content.css("margin-bottom", marginBottom);
+      }
+    },
+    // Make content visible
+    // This method is called right after content has been loaded or
+    // user navigates gallery and transition should start
+    // ============================================================
+    revealContent: function revealContent(slide) {
+      var self = this,
+          $slide = slide.$slide,
+          end = false,
+          start = false,
+          isMoved = self.isMoved(slide),
+          isRevealed = slide.isRevealed,
+          effect,
+          effectClassName,
+          duration,
+          opacity;
+      slide.isRevealed = true;
+      effect = slide.opts[self.firstRun ? "animationEffect" : "transitionEffect"];
+      duration = slide.opts[self.firstRun ? "animationDuration" : "transitionDuration"];
+      duration = parseInt(slide.forcedDuration === undefined ? duration : slide.forcedDuration, 10);
+
+      if (isMoved || slide.pos !== self.currPos || !duration) {
+        effect = false;
+      } // Check if can zoom
+
+
+      if (effect === "zoom") {
+        if (slide.pos === self.currPos && duration && slide.type === "image" && !slide.hasError && (start = self.getThumbPos(slide))) {
+          end = self.getFitPos(slide);
+        } else {
+          effect = "fade";
+        }
+      } // Zoom animation
+      // ==============
+
+
+      if (effect === "zoom") {
+        self.isAnimating = true;
+        end.scaleX = end.width / start.width;
+        end.scaleY = end.height / start.height; // Check if we need to animate opacity
+
+        opacity = slide.opts.zoomOpacity;
+
+        if (opacity == "auto") {
+          opacity = Math.abs(slide.width / slide.height - start.width / start.height) > 0.1;
+        }
+
+        if (opacity) {
+          start.opacity = 0.1;
+          end.opacity = 1;
+        } // Draw image at start position
+
+
+        $.fancybox.setTranslate(slide.$content.removeClass("fancybox-is-hidden"), start);
+        forceRedraw(slide.$content); // Start animation
+
+        $.fancybox.animate(slide.$content, end, duration, function () {
+          self.isAnimating = false;
+          self.complete();
+        });
+        return;
+      }
+
+      self.updateSlide(slide); // Simply show content if no effect
+      // ================================
+
+      if (!effect) {
+        slide.$content.removeClass("fancybox-is-hidden");
+
+        if (!isRevealed && isMoved && slide.type === "image" && !slide.hasError) {
+          slide.$content.hide().fadeIn("fast");
+        }
+
+        if (slide.pos === self.currPos) {
+          self.complete();
+        }
+
+        return;
+      } // Prepare for CSS transiton
+      // =========================
+
+
+      $.fancybox.stop($slide); //effectClassName = "fancybox-animated fancybox-slide--" + (slide.pos >= self.prevPos ? "next" : "previous") + " fancybox-fx-" + effect;
+
+      effectClassName = "fancybox-slide--" + (slide.pos >= self.prevPos ? "next" : "previous") + " fancybox-animated fancybox-fx-" + effect;
+      $slide.addClass(effectClassName).removeClass("fancybox-slide--current"); //.addClass(effectClassName);
+
+      slide.$content.removeClass("fancybox-is-hidden"); // Force reflow
+
+      forceRedraw($slide);
+
+      if (slide.type !== "image") {
+        slide.$content.hide().show(0);
+      }
+
+      $.fancybox.animate($slide, "fancybox-slide--current", duration, function () {
+        $slide.removeClass(effectClassName).css({
+          transform: "",
+          opacity: ""
+        });
+
+        if (slide.pos === self.currPos) {
+          self.complete();
+        }
+      }, true);
+    },
+    // Check if we can and have to zoom from thumbnail
+    //================================================
+    getThumbPos: function getThumbPos(slide) {
+      var rez = false,
+          $thumb = slide.$thumb,
+          thumbPos,
+          btw,
+          brw,
+          bbw,
+          blw;
+
+      if (!$thumb || !inViewport($thumb[0])) {
+        return false;
+      }
+
+      thumbPos = $.fancybox.getTranslate($thumb);
+      btw = parseFloat($thumb.css("border-top-width") || 0);
+      brw = parseFloat($thumb.css("border-right-width") || 0);
+      bbw = parseFloat($thumb.css("border-bottom-width") || 0);
+      blw = parseFloat($thumb.css("border-left-width") || 0);
+      rez = {
+        top: thumbPos.top + btw,
+        left: thumbPos.left + blw,
+        width: thumbPos.width - brw - blw,
+        height: thumbPos.height - btw - bbw,
+        scaleX: 1,
+        scaleY: 1
+      };
+      return thumbPos.width > 0 && thumbPos.height > 0 ? rez : false;
+    },
+    // Final adjustments after current gallery item is moved to position
+    // and it`s content is loaded
+    // ==================================================================
+    complete: function complete() {
+      var self = this,
+          current = self.current,
+          slides = {},
+          $el;
+
+      if (self.isMoved() || !current.isLoaded) {
+        return;
+      }
+
+      if (!current.isComplete) {
+        current.isComplete = true;
+        current.$slide.siblings().trigger("onReset");
+        self.preload("inline"); // Trigger any CSS transiton inside the slide
+
+        forceRedraw(current.$slide);
+        current.$slide.addClass("fancybox-slide--complete"); // Remove unnecessary slides
+
+        $.each(self.slides, function (key, slide) {
+          if (slide.pos >= self.currPos - 1 && slide.pos <= self.currPos + 1) {
+            slides[slide.pos] = slide;
+          } else if (slide) {
+            $.fancybox.stop(slide.$slide);
+            slide.$slide.off().remove();
+          }
+        });
+        self.slides = slides;
+      }
+
+      self.isAnimating = false;
+      self.updateCursor();
+      self.trigger("afterShow"); // Autoplay first html5 video/audio
+
+      if (!!current.opts.video.autoStart) {
+        current.$slide.find("video,audio").filter(":visible:first").trigger("play").one("ended", function () {
+          if (Document.exitFullscreen) {
+            Document.exitFullscreen();
+          } else if (this.webkitExitFullscreen) {
+            this.webkitExitFullscreen();
+          }
+
+          self.next();
+        });
+      } // Try to focus on the first focusable element
+
+
+      if (current.opts.autoFocus && current.contentType === "html") {
+        // Look for the first input with autofocus attribute
+        $el = current.$content.find("input[autofocus]:enabled:visible:first");
+
+        if ($el.length) {
+          $el.trigger("focus");
+        } else {
+          self.focus(null, true);
+        }
+      } // Avoid jumping
+
+
+      current.$slide.scrollTop(0).scrollLeft(0);
+    },
+    // Preload next and previous slides
+    // ================================
+    preload: function preload(type) {
+      var self = this,
+          prev,
+          next;
+
+      if (self.group.length < 2) {
+        return;
+      }
+
+      next = self.slides[self.currPos + 1];
+      prev = self.slides[self.currPos - 1];
+
+      if (prev && prev.type === type) {
+        self.loadSlide(prev);
+      }
+
+      if (next && next.type === type) {
+        self.loadSlide(next);
+      }
+    },
+    // Try to find and focus on the first focusable element
+    // ====================================================
+    focus: function focus(e, firstRun) {
+      var self = this,
+          focusableStr = ["a[href]", "area[href]", 'input:not([disabled]):not([type="hidden"]):not([aria-hidden])', "select:not([disabled]):not([aria-hidden])", "textarea:not([disabled]):not([aria-hidden])", "button:not([disabled]):not([aria-hidden])", "iframe", "object", "embed", "video", "audio", "[contenteditable]", '[tabindex]:not([tabindex^="-"])'].join(","),
+          focusableItems,
+          focusedItemIndex;
+
+      if (self.isClosing) {
+        return;
+      }
+
+      if (e || !self.current || !self.current.isComplete) {
+        // Focus on any element inside fancybox
+        focusableItems = self.$refs.container.find("*:visible");
+      } else {
+        // Focus inside current slide
+        focusableItems = self.current.$slide.find("*:visible" + (firstRun ? ":not(.fancybox-close-small)" : ""));
+      }
+
+      focusableItems = focusableItems.filter(focusableStr).filter(function () {
+        return $(this).css("visibility") !== "hidden" && !$(this).hasClass("disabled");
+      });
+
+      if (focusableItems.length) {
+        focusedItemIndex = focusableItems.index(document.activeElement);
+
+        if (e && e.shiftKey) {
+          // Back tab
+          if (focusedItemIndex < 0 || focusedItemIndex == 0) {
+            e.preventDefault();
+            focusableItems.eq(focusableItems.length - 1).trigger("focus");
+          }
+        } else {
+          // Outside or Forward tab
+          if (focusedItemIndex < 0 || focusedItemIndex == focusableItems.length - 1) {
+            if (e) {
+              e.preventDefault();
+            }
+
+            focusableItems.eq(0).trigger("focus");
+          }
+        }
+      } else {
+        self.$refs.container.trigger("focus");
+      }
+    },
+    // Activates current instance - brings container to the front and enables keyboard,
+    // notifies other instances about deactivating
+    // =================================================================================
+    activate: function activate() {
+      var self = this; // Deactivate all instances
+
+      $(".fancybox-container").each(function () {
+        var instance = $(this).data("FancyBox"); // Skip self and closing instances
+
+        if (instance && instance.id !== self.id && !instance.isClosing) {
+          instance.trigger("onDeactivate");
+          instance.removeEvents();
+          instance.isVisible = false;
+        }
+      });
+      self.isVisible = true;
+
+      if (self.current || self.isIdle) {
+        self.update();
+        self.updateControls();
+      }
+
+      self.trigger("onActivate");
+      self.addEvents();
+    },
+    // Start closing procedure
+    // This will start "zoom-out" animation if needed and clean everything up afterwards
+    // =================================================================================
+    close: function close(e, d) {
+      var self = this,
+          current = self.current,
+          effect,
+          duration,
+          $content,
+          domRect,
+          opacity,
+          start,
+          end;
+
+      var done = function done() {
+        self.cleanUp(e);
+      };
+
+      if (self.isClosing) {
+        return false;
+      }
+
+      self.isClosing = true; // If beforeClose callback prevents closing, make sure content is centered
+
+      if (self.trigger("beforeClose", e) === false) {
+        self.isClosing = false;
+        requestAFrame(function () {
+          self.update();
+        });
+        return false;
+      } // Remove all events
+      // If there are multiple instances, they will be set again by "activate" method
+
+
+      self.removeEvents();
+      $content = current.$content;
+      effect = current.opts.animationEffect;
+      duration = $.isNumeric(d) ? d : effect ? current.opts.animationDuration : 0;
+      current.$slide.removeClass("fancybox-slide--complete fancybox-slide--next fancybox-slide--previous fancybox-animated");
+
+      if (e !== true) {
+        $.fancybox.stop(current.$slide);
+      } else {
+        effect = false;
+      } // Remove other slides
+
+
+      current.$slide.siblings().trigger("onReset").remove(); // Trigger animations
+
+      if (duration) {
+        self.$refs.container.removeClass("fancybox-is-open").addClass("fancybox-is-closing").css("transition-duration", duration + "ms");
+      } // Clean up
+
+
+      self.hideLoading(current);
+      self.hideControls(true);
+      self.updateCursor(); // Check if possible to zoom-out
+
+      if (effect === "zoom" && !($content && duration && current.type === "image" && !self.isMoved() && !current.hasError && (end = self.getThumbPos(current)))) {
+        effect = "fade";
+      }
+
+      if (effect === "zoom") {
+        $.fancybox.stop($content);
+        domRect = $.fancybox.getTranslate($content);
+        start = {
+          top: domRect.top,
+          left: domRect.left,
+          scaleX: domRect.width / end.width,
+          scaleY: domRect.height / end.height,
+          width: end.width,
+          height: end.height
+        }; // Check if we need to animate opacity
+
+        opacity = current.opts.zoomOpacity;
+
+        if (opacity == "auto") {
+          opacity = Math.abs(current.width / current.height - end.width / end.height) > 0.1;
+        }
+
+        if (opacity) {
+          end.opacity = 0;
+        }
+
+        $.fancybox.setTranslate($content, start);
+        forceRedraw($content);
+        $.fancybox.animate($content, end, duration, done);
+        return true;
+      }
+
+      if (effect && duration) {
+        $.fancybox.animate(current.$slide.addClass("fancybox-slide--previous").removeClass("fancybox-slide--current"), "fancybox-animated fancybox-fx-" + effect, duration, done);
+      } else {
+        // If skip animation
+        if (e === true) {
+          setTimeout(done, duration);
+        } else {
+          done();
+        }
+      }
+
+      return true;
+    },
+    // Final adjustments after removing the instance
+    // =============================================
+    cleanUp: function cleanUp(e) {
+      var self = this,
+          instance,
+          $focus = self.current.opts.$orig,
+          x,
+          y;
+      self.current.$slide.trigger("onReset");
+      self.$refs.container.empty().remove();
+      self.trigger("afterClose", e); // Place back focus
+
+      if (!!self.current.opts.backFocus) {
+        if (!$focus || !$focus.length || !$focus.is(":visible")) {
+          $focus = self.$trigger;
+        }
+
+        if ($focus && $focus.length) {
+          x = window.scrollX;
+          y = window.scrollY;
+          $focus.trigger("focus");
+          $("html, body").scrollTop(y).scrollLeft(x);
+        }
+      }
+
+      self.current = null; // Check if there are other instances
+
+      instance = $.fancybox.getInstance();
+
+      if (instance) {
+        instance.activate();
+      } else {
+        $("body").removeClass("fancybox-active compensate-for-scrollbar");
+        $("#fancybox-style-noscroll").remove();
+      }
+    },
+    // Call callback and trigger an event
+    // ==================================
+    trigger: function trigger(name, slide) {
+      var args = Array.prototype.slice.call(arguments, 1),
+          self = this,
+          obj = slide && slide.opts ? slide : self.current,
+          rez;
+
+      if (obj) {
+        args.unshift(obj);
+      } else {
+        obj = self;
+      }
+
+      args.unshift(self);
+
+      if ($.isFunction(obj.opts[name])) {
+        rez = obj.opts[name].apply(obj, args);
+      }
+
+      if (rez === false) {
+        return rez;
+      }
+
+      if (name === "afterClose" || !self.$refs) {
+        $D.trigger(name + ".fb", args);
+      } else {
+        self.$refs.container.trigger(name + ".fb", args);
+      }
+    },
+    // Update infobar values, navigation button states and reveal caption
+    // ==================================================================
+    updateControls: function updateControls() {
+      var self = this,
+          current = self.current,
+          index = current.index,
+          $container = self.$refs.container,
+          $caption = self.$refs.caption,
+          caption = current.opts.caption; // Recalculate content dimensions
+
+      current.$slide.trigger("refresh"); // Set caption
+
+      if (caption && caption.length) {
+        self.$caption = $caption;
+        $caption.children().eq(0).html(caption);
+      } else {
+        self.$caption = null;
+      }
+
+      if (!self.hasHiddenControls && !self.isIdle) {
+        self.showControls();
+      } // Update info and navigation elements
+
+
+      $container.find("[data-fancybox-count]").html(self.group.length);
+      $container.find("[data-fancybox-index]").html(index + 1);
+      $container.find("[data-fancybox-prev]").prop("disabled", !current.opts.loop && index <= 0);
+      $container.find("[data-fancybox-next]").prop("disabled", !current.opts.loop && index >= self.group.length - 1);
+
+      if (current.type === "image") {
+        // Re-enable buttons; update download button source
+        $container.find("[data-fancybox-zoom]").show().end().find("[data-fancybox-download]").attr("href", current.opts.image.src || current.src).show();
+      } else if (current.opts.toolbar) {
+        $container.find("[data-fancybox-download],[data-fancybox-zoom]").hide();
+      } // Make sure focus is not on disabled button/element
+
+
+      if ($(document.activeElement).is(":hidden,[disabled]")) {
+        self.$refs.container.trigger("focus");
+      }
+    },
+    // Hide toolbar and caption
+    // ========================
+    hideControls: function hideControls(andCaption) {
+      var self = this,
+          arr = ["infobar", "toolbar", "nav"];
+
+      if (andCaption || !self.current.opts.preventCaptionOverlap) {
+        arr.push("caption");
+      }
+
+      this.$refs.container.removeClass(arr.map(function (i) {
+        return "fancybox-show-" + i;
+      }).join(" "));
+      this.hasHiddenControls = true;
+    },
+    showControls: function showControls() {
+      var self = this,
+          opts = self.current ? self.current.opts : self.opts,
+          $container = self.$refs.container;
+      self.hasHiddenControls = false;
+      self.idleSecondsCounter = 0;
+      $container.toggleClass("fancybox-show-toolbar", !!(opts.toolbar && opts.buttons)).toggleClass("fancybox-show-infobar", !!(opts.infobar && self.group.length > 1)).toggleClass("fancybox-show-caption", !!self.$caption).toggleClass("fancybox-show-nav", !!(opts.arrows && self.group.length > 1)).toggleClass("fancybox-is-modal", !!opts.modal);
+    },
+    // Toggle toolbar and caption
+    // ==========================
+    toggleControls: function toggleControls() {
+      if (this.hasHiddenControls) {
+        this.showControls();
+      } else {
+        this.hideControls();
+      }
+    }
+  });
+  $.fancybox = {
+    version: "3.5.7",
+    defaults: defaults,
+    // Get current instance and execute a command.
+    //
+    // Examples of usage:
+    //
+    //   $instance = $.fancybox.getInstance();
+    //   $.fancybox.getInstance().jumpTo( 1 );
+    //   $.fancybox.getInstance( 'jumpTo', 1 );
+    //   $.fancybox.getInstance( function() {
+    //       console.info( this.currIndex );
+    //   });
+    // ======================================================
+    getInstance: function getInstance(command) {
+      var instance = $('.fancybox-container:not(".fancybox-is-closing"):last').data("FancyBox"),
+          args = Array.prototype.slice.call(arguments, 1);
+
+      if (instance instanceof FancyBox) {
+        if ($.type(command) === "string") {
+          instance[command].apply(instance, args);
+        } else if ($.type(command) === "function") {
+          command.apply(instance, args);
+        }
+
+        return instance;
+      }
+
+      return false;
+    },
+    // Create new instance
+    // ===================
+    open: function open(items, opts, index) {
+      return new FancyBox(items, opts, index);
+    },
+    // Close current or all instances
+    // ==============================
+    close: function close(all) {
+      var instance = this.getInstance();
+
+      if (instance) {
+        instance.close(); // Try to find and close next instance
+
+        if (all === true) {
+          this.close(all);
+        }
+      }
+    },
+    // Close all instances and unbind all events
+    // =========================================
+    destroy: function destroy() {
+      this.close(true);
+      $D.add("body").off("click.fb-start", "**");
+    },
+    // Try to detect mobile devices
+    // ============================
+    isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+    // Detect if 'translate3d' support is available
+    // ============================================
+    use3d: function () {
+      var div = document.createElement("div");
+      return window.getComputedStyle && window.getComputedStyle(div) && window.getComputedStyle(div).getPropertyValue("transform") && !(document.documentMode && document.documentMode < 11);
+    }(),
+    // Helper function to get current visual state of an element
+    // returns array[ top, left, horizontal-scale, vertical-scale, opacity ]
+    // =====================================================================
+    getTranslate: function getTranslate($el) {
+      var domRect;
+
+      if (!$el || !$el.length) {
+        return false;
+      }
+
+      domRect = $el[0].getBoundingClientRect();
+      return {
+        top: domRect.top || 0,
+        left: domRect.left || 0,
+        width: domRect.width,
+        height: domRect.height,
+        opacity: parseFloat($el.css("opacity"))
+      };
+    },
+    // Shortcut for setting "translate3d" properties for element
+    // Can set be used to set opacity, too
+    // ========================================================
+    setTranslate: function setTranslate($el, props) {
+      var str = "",
+          css = {};
+
+      if (!$el || !props) {
+        return;
+      }
+
+      if (props.left !== undefined || props.top !== undefined) {
+        str = (props.left === undefined ? $el.position().left : props.left) + "px, " + (props.top === undefined ? $el.position().top : props.top) + "px";
+
+        if (this.use3d) {
+          str = "translate3d(" + str + ", 0px)";
+        } else {
+          str = "translate(" + str + ")";
+        }
+      }
+
+      if (props.scaleX !== undefined && props.scaleY !== undefined) {
+        str += " scale(" + props.scaleX + ", " + props.scaleY + ")";
+      } else if (props.scaleX !== undefined) {
+        str += " scaleX(" + props.scaleX + ")";
+      }
+
+      if (str.length) {
+        css.transform = str;
+      }
+
+      if (props.opacity !== undefined) {
+        css.opacity = props.opacity;
+      }
+
+      if (props.width !== undefined) {
+        css.width = props.width;
+      }
+
+      if (props.height !== undefined) {
+        css.height = props.height;
+      }
+
+      return $el.css(css);
+    },
+    // Simple CSS transition handler
+    // =============================
+    animate: function animate($el, to, duration, callback, leaveAnimationName) {
+      var self = this,
+          from;
+
+      if ($.isFunction(duration)) {
+        callback = duration;
+        duration = null;
+      }
+
+      self.stop($el);
+      from = self.getTranslate($el);
+      $el.on(transitionEnd, function (e) {
+        // Skip events from child elements and z-index change
+        if (e && e.originalEvent && (!$el.is(e.originalEvent.target) || e.originalEvent.propertyName == "z-index")) {
+          return;
+        }
+
+        self.stop($el);
+
+        if ($.isNumeric(duration)) {
+          $el.css("transition-duration", "");
+        }
+
+        if ($.isPlainObject(to)) {
+          if (to.scaleX !== undefined && to.scaleY !== undefined) {
+            self.setTranslate($el, {
+              top: to.top,
+              left: to.left,
+              width: from.width * to.scaleX,
+              height: from.height * to.scaleY,
+              scaleX: 1,
+              scaleY: 1
+            });
+          }
+        } else if (leaveAnimationName !== true) {
+          $el.removeClass(to);
+        }
+
+        if ($.isFunction(callback)) {
+          callback(e);
+        }
+      });
+
+      if ($.isNumeric(duration)) {
+        $el.css("transition-duration", duration + "ms");
+      } // Start animation by changing CSS properties or class name
+
+
+      if ($.isPlainObject(to)) {
+        if (to.scaleX !== undefined && to.scaleY !== undefined) {
+          delete to.width;
+          delete to.height;
+
+          if ($el.parent().hasClass("fancybox-slide--image")) {
+            $el.parent().addClass("fancybox-is-scaling");
+          }
+        }
+
+        $.fancybox.setTranslate($el, to);
+      } else {
+        $el.addClass(to);
+      } // Make sure that `transitionend` callback gets fired
+
+
+      $el.data("timer", setTimeout(function () {
+        $el.trigger(transitionEnd);
+      }, duration + 33));
+    },
+    stop: function stop($el, callCallback) {
+      if ($el && $el.length) {
+        clearTimeout($el.data("timer"));
+
+        if (callCallback) {
+          $el.trigger(transitionEnd);
+        }
+
+        $el.off(transitionEnd).css("transition-duration", "");
+        $el.parent().removeClass("fancybox-is-scaling");
+      }
+    }
+  }; // Default click handler for "fancyboxed" links
+  // ============================================
+
+  function _run(e, opts) {
+    var items = [],
+        index = 0,
+        $target,
+        value,
+        instance; // Avoid opening multiple times
+
+    if (e && e.isDefaultPrevented()) {
+      return;
+    }
+
+    e.preventDefault();
+    opts = opts || {};
+
+    if (e && e.data) {
+      opts = mergeOpts(e.data.options, opts);
+    }
+
+    $target = opts.$target || $(e.currentTarget).trigger("blur");
+    instance = $.fancybox.getInstance();
+
+    if (instance && instance.$trigger && instance.$trigger.is($target)) {
+      return;
+    }
+
+    if (opts.selector) {
+      items = $(opts.selector);
+    } else {
+      // Get all related items and find index for clicked one
+      value = $target.attr("data-fancybox") || "";
+
+      if (value) {
+        items = e.data ? e.data.items : [];
+        items = items.length ? items.filter('[data-fancybox="' + value + '"]') : $('[data-fancybox="' + value + '"]');
+      } else {
+        items = [$target];
+      }
+    }
+
+    index = $(items).index($target); // Sometimes current item can not be found
+
+    if (index < 0) {
+      index = 0;
+    }
+
+    instance = $.fancybox.open(items, opts, index); // Save last active element
+
+    instance.$trigger = $target;
+  } // Create a jQuery plugin
+  // ======================
+
+
+  $.fn.fancybox = function (options) {
+    var selector;
+    options = options || {};
+    selector = options.selector || false;
+
+    if (selector) {
+      // Use body element instead of document so it executes first
+      $("body").off("click.fb-start", selector).on("click.fb-start", selector, {
+        options: options
+      }, _run);
+    } else {
+      this.off("click.fb-start").on("click.fb-start", {
+        items: this,
+        options: options
+      }, _run);
+    }
+
+    return this;
+  }; // Self initializing plugin for all elements having `data-fancybox` attribute
+  // ==========================================================================
+
+
+  $D.on("click.fb-start", "[data-fancybox]", _run); // Enable "trigger elements"
+  // =========================
+
+  $D.on("click.fb-start", "[data-fancybox-trigger]", function (e) {
+    $('[data-fancybox="' + $(this).attr("data-fancybox-trigger") + '"]').eq($(this).attr("data-fancybox-index") || 0).trigger("click.fb-start", {
+      $trigger: $(this)
+    });
+  }); // Track focus event for better accessibility styling
+  // ==================================================
+
+  (function () {
+    var buttonStr = ".fancybox-button",
+        focusStr = "fancybox-focus",
+        $pressed = null;
+    $D.on("mousedown mouseup focus blur", buttonStr, function (e) {
+      switch (e.type) {
+        case "mousedown":
+          $pressed = $(this);
+          break;
+
+        case "mouseup":
+          $pressed = null;
+          break;
+
+        case "focusin":
+          $(buttonStr).removeClass(focusStr);
+
+          if (!$(this).is($pressed) && !$(this).is("[disabled]")) {
+            $(this).addClass(focusStr);
+          }
+
+          break;
+
+        case "focusout":
+          $(buttonStr).removeClass(focusStr);
+          break;
+      }
+    });
+  })();
+})(window, document, jQuery); // ==========================================================================
+//
+// Media
+// Adds additional media type support
+//
+// ==========================================================================
+
+
+(function ($) {
+  "use strict"; // Object containing properties for each media type
+
+  var defaults = {
+    youtube: {
+      matcher: /(youtube\.com|youtu\.be|youtube\-nocookie\.com)\/(watch\?(.*&)?v=|v\/|u\/|embed\/?)?(videoseries\?list=(.*)|[\w-]{11}|\?listType=(.*)&list=(.*))(.*)/i,
+      params: {
+        autoplay: 1,
+        autohide: 1,
+        fs: 1,
+        rel: 0,
+        hd: 1,
+        wmode: "transparent",
+        enablejsapi: 1,
+        html5: 1
+      },
+      paramPlace: 8,
+      type: "iframe",
+      url: "https://www.youtube-nocookie.com/embed/$4",
+      thumb: "https://img.youtube.com/vi/$4/hqdefault.jpg"
+    },
+    vimeo: {
+      matcher: /^.+vimeo.com\/(.*\/)?([\d]+)(.*)?/,
+      params: {
+        autoplay: 1,
+        hd: 1,
+        show_title: 1,
+        show_byline: 1,
+        show_portrait: 0,
+        fullscreen: 1
+      },
+      paramPlace: 3,
+      type: "iframe",
+      url: "//player.vimeo.com/video/$2"
+    },
+    instagram: {
+      matcher: /(instagr\.am|instagram\.com)\/p\/([a-zA-Z0-9_\-]+)\/?/i,
+      type: "image",
+      url: "//$1/p/$2/media/?size=l"
+    },
+    // Examples:
+    // http://maps.google.com/?ll=48.857995,2.294297&spn=0.007666,0.021136&t=m&z=16
+    // https://www.google.com/maps/@37.7852006,-122.4146355,14.65z
+    // https://www.google.com/maps/@52.2111123,2.9237542,6.61z?hl=en
+    // https://www.google.com/maps/place/Googleplex/@37.4220041,-122.0833494,17z/data=!4m5!3m4!1s0x0:0x6c296c66619367e0!8m2!3d37.4219998!4d-122.0840572
+    gmap_place: {
+      matcher: /(maps\.)?google\.([a-z]{2,3}(\.[a-z]{2})?)\/(((maps\/(place\/(.*)\/)?\@(.*),(\d+.?\d+?)z))|(\?ll=))(.*)?/i,
+      type: "iframe",
+      url: function url(rez) {
+        return "//maps.google." + rez[2] + "/?ll=" + (rez[9] ? rez[9] + "&z=" + Math.floor(rez[10]) + (rez[12] ? rez[12].replace(/^\//, "&") : "") : rez[12] + "").replace(/\?/, "&") + "&output=" + (rez[12] && rez[12].indexOf("layer=c") > 0 ? "svembed" : "embed");
+      }
+    },
+    // Examples:
+    // https://www.google.com/maps/search/Empire+State+Building/
+    // https://www.google.com/maps/search/?api=1&query=centurylink+field
+    // https://www.google.com/maps/search/?api=1&query=47.5951518,-122.3316393
+    gmap_search: {
+      matcher: /(maps\.)?google\.([a-z]{2,3}(\.[a-z]{2})?)\/(maps\/search\/)(.*)/i,
+      type: "iframe",
+      url: function url(rez) {
+        return "//maps.google." + rez[2] + "/maps?q=" + rez[5].replace("query=", "q=").replace("api=1", "") + "&output=embed";
+      }
+    }
+  }; // Formats matching url to final form
+
+  var format = function format(url, rez, params) {
+    if (!url) {
+      return;
+    }
+
+    params = params || "";
+
+    if ($.type(params) === "object") {
+      params = $.param(params, true);
+    }
+
+    $.each(rez, function (key, value) {
+      url = url.replace("$" + key, value || "");
+    });
+
+    if (params.length) {
+      url += (url.indexOf("?") > 0 ? "&" : "?") + params;
+    }
+
+    return url;
+  };
+
+  $(document).on("objectNeedsType.fb", function (e, instance, item) {
+    var url = item.src || "",
+        type = false,
+        media,
+        thumb,
+        rez,
+        params,
+        urlParams,
+        paramObj,
+        provider;
+    media = $.extend(true, {}, defaults, item.opts.media); // Look for any matching media type
+
+    $.each(media, function (providerName, providerOpts) {
+      rez = url.match(providerOpts.matcher);
+
+      if (!rez) {
+        return;
+      }
+
+      type = providerOpts.type;
+      provider = providerName;
+      paramObj = {};
+
+      if (providerOpts.paramPlace && rez[providerOpts.paramPlace]) {
+        urlParams = rez[providerOpts.paramPlace];
+
+        if (urlParams[0] == "?") {
+          urlParams = urlParams.substring(1);
+        }
+
+        urlParams = urlParams.split("&");
+
+        for (var m = 0; m < urlParams.length; ++m) {
+          var p = urlParams[m].split("=", 2);
+
+          if (p.length == 2) {
+            paramObj[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+          }
+        }
+      }
+
+      params = $.extend(true, {}, providerOpts.params, item.opts[providerName], paramObj);
+      url = $.type(providerOpts.url) === "function" ? providerOpts.url.call(this, rez, params, item) : format(providerOpts.url, rez, params);
+      thumb = $.type(providerOpts.thumb) === "function" ? providerOpts.thumb.call(this, rez, params, item) : format(providerOpts.thumb, rez);
+
+      if (providerName === "youtube") {
+        url = url.replace(/&t=((\d+)m)?(\d+)s/, function (match, p1, m, s) {
+          return "&start=" + ((m ? parseInt(m, 10) * 60 : 0) + parseInt(s, 10));
+        });
+      } else if (providerName === "vimeo") {
+        url = url.replace("&%23", "#");
+      }
+
+      return false;
+    }); // If it is found, then change content type and update the url
+
+    if (type) {
+      if (!item.opts.thumb && !(item.opts.$thumb && item.opts.$thumb.length)) {
+        item.opts.thumb = thumb;
+      }
+
+      if (type === "iframe") {
+        item.opts = $.extend(true, item.opts, {
+          iframe: {
+            preload: false,
+            attr: {
+              scrolling: "no"
+            }
+          }
+        });
+      }
+
+      $.extend(item, {
+        type: type,
+        src: url,
+        origSrc: item.src,
+        contentSource: provider,
+        contentType: type === "image" ? "image" : provider == "gmap_place" || provider == "gmap_search" ? "map" : "video"
+      });
+    } else if (url) {
+      item.type = item.opts.defaultType;
+    }
+  }); // Load YouTube/Video API on request to detect when video finished playing
+
+  var VideoAPILoader = {
+    youtube: {
+      src: "https://www.youtube.com/iframe_api",
+      class: "YT",
+      loading: false,
+      loaded: false
+    },
+    vimeo: {
+      src: "https://player.vimeo.com/api/player.js",
+      class: "Vimeo",
+      loading: false,
+      loaded: false
+    },
+    load: function load(vendor) {
+      var _this = this,
+          script;
+
+      if (this[vendor].loaded) {
+        setTimeout(function () {
+          _this.done(vendor);
+        });
+        return;
+      }
+
+      if (this[vendor].loading) {
+        return;
+      }
+
+      this[vendor].loading = true;
+      script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = this[vendor].src;
+
+      if (vendor === "youtube") {
+        window.onYouTubeIframeAPIReady = function () {
+          _this[vendor].loaded = true;
+
+          _this.done(vendor);
+        };
+      } else {
+        script.onload = function () {
+          _this[vendor].loaded = true;
+
+          _this.done(vendor);
+        };
+      }
+
+      document.body.appendChild(script);
+    },
+    done: function done(vendor) {
+      var instance, $el, player;
+
+      if (vendor === "youtube") {
+        delete window.onYouTubeIframeAPIReady;
+      }
+
+      instance = $.fancybox.getInstance();
+
+      if (instance) {
+        $el = instance.current.$content.find("iframe");
+
+        if (vendor === "youtube" && YT !== undefined && YT) {
+          player = new YT.Player($el.attr("id"), {
+            events: {
+              onStateChange: function onStateChange(e) {
+                if (e.data == 0) {
+                  instance.next();
+                }
+              }
+            }
+          });
+        } else if (vendor === "vimeo" && Vimeo !== undefined && Vimeo) {
+          player = new Vimeo.Player($el);
+          player.on("ended", function () {
+            instance.next();
+          });
+        }
+      }
+    }
+  };
+  $(document).on({
+    "afterShow.fb": function afterShowFb(e, instance, current) {
+      if (instance.group.length > 1 && (current.contentSource === "youtube" || current.contentSource === "vimeo")) {
+        VideoAPILoader.load(current.contentSource);
+      }
+    }
+  });
+})(jQuery); // ==========================================================================
+//
+// Guestures
+// Adds touch guestures, handles click and tap events
+//
+// ==========================================================================
+
+
+(function (window, document, $) {
+  "use strict";
+
+  var requestAFrame = function () {
+    return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || // if all else fails, use setTimeout
+    function (callback) {
+      return window.setTimeout(callback, 1000 / 60);
+    };
+  }();
+
+  var cancelAFrame = function () {
+    return window.cancelAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame || window.oCancelAnimationFrame || function (id) {
+      window.clearTimeout(id);
+    };
+  }();
+
+  var getPointerXY = function getPointerXY(e) {
+    var result = [];
+    e = e.originalEvent || e || window.e;
+    e = e.touches && e.touches.length ? e.touches : e.changedTouches && e.changedTouches.length ? e.changedTouches : [e];
+
+    for (var key in e) {
+      if (e[key].pageX) {
+        result.push({
+          x: e[key].pageX,
+          y: e[key].pageY
+        });
+      } else if (e[key].clientX) {
+        result.push({
+          x: e[key].clientX,
+          y: e[key].clientY
+        });
+      }
+    }
+
+    return result;
+  };
+
+  var distance = function distance(point2, point1, what) {
+    if (!point1 || !point2) {
+      return 0;
+    }
+
+    if (what === "x") {
+      return point2.x - point1.x;
+    } else if (what === "y") {
+      return point2.y - point1.y;
+    }
+
+    return Math.sqrt(Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2));
+  };
+
+  var isClickable = function isClickable($el) {
+    if ($el.is('a,area,button,[role="button"],input,label,select,summary,textarea,video,audio,iframe') || $.isFunction($el.get(0).onclick) || $el.data("selectable")) {
+      return true;
+    } // Check for attributes like data-fancybox-next or data-fancybox-close
+
+
+    for (var i = 0, atts = $el[0].attributes, n = atts.length; i < n; i++) {
+      if (atts[i].nodeName.substr(0, 14) === "data-fancybox-") {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  var hasScrollbars = function hasScrollbars(el) {
+    var overflowY = window.getComputedStyle(el)["overflow-y"],
+        overflowX = window.getComputedStyle(el)["overflow-x"],
+        vertical = (overflowY === "scroll" || overflowY === "auto") && el.scrollHeight > el.clientHeight,
+        horizontal = (overflowX === "scroll" || overflowX === "auto") && el.scrollWidth > el.clientWidth;
+    return vertical || horizontal;
+  };
+
+  var isScrollable = function isScrollable($el) {
+    var rez = false;
+
+    while (true) {
+      rez = hasScrollbars($el.get(0));
+
+      if (rez) {
+        break;
+      }
+
+      $el = $el.parent();
+
+      if (!$el.length || $el.hasClass("fancybox-stage") || $el.is("body")) {
+        break;
+      }
+    }
+
+    return rez;
+  };
+
+  var Guestures = function Guestures(instance) {
+    var self = this;
+    self.instance = instance;
+    self.$bg = instance.$refs.bg;
+    self.$stage = instance.$refs.stage;
+    self.$container = instance.$refs.container;
+    self.destroy();
+    self.$container.on("touchstart.fb.touch mousedown.fb.touch", $.proxy(self, "ontouchstart"));
+  };
+
+  Guestures.prototype.destroy = function () {
+    var self = this;
+    self.$container.off(".fb.touch");
+    $(document).off(".fb.touch");
+
+    if (self.requestId) {
+      cancelAFrame(self.requestId);
+      self.requestId = null;
+    }
+
+    if (self.tapped) {
+      clearTimeout(self.tapped);
+      self.tapped = null;
+    }
+  };
+
+  Guestures.prototype.ontouchstart = function (e) {
+    var self = this,
+        $target = $(e.target),
+        instance = self.instance,
+        current = instance.current,
+        $slide = current.$slide,
+        $content = current.$content,
+        isTouchDevice = e.type == "touchstart"; // Do not respond to both (touch and mouse) events
+
+    if (isTouchDevice) {
+      self.$container.off("mousedown.fb.touch");
+    } // Ignore right click
+
+
+    if (e.originalEvent && e.originalEvent.button == 2) {
+      return;
+    } // Ignore taping on links, buttons, input elements
+
+
+    if (!$slide.length || !$target.length || isClickable($target) || isClickable($target.parent())) {
+      return;
+    } // Ignore clicks on the scrollbar
+
+
+    if (!$target.is("img") && e.originalEvent.clientX > $target[0].clientWidth + $target.offset().left) {
+      return;
+    } // Ignore clicks while zooming or closing
+
+
+    if (!current || instance.isAnimating || current.$slide.hasClass("fancybox-animated")) {
+      e.stopPropagation();
+      e.preventDefault();
+      return;
+    }
+
+    self.realPoints = self.startPoints = getPointerXY(e);
+
+    if (!self.startPoints.length) {
+      return;
+    } // Allow other scripts to catch touch event if "touch" is set to false
+
+
+    if (current.touch) {
+      e.stopPropagation();
+    }
+
+    self.startEvent = e;
+    self.canTap = true;
+    self.$target = $target;
+    self.$content = $content;
+    self.opts = current.opts.touch;
+    self.isPanning = false;
+    self.isSwiping = false;
+    self.isZooming = false;
+    self.isScrolling = false;
+    self.canPan = instance.canPan();
+    self.startTime = new Date().getTime();
+    self.distanceX = self.distanceY = self.distance = 0;
+    self.canvasWidth = Math.round($slide[0].clientWidth);
+    self.canvasHeight = Math.round($slide[0].clientHeight);
+    self.contentLastPos = null;
+    self.contentStartPos = $.fancybox.getTranslate(self.$content) || {
+      top: 0,
+      left: 0
+    };
+    self.sliderStartPos = $.fancybox.getTranslate($slide); // Since position will be absolute, but we need to make it relative to the stage
+
+    self.stagePos = $.fancybox.getTranslate(instance.$refs.stage);
+    self.sliderStartPos.top -= self.stagePos.top;
+    self.sliderStartPos.left -= self.stagePos.left;
+    self.contentStartPos.top -= self.stagePos.top;
+    self.contentStartPos.left -= self.stagePos.left;
+    $(document).off(".fb.touch").on(isTouchDevice ? "touchend.fb.touch touchcancel.fb.touch" : "mouseup.fb.touch mouseleave.fb.touch", $.proxy(self, "ontouchend")).on(isTouchDevice ? "touchmove.fb.touch" : "mousemove.fb.touch", $.proxy(self, "ontouchmove"));
+
+    if ($.fancybox.isMobile) {
+      document.addEventListener("scroll", self.onscroll, true);
+    } // Skip if clicked outside the sliding area
+
+
+    if (!(self.opts || self.canPan) || !($target.is(self.$stage) || self.$stage.find($target).length)) {
+      if ($target.is(".fancybox-image")) {
+        e.preventDefault();
+      }
+
+      if (!($.fancybox.isMobile && $target.parents(".fancybox-caption").length)) {
+        return;
+      }
+    }
+
+    self.isScrollable = isScrollable($target) || isScrollable($target.parent()); // Check if element is scrollable and try to prevent default behavior (scrolling)
+
+    if (!($.fancybox.isMobile && self.isScrollable)) {
+      e.preventDefault();
+    } // One finger or mouse click - swipe or pan an image
+
+
+    if (self.startPoints.length === 1 || current.hasError) {
+      if (self.canPan) {
+        $.fancybox.stop(self.$content);
+        self.isPanning = true;
+      } else {
+        self.isSwiping = true;
+      }
+
+      self.$container.addClass("fancybox-is-grabbing");
+    } // Two fingers - zoom image
+
+
+    if (self.startPoints.length === 2 && current.type === "image" && (current.isLoaded || current.$ghost)) {
+      self.canTap = false;
+      self.isSwiping = false;
+      self.isPanning = false;
+      self.isZooming = true;
+      $.fancybox.stop(self.$content);
+      self.centerPointStartX = (self.startPoints[0].x + self.startPoints[1].x) * 0.5 - $(window).scrollLeft();
+      self.centerPointStartY = (self.startPoints[0].y + self.startPoints[1].y) * 0.5 - $(window).scrollTop();
+      self.percentageOfImageAtPinchPointX = (self.centerPointStartX - self.contentStartPos.left) / self.contentStartPos.width;
+      self.percentageOfImageAtPinchPointY = (self.centerPointStartY - self.contentStartPos.top) / self.contentStartPos.height;
+      self.startDistanceBetweenFingers = distance(self.startPoints[0], self.startPoints[1]);
+    }
+  };
+
+  Guestures.prototype.onscroll = function (e) {
+    var self = this;
+    self.isScrolling = true;
+    document.removeEventListener("scroll", self.onscroll, true);
+  };
+
+  Guestures.prototype.ontouchmove = function (e) {
+    var self = this; // Make sure user has not released over iframe or disabled element
+
+    if (e.originalEvent.buttons !== undefined && e.originalEvent.buttons === 0) {
+      self.ontouchend(e);
+      return;
+    }
+
+    if (self.isScrolling) {
+      self.canTap = false;
+      return;
+    }
+
+    self.newPoints = getPointerXY(e);
+
+    if (!(self.opts || self.canPan) || !self.newPoints.length || !self.newPoints.length) {
+      return;
+    }
+
+    if (!(self.isSwiping && self.isSwiping === true)) {
+      e.preventDefault();
+    }
+
+    self.distanceX = distance(self.newPoints[0], self.startPoints[0], "x");
+    self.distanceY = distance(self.newPoints[0], self.startPoints[0], "y");
+    self.distance = distance(self.newPoints[0], self.startPoints[0]); // Skip false ontouchmove events (Chrome)
+
+    if (self.distance > 0) {
+      if (self.isSwiping) {
+        self.onSwipe(e);
+      } else if (self.isPanning) {
+        self.onPan();
+      } else if (self.isZooming) {
+        self.onZoom();
+      }
+    }
+  };
+
+  Guestures.prototype.onSwipe = function (e) {
+    var self = this,
+        instance = self.instance,
+        swiping = self.isSwiping,
+        left = self.sliderStartPos.left || 0,
+        angle; // If direction is not yet determined
+
+    if (swiping === true) {
+      // We need at least 10px distance to correctly calculate an angle
+      if (Math.abs(self.distance) > 10) {
+        self.canTap = false;
+
+        if (instance.group.length < 2 && self.opts.vertical) {
+          self.isSwiping = "y";
+        } else if (instance.isDragging || self.opts.vertical === false || self.opts.vertical === "auto" && $(window).width() > 800) {
+          self.isSwiping = "x";
+        } else {
+          angle = Math.abs(Math.atan2(self.distanceY, self.distanceX) * 180 / Math.PI);
+          self.isSwiping = angle > 45 && angle < 135 ? "y" : "x";
+        }
+
+        if (self.isSwiping === "y" && $.fancybox.isMobile && self.isScrollable) {
+          self.isScrolling = true;
+          return;
+        }
+
+        instance.isDragging = self.isSwiping; // Reset points to avoid jumping, because we dropped first swipes to calculate the angle
+
+        self.startPoints = self.newPoints;
+        $.each(instance.slides, function (index, slide) {
+          var slidePos, stagePos;
+          $.fancybox.stop(slide.$slide);
+          slidePos = $.fancybox.getTranslate(slide.$slide);
+          stagePos = $.fancybox.getTranslate(instance.$refs.stage);
+          slide.$slide.css({
+            transform: "",
+            opacity: "",
+            "transition-duration": ""
+          }).removeClass("fancybox-animated").removeClass(function (index, className) {
+            return (className.match(/(^|\s)fancybox-fx-\S+/g) || []).join(" ");
+          });
+
+          if (slide.pos === instance.current.pos) {
+            self.sliderStartPos.top = slidePos.top - stagePos.top;
+            self.sliderStartPos.left = slidePos.left - stagePos.left;
+          }
+
+          $.fancybox.setTranslate(slide.$slide, {
+            top: slidePos.top - stagePos.top,
+            left: slidePos.left - stagePos.left
+          });
+        }); // Stop slideshow
+
+        if (instance.SlideShow && instance.SlideShow.isActive) {
+          instance.SlideShow.stop();
+        }
+      }
+
+      return;
+    } // Sticky edges
+
+
+    if (swiping == "x") {
+      if (self.distanceX > 0 && (self.instance.group.length < 2 || self.instance.current.index === 0 && !self.instance.current.opts.loop)) {
+        left = left + Math.pow(self.distanceX, 0.8);
+      } else if (self.distanceX < 0 && (self.instance.group.length < 2 || self.instance.current.index === self.instance.group.length - 1 && !self.instance.current.opts.loop)) {
+        left = left - Math.pow(-self.distanceX, 0.8);
+      } else {
+        left = left + self.distanceX;
+      }
+    }
+
+    self.sliderLastPos = {
+      top: swiping == "x" ? 0 : self.sliderStartPos.top + self.distanceY,
+      left: left
+    };
+
+    if (self.requestId) {
+      cancelAFrame(self.requestId);
+      self.requestId = null;
+    }
+
+    self.requestId = requestAFrame(function () {
+      if (self.sliderLastPos) {
+        $.each(self.instance.slides, function (index, slide) {
+          var pos = slide.pos - self.instance.currPos;
+          $.fancybox.setTranslate(slide.$slide, {
+            top: self.sliderLastPos.top,
+            left: self.sliderLastPos.left + pos * self.canvasWidth + pos * slide.opts.gutter
+          });
+        });
+        self.$container.addClass("fancybox-is-sliding");
+      }
+    });
+  };
+
+  Guestures.prototype.onPan = function () {
+    var self = this; // Prevent accidental movement (sometimes, when tapping casually, finger can move a bit)
+
+    if (distance(self.newPoints[0], self.realPoints[0]) < ($.fancybox.isMobile ? 10 : 5)) {
+      self.startPoints = self.newPoints;
+      return;
+    }
+
+    self.canTap = false;
+    self.contentLastPos = self.limitMovement();
+
+    if (self.requestId) {
+      cancelAFrame(self.requestId);
+    }
+
+    self.requestId = requestAFrame(function () {
+      $.fancybox.setTranslate(self.$content, self.contentLastPos);
+    });
+  }; // Make panning sticky to the edges
+
+
+  Guestures.prototype.limitMovement = function () {
+    var self = this;
+    var canvasWidth = self.canvasWidth;
+    var canvasHeight = self.canvasHeight;
+    var distanceX = self.distanceX;
+    var distanceY = self.distanceY;
+    var contentStartPos = self.contentStartPos;
+    var currentOffsetX = contentStartPos.left;
+    var currentOffsetY = contentStartPos.top;
+    var currentWidth = contentStartPos.width;
+    var currentHeight = contentStartPos.height;
+    var minTranslateX, minTranslateY, maxTranslateX, maxTranslateY, newOffsetX, newOffsetY;
+
+    if (currentWidth > canvasWidth) {
+      newOffsetX = currentOffsetX + distanceX;
+    } else {
+      newOffsetX = currentOffsetX;
+    }
+
+    newOffsetY = currentOffsetY + distanceY; // Slow down proportionally to traveled distance
+
+    minTranslateX = Math.max(0, canvasWidth * 0.5 - currentWidth * 0.5);
+    minTranslateY = Math.max(0, canvasHeight * 0.5 - currentHeight * 0.5);
+    maxTranslateX = Math.min(canvasWidth - currentWidth, canvasWidth * 0.5 - currentWidth * 0.5);
+    maxTranslateY = Math.min(canvasHeight - currentHeight, canvasHeight * 0.5 - currentHeight * 0.5); //   ->
+
+    if (distanceX > 0 && newOffsetX > minTranslateX) {
+      newOffsetX = minTranslateX - 1 + Math.pow(-minTranslateX + currentOffsetX + distanceX, 0.8) || 0;
+    } //    <-
+
+
+    if (distanceX < 0 && newOffsetX < maxTranslateX) {
+      newOffsetX = maxTranslateX + 1 - Math.pow(maxTranslateX - currentOffsetX - distanceX, 0.8) || 0;
+    } //   \/
+
+
+    if (distanceY > 0 && newOffsetY > minTranslateY) {
+      newOffsetY = minTranslateY - 1 + Math.pow(-minTranslateY + currentOffsetY + distanceY, 0.8) || 0;
+    } //   /\
+
+
+    if (distanceY < 0 && newOffsetY < maxTranslateY) {
+      newOffsetY = maxTranslateY + 1 - Math.pow(maxTranslateY - currentOffsetY - distanceY, 0.8) || 0;
+    }
+
+    return {
+      top: newOffsetY,
+      left: newOffsetX
+    };
+  };
+
+  Guestures.prototype.limitPosition = function (newOffsetX, newOffsetY, newWidth, newHeight) {
+    var self = this;
+    var canvasWidth = self.canvasWidth;
+    var canvasHeight = self.canvasHeight;
+
+    if (newWidth > canvasWidth) {
+      newOffsetX = newOffsetX > 0 ? 0 : newOffsetX;
+      newOffsetX = newOffsetX < canvasWidth - newWidth ? canvasWidth - newWidth : newOffsetX;
+    } else {
+      // Center horizontally
+      newOffsetX = Math.max(0, canvasWidth / 2 - newWidth / 2);
+    }
+
+    if (newHeight > canvasHeight) {
+      newOffsetY = newOffsetY > 0 ? 0 : newOffsetY;
+      newOffsetY = newOffsetY < canvasHeight - newHeight ? canvasHeight - newHeight : newOffsetY;
+    } else {
+      // Center vertically
+      newOffsetY = Math.max(0, canvasHeight / 2 - newHeight / 2);
+    }
+
+    return {
+      top: newOffsetY,
+      left: newOffsetX
+    };
+  };
+
+  Guestures.prototype.onZoom = function () {
+    var self = this; // Calculate current distance between points to get pinch ratio and new width and height
+
+    var contentStartPos = self.contentStartPos;
+    var currentWidth = contentStartPos.width;
+    var currentHeight = contentStartPos.height;
+    var currentOffsetX = contentStartPos.left;
+    var currentOffsetY = contentStartPos.top;
+    var endDistanceBetweenFingers = distance(self.newPoints[0], self.newPoints[1]);
+    var pinchRatio = endDistanceBetweenFingers / self.startDistanceBetweenFingers;
+    var newWidth = Math.floor(currentWidth * pinchRatio);
+    var newHeight = Math.floor(currentHeight * pinchRatio); // This is the translation due to pinch-zooming
+
+    var translateFromZoomingX = (currentWidth - newWidth) * self.percentageOfImageAtPinchPointX;
+    var translateFromZoomingY = (currentHeight - newHeight) * self.percentageOfImageAtPinchPointY; // Point between the two touches
+
+    var centerPointEndX = (self.newPoints[0].x + self.newPoints[1].x) / 2 - $(window).scrollLeft();
+    var centerPointEndY = (self.newPoints[0].y + self.newPoints[1].y) / 2 - $(window).scrollTop(); // And this is the translation due to translation of the centerpoint
+    // between the two fingers
+
+    var translateFromTranslatingX = centerPointEndX - self.centerPointStartX;
+    var translateFromTranslatingY = centerPointEndY - self.centerPointStartY; // The new offset is the old/current one plus the total translation
+
+    var newOffsetX = currentOffsetX + (translateFromZoomingX + translateFromTranslatingX);
+    var newOffsetY = currentOffsetY + (translateFromZoomingY + translateFromTranslatingY);
+    var newPos = {
+      top: newOffsetY,
+      left: newOffsetX,
+      scaleX: pinchRatio,
+      scaleY: pinchRatio
+    };
+    self.canTap = false;
+    self.newWidth = newWidth;
+    self.newHeight = newHeight;
+    self.contentLastPos = newPos;
+
+    if (self.requestId) {
+      cancelAFrame(self.requestId);
+    }
+
+    self.requestId = requestAFrame(function () {
+      $.fancybox.setTranslate(self.$content, self.contentLastPos);
+    });
+  };
+
+  Guestures.prototype.ontouchend = function (e) {
+    var self = this;
+    var swiping = self.isSwiping;
+    var panning = self.isPanning;
+    var zooming = self.isZooming;
+    var scrolling = self.isScrolling;
+    self.endPoints = getPointerXY(e);
+    self.dMs = Math.max(new Date().getTime() - self.startTime, 1);
+    self.$container.removeClass("fancybox-is-grabbing");
+    $(document).off(".fb.touch");
+    document.removeEventListener("scroll", self.onscroll, true);
+
+    if (self.requestId) {
+      cancelAFrame(self.requestId);
+      self.requestId = null;
+    }
+
+    self.isSwiping = false;
+    self.isPanning = false;
+    self.isZooming = false;
+    self.isScrolling = false;
+    self.instance.isDragging = false;
+
+    if (self.canTap) {
+      return self.onTap(e);
+    }
+
+    self.speed = 100; // Speed in px/ms
+
+    self.velocityX = self.distanceX / self.dMs * 0.5;
+    self.velocityY = self.distanceY / self.dMs * 0.5;
+
+    if (panning) {
+      self.endPanning();
+    } else if (zooming) {
+      self.endZooming();
+    } else {
+      self.endSwiping(swiping, scrolling);
+    }
+
+    return;
+  };
+
+  Guestures.prototype.endSwiping = function (swiping, scrolling) {
+    var self = this,
+        ret = false,
+        len = self.instance.group.length,
+        distanceX = Math.abs(self.distanceX),
+        canAdvance = swiping == "x" && len > 1 && (self.dMs > 130 && distanceX > 10 || distanceX > 50),
+        speedX = 300;
+    self.sliderLastPos = null; // Close if swiped vertically / navigate if horizontally
+
+    if (swiping == "y" && !scrolling && Math.abs(self.distanceY) > 50) {
+      // Continue vertical movement
+      $.fancybox.animate(self.instance.current.$slide, {
+        top: self.sliderStartPos.top + self.distanceY + self.velocityY * 150,
+        opacity: 0
+      }, 200);
+      ret = self.instance.close(true, 250);
+    } else if (canAdvance && self.distanceX > 0) {
+      ret = self.instance.previous(speedX);
+    } else if (canAdvance && self.distanceX < 0) {
+      ret = self.instance.next(speedX);
+    }
+
+    if (ret === false && (swiping == "x" || swiping == "y")) {
+      self.instance.centerSlide(200);
+    }
+
+    self.$container.removeClass("fancybox-is-sliding");
+  }; // Limit panning from edges
+  // ========================
+
+
+  Guestures.prototype.endPanning = function () {
+    var self = this,
+        newOffsetX,
+        newOffsetY,
+        newPos;
+
+    if (!self.contentLastPos) {
+      return;
+    }
+
+    if (self.opts.momentum === false || self.dMs > 350) {
+      newOffsetX = self.contentLastPos.left;
+      newOffsetY = self.contentLastPos.top;
+    } else {
+      // Continue movement
+      newOffsetX = self.contentLastPos.left + self.velocityX * 500;
+      newOffsetY = self.contentLastPos.top + self.velocityY * 500;
+    }
+
+    newPos = self.limitPosition(newOffsetX, newOffsetY, self.contentStartPos.width, self.contentStartPos.height);
+    newPos.width = self.contentStartPos.width;
+    newPos.height = self.contentStartPos.height;
+    $.fancybox.animate(self.$content, newPos, 366);
+  };
+
+  Guestures.prototype.endZooming = function () {
+    var self = this;
+    var current = self.instance.current;
+    var newOffsetX, newOffsetY, newPos, reset;
+    var newWidth = self.newWidth;
+    var newHeight = self.newHeight;
+
+    if (!self.contentLastPos) {
+      return;
+    }
+
+    newOffsetX = self.contentLastPos.left;
+    newOffsetY = self.contentLastPos.top;
+    reset = {
+      top: newOffsetY,
+      left: newOffsetX,
+      width: newWidth,
+      height: newHeight,
+      scaleX: 1,
+      scaleY: 1
+    }; // Reset scalex/scaleY values; this helps for perfomance and does not break animation
+
+    $.fancybox.setTranslate(self.$content, reset);
+
+    if (newWidth < self.canvasWidth && newHeight < self.canvasHeight) {
+      self.instance.scaleToFit(150);
+    } else if (newWidth > current.width || newHeight > current.height) {
+      self.instance.scaleToActual(self.centerPointStartX, self.centerPointStartY, 150);
+    } else {
+      newPos = self.limitPosition(newOffsetX, newOffsetY, newWidth, newHeight);
+      $.fancybox.animate(self.$content, newPos, 150);
+    }
+  };
+
+  Guestures.prototype.onTap = function (e) {
+    var self = this;
+    var $target = $(e.target);
+    var instance = self.instance;
+    var current = instance.current;
+    var endPoints = e && getPointerXY(e) || self.startPoints;
+    var tapX = endPoints[0] ? endPoints[0].x - $(window).scrollLeft() - self.stagePos.left : 0;
+    var tapY = endPoints[0] ? endPoints[0].y - $(window).scrollTop() - self.stagePos.top : 0;
+    var where;
+
+    var process = function process(prefix) {
+      var action = current.opts[prefix];
+
+      if ($.isFunction(action)) {
+        action = action.apply(instance, [current, e]);
+      }
+
+      if (!action) {
+        return;
+      }
+
+      switch (action) {
+        case "close":
+          instance.close(self.startEvent);
+          break;
+
+        case "toggleControls":
+          instance.toggleControls();
+          break;
+
+        case "next":
+          instance.next();
+          break;
+
+        case "nextOrClose":
+          if (instance.group.length > 1) {
+            instance.next();
+          } else {
+            instance.close(self.startEvent);
+          }
+
+          break;
+
+        case "zoom":
+          if (current.type == "image" && (current.isLoaded || current.$ghost)) {
+            if (instance.canPan()) {
+              instance.scaleToFit();
+            } else if (instance.isScaledDown()) {
+              instance.scaleToActual(tapX, tapY);
+            } else if (instance.group.length < 2) {
+              instance.close(self.startEvent);
+            }
+          }
+
+          break;
+      }
+    }; // Ignore right click
+
+
+    if (e.originalEvent && e.originalEvent.button == 2) {
+      return;
+    } // Skip if clicked on the scrollbar
+
+
+    if (!$target.is("img") && tapX > $target[0].clientWidth + $target.offset().left) {
+      return;
+    } // Check where is clicked
+
+
+    if ($target.is(".fancybox-bg,.fancybox-inner,.fancybox-outer,.fancybox-container")) {
+      where = "Outside";
+    } else if ($target.is(".fancybox-slide")) {
+      where = "Slide";
+    } else if (instance.current.$content && instance.current.$content.find($target).addBack().filter($target).length) {
+      where = "Content";
+    } else {
+      return;
+    } // Check if this is a double tap
+
+
+    if (self.tapped) {
+      // Stop previously created single tap
+      clearTimeout(self.tapped);
+      self.tapped = null; // Skip if distance between taps is too big
+
+      if (Math.abs(tapX - self.tapX) > 50 || Math.abs(tapY - self.tapY) > 50) {
+        return this;
+      } // OK, now we assume that this is a double-tap
+
+
+      process("dblclick" + where);
+    } else {
+      // Single tap will be processed if user has not clicked second time within 300ms
+      // or there is no need to wait for double-tap
+      self.tapX = tapX;
+      self.tapY = tapY;
+
+      if (current.opts["dblclick" + where] && current.opts["dblclick" + where] !== current.opts["click" + where]) {
+        self.tapped = setTimeout(function () {
+          self.tapped = null;
+
+          if (!instance.isAnimating) {
+            process("click" + where);
+          }
+        }, 500);
+      } else {
+        process("click" + where);
+      }
+    }
+
+    return this;
+  };
+
+  $(document).on("onActivate.fb", function (e, instance) {
+    if (instance && !instance.Guestures) {
+      instance.Guestures = new Guestures(instance);
+    }
+  }).on("beforeClose.fb", function (e, instance) {
+    if (instance && instance.Guestures) {
+      instance.Guestures.destroy();
+    }
+  });
+})(window, document, jQuery); // ==========================================================================
+//
+// SlideShow
+// Enables slideshow functionality
+//
+// Example of usage:
+// $.fancybox.getInstance().SlideShow.start()
+//
+// ==========================================================================
+
+
+(function (document, $) {
+  "use strict";
+
+  $.extend(true, $.fancybox.defaults, {
+    btnTpl: {
+      slideShow: '<button data-fancybox-play class="fancybox-button fancybox-button--play" title="{{PLAY_START}}">' + '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 5.4v13.2l11-6.6z"/></svg>' + '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.33 5.75h2.2v12.5h-2.2V5.75zm5.15 0h2.2v12.5h-2.2V5.75z"/></svg>' + "</button>"
+    },
+    slideShow: {
+      autoStart: false,
+      speed: 3000,
+      progress: true
+    }
+  });
+
+  var SlideShow = function SlideShow(instance) {
+    this.instance = instance;
+    this.init();
+  };
+
+  $.extend(SlideShow.prototype, {
+    timer: null,
+    isActive: false,
+    $button: null,
+    init: function init() {
+      var self = this,
+          instance = self.instance,
+          opts = instance.group[instance.currIndex].opts.slideShow;
+      self.$button = instance.$refs.toolbar.find("[data-fancybox-play]").on("click", function () {
+        self.toggle();
+      });
+
+      if (instance.group.length < 2 || !opts) {
+        self.$button.hide();
+      } else if (opts.progress) {
+        self.$progress = $('<div class="fancybox-progress"></div>').appendTo(instance.$refs.inner);
+      }
+    },
+    set: function set(force) {
+      var self = this,
+          instance = self.instance,
+          current = instance.current; // Check if reached last element
+
+      if (current && (force === true || current.opts.loop || instance.currIndex < instance.group.length - 1)) {
+        if (self.isActive && current.contentType !== "video") {
+          if (self.$progress) {
+            $.fancybox.animate(self.$progress.show(), {
+              scaleX: 1
+            }, current.opts.slideShow.speed);
+          }
+
+          self.timer = setTimeout(function () {
+            if (!instance.current.opts.loop && instance.current.index == instance.group.length - 1) {
+              instance.jumpTo(0);
+            } else {
+              instance.next();
+            }
+          }, current.opts.slideShow.speed);
+        }
+      } else {
+        self.stop();
+        instance.idleSecondsCounter = 0;
+        instance.showControls();
+      }
+    },
+    clear: function clear() {
+      var self = this;
+      clearTimeout(self.timer);
+      self.timer = null;
+
+      if (self.$progress) {
+        self.$progress.removeAttr("style").hide();
+      }
+    },
+    start: function start() {
+      var self = this,
+          current = self.instance.current;
+
+      if (current) {
+        self.$button.attr("title", (current.opts.i18n[current.opts.lang] || current.opts.i18n.en).PLAY_STOP).removeClass("fancybox-button--play").addClass("fancybox-button--pause");
+        self.isActive = true;
+
+        if (current.isComplete) {
+          self.set(true);
+        }
+
+        self.instance.trigger("onSlideShowChange", true);
+      }
+    },
+    stop: function stop() {
+      var self = this,
+          current = self.instance.current;
+      self.clear();
+      self.$button.attr("title", (current.opts.i18n[current.opts.lang] || current.opts.i18n.en).PLAY_START).removeClass("fancybox-button--pause").addClass("fancybox-button--play");
+      self.isActive = false;
+      self.instance.trigger("onSlideShowChange", false);
+
+      if (self.$progress) {
+        self.$progress.removeAttr("style").hide();
+      }
+    },
+    toggle: function toggle() {
+      var self = this;
+
+      if (self.isActive) {
+        self.stop();
+      } else {
+        self.start();
+      }
+    }
+  });
+  $(document).on({
+    "onInit.fb": function onInitFb(e, instance) {
+      if (instance && !instance.SlideShow) {
+        instance.SlideShow = new SlideShow(instance);
+      }
+    },
+    "beforeShow.fb": function beforeShowFb(e, instance, current, firstRun) {
+      var SlideShow = instance && instance.SlideShow;
+
+      if (firstRun) {
+        if (SlideShow && current.opts.slideShow.autoStart) {
+          SlideShow.start();
+        }
+      } else if (SlideShow && SlideShow.isActive) {
+        SlideShow.clear();
+      }
+    },
+    "afterShow.fb": function afterShowFb(e, instance, current) {
+      var SlideShow = instance && instance.SlideShow;
+
+      if (SlideShow && SlideShow.isActive) {
+        SlideShow.set();
+      }
+    },
+    "afterKeydown.fb": function afterKeydownFb(e, instance, current, keypress, keycode) {
+      var SlideShow = instance && instance.SlideShow; // "P" or Spacebar
+
+      if (SlideShow && current.opts.slideShow && (keycode === 80 || keycode === 32) && !$(document.activeElement).is("button,a,input")) {
+        keypress.preventDefault();
+        SlideShow.toggle();
+      }
+    },
+    "beforeClose.fb onDeactivate.fb": function beforeCloseFbOnDeactivateFb(e, instance) {
+      var SlideShow = instance && instance.SlideShow;
+
+      if (SlideShow) {
+        SlideShow.stop();
+      }
+    }
+  }); // Page Visibility API to pause slideshow when window is not active
+
+  $(document).on("visibilitychange", function () {
+    var instance = $.fancybox.getInstance(),
+        SlideShow = instance && instance.SlideShow;
+
+    if (SlideShow && SlideShow.isActive) {
+      if (document.hidden) {
+        SlideShow.clear();
+      } else {
+        SlideShow.set();
+      }
+    }
+  });
+})(document, jQuery); // ==========================================================================
+//
+// FullScreen
+// Adds fullscreen functionality
+//
+// ==========================================================================
+
+
+(function (document, $) {
+  "use strict"; // Collection of methods supported by user browser
+
+  var fn = function () {
+    var fnMap = [["requestFullscreen", "exitFullscreen", "fullscreenElement", "fullscreenEnabled", "fullscreenchange", "fullscreenerror"], // new WebKit
+    ["webkitRequestFullscreen", "webkitExitFullscreen", "webkitFullscreenElement", "webkitFullscreenEnabled", "webkitfullscreenchange", "webkitfullscreenerror"], // old WebKit (Safari 5.1)
+    ["webkitRequestFullScreen", "webkitCancelFullScreen", "webkitCurrentFullScreenElement", "webkitCancelFullScreen", "webkitfullscreenchange", "webkitfullscreenerror"], ["mozRequestFullScreen", "mozCancelFullScreen", "mozFullScreenElement", "mozFullScreenEnabled", "mozfullscreenchange", "mozfullscreenerror"], ["msRequestFullscreen", "msExitFullscreen", "msFullscreenElement", "msFullscreenEnabled", "MSFullscreenChange", "MSFullscreenError"]];
+    var ret = {};
+
+    for (var i = 0; i < fnMap.length; i++) {
+      var val = fnMap[i];
+
+      if (val && val[1] in document) {
+        for (var j = 0; j < val.length; j++) {
+          ret[fnMap[0][j]] = val[j];
+        }
+
+        return ret;
+      }
+    }
+
+    return false;
+  }();
+
+  if (fn) {
+    var FullScreen = {
+      request: function request(elem) {
+        elem = elem || document.documentElement;
+        elem[fn.requestFullscreen](elem.ALLOW_KEYBOARD_INPUT);
+      },
+      exit: function exit() {
+        document[fn.exitFullscreen]();
+      },
+      toggle: function toggle(elem) {
+        elem = elem || document.documentElement;
+
+        if (this.isFullscreen()) {
+          this.exit();
+        } else {
+          this.request(elem);
+        }
+      },
+      isFullscreen: function isFullscreen() {
+        return Boolean(document[fn.fullscreenElement]);
+      },
+      enabled: function enabled() {
+        return Boolean(document[fn.fullscreenEnabled]);
+      }
+    };
+    $.extend(true, $.fancybox.defaults, {
+      btnTpl: {
+        fullScreen: '<button data-fancybox-fullscreen class="fancybox-button fancybox-button--fsenter" title="{{FULL_SCREEN}}">' + '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>' + '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 16h3v3h2v-5H5zm3-8H5v2h5V5H8zm6 11h2v-3h3v-2h-5zm2-11V5h-2v5h5V8z"/></svg>' + "</button>"
+      },
+      fullScreen: {
+        autoStart: false
+      }
+    });
+    $(document).on(fn.fullscreenchange, function () {
+      var isFullscreen = FullScreen.isFullscreen(),
+          instance = $.fancybox.getInstance();
+
+      if (instance) {
+        // If image is zooming, then force to stop and reposition properly
+        if (instance.current && instance.current.type === "image" && instance.isAnimating) {
+          instance.isAnimating = false;
+          instance.update(true, true, 0);
+
+          if (!instance.isComplete) {
+            instance.complete();
+          }
+        }
+
+        instance.trigger("onFullscreenChange", isFullscreen);
+        instance.$refs.container.toggleClass("fancybox-is-fullscreen", isFullscreen);
+        instance.$refs.toolbar.find("[data-fancybox-fullscreen]").toggleClass("fancybox-button--fsenter", !isFullscreen).toggleClass("fancybox-button--fsexit", isFullscreen);
+      }
+    });
+  }
+
+  $(document).on({
+    "onInit.fb": function onInitFb(e, instance) {
+      var $container;
+
+      if (!fn) {
+        instance.$refs.toolbar.find("[data-fancybox-fullscreen]").remove();
+        return;
+      }
+
+      if (instance && instance.group[instance.currIndex].opts.fullScreen) {
+        $container = instance.$refs.container;
+        $container.on("click.fb-fullscreen", "[data-fancybox-fullscreen]", function (e) {
+          e.stopPropagation();
+          e.preventDefault();
+          FullScreen.toggle();
+        });
+
+        if (instance.opts.fullScreen && instance.opts.fullScreen.autoStart === true) {
+          FullScreen.request();
+        } // Expose API
+
+
+        instance.FullScreen = FullScreen;
+      } else if (instance) {
+        instance.$refs.toolbar.find("[data-fancybox-fullscreen]").hide();
+      }
+    },
+    "afterKeydown.fb": function afterKeydownFb(e, instance, current, keypress, keycode) {
+      // "F"
+      if (instance && instance.FullScreen && keycode === 70) {
+        keypress.preventDefault();
+        instance.FullScreen.toggle();
+      }
+    },
+    "beforeClose.fb": function beforeCloseFb(e, instance) {
+      if (instance && instance.FullScreen && instance.$refs.container.hasClass("fancybox-is-fullscreen")) {
+        FullScreen.exit();
+      }
+    }
+  });
+})(document, jQuery); // ==========================================================================
+//
+// Thumbs
+// Displays thumbnails in a grid
+//
+// ==========================================================================
+
+
+(function (document, $) {
+  "use strict";
+
+  var CLASS = "fancybox-thumbs",
+      CLASS_ACTIVE = CLASS + "-active"; // Make sure there are default values
+
+  $.fancybox.defaults = $.extend(true, {
+    btnTpl: {
+      thumbs: '<button data-fancybox-thumbs class="fancybox-button fancybox-button--thumbs" title="{{THUMBS}}">' + '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.59 14.59h3.76v3.76h-3.76v-3.76zm-4.47 0h3.76v3.76h-3.76v-3.76zm-4.47 0h3.76v3.76H5.65v-3.76zm8.94-4.47h3.76v3.76h-3.76v-3.76zm-4.47 0h3.76v3.76h-3.76v-3.76zm-4.47 0h3.76v3.76H5.65v-3.76zm8.94-4.47h3.76v3.76h-3.76V5.65zm-4.47 0h3.76v3.76h-3.76V5.65zm-4.47 0h3.76v3.76H5.65V5.65z"/></svg>' + "</button>"
+    },
+    thumbs: {
+      autoStart: false,
+      // Display thumbnails on opening
+      hideOnClose: true,
+      // Hide thumbnail grid when closing animation starts
+      parentEl: ".fancybox-container",
+      // Container is injected into this element
+      axis: "y" // Vertical (y) or horizontal (x) scrolling
+
+    }
+  }, $.fancybox.defaults);
+
+  var FancyThumbs = function FancyThumbs(instance) {
+    this.init(instance);
+  };
+
+  $.extend(FancyThumbs.prototype, {
+    $button: null,
+    $grid: null,
+    $list: null,
+    isVisible: false,
+    isActive: false,
+    init: function init(instance) {
+      var self = this,
+          group = instance.group,
+          enabled = 0;
+      self.instance = instance;
+      self.opts = group[instance.currIndex].opts.thumbs;
+      instance.Thumbs = self;
+      self.$button = instance.$refs.toolbar.find("[data-fancybox-thumbs]"); // Enable thumbs if at least two group items have thumbnails
+
+      for (var i = 0, len = group.length; i < len; i++) {
+        if (group[i].thumb) {
+          enabled++;
+        }
+
+        if (enabled > 1) {
+          break;
+        }
+      }
+
+      if (enabled > 1 && !!self.opts) {
+        self.$button.removeAttr("style").on("click", function () {
+          self.toggle();
+        });
+        self.isActive = true;
+      } else {
+        self.$button.hide();
+      }
+    },
+    create: function create() {
+      var self = this,
+          instance = self.instance,
+          parentEl = self.opts.parentEl,
+          list = [],
+          src;
+
+      if (!self.$grid) {
+        // Create main element
+        self.$grid = $('<div class="' + CLASS + " " + CLASS + "-" + self.opts.axis + '"></div>').appendTo(instance.$refs.container.find(parentEl).addBack().filter(parentEl)); // Add "click" event that performs gallery navigation
+
+        self.$grid.on("click", "a", function () {
+          instance.jumpTo($(this).attr("data-index"));
+        });
+      } // Build the list
+
+
+      if (!self.$list) {
+        self.$list = $('<div class="' + CLASS + '__list">').appendTo(self.$grid);
+      }
+
+      $.each(instance.group, function (i, item) {
+        src = item.thumb;
+
+        if (!src && item.type === "image") {
+          src = item.src;
+        }
+
+        list.push('<a href="javascript:;" tabindex="0" data-index="' + i + '"' + (src && src.length ? ' style="background-image:url(' + src + ')"' : 'class="fancybox-thumbs-missing"') + "></a>");
+      });
+      self.$list[0].innerHTML = list.join("");
+
+      if (self.opts.axis === "x") {
+        // Set fixed width for list element to enable horizontal scrolling
+        self.$list.width(parseInt(self.$grid.css("padding-right"), 10) + instance.group.length * self.$list.children().eq(0).outerWidth(true));
+      }
+    },
+    focus: function focus(duration) {
+      var self = this,
+          $list = self.$list,
+          $grid = self.$grid,
+          thumb,
+          thumbPos;
+
+      if (!self.instance.current) {
+        return;
+      }
+
+      thumb = $list.children().removeClass(CLASS_ACTIVE).filter('[data-index="' + self.instance.current.index + '"]').addClass(CLASS_ACTIVE);
+      thumbPos = thumb.position(); // Check if need to scroll to make current thumb visible
+
+      if (self.opts.axis === "y" && (thumbPos.top < 0 || thumbPos.top > $list.height() - thumb.outerHeight())) {
+        $list.stop().animate({
+          scrollTop: $list.scrollTop() + thumbPos.top
+        }, duration);
+      } else if (self.opts.axis === "x" && (thumbPos.left < $grid.scrollLeft() || thumbPos.left > $grid.scrollLeft() + ($grid.width() - thumb.outerWidth()))) {
+        $list.parent().stop().animate({
+          scrollLeft: thumbPos.left
+        }, duration);
+      }
+    },
+    update: function update() {
+      var that = this;
+      that.instance.$refs.container.toggleClass("fancybox-show-thumbs", this.isVisible);
+
+      if (that.isVisible) {
+        if (!that.$grid) {
+          that.create();
+        }
+
+        that.instance.trigger("onThumbsShow");
+        that.focus(0);
+      } else if (that.$grid) {
+        that.instance.trigger("onThumbsHide");
+      } // Update content position
+
+
+      that.instance.update();
+    },
+    hide: function hide() {
+      this.isVisible = false;
+      this.update();
+    },
+    show: function show() {
+      this.isVisible = true;
+      this.update();
+    },
+    toggle: function toggle() {
+      this.isVisible = !this.isVisible;
+      this.update();
+    }
+  });
+  $(document).on({
+    "onInit.fb": function onInitFb(e, instance) {
+      var Thumbs;
+
+      if (instance && !instance.Thumbs) {
+        Thumbs = new FancyThumbs(instance);
+
+        if (Thumbs.isActive && Thumbs.opts.autoStart === true) {
+          Thumbs.show();
+        }
+      }
+    },
+    "beforeShow.fb": function beforeShowFb(e, instance, item, firstRun) {
+      var Thumbs = instance && instance.Thumbs;
+
+      if (Thumbs && Thumbs.isVisible) {
+        Thumbs.focus(firstRun ? 0 : 250);
+      }
+    },
+    "afterKeydown.fb": function afterKeydownFb(e, instance, current, keypress, keycode) {
+      var Thumbs = instance && instance.Thumbs; // "G"
+
+      if (Thumbs && Thumbs.isActive && keycode === 71) {
+        keypress.preventDefault();
+        Thumbs.toggle();
+      }
+    },
+    "beforeClose.fb": function beforeCloseFb(e, instance) {
+      var Thumbs = instance && instance.Thumbs;
+
+      if (Thumbs && Thumbs.isVisible && Thumbs.opts.hideOnClose !== false) {
+        Thumbs.$grid.hide();
+      }
+    }
+  });
+})(document, jQuery); //// ==========================================================================
+//
+// Share
+// Displays simple form for sharing current url
+//
+// ==========================================================================
+
+
+(function (document, $) {
+  "use strict";
+
+  $.extend(true, $.fancybox.defaults, {
+    btnTpl: {
+      share: '<button data-fancybox-share class="fancybox-button fancybox-button--share" title="{{SHARE}}">' + '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2.55 19c1.4-8.4 9.1-9.8 11.9-9.8V5l7 7-7 6.3v-3.5c-2.8 0-10.5 2.1-11.9 4.2z"/></svg>' + "</button>"
+    },
+    share: {
+      url: function url(instance, item) {
+        return (!instance.currentHash && !(item.type === "inline" || item.type === "html") ? item.origSrc || item.src : false) || window.location;
+      },
+      tpl: '<div class="fancybox-share">' + "<h1>{{SHARE}}</h1>" + "<p>" + '<a class="fancybox-share__button fancybox-share__button--fb" href="https://www.facebook.com/sharer/sharer.php?u={{url}}">' + '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m287 456v-299c0-21 6-35 35-35h38v-63c-7-1-29-3-55-3-54 0-91 33-91 94v306m143-254h-205v72h196" /></svg>' + "<span>Facebook</span>" + "</a>" + '<a class="fancybox-share__button fancybox-share__button--tw" href="https://twitter.com/intent/tweet?url={{url}}&text={{descr}}">' + '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m456 133c-14 7-31 11-47 13 17-10 30-27 37-46-15 10-34 16-52 20-61-62-157-7-141 75-68-3-129-35-169-85-22 37-11 86 26 109-13 0-26-4-37-9 0 39 28 72 65 80-12 3-25 4-37 2 10 33 41 57 77 57-42 30-77 38-122 34 170 111 378-32 359-208 16-11 30-25 41-42z" /></svg>' + "<span>Twitter</span>" + "</a>" + '<a class="fancybox-share__button fancybox-share__button--pt" href="https://www.pinterest.com/pin/create/button/?url={{url}}&description={{descr}}&media={{media}}">' + '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m265 56c-109 0-164 78-164 144 0 39 15 74 47 87 5 2 10 0 12-5l4-19c2-6 1-8-3-13-9-11-15-25-15-45 0-58 43-110 113-110 62 0 96 38 96 88 0 67-30 122-73 122-24 0-42-19-36-44 6-29 20-60 20-81 0-19-10-35-31-35-25 0-44 26-44 60 0 21 7 36 7 36l-30 125c-8 37-1 83 0 87 0 3 4 4 5 2 2-3 32-39 42-75l16-64c8 16 31 29 56 29 74 0 124-67 124-157 0-69-58-132-146-132z" fill="#fff"/></svg>' + "<span>Pinterest</span>" + "</a>" + "</p>" + '<p><input class="fancybox-share__input" type="text" value="{{url_raw}}" onclick="select()" /></p>' + "</div>"
+    }
+  });
+
+  function escapeHtml(string) {
+    var entityMap = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+      "/": "&#x2F;",
+      "`": "&#x60;",
+      "=": "&#x3D;"
+    };
+    return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+      return entityMap[s];
+    });
+  }
+
+  $(document).on("click", "[data-fancybox-share]", function () {
+    var instance = $.fancybox.getInstance(),
+        current = instance.current || null,
+        url,
+        tpl;
+
+    if (!current) {
+      return;
+    }
+
+    if ($.type(current.opts.share.url) === "function") {
+      url = current.opts.share.url.apply(current, [instance, current]);
+    }
+
+    tpl = current.opts.share.tpl.replace(/\{\{media\}\}/g, current.type === "image" ? encodeURIComponent(current.src) : "").replace(/\{\{url\}\}/g, encodeURIComponent(url)).replace(/\{\{url_raw\}\}/g, escapeHtml(url)).replace(/\{\{descr\}\}/g, instance.$caption ? encodeURIComponent(instance.$caption.text()) : "");
+    $.fancybox.open({
+      src: instance.translate(instance, tpl),
+      type: "html",
+      opts: {
+        touch: false,
+        animationEffect: false,
+        afterLoad: function afterLoad(shareInstance, shareCurrent) {
+          // Close self if parent instance is closing
+          instance.$refs.container.one("beforeClose.fb", function () {
+            shareInstance.close(null, 0);
+          }); // Opening links in a popup window
+
+          shareCurrent.$content.find(".fancybox-share__button").click(function () {
+            window.open(this.href, "Share", "width=550, height=450");
+            return false;
+          });
+        },
+        mobile: {
+          autoFocus: false
+        }
+      }
+    });
+  });
+})(document, jQuery); // ==========================================================================
+//
+// Hash
+// Enables linking to each modal
+//
+// ==========================================================================
+
+
+(function (window, document, $) {
+  "use strict"; // Simple $.escapeSelector polyfill (for jQuery prior v3)
+
+  if (!$.escapeSelector) {
+    $.escapeSelector = function (sel) {
+      var rcssescape = /([\0-\x1f\x7f]|^-?\d)|^-$|[^\x80-\uFFFF\w-]/g;
+
+      var fcssescape = function fcssescape(ch, asCodePoint) {
+        if (asCodePoint) {
+          // U+0000 NULL becomes U+FFFD REPLACEMENT CHARACTER
+          if (ch === "\0") {
+            return "\uFFFD";
+          } // Control characters and (dependent upon position) numbers get escaped as code points
+
+
+          return ch.slice(0, -1) + "\\" + ch.charCodeAt(ch.length - 1).toString(16) + " ";
+        } // Other potentially-special ASCII characters get backslash-escaped
+
+
+        return "\\" + ch;
+      };
+
+      return (sel + "").replace(rcssescape, fcssescape);
+    };
+  } // Get info about gallery name and current index from url
+
+
+  function parseUrl() {
+    var hash = window.location.hash.substr(1),
+        rez = hash.split("-"),
+        index = rez.length > 1 && /^\+?\d+$/.test(rez[rez.length - 1]) ? parseInt(rez.pop(-1), 10) || 1 : 1,
+        gallery = rez.join("-");
+    return {
+      hash: hash,
+
+      /* Index is starting from 1 */
+      index: index < 1 ? 1 : index,
+      gallery: gallery
+    };
+  } // Trigger click evnt on links to open new fancyBox instance
+
+
+  function triggerFromUrl(url) {
+    if (url.gallery !== "") {
+      // If we can find element matching 'data-fancybox' atribute,
+      // then triggering click event should start fancyBox
+      $("[data-fancybox='" + $.escapeSelector(url.gallery) + "']").eq(url.index - 1).focus().trigger("click.fb-start");
+    }
+  } // Get gallery name from current instance
+
+
+  function getGalleryID(instance) {
+    var opts, ret;
+
+    if (!instance) {
+      return false;
+    }
+
+    opts = instance.current ? instance.current.opts : instance.opts;
+    ret = opts.hash || (opts.$orig ? opts.$orig.data("fancybox") || opts.$orig.data("fancybox-trigger") : "");
+    return ret === "" ? false : ret;
+  } // Start when DOM becomes ready
+
+
+  $(function () {
+    // Check if user has disabled this module
+    if ($.fancybox.defaults.hash === false) {
+      return;
+    } // Update hash when opening/closing fancyBox
+
+
+    $(document).on({
+      "onInit.fb": function onInitFb(e, instance) {
+        var url, gallery;
+
+        if (instance.group[instance.currIndex].opts.hash === false) {
+          return;
+        }
+
+        url = parseUrl();
+        gallery = getGalleryID(instance); // Make sure gallery start index matches index from hash
+
+        if (gallery && url.gallery && gallery == url.gallery) {
+          instance.currIndex = url.index - 1;
+        }
+      },
+      "beforeShow.fb": function beforeShowFb(e, instance, current, firstRun) {
+        var gallery;
+
+        if (!current || current.opts.hash === false) {
+          return;
+        } // Check if need to update window hash
+
+
+        gallery = getGalleryID(instance);
+
+        if (!gallery) {
+          return;
+        } // Variable containing last hash value set by fancyBox
+        // It will be used to determine if fancyBox needs to close after hash change is detected
+
+
+        instance.currentHash = gallery + (instance.group.length > 1 ? "-" + (current.index + 1) : ""); // If current hash is the same (this instance most likely is opened by hashchange), then do nothing
+
+        if (window.location.hash === "#" + instance.currentHash) {
+          return;
+        }
+
+        if (firstRun && !instance.origHash) {
+          instance.origHash = window.location.hash;
+        }
+
+        if (instance.hashTimer) {
+          clearTimeout(instance.hashTimer);
+        } // Update hash
+
+
+        instance.hashTimer = setTimeout(function () {
+          if ("replaceState" in window.history) {
+            window.history[firstRun ? "pushState" : "replaceState"]({}, document.title, window.location.pathname + window.location.search + "#" + instance.currentHash);
+
+            if (firstRun) {
+              instance.hasCreatedHistory = true;
+            }
+          } else {
+            window.location.hash = instance.currentHash;
+          }
+
+          instance.hashTimer = null;
+        }, 300);
+      },
+      "beforeClose.fb": function beforeCloseFb(e, instance, current) {
+        if (!current || current.opts.hash === false) {
+          return;
+        }
+
+        clearTimeout(instance.hashTimer); // Goto previous history entry
+
+        if (instance.currentHash && instance.hasCreatedHistory) {
+          window.history.back();
+        } else if (instance.currentHash) {
+          if ("replaceState" in window.history) {
+            window.history.replaceState({}, document.title, window.location.pathname + window.location.search + (instance.origHash || ""));
+          } else {
+            window.location.hash = instance.origHash;
+          }
+        }
+
+        instance.currentHash = null;
+      }
+    }); // Check if need to start/close after url has changed
+
+    $(window).on("hashchange.fb", function () {
+      var url = parseUrl(),
+          fb = null; // Find last fancyBox instance that has "hash"
+
+      $.each($(".fancybox-container").get().reverse(), function (index, value) {
+        var tmp = $(value).data("FancyBox");
+
+        if (tmp && tmp.currentHash) {
+          fb = tmp;
+          return false;
+        }
+      });
+
+      if (fb) {
+        // Now, compare hash values
+        if (fb.currentHash !== url.gallery + "-" + url.index && !(url.index === 1 && fb.currentHash == url.gallery)) {
+          fb.currentHash = null;
+          fb.close();
+        }
+      } else if (url.gallery !== "") {
+        triggerFromUrl(url);
+      }
+    }); // Check current hash and trigger click event on matching element to start fancyBox, if needed
+
+    setTimeout(function () {
+      if (!$.fancybox.getInstance()) {
+        triggerFromUrl(parseUrl());
+      }
+    }, 50);
+  });
+})(window, document, jQuery); // ==========================================================================
+//
+// Wheel
+// Basic mouse weheel support for gallery navigation
+//
+// ==========================================================================
+
+
+(function (document, $) {
+  "use strict";
+
+  var prevTime = new Date().getTime();
+  $(document).on({
+    "onInit.fb": function onInitFb(e, instance, current) {
+      instance.$refs.stage.on("mousewheel DOMMouseScroll wheel MozMousePixelScroll", function (e) {
+        var current = instance.current,
+            currTime = new Date().getTime();
+
+        if (instance.group.length < 2 || current.opts.wheel === false || current.opts.wheel === "auto" && current.type !== "image") {
+          return;
+        }
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (current.$slide.hasClass("fancybox-animated")) {
+          return;
+        }
+
+        e = e.originalEvent || e;
+
+        if (currTime - prevTime < 250) {
+          return;
+        }
+
+        prevTime = currTime;
+        instance[(-e.deltaY || -e.deltaX || e.wheelDelta || -e.detail) < 0 ? "next" : "previous"]();
+      });
+    }
+  });
+})(document, jQuery);
+"use strict";
+
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
@@ -5339,4 +12673,820 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     });
   }];
   return H.use(J), H;
+});
+"use strict";
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+!function (i) {
+  "use strict";
+
+  "function" == typeof define && define.amd ? define(["jquery"], i) : "undefined" != typeof exports ? module.exports = i(require("jquery")) : i(jQuery);
+}(function (i) {
+  "use strict";
+
+  var e = window.Slick || {};
+  (e = function () {
+    var e = 0;
+    return function (t, o) {
+      var s,
+          n = this;
+      n.defaults = {
+        accessibility: !0,
+        adaptiveHeight: !1,
+        appendArrows: i(t),
+        appendDots: i(t),
+        arrows: !0,
+        asNavFor: null,
+        prevArrow: '<button class="slick-prev" aria-label="Previous" type="button">Previous</button>',
+        nextArrow: '<button class="slick-next" aria-label="Next" type="button">Next</button>',
+        autoplay: !1,
+        autoplaySpeed: 3e3,
+        centerMode: !1,
+        centerPadding: "50px",
+        cssEase: "ease",
+        customPaging: function customPaging(e, t) {
+          return i('<button type="button" />').text(t + 1);
+        },
+        dots: !1,
+        dotsClass: "slick-dots",
+        draggable: !0,
+        easing: "linear",
+        edgeFriction: .35,
+        fade: !1,
+        focusOnSelect: !1,
+        focusOnChange: !1,
+        infinite: !0,
+        initialSlide: 0,
+        lazyLoad: "ondemand",
+        mobileFirst: !1,
+        pauseOnHover: !0,
+        pauseOnFocus: !0,
+        pauseOnDotsHover: !1,
+        respondTo: "window",
+        responsive: null,
+        rows: 1,
+        rtl: !1,
+        slide: "",
+        slidesPerRow: 1,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        speed: 500,
+        swipe: !0,
+        swipeToSlide: !1,
+        touchMove: !0,
+        touchThreshold: 5,
+        useCSS: !0,
+        useTransform: !0,
+        variableWidth: !1,
+        vertical: !1,
+        verticalSwiping: !1,
+        waitForAnimate: !0,
+        zIndex: 1e3
+      }, n.initials = {
+        animating: !1,
+        dragging: !1,
+        autoPlayTimer: null,
+        currentDirection: 0,
+        currentLeft: null,
+        currentSlide: 0,
+        direction: 1,
+        $dots: null,
+        listWidth: null,
+        listHeight: null,
+        loadIndex: 0,
+        $nextArrow: null,
+        $prevArrow: null,
+        scrolling: !1,
+        slideCount: null,
+        slideWidth: null,
+        $slideTrack: null,
+        $slides: null,
+        sliding: !1,
+        slideOffset: 0,
+        swipeLeft: null,
+        swiping: !1,
+        $list: null,
+        touchObject: {},
+        transformsEnabled: !1,
+        unslicked: !1
+      }, i.extend(n, n.initials), n.activeBreakpoint = null, n.animType = null, n.animProp = null, n.breakpoints = [], n.breakpointSettings = [], n.cssTransitions = !1, n.focussed = !1, n.interrupted = !1, n.hidden = "hidden", n.paused = !0, n.positionProp = null, n.respondTo = null, n.rowCount = 1, n.shouldClick = !0, n.$slider = i(t), n.$slidesCache = null, n.transformType = null, n.transitionType = null, n.visibilityChange = "visibilitychange", n.windowWidth = 0, n.windowTimer = null, s = i(t).data("slick") || {}, n.options = i.extend({}, n.defaults, o, s), n.currentSlide = n.options.initialSlide, n.originalSettings = n.options, void 0 !== document.mozHidden ? (n.hidden = "mozHidden", n.visibilityChange = "mozvisibilitychange") : void 0 !== document.webkitHidden && (n.hidden = "webkitHidden", n.visibilityChange = "webkitvisibilitychange"), n.autoPlay = i.proxy(n.autoPlay, n), n.autoPlayClear = i.proxy(n.autoPlayClear, n), n.autoPlayIterator = i.proxy(n.autoPlayIterator, n), n.changeSlide = i.proxy(n.changeSlide, n), n.clickHandler = i.proxy(n.clickHandler, n), n.selectHandler = i.proxy(n.selectHandler, n), n.setPosition = i.proxy(n.setPosition, n), n.swipeHandler = i.proxy(n.swipeHandler, n), n.dragHandler = i.proxy(n.dragHandler, n), n.keyHandler = i.proxy(n.keyHandler, n), n.instanceUid = e++, n.htmlExpr = /^(?:\s*(<[\w\W]+>)[^>]*)$/, n.registerBreakpoints(), n.init(!0);
+    };
+  }()).prototype.activateADA = function () {
+    this.$slideTrack.find(".slick-active").attr({
+      "aria-hidden": "false"
+    }).find("a, input, button, select").attr({
+      tabindex: "0"
+    });
+  }, e.prototype.addSlide = e.prototype.slickAdd = function (e, t, o) {
+    var s = this;
+    if ("boolean" == typeof t) o = t, t = null;else if (t < 0 || t >= s.slideCount) return !1;
+    s.unload(), "number" == typeof t ? 0 === t && 0 === s.$slides.length ? i(e).appendTo(s.$slideTrack) : o ? i(e).insertBefore(s.$slides.eq(t)) : i(e).insertAfter(s.$slides.eq(t)) : !0 === o ? i(e).prependTo(s.$slideTrack) : i(e).appendTo(s.$slideTrack), s.$slides = s.$slideTrack.children(this.options.slide), s.$slideTrack.children(this.options.slide).detach(), s.$slideTrack.append(s.$slides), s.$slides.each(function (e, t) {
+      i(t).attr("data-slick-index", e);
+    }), s.$slidesCache = s.$slides, s.reinit();
+  }, e.prototype.animateHeight = function () {
+    var i = this;
+
+    if (1 === i.options.slidesToShow && !0 === i.options.adaptiveHeight && !1 === i.options.vertical) {
+      var e = i.$slides.eq(i.currentSlide).outerHeight(!0);
+      i.$list.animate({
+        height: e
+      }, i.options.speed);
+    }
+  }, e.prototype.animateSlide = function (e, t) {
+    var o = {},
+        s = this;
+    s.animateHeight(), !0 === s.options.rtl && !1 === s.options.vertical && (e = -e), !1 === s.transformsEnabled ? !1 === s.options.vertical ? s.$slideTrack.animate({
+      left: e
+    }, s.options.speed, s.options.easing, t) : s.$slideTrack.animate({
+      top: e
+    }, s.options.speed, s.options.easing, t) : !1 === s.cssTransitions ? (!0 === s.options.rtl && (s.currentLeft = -s.currentLeft), i({
+      animStart: s.currentLeft
+    }).animate({
+      animStart: e
+    }, {
+      duration: s.options.speed,
+      easing: s.options.easing,
+      step: function step(i) {
+        i = Math.ceil(i), !1 === s.options.vertical ? (o[s.animType] = "translate(" + i + "px, 0px)", s.$slideTrack.css(o)) : (o[s.animType] = "translate(0px," + i + "px)", s.$slideTrack.css(o));
+      },
+      complete: function complete() {
+        t && t.call();
+      }
+    })) : (s.applyTransition(), e = Math.ceil(e), !1 === s.options.vertical ? o[s.animType] = "translate3d(" + e + "px, 0px, 0px)" : o[s.animType] = "translate3d(0px," + e + "px, 0px)", s.$slideTrack.css(o), t && setTimeout(function () {
+      s.disableTransition(), t.call();
+    }, s.options.speed));
+  }, e.prototype.getNavTarget = function () {
+    var e = this,
+        t = e.options.asNavFor;
+    return t && null !== t && (t = i(t).not(e.$slider)), t;
+  }, e.prototype.asNavFor = function (e) {
+    var t = this.getNavTarget();
+    null !== t && "object" == _typeof(t) && t.each(function () {
+      var t = i(this).slick("getSlick");
+      t.unslicked || t.slideHandler(e, !0);
+    });
+  }, e.prototype.applyTransition = function (i) {
+    var e = this,
+        t = {};
+    !1 === e.options.fade ? t[e.transitionType] = e.transformType + " " + e.options.speed + "ms " + e.options.cssEase : t[e.transitionType] = "opacity " + e.options.speed + "ms " + e.options.cssEase, !1 === e.options.fade ? e.$slideTrack.css(t) : e.$slides.eq(i).css(t);
+  }, e.prototype.autoPlay = function () {
+    var i = this;
+    i.autoPlayClear(), i.slideCount > i.options.slidesToShow && (i.autoPlayTimer = setInterval(i.autoPlayIterator, i.options.autoplaySpeed));
+  }, e.prototype.autoPlayClear = function () {
+    var i = this;
+    i.autoPlayTimer && clearInterval(i.autoPlayTimer);
+  }, e.prototype.autoPlayIterator = function () {
+    var i = this,
+        e = i.currentSlide + i.options.slidesToScroll;
+    i.paused || i.interrupted || i.focussed || (!1 === i.options.infinite && (1 === i.direction && i.currentSlide + 1 === i.slideCount - 1 ? i.direction = 0 : 0 === i.direction && (e = i.currentSlide - i.options.slidesToScroll, i.currentSlide - 1 == 0 && (i.direction = 1))), i.slideHandler(e));
+  }, e.prototype.buildArrows = function () {
+    var e = this;
+    !0 === e.options.arrows && (e.$prevArrow = i(e.options.prevArrow).addClass("slick-arrow"), e.$nextArrow = i(e.options.nextArrow).addClass("slick-arrow"), e.slideCount > e.options.slidesToShow ? (e.$prevArrow.removeClass("slick-hidden").removeAttr("aria-hidden tabindex"), e.$nextArrow.removeClass("slick-hidden").removeAttr("aria-hidden tabindex"), e.htmlExpr.test(e.options.prevArrow) && e.$prevArrow.prependTo(e.options.appendArrows), e.htmlExpr.test(e.options.nextArrow) && e.$nextArrow.appendTo(e.options.appendArrows), !0 !== e.options.infinite && e.$prevArrow.addClass("slick-disabled").attr("aria-disabled", "true")) : e.$prevArrow.add(e.$nextArrow).addClass("slick-hidden").attr({
+      "aria-disabled": "true",
+      tabindex: "-1"
+    }));
+  }, e.prototype.buildDots = function () {
+    var e,
+        t,
+        o = this;
+
+    if (!0 === o.options.dots) {
+      for (o.$slider.addClass("slick-dotted"), t = i("<ul />").addClass(o.options.dotsClass), e = 0; e <= o.getDotCount(); e += 1) {
+        t.append(i("<li />").append(o.options.customPaging.call(this, o, e)));
+      }
+
+      o.$dots = t.appendTo(o.options.appendDots), o.$dots.find("li").first().addClass("slick-active");
+    }
+  }, e.prototype.buildOut = function () {
+    var e = this;
+    e.$slides = e.$slider.children(e.options.slide + ":not(.slick-cloned)").addClass("slick-slide"), e.slideCount = e.$slides.length, e.$slides.each(function (e, t) {
+      i(t).attr("data-slick-index", e).data("originalStyling", i(t).attr("style") || "");
+    }), e.$slider.addClass("slick-slider"), e.$slideTrack = 0 === e.slideCount ? i('<div class="slick-track"/>').appendTo(e.$slider) : e.$slides.wrapAll('<div class="slick-track"/>').parent(), e.$list = e.$slideTrack.wrap('<div class="slick-list"/>').parent(), e.$slideTrack.css("opacity", 0), !0 !== e.options.centerMode && !0 !== e.options.swipeToSlide || (e.options.slidesToScroll = 1), i("img[data-lazy]", e.$slider).not("[src]").addClass("slick-loading"), e.setupInfinite(), e.buildArrows(), e.buildDots(), e.updateDots(), e.setSlideClasses("number" == typeof e.currentSlide ? e.currentSlide : 0), !0 === e.options.draggable && e.$list.addClass("draggable");
+  }, e.prototype.buildRows = function () {
+    var i,
+        e,
+        t,
+        o,
+        s,
+        n,
+        r,
+        l = this;
+
+    if (o = document.createDocumentFragment(), n = l.$slider.children(), l.options.rows > 1) {
+      for (r = l.options.slidesPerRow * l.options.rows, s = Math.ceil(n.length / r), i = 0; i < s; i++) {
+        var d = document.createElement("div");
+
+        for (e = 0; e < l.options.rows; e++) {
+          var a = document.createElement("div");
+
+          for (t = 0; t < l.options.slidesPerRow; t++) {
+            var c = i * r + (e * l.options.slidesPerRow + t);
+            n.get(c) && a.appendChild(n.get(c));
+          }
+
+          d.appendChild(a);
+        }
+
+        o.appendChild(d);
+      }
+
+      l.$slider.empty().append(o), l.$slider.children().children().children().css({
+        width: 100 / l.options.slidesPerRow + "%",
+        display: "inline-block"
+      });
+    }
+  }, e.prototype.checkResponsive = function (e, t) {
+    var o,
+        s,
+        n,
+        r = this,
+        l = !1,
+        d = r.$slider.width(),
+        a = window.innerWidth || i(window).width();
+
+    if ("window" === r.respondTo ? n = a : "slider" === r.respondTo ? n = d : "min" === r.respondTo && (n = Math.min(a, d)), r.options.responsive && r.options.responsive.length && null !== r.options.responsive) {
+      s = null;
+
+      for (o in r.breakpoints) {
+        r.breakpoints.hasOwnProperty(o) && (!1 === r.originalSettings.mobileFirst ? n < r.breakpoints[o] && (s = r.breakpoints[o]) : n > r.breakpoints[o] && (s = r.breakpoints[o]));
+      }
+
+      null !== s ? null !== r.activeBreakpoint ? (s !== r.activeBreakpoint || t) && (r.activeBreakpoint = s, "unslick" === r.breakpointSettings[s] ? r.unslick(s) : (r.options = i.extend({}, r.originalSettings, r.breakpointSettings[s]), !0 === e && (r.currentSlide = r.options.initialSlide), r.refresh(e)), l = s) : (r.activeBreakpoint = s, "unslick" === r.breakpointSettings[s] ? r.unslick(s) : (r.options = i.extend({}, r.originalSettings, r.breakpointSettings[s]), !0 === e && (r.currentSlide = r.options.initialSlide), r.refresh(e)), l = s) : null !== r.activeBreakpoint && (r.activeBreakpoint = null, r.options = r.originalSettings, !0 === e && (r.currentSlide = r.options.initialSlide), r.refresh(e), l = s), e || !1 === l || r.$slider.trigger("breakpoint", [r, l]);
+    }
+  }, e.prototype.changeSlide = function (e, t) {
+    var o,
+        s,
+        n,
+        r = this,
+        l = i(e.currentTarget);
+
+    switch (l.is("a") && e.preventDefault(), l.is("li") || (l = l.closest("li")), n = r.slideCount % r.options.slidesToScroll != 0, o = n ? 0 : (r.slideCount - r.currentSlide) % r.options.slidesToScroll, e.data.message) {
+      case "previous":
+        s = 0 === o ? r.options.slidesToScroll : r.options.slidesToShow - o, r.slideCount > r.options.slidesToShow && r.slideHandler(r.currentSlide - s, !1, t);
+        break;
+
+      case "next":
+        s = 0 === o ? r.options.slidesToScroll : o, r.slideCount > r.options.slidesToShow && r.slideHandler(r.currentSlide + s, !1, t);
+        break;
+
+      case "index":
+        var d = 0 === e.data.index ? 0 : e.data.index || l.index() * r.options.slidesToScroll;
+        r.slideHandler(r.checkNavigable(d), !1, t), l.children().trigger("focus");
+        break;
+
+      default:
+        return;
+    }
+  }, e.prototype.checkNavigable = function (i) {
+    var e, t;
+    if (e = this.getNavigableIndexes(), t = 0, i > e[e.length - 1]) i = e[e.length - 1];else for (var o in e) {
+      if (i < e[o]) {
+        i = t;
+        break;
+      }
+
+      t = e[o];
+    }
+    return i;
+  }, e.prototype.cleanUpEvents = function () {
+    var e = this;
+    e.options.dots && null !== e.$dots && (i("li", e.$dots).off("click.slick", e.changeSlide).off("mouseenter.slick", i.proxy(e.interrupt, e, !0)).off("mouseleave.slick", i.proxy(e.interrupt, e, !1)), !0 === e.options.accessibility && e.$dots.off("keydown.slick", e.keyHandler)), e.$slider.off("focus.slick blur.slick"), !0 === e.options.arrows && e.slideCount > e.options.slidesToShow && (e.$prevArrow && e.$prevArrow.off("click.slick", e.changeSlide), e.$nextArrow && e.$nextArrow.off("click.slick", e.changeSlide), !0 === e.options.accessibility && (e.$prevArrow && e.$prevArrow.off("keydown.slick", e.keyHandler), e.$nextArrow && e.$nextArrow.off("keydown.slick", e.keyHandler))), e.$list.off("touchstart.slick mousedown.slick", e.swipeHandler), e.$list.off("touchmove.slick mousemove.slick", e.swipeHandler), e.$list.off("touchend.slick mouseup.slick", e.swipeHandler), e.$list.off("touchcancel.slick mouseleave.slick", e.swipeHandler), e.$list.off("click.slick", e.clickHandler), i(document).off(e.visibilityChange, e.visibility), e.cleanUpSlideEvents(), !0 === e.options.accessibility && e.$list.off("keydown.slick", e.keyHandler), !0 === e.options.focusOnSelect && i(e.$slideTrack).children().off("click.slick", e.selectHandler), i(window).off("orientationchange.slick.slick-" + e.instanceUid, e.orientationChange), i(window).off("resize.slick.slick-" + e.instanceUid, e.resize), i("[draggable!=true]", e.$slideTrack).off("dragstart", e.preventDefault), i(window).off("load.slick.slick-" + e.instanceUid, e.setPosition);
+  }, e.prototype.cleanUpSlideEvents = function () {
+    var e = this;
+    e.$list.off("mouseenter.slick", i.proxy(e.interrupt, e, !0)), e.$list.off("mouseleave.slick", i.proxy(e.interrupt, e, !1));
+  }, e.prototype.cleanUpRows = function () {
+    var i,
+        e = this;
+    e.options.rows > 1 && ((i = e.$slides.children().children()).removeAttr("style"), e.$slider.empty().append(i));
+  }, e.prototype.clickHandler = function (i) {
+    !1 === this.shouldClick && (i.stopImmediatePropagation(), i.stopPropagation(), i.preventDefault());
+  }, e.prototype.destroy = function (e) {
+    var t = this;
+    t.autoPlayClear(), t.touchObject = {}, t.cleanUpEvents(), i(".slick-cloned", t.$slider).detach(), t.$dots && t.$dots.remove(), t.$prevArrow && t.$prevArrow.length && (t.$prevArrow.removeClass("slick-disabled slick-arrow slick-hidden").removeAttr("aria-hidden aria-disabled tabindex").css("display", ""), t.htmlExpr.test(t.options.prevArrow) && t.$prevArrow.remove()), t.$nextArrow && t.$nextArrow.length && (t.$nextArrow.removeClass("slick-disabled slick-arrow slick-hidden").removeAttr("aria-hidden aria-disabled tabindex").css("display", ""), t.htmlExpr.test(t.options.nextArrow) && t.$nextArrow.remove()), t.$slides && (t.$slides.removeClass("slick-slide slick-active slick-center slick-visible slick-current").removeAttr("aria-hidden").removeAttr("data-slick-index").each(function () {
+      i(this).attr("style", i(this).data("originalStyling"));
+    }), t.$slideTrack.children(this.options.slide).detach(), t.$slideTrack.detach(), t.$list.detach(), t.$slider.append(t.$slides)), t.cleanUpRows(), t.$slider.removeClass("slick-slider"), t.$slider.removeClass("slick-initialized"), t.$slider.removeClass("slick-dotted"), t.unslicked = !0, e || t.$slider.trigger("destroy", [t]);
+  }, e.prototype.disableTransition = function (i) {
+    var e = this,
+        t = {};
+    t[e.transitionType] = "", !1 === e.options.fade ? e.$slideTrack.css(t) : e.$slides.eq(i).css(t);
+  }, e.prototype.fadeSlide = function (i, e) {
+    var t = this;
+    !1 === t.cssTransitions ? (t.$slides.eq(i).css({
+      zIndex: t.options.zIndex
+    }), t.$slides.eq(i).animate({
+      opacity: 1
+    }, t.options.speed, t.options.easing, e)) : (t.applyTransition(i), t.$slides.eq(i).css({
+      opacity: 1,
+      zIndex: t.options.zIndex
+    }), e && setTimeout(function () {
+      t.disableTransition(i), e.call();
+    }, t.options.speed));
+  }, e.prototype.fadeSlideOut = function (i) {
+    var e = this;
+    !1 === e.cssTransitions ? e.$slides.eq(i).animate({
+      opacity: 0,
+      zIndex: e.options.zIndex - 2
+    }, e.options.speed, e.options.easing) : (e.applyTransition(i), e.$slides.eq(i).css({
+      opacity: 0,
+      zIndex: e.options.zIndex - 2
+    }));
+  }, e.prototype.filterSlides = e.prototype.slickFilter = function (i) {
+    var e = this;
+    null !== i && (e.$slidesCache = e.$slides, e.unload(), e.$slideTrack.children(this.options.slide).detach(), e.$slidesCache.filter(i).appendTo(e.$slideTrack), e.reinit());
+  }, e.prototype.focusHandler = function () {
+    var e = this;
+    e.$slider.off("focus.slick blur.slick").on("focus.slick blur.slick", "*", function (t) {
+      t.stopImmediatePropagation();
+      var o = i(this);
+      setTimeout(function () {
+        e.options.pauseOnFocus && (e.focussed = o.is(":focus"), e.autoPlay());
+      }, 0);
+    });
+  }, e.prototype.getCurrent = e.prototype.slickCurrentSlide = function () {
+    return this.currentSlide;
+  }, e.prototype.getDotCount = function () {
+    var i = this,
+        e = 0,
+        t = 0,
+        o = 0;
+    if (!0 === i.options.infinite) {
+      if (i.slideCount <= i.options.slidesToShow) ++o;else for (; e < i.slideCount;) {
+        ++o, e = t + i.options.slidesToScroll, t += i.options.slidesToScroll <= i.options.slidesToShow ? i.options.slidesToScroll : i.options.slidesToShow;
+      }
+    } else if (!0 === i.options.centerMode) o = i.slideCount;else if (i.options.asNavFor) for (; e < i.slideCount;) {
+      ++o, e = t + i.options.slidesToScroll, t += i.options.slidesToScroll <= i.options.slidesToShow ? i.options.slidesToScroll : i.options.slidesToShow;
+    } else o = 1 + Math.ceil((i.slideCount - i.options.slidesToShow) / i.options.slidesToScroll);
+    return o - 1;
+  }, e.prototype.getLeft = function (i) {
+    var e,
+        t,
+        o,
+        s,
+        n = this,
+        r = 0;
+    return n.slideOffset = 0, t = n.$slides.first().outerHeight(!0), !0 === n.options.infinite ? (n.slideCount > n.options.slidesToShow && (n.slideOffset = n.slideWidth * n.options.slidesToShow * -1, s = -1, !0 === n.options.vertical && !0 === n.options.centerMode && (2 === n.options.slidesToShow ? s = -1.5 : 1 === n.options.slidesToShow && (s = -2)), r = t * n.options.slidesToShow * s), n.slideCount % n.options.slidesToScroll != 0 && i + n.options.slidesToScroll > n.slideCount && n.slideCount > n.options.slidesToShow && (i > n.slideCount ? (n.slideOffset = (n.options.slidesToShow - (i - n.slideCount)) * n.slideWidth * -1, r = (n.options.slidesToShow - (i - n.slideCount)) * t * -1) : (n.slideOffset = n.slideCount % n.options.slidesToScroll * n.slideWidth * -1, r = n.slideCount % n.options.slidesToScroll * t * -1))) : i + n.options.slidesToShow > n.slideCount && (n.slideOffset = (i + n.options.slidesToShow - n.slideCount) * n.slideWidth, r = (i + n.options.slidesToShow - n.slideCount) * t), n.slideCount <= n.options.slidesToShow && (n.slideOffset = 0, r = 0), !0 === n.options.centerMode && n.slideCount <= n.options.slidesToShow ? n.slideOffset = n.slideWidth * Math.floor(n.options.slidesToShow) / 2 - n.slideWidth * n.slideCount / 2 : !0 === n.options.centerMode && !0 === n.options.infinite ? n.slideOffset += n.slideWidth * Math.floor(n.options.slidesToShow / 2) - n.slideWidth : !0 === n.options.centerMode && (n.slideOffset = 0, n.slideOffset += n.slideWidth * Math.floor(n.options.slidesToShow / 2)), e = !1 === n.options.vertical ? i * n.slideWidth * -1 + n.slideOffset : i * t * -1 + r, !0 === n.options.variableWidth && (o = n.slideCount <= n.options.slidesToShow || !1 === n.options.infinite ? n.$slideTrack.children(".slick-slide").eq(i) : n.$slideTrack.children(".slick-slide").eq(i + n.options.slidesToShow), e = !0 === n.options.rtl ? o[0] ? -1 * (n.$slideTrack.width() - o[0].offsetLeft - o.width()) : 0 : o[0] ? -1 * o[0].offsetLeft : 0, !0 === n.options.centerMode && (o = n.slideCount <= n.options.slidesToShow || !1 === n.options.infinite ? n.$slideTrack.children(".slick-slide").eq(i) : n.$slideTrack.children(".slick-slide").eq(i + n.options.slidesToShow + 1), e = !0 === n.options.rtl ? o[0] ? -1 * (n.$slideTrack.width() - o[0].offsetLeft - o.width()) : 0 : o[0] ? -1 * o[0].offsetLeft : 0, e += (n.$list.width() - o.outerWidth()) / 2)), e;
+  }, e.prototype.getOption = e.prototype.slickGetOption = function (i) {
+    return this.options[i];
+  }, e.prototype.getNavigableIndexes = function () {
+    var i,
+        e = this,
+        t = 0,
+        o = 0,
+        s = [];
+
+    for (!1 === e.options.infinite ? i = e.slideCount : (t = -1 * e.options.slidesToScroll, o = -1 * e.options.slidesToScroll, i = 2 * e.slideCount); t < i;) {
+      s.push(t), t = o + e.options.slidesToScroll, o += e.options.slidesToScroll <= e.options.slidesToShow ? e.options.slidesToScroll : e.options.slidesToShow;
+    }
+
+    return s;
+  }, e.prototype.getSlick = function () {
+    return this;
+  }, e.prototype.getSlideCount = function () {
+    var e,
+        t,
+        o = this;
+    return t = !0 === o.options.centerMode ? o.slideWidth * Math.floor(o.options.slidesToShow / 2) : 0, !0 === o.options.swipeToSlide ? (o.$slideTrack.find(".slick-slide").each(function (s, n) {
+      if (n.offsetLeft - t + i(n).outerWidth() / 2 > -1 * o.swipeLeft) return e = n, !1;
+    }), Math.abs(i(e).attr("data-slick-index") - o.currentSlide) || 1) : o.options.slidesToScroll;
+  }, e.prototype.goTo = e.prototype.slickGoTo = function (i, e) {
+    this.changeSlide({
+      data: {
+        message: "index",
+        index: parseInt(i)
+      }
+    }, e);
+  }, e.prototype.init = function (e) {
+    var t = this;
+    i(t.$slider).hasClass("slick-initialized") || (i(t.$slider).addClass("slick-initialized"), t.buildRows(), t.buildOut(), t.setProps(), t.startLoad(), t.loadSlider(), t.initializeEvents(), t.updateArrows(), t.updateDots(), t.checkResponsive(!0), t.focusHandler()), e && t.$slider.trigger("init", [t]), !0 === t.options.accessibility && t.initADA(), t.options.autoplay && (t.paused = !1, t.autoPlay());
+  }, e.prototype.initADA = function () {
+    var e = this,
+        t = Math.ceil(e.slideCount / e.options.slidesToShow),
+        o = e.getNavigableIndexes().filter(function (i) {
+      return i >= 0 && i < e.slideCount;
+    });
+    e.$slides.add(e.$slideTrack.find(".slick-cloned")).attr({
+      "aria-hidden": "true",
+      tabindex: "-1"
+    }).find("a, input, button, select").attr({
+      tabindex: "-1"
+    }), null !== e.$dots && (e.$slides.not(e.$slideTrack.find(".slick-cloned")).each(function (t) {
+      var s = o.indexOf(t);
+      i(this).attr({
+        role: "tabpanel",
+        id: "slick-slide" + e.instanceUid + t,
+        tabindex: -1
+      }), -1 !== s && i(this).attr({
+        "aria-describedby": "slick-slide-control" + e.instanceUid + s
+      });
+    }), e.$dots.attr("role", "tablist").find("li").each(function (s) {
+      var n = o[s];
+      i(this).attr({
+        role: "presentation"
+      }), i(this).find("button").first().attr({
+        role: "tab",
+        id: "slick-slide-control" + e.instanceUid + s,
+        "aria-controls": "slick-slide" + e.instanceUid + n,
+        "aria-label": s + 1 + " of " + t,
+        "aria-selected": null,
+        tabindex: "-1"
+      });
+    }).eq(e.currentSlide).find("button").attr({
+      "aria-selected": "true",
+      tabindex: "0"
+    }).end());
+
+    for (var s = e.currentSlide, n = s + e.options.slidesToShow; s < n; s++) {
+      e.$slides.eq(s).attr("tabindex", 0);
+    }
+
+    e.activateADA();
+  }, e.prototype.initArrowEvents = function () {
+    var i = this;
+    !0 === i.options.arrows && i.slideCount > i.options.slidesToShow && (i.$prevArrow.off("click.slick").on("click.slick", {
+      message: "previous"
+    }, i.changeSlide), i.$nextArrow.off("click.slick").on("click.slick", {
+      message: "next"
+    }, i.changeSlide), !0 === i.options.accessibility && (i.$prevArrow.on("keydown.slick", i.keyHandler), i.$nextArrow.on("keydown.slick", i.keyHandler)));
+  }, e.prototype.initDotEvents = function () {
+    var e = this;
+    !0 === e.options.dots && (i("li", e.$dots).on("click.slick", {
+      message: "index"
+    }, e.changeSlide), !0 === e.options.accessibility && e.$dots.on("keydown.slick", e.keyHandler)), !0 === e.options.dots && !0 === e.options.pauseOnDotsHover && i("li", e.$dots).on("mouseenter.slick", i.proxy(e.interrupt, e, !0)).on("mouseleave.slick", i.proxy(e.interrupt, e, !1));
+  }, e.prototype.initSlideEvents = function () {
+    var e = this;
+    e.options.pauseOnHover && (e.$list.on("mouseenter.slick", i.proxy(e.interrupt, e, !0)), e.$list.on("mouseleave.slick", i.proxy(e.interrupt, e, !1)));
+  }, e.prototype.initializeEvents = function () {
+    var e = this;
+    e.initArrowEvents(), e.initDotEvents(), e.initSlideEvents(), e.$list.on("touchstart.slick mousedown.slick", {
+      action: "start"
+    }, e.swipeHandler), e.$list.on("touchmove.slick mousemove.slick", {
+      action: "move"
+    }, e.swipeHandler), e.$list.on("touchend.slick mouseup.slick", {
+      action: "end"
+    }, e.swipeHandler), e.$list.on("touchcancel.slick mouseleave.slick", {
+      action: "end"
+    }, e.swipeHandler), e.$list.on("click.slick", e.clickHandler), i(document).on(e.visibilityChange, i.proxy(e.visibility, e)), !0 === e.options.accessibility && e.$list.on("keydown.slick", e.keyHandler), !0 === e.options.focusOnSelect && i(e.$slideTrack).children().on("click.slick", e.selectHandler), i(window).on("orientationchange.slick.slick-" + e.instanceUid, i.proxy(e.orientationChange, e)), i(window).on("resize.slick.slick-" + e.instanceUid, i.proxy(e.resize, e)), i("[draggable!=true]", e.$slideTrack).on("dragstart", e.preventDefault), i(window).on("load.slick.slick-" + e.instanceUid, e.setPosition), i(e.setPosition);
+  }, e.prototype.initUI = function () {
+    var i = this;
+    !0 === i.options.arrows && i.slideCount > i.options.slidesToShow && (i.$prevArrow.show(), i.$nextArrow.show()), !0 === i.options.dots && i.slideCount > i.options.slidesToShow && i.$dots.show();
+  }, e.prototype.keyHandler = function (i) {
+    var e = this;
+    i.target.tagName.match("TEXTAREA|INPUT|SELECT") || (37 === i.keyCode && !0 === e.options.accessibility ? e.changeSlide({
+      data: {
+        message: !0 === e.options.rtl ? "next" : "previous"
+      }
+    }) : 39 === i.keyCode && !0 === e.options.accessibility && e.changeSlide({
+      data: {
+        message: !0 === e.options.rtl ? "previous" : "next"
+      }
+    }));
+  }, e.prototype.lazyLoad = function () {
+    function e(e) {
+      i("img[data-lazy]", e).each(function () {
+        var e = i(this),
+            t = i(this).attr("data-lazy"),
+            o = i(this).attr("data-srcset"),
+            s = i(this).attr("data-sizes") || n.$slider.attr("data-sizes"),
+            r = document.createElement("img");
+        r.onload = function () {
+          e.animate({
+            opacity: 0
+          }, 100, function () {
+            o && (e.attr("srcset", o), s && e.attr("sizes", s)), e.attr("src", t).animate({
+              opacity: 1
+            }, 200, function () {
+              e.removeAttr("data-lazy data-srcset data-sizes").removeClass("slick-loading");
+            }), n.$slider.trigger("lazyLoaded", [n, e, t]);
+          });
+        }, r.onerror = function () {
+          e.removeAttr("data-lazy").removeClass("slick-loading").addClass("slick-lazyload-error"), n.$slider.trigger("lazyLoadError", [n, e, t]);
+        }, r.src = t;
+      });
+    }
+
+    var t,
+        o,
+        s,
+        n = this;
+    if (!0 === n.options.centerMode ? !0 === n.options.infinite ? s = (o = n.currentSlide + (n.options.slidesToShow / 2 + 1)) + n.options.slidesToShow + 2 : (o = Math.max(0, n.currentSlide - (n.options.slidesToShow / 2 + 1)), s = n.options.slidesToShow / 2 + 1 + 2 + n.currentSlide) : (o = n.options.infinite ? n.options.slidesToShow + n.currentSlide : n.currentSlide, s = Math.ceil(o + n.options.slidesToShow), !0 === n.options.fade && (o > 0 && o--, s <= n.slideCount && s++)), t = n.$slider.find(".slick-slide").slice(o, s), "anticipated" === n.options.lazyLoad) for (var r = o - 1, l = s, d = n.$slider.find(".slick-slide"), a = 0; a < n.options.slidesToScroll; a++) {
+      r < 0 && (r = n.slideCount - 1), t = (t = t.add(d.eq(r))).add(d.eq(l)), r--, l++;
+    }
+    e(t), n.slideCount <= n.options.slidesToShow ? e(n.$slider.find(".slick-slide")) : n.currentSlide >= n.slideCount - n.options.slidesToShow ? e(n.$slider.find(".slick-cloned").slice(0, n.options.slidesToShow)) : 0 === n.currentSlide && e(n.$slider.find(".slick-cloned").slice(-1 * n.options.slidesToShow));
+  }, e.prototype.loadSlider = function () {
+    var i = this;
+    i.setPosition(), i.$slideTrack.css({
+      opacity: 1
+    }), i.$slider.removeClass("slick-loading"), i.initUI(), "progressive" === i.options.lazyLoad && i.progressiveLazyLoad();
+  }, e.prototype.next = e.prototype.slickNext = function () {
+    this.changeSlide({
+      data: {
+        message: "next"
+      }
+    });
+  }, e.prototype.orientationChange = function () {
+    var i = this;
+    i.checkResponsive(), i.setPosition();
+  }, e.prototype.pause = e.prototype.slickPause = function () {
+    var i = this;
+    i.autoPlayClear(), i.paused = !0;
+  }, e.prototype.play = e.prototype.slickPlay = function () {
+    var i = this;
+    i.autoPlay(), i.options.autoplay = !0, i.paused = !1, i.focussed = !1, i.interrupted = !1;
+  }, e.prototype.postSlide = function (e) {
+    var t = this;
+    t.unslicked || (t.$slider.trigger("afterChange", [t, e]), t.animating = !1, t.slideCount > t.options.slidesToShow && t.setPosition(), t.swipeLeft = null, t.options.autoplay && t.autoPlay(), !0 === t.options.accessibility && (t.initADA(), t.options.focusOnChange && i(t.$slides.get(t.currentSlide)).attr("tabindex", 0).focus()));
+  }, e.prototype.prev = e.prototype.slickPrev = function () {
+    this.changeSlide({
+      data: {
+        message: "previous"
+      }
+    });
+  }, e.prototype.preventDefault = function (i) {
+    i.preventDefault();
+  }, e.prototype.progressiveLazyLoad = function (e) {
+    e = e || 1;
+    var t,
+        o,
+        s,
+        n,
+        r,
+        l = this,
+        d = i("img[data-lazy]", l.$slider);
+    d.length ? (t = d.first(), o = t.attr("data-lazy"), s = t.attr("data-srcset"), n = t.attr("data-sizes") || l.$slider.attr("data-sizes"), (r = document.createElement("img")).onload = function () {
+      s && (t.attr("srcset", s), n && t.attr("sizes", n)), t.attr("src", o).removeAttr("data-lazy data-srcset data-sizes").removeClass("slick-loading"), !0 === l.options.adaptiveHeight && l.setPosition(), l.$slider.trigger("lazyLoaded", [l, t, o]), l.progressiveLazyLoad();
+    }, r.onerror = function () {
+      e < 3 ? setTimeout(function () {
+        l.progressiveLazyLoad(e + 1);
+      }, 500) : (t.removeAttr("data-lazy").removeClass("slick-loading").addClass("slick-lazyload-error"), l.$slider.trigger("lazyLoadError", [l, t, o]), l.progressiveLazyLoad());
+    }, r.src = o) : l.$slider.trigger("allImagesLoaded", [l]);
+  }, e.prototype.refresh = function (e) {
+    var t,
+        o,
+        s = this;
+    o = s.slideCount - s.options.slidesToShow, !s.options.infinite && s.currentSlide > o && (s.currentSlide = o), s.slideCount <= s.options.slidesToShow && (s.currentSlide = 0), t = s.currentSlide, s.destroy(!0), i.extend(s, s.initials, {
+      currentSlide: t
+    }), s.init(), e || s.changeSlide({
+      data: {
+        message: "index",
+        index: t
+      }
+    }, !1);
+  }, e.prototype.registerBreakpoints = function () {
+    var e,
+        t,
+        o,
+        s = this,
+        n = s.options.responsive || null;
+
+    if ("array" === i.type(n) && n.length) {
+      s.respondTo = s.options.respondTo || "window";
+
+      for (e in n) {
+        if (o = s.breakpoints.length - 1, n.hasOwnProperty(e)) {
+          for (t = n[e].breakpoint; o >= 0;) {
+            s.breakpoints[o] && s.breakpoints[o] === t && s.breakpoints.splice(o, 1), o--;
+          }
+
+          s.breakpoints.push(t), s.breakpointSettings[t] = n[e].settings;
+        }
+      }
+
+      s.breakpoints.sort(function (i, e) {
+        return s.options.mobileFirst ? i - e : e - i;
+      });
+    }
+  }, e.prototype.reinit = function () {
+    var e = this;
+    e.$slides = e.$slideTrack.children(e.options.slide).addClass("slick-slide"), e.slideCount = e.$slides.length, e.currentSlide >= e.slideCount && 0 !== e.currentSlide && (e.currentSlide = e.currentSlide - e.options.slidesToScroll), e.slideCount <= e.options.slidesToShow && (e.currentSlide = 0), e.registerBreakpoints(), e.setProps(), e.setupInfinite(), e.buildArrows(), e.updateArrows(), e.initArrowEvents(), e.buildDots(), e.updateDots(), e.initDotEvents(), e.cleanUpSlideEvents(), e.initSlideEvents(), e.checkResponsive(!1, !0), !0 === e.options.focusOnSelect && i(e.$slideTrack).children().on("click.slick", e.selectHandler), e.setSlideClasses("number" == typeof e.currentSlide ? e.currentSlide : 0), e.setPosition(), e.focusHandler(), e.paused = !e.options.autoplay, e.autoPlay(), e.$slider.trigger("reInit", [e]);
+  }, e.prototype.resize = function () {
+    var e = this;
+    i(window).width() !== e.windowWidth && (clearTimeout(e.windowDelay), e.windowDelay = window.setTimeout(function () {
+      e.windowWidth = i(window).width(), e.checkResponsive(), e.unslicked || e.setPosition();
+    }, 50));
+  }, e.prototype.removeSlide = e.prototype.slickRemove = function (i, e, t) {
+    var o = this;
+    if (i = "boolean" == typeof i ? !0 === (e = i) ? 0 : o.slideCount - 1 : !0 === e ? --i : i, o.slideCount < 1 || i < 0 || i > o.slideCount - 1) return !1;
+    o.unload(), !0 === t ? o.$slideTrack.children().remove() : o.$slideTrack.children(this.options.slide).eq(i).remove(), o.$slides = o.$slideTrack.children(this.options.slide), o.$slideTrack.children(this.options.slide).detach(), o.$slideTrack.append(o.$slides), o.$slidesCache = o.$slides, o.reinit();
+  }, e.prototype.setCSS = function (i) {
+    var e,
+        t,
+        o = this,
+        s = {};
+    !0 === o.options.rtl && (i = -i), e = "left" == o.positionProp ? Math.ceil(i) + "px" : "0px", t = "top" == o.positionProp ? Math.ceil(i) + "px" : "0px", s[o.positionProp] = i, !1 === o.transformsEnabled ? o.$slideTrack.css(s) : (s = {}, !1 === o.cssTransitions ? (s[o.animType] = "translate(" + e + ", " + t + ")", o.$slideTrack.css(s)) : (s[o.animType] = "translate3d(" + e + ", " + t + ", 0px)", o.$slideTrack.css(s)));
+  }, e.prototype.setDimensions = function () {
+    var i = this;
+    !1 === i.options.vertical ? !0 === i.options.centerMode && i.$list.css({
+      padding: "0px " + i.options.centerPadding
+    }) : (i.$list.height(i.$slides.first().outerHeight(!0) * i.options.slidesToShow), !0 === i.options.centerMode && i.$list.css({
+      padding: i.options.centerPadding + " 0px"
+    })), i.listWidth = i.$list.width(), i.listHeight = i.$list.height(), !1 === i.options.vertical && !1 === i.options.variableWidth ? (i.slideWidth = Math.ceil(i.listWidth / i.options.slidesToShow), i.$slideTrack.width(Math.ceil(i.slideWidth * i.$slideTrack.children(".slick-slide").length))) : !0 === i.options.variableWidth ? i.$slideTrack.width(5e3 * i.slideCount) : (i.slideWidth = Math.ceil(i.listWidth), i.$slideTrack.height(Math.ceil(i.$slides.first().outerHeight(!0) * i.$slideTrack.children(".slick-slide").length)));
+    var e = i.$slides.first().outerWidth(!0) - i.$slides.first().width();
+    !1 === i.options.variableWidth && i.$slideTrack.children(".slick-slide").width(i.slideWidth - e);
+  }, e.prototype.setFade = function () {
+    var e,
+        t = this;
+    t.$slides.each(function (o, s) {
+      e = t.slideWidth * o * -1, !0 === t.options.rtl ? i(s).css({
+        position: "relative",
+        right: e,
+        top: 0,
+        zIndex: t.options.zIndex - 2,
+        opacity: 0
+      }) : i(s).css({
+        position: "relative",
+        left: e,
+        top: 0,
+        zIndex: t.options.zIndex - 2,
+        opacity: 0
+      });
+    }), t.$slides.eq(t.currentSlide).css({
+      zIndex: t.options.zIndex - 1,
+      opacity: 1
+    });
+  }, e.prototype.setHeight = function () {
+    var i = this;
+
+    if (1 === i.options.slidesToShow && !0 === i.options.adaptiveHeight && !1 === i.options.vertical) {
+      var e = i.$slides.eq(i.currentSlide).outerHeight(!0);
+      i.$list.css("height", e);
+    }
+  }, e.prototype.setOption = e.prototype.slickSetOption = function () {
+    var e,
+        t,
+        o,
+        s,
+        n,
+        r = this,
+        l = !1;
+    if ("object" === i.type(arguments[0]) ? (o = arguments[0], l = arguments[1], n = "multiple") : "string" === i.type(arguments[0]) && (o = arguments[0], s = arguments[1], l = arguments[2], "responsive" === arguments[0] && "array" === i.type(arguments[1]) ? n = "responsive" : void 0 !== arguments[1] && (n = "single")), "single" === n) r.options[o] = s;else if ("multiple" === n) i.each(o, function (i, e) {
+      r.options[i] = e;
+    });else if ("responsive" === n) for (t in s) {
+      if ("array" !== i.type(r.options.responsive)) r.options.responsive = [s[t]];else {
+        for (e = r.options.responsive.length - 1; e >= 0;) {
+          r.options.responsive[e].breakpoint === s[t].breakpoint && r.options.responsive.splice(e, 1), e--;
+        }
+
+        r.options.responsive.push(s[t]);
+      }
+    }
+    l && (r.unload(), r.reinit());
+  }, e.prototype.setPosition = function () {
+    var i = this;
+    i.setDimensions(), i.setHeight(), !1 === i.options.fade ? i.setCSS(i.getLeft(i.currentSlide)) : i.setFade(), i.$slider.trigger("setPosition", [i]);
+  }, e.prototype.setProps = function () {
+    var i = this,
+        e = document.body.style;
+    i.positionProp = !0 === i.options.vertical ? "top" : "left", "top" === i.positionProp ? i.$slider.addClass("slick-vertical") : i.$slider.removeClass("slick-vertical"), void 0 === e.WebkitTransition && void 0 === e.MozTransition && void 0 === e.msTransition || !0 === i.options.useCSS && (i.cssTransitions = !0), i.options.fade && ("number" == typeof i.options.zIndex ? i.options.zIndex < 3 && (i.options.zIndex = 3) : i.options.zIndex = i.defaults.zIndex), void 0 !== e.OTransform && (i.animType = "OTransform", i.transformType = "-o-transform", i.transitionType = "OTransition", void 0 === e.perspectiveProperty && void 0 === e.webkitPerspective && (i.animType = !1)), void 0 !== e.MozTransform && (i.animType = "MozTransform", i.transformType = "-moz-transform", i.transitionType = "MozTransition", void 0 === e.perspectiveProperty && void 0 === e.MozPerspective && (i.animType = !1)), void 0 !== e.webkitTransform && (i.animType = "webkitTransform", i.transformType = "-webkit-transform", i.transitionType = "webkitTransition", void 0 === e.perspectiveProperty && void 0 === e.webkitPerspective && (i.animType = !1)), void 0 !== e.msTransform && (i.animType = "msTransform", i.transformType = "-ms-transform", i.transitionType = "msTransition", void 0 === e.msTransform && (i.animType = !1)), void 0 !== e.transform && !1 !== i.animType && (i.animType = "transform", i.transformType = "transform", i.transitionType = "transition"), i.transformsEnabled = i.options.useTransform && null !== i.animType && !1 !== i.animType;
+  }, e.prototype.setSlideClasses = function (i) {
+    var e,
+        t,
+        o,
+        s,
+        n = this;
+
+    if (t = n.$slider.find(".slick-slide").removeClass("slick-active slick-center slick-current").attr("aria-hidden", "true"), n.$slides.eq(i).addClass("slick-current"), !0 === n.options.centerMode) {
+      var r = n.options.slidesToShow % 2 == 0 ? 1 : 0;
+      e = Math.floor(n.options.slidesToShow / 2), !0 === n.options.infinite && (i >= e && i <= n.slideCount - 1 - e ? n.$slides.slice(i - e + r, i + e + 1).addClass("slick-active").attr("aria-hidden", "false") : (o = n.options.slidesToShow + i, t.slice(o - e + 1 + r, o + e + 2).addClass("slick-active").attr("aria-hidden", "false")), 0 === i ? t.eq(t.length - 1 - n.options.slidesToShow).addClass("slick-center") : i === n.slideCount - 1 && t.eq(n.options.slidesToShow).addClass("slick-center")), n.$slides.eq(i).addClass("slick-center");
+    } else i >= 0 && i <= n.slideCount - n.options.slidesToShow ? n.$slides.slice(i, i + n.options.slidesToShow).addClass("slick-active").attr("aria-hidden", "false") : t.length <= n.options.slidesToShow ? t.addClass("slick-active").attr("aria-hidden", "false") : (s = n.slideCount % n.options.slidesToShow, o = !0 === n.options.infinite ? n.options.slidesToShow + i : i, n.options.slidesToShow == n.options.slidesToScroll && n.slideCount - i < n.options.slidesToShow ? t.slice(o - (n.options.slidesToShow - s), o + s).addClass("slick-active").attr("aria-hidden", "false") : t.slice(o, o + n.options.slidesToShow).addClass("slick-active").attr("aria-hidden", "false"));
+
+    "ondemand" !== n.options.lazyLoad && "anticipated" !== n.options.lazyLoad || n.lazyLoad();
+  }, e.prototype.setupInfinite = function () {
+    var e,
+        t,
+        o,
+        s = this;
+
+    if (!0 === s.options.fade && (s.options.centerMode = !1), !0 === s.options.infinite && !1 === s.options.fade && (t = null, s.slideCount > s.options.slidesToShow)) {
+      for (o = !0 === s.options.centerMode ? s.options.slidesToShow + 1 : s.options.slidesToShow, e = s.slideCount; e > s.slideCount - o; e -= 1) {
+        t = e - 1, i(s.$slides[t]).clone(!0).attr("id", "").attr("data-slick-index", t - s.slideCount).prependTo(s.$slideTrack).addClass("slick-cloned");
+      }
+
+      for (e = 0; e < o + s.slideCount; e += 1) {
+        t = e, i(s.$slides[t]).clone(!0).attr("id", "").attr("data-slick-index", t + s.slideCount).appendTo(s.$slideTrack).addClass("slick-cloned");
+      }
+
+      s.$slideTrack.find(".slick-cloned").find("[id]").each(function () {
+        i(this).attr("id", "");
+      });
+    }
+  }, e.prototype.interrupt = function (i) {
+    var e = this;
+    i || e.autoPlay(), e.interrupted = i;
+  }, e.prototype.selectHandler = function (e) {
+    var t = this,
+        o = i(e.target).is(".slick-slide") ? i(e.target) : i(e.target).parents(".slick-slide"),
+        s = parseInt(o.attr("data-slick-index"));
+    s || (s = 0), t.slideCount <= t.options.slidesToShow ? t.slideHandler(s, !1, !0) : t.slideHandler(s);
+  }, e.prototype.slideHandler = function (i, e, t) {
+    var o,
+        s,
+        n,
+        r,
+        l,
+        d = null,
+        a = this;
+    if (e = e || !1, !(!0 === a.animating && !0 === a.options.waitForAnimate || !0 === a.options.fade && a.currentSlide === i)) if (!1 === e && a.asNavFor(i), o = i, d = a.getLeft(o), r = a.getLeft(a.currentSlide), a.currentLeft = null === a.swipeLeft ? r : a.swipeLeft, !1 === a.options.infinite && !1 === a.options.centerMode && (i < 0 || i > a.getDotCount() * a.options.slidesToScroll)) !1 === a.options.fade && (o = a.currentSlide, !0 !== t ? a.animateSlide(r, function () {
+      a.postSlide(o);
+    }) : a.postSlide(o));else if (!1 === a.options.infinite && !0 === a.options.centerMode && (i < 0 || i > a.slideCount - a.options.slidesToScroll)) !1 === a.options.fade && (o = a.currentSlide, !0 !== t ? a.animateSlide(r, function () {
+      a.postSlide(o);
+    }) : a.postSlide(o));else {
+      if (a.options.autoplay && clearInterval(a.autoPlayTimer), s = o < 0 ? a.slideCount % a.options.slidesToScroll != 0 ? a.slideCount - a.slideCount % a.options.slidesToScroll : a.slideCount + o : o >= a.slideCount ? a.slideCount % a.options.slidesToScroll != 0 ? 0 : o - a.slideCount : o, a.animating = !0, a.$slider.trigger("beforeChange", [a, a.currentSlide, s]), n = a.currentSlide, a.currentSlide = s, a.setSlideClasses(a.currentSlide), a.options.asNavFor && (l = (l = a.getNavTarget()).slick("getSlick")).slideCount <= l.options.slidesToShow && l.setSlideClasses(a.currentSlide), a.updateDots(), a.updateArrows(), !0 === a.options.fade) return !0 !== t ? (a.fadeSlideOut(n), a.fadeSlide(s, function () {
+        a.postSlide(s);
+      })) : a.postSlide(s), void a.animateHeight();
+      !0 !== t ? a.animateSlide(d, function () {
+        a.postSlide(s);
+      }) : a.postSlide(s);
+    }
+  }, e.prototype.startLoad = function () {
+    var i = this;
+    !0 === i.options.arrows && i.slideCount > i.options.slidesToShow && (i.$prevArrow.hide(), i.$nextArrow.hide()), !0 === i.options.dots && i.slideCount > i.options.slidesToShow && i.$dots.hide(), i.$slider.addClass("slick-loading");
+  }, e.prototype.swipeDirection = function () {
+    var i,
+        e,
+        t,
+        o,
+        s = this;
+    return i = s.touchObject.startX - s.touchObject.curX, e = s.touchObject.startY - s.touchObject.curY, t = Math.atan2(e, i), (o = Math.round(180 * t / Math.PI)) < 0 && (o = 360 - Math.abs(o)), o <= 45 && o >= 0 ? !1 === s.options.rtl ? "left" : "right" : o <= 360 && o >= 315 ? !1 === s.options.rtl ? "left" : "right" : o >= 135 && o <= 225 ? !1 === s.options.rtl ? "right" : "left" : !0 === s.options.verticalSwiping ? o >= 35 && o <= 135 ? "down" : "up" : "vertical";
+  }, e.prototype.swipeEnd = function (i) {
+    var e,
+        t,
+        o = this;
+    if (o.dragging = !1, o.swiping = !1, o.scrolling) return o.scrolling = !1, !1;
+    if (o.interrupted = !1, o.shouldClick = !(o.touchObject.swipeLength > 10), void 0 === o.touchObject.curX) return !1;
+
+    if (!0 === o.touchObject.edgeHit && o.$slider.trigger("edge", [o, o.swipeDirection()]), o.touchObject.swipeLength >= o.touchObject.minSwipe) {
+      switch (t = o.swipeDirection()) {
+        case "left":
+        case "down":
+          e = o.options.swipeToSlide ? o.checkNavigable(o.currentSlide + o.getSlideCount()) : o.currentSlide + o.getSlideCount(), o.currentDirection = 0;
+          break;
+
+        case "right":
+        case "up":
+          e = o.options.swipeToSlide ? o.checkNavigable(o.currentSlide - o.getSlideCount()) : o.currentSlide - o.getSlideCount(), o.currentDirection = 1;
+      }
+
+      "vertical" != t && (o.slideHandler(e), o.touchObject = {}, o.$slider.trigger("swipe", [o, t]));
+    } else o.touchObject.startX !== o.touchObject.curX && (o.slideHandler(o.currentSlide), o.touchObject = {});
+  }, e.prototype.swipeHandler = function (i) {
+    var e = this;
+    if (!(!1 === e.options.swipe || "ontouchend" in document && !1 === e.options.swipe || !1 === e.options.draggable && -1 !== i.type.indexOf("mouse"))) switch (e.touchObject.fingerCount = i.originalEvent && void 0 !== i.originalEvent.touches ? i.originalEvent.touches.length : 1, e.touchObject.minSwipe = e.listWidth / e.options.touchThreshold, !0 === e.options.verticalSwiping && (e.touchObject.minSwipe = e.listHeight / e.options.touchThreshold), i.data.action) {
+      case "start":
+        e.swipeStart(i);
+        break;
+
+      case "move":
+        e.swipeMove(i);
+        break;
+
+      case "end":
+        e.swipeEnd(i);
+    }
+  }, e.prototype.swipeMove = function (i) {
+    var e,
+        t,
+        o,
+        s,
+        n,
+        r,
+        l = this;
+    return n = void 0 !== i.originalEvent ? i.originalEvent.touches : null, !(!l.dragging || l.scrolling || n && 1 !== n.length) && (e = l.getLeft(l.currentSlide), l.touchObject.curX = void 0 !== n ? n[0].pageX : i.clientX, l.touchObject.curY = void 0 !== n ? n[0].pageY : i.clientY, l.touchObject.swipeLength = Math.round(Math.sqrt(Math.pow(l.touchObject.curX - l.touchObject.startX, 2))), r = Math.round(Math.sqrt(Math.pow(l.touchObject.curY - l.touchObject.startY, 2))), !l.options.verticalSwiping && !l.swiping && r > 4 ? (l.scrolling = !0, !1) : (!0 === l.options.verticalSwiping && (l.touchObject.swipeLength = r), t = l.swipeDirection(), void 0 !== i.originalEvent && l.touchObject.swipeLength > 4 && (l.swiping = !0, i.preventDefault()), s = (!1 === l.options.rtl ? 1 : -1) * (l.touchObject.curX > l.touchObject.startX ? 1 : -1), !0 === l.options.verticalSwiping && (s = l.touchObject.curY > l.touchObject.startY ? 1 : -1), o = l.touchObject.swipeLength, l.touchObject.edgeHit = !1, !1 === l.options.infinite && (0 === l.currentSlide && "right" === t || l.currentSlide >= l.getDotCount() && "left" === t) && (o = l.touchObject.swipeLength * l.options.edgeFriction, l.touchObject.edgeHit = !0), !1 === l.options.vertical ? l.swipeLeft = e + o * s : l.swipeLeft = e + o * (l.$list.height() / l.listWidth) * s, !0 === l.options.verticalSwiping && (l.swipeLeft = e + o * s), !0 !== l.options.fade && !1 !== l.options.touchMove && (!0 === l.animating ? (l.swipeLeft = null, !1) : void l.setCSS(l.swipeLeft))));
+  }, e.prototype.swipeStart = function (i) {
+    var e,
+        t = this;
+    if (t.interrupted = !0, 1 !== t.touchObject.fingerCount || t.slideCount <= t.options.slidesToShow) return t.touchObject = {}, !1;
+    void 0 !== i.originalEvent && void 0 !== i.originalEvent.touches && (e = i.originalEvent.touches[0]), t.touchObject.startX = t.touchObject.curX = void 0 !== e ? e.pageX : i.clientX, t.touchObject.startY = t.touchObject.curY = void 0 !== e ? e.pageY : i.clientY, t.dragging = !0;
+  }, e.prototype.unfilterSlides = e.prototype.slickUnfilter = function () {
+    var i = this;
+    null !== i.$slidesCache && (i.unload(), i.$slideTrack.children(this.options.slide).detach(), i.$slidesCache.appendTo(i.$slideTrack), i.reinit());
+  }, e.prototype.unload = function () {
+    var e = this;
+    i(".slick-cloned", e.$slider).remove(), e.$dots && e.$dots.remove(), e.$prevArrow && e.htmlExpr.test(e.options.prevArrow) && e.$prevArrow.remove(), e.$nextArrow && e.htmlExpr.test(e.options.nextArrow) && e.$nextArrow.remove(), e.$slides.removeClass("slick-slide slick-active slick-visible slick-current").attr("aria-hidden", "true").css("width", "");
+  }, e.prototype.unslick = function (i) {
+    var e = this;
+    e.$slider.trigger("unslick", [e, i]), e.destroy();
+  }, e.prototype.updateArrows = function () {
+    var i = this;
+    Math.floor(i.options.slidesToShow / 2), !0 === i.options.arrows && i.slideCount > i.options.slidesToShow && !i.options.infinite && (i.$prevArrow.removeClass("slick-disabled").attr("aria-disabled", "false"), i.$nextArrow.removeClass("slick-disabled").attr("aria-disabled", "false"), 0 === i.currentSlide ? (i.$prevArrow.addClass("slick-disabled").attr("aria-disabled", "true"), i.$nextArrow.removeClass("slick-disabled").attr("aria-disabled", "false")) : i.currentSlide >= i.slideCount - i.options.slidesToShow && !1 === i.options.centerMode ? (i.$nextArrow.addClass("slick-disabled").attr("aria-disabled", "true"), i.$prevArrow.removeClass("slick-disabled").attr("aria-disabled", "false")) : i.currentSlide >= i.slideCount - 1 && !0 === i.options.centerMode && (i.$nextArrow.addClass("slick-disabled").attr("aria-disabled", "true"), i.$prevArrow.removeClass("slick-disabled").attr("aria-disabled", "false")));
+  }, e.prototype.updateDots = function () {
+    var i = this;
+    null !== i.$dots && (i.$dots.find("li").removeClass("slick-active").end(), i.$dots.find("li").eq(Math.floor(i.currentSlide / i.options.slidesToScroll)).addClass("slick-active"));
+  }, e.prototype.visibility = function () {
+    var i = this;
+    i.options.autoplay && (document[i.hidden] ? i.interrupted = !0 : i.interrupted = !1);
+  }, i.fn.slick = function () {
+    var i,
+        t,
+        o = this,
+        s = arguments[0],
+        n = Array.prototype.slice.call(arguments, 1),
+        r = o.length;
+
+    for (i = 0; i < r; i++) {
+      if ("object" == _typeof(s) || void 0 === s ? o[i].slick = new e(o[i], s) : t = o[i].slick[s].apply(o[i].slick, n), void 0 !== t) return t;
+    }
+
+    return o;
+  };
 });
