@@ -6314,6 +6314,26 @@ body.page-template-page-about {
 /* slick carousel */
 #image-container.carousel {
   overflow: hidden;
+  .swiper-container .slick-arrow:before,
+  .swiper-container .slick-arrow:after {
+    background: #FFF;
+  }
+  .swiper-container .slick-arrow.slick-next,
+  .swiper-container .slick-arrow.slick-prev {
+    transform: translateY(-30px) scale(0.8);
+  }
+  .swiper-container .slick-arrow.slick-next {
+    right: 20px;
+    @include tab {
+      right: 20px;
+    }
+  }
+  .swiper-container .slick-arrow.slick-prev {
+    left: 20px;
+    @include tab {
+      left: 40px;
+    }
+  }
 }
 .swiper-container {
   margin-bottom: 0;

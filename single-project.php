@@ -157,7 +157,7 @@ jQuery(document).ready(function($){
       infinite: true,
       speed: 300,
       slidesToShow: 1,
-      arrows: false,
+      arrows: true,
       centerMode: true,
       variableWidth: true
     });

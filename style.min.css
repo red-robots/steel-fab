@@ -2214,6 +2214,10 @@ body.page-template-page-about.logged-in.admin-bar .fancybox-button.fancybox-butt
 .about-video .video-frame img.helper{width:100%;height:auto;float:left}
 .about-video .video-frame iframe{width:100% !important;height:100% !important;position:absolute;top:0;left:0}
 #image-container.carousel{overflow:hidden}
+#image-container.carousel .swiper-container .slick-arrow:before,#image-container.carousel .swiper-container .slick-arrow:after{background:#FFF}
+#image-container.carousel .swiper-container .slick-arrow.slick-next,#image-container.carousel .swiper-container .slick-arrow.slick-prev{-webkit-transform:translateY(-30px) scale(0.8);transform:translateY(-30px) scale(0.8)}
+#image-container.carousel .swiper-container .slick-arrow.slick-next{right:20px}
+#image-container.carousel .swiper-container .slick-arrow.slick-prev{left:20px}
 .swiper-container{margin-bottom:0;position:relative;height:auto;height:400px}
 .swiper-container .slick-dotted.slick-slider,.swiper-container .slick-list,.swiper-container .slick-track{height:100%;width:100%}
 .swiper-container .slick-dotted.slick-slider{margin-bottom:0}
@@ -2438,6 +2442,8 @@ body.subpage .entry-content.text-left-image-right{min-height:25vw}
 #timeline-area.timeline-wrapper .timeline .middle-line{width:50%}
 #timeline-area.timeline-wrapper .timeline .middle-line:before{content:"";display:block;width:7vw;border-bottom:2px solid #335d7d;position:absolute;top:0;right:0;margin-right:-3.5vw;margin-top:-1.2vw}
 #timeline-area.timeline-wrapper .timeline .middle-line:after{content:"";display:block;width:7vw;border-bottom:2px solid #335d7d;position:absolute;bottom:0;right:0;margin-right:-3.5vw;margin-bottom:-1.2vw}
+#image-container.carousel .swiper-container .slick-arrow.slick-next{right:20px}
+#image-container.carousel .swiper-container .slick-arrow.slick-prev{left:40px}
 .site-footer ul.menu>li>a{padding-right:4vw}
 }@media screen and (min-width:820px){.swiper-container{height:500px}
 .swiper-container .slick-dotted.slick-slider,.swiper-container .slick-list,.swiper-container .slick-track{width:auto}
