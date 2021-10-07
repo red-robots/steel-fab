@@ -2040,7 +2040,7 @@ body.single-project #main .titlediv{margin-bottom:50px}
 .project-description-area #image-description.adjust-image #feat-image{visibility:hidden}
 .project-slider{width:100%;height:100%;float:left;position:relative}
 .project-slider .swiper{width:100%;height:100%;position:absolute;top:0;left:0}
-.project-slider .swiper-slide{visibility:hidden;position:relative;background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#76777b;background-size:contain}
+.project-slider .swiper-slide{visibility:hidden;position:relative;background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#76777b;background-size:cover}
 .project-slider .swiper-slide img.actual-image{display:block;width:100%;height:auto}
 .project-slider .photo-caption{width:100%;position:absolute;left:0;bottom:0;padding-left:25px;padding-bottom:25px}
 .project-slider .photo-caption .caption{display:inline-block;background:rgba(0,0,0,0.85);color:#FFF;padding:2px 15px;font-size:13px;letter-spacing:1px;-webkit-transition:all ease .5s;transition:all ease .5s;opacity:0;-webkit-transform:translateX(-100%);transform:translateX(-100%)}
