@@ -48,8 +48,8 @@ get_header(); ?>
 	$description = term_description($obj);
 	$term_image = get_field("division_featured_image",$field_id);
   $multiple_images = get_field("divisionFeaturedImages",$field_id);
+  $term_has_images = ($term_image || $multiple_images) ? true : false;
   $count_images = ($multiple_images) ? count($multiple_images) : '';
-
 	$mailing = get_field("division_mailing",$field_id);
 	$mailing_address = ( isset($mailing['address']) && $mailing['address'] ) ? $mailing['address'] : '';
 	$sales = get_field("division_york_sales",$field_id);
@@ -74,8 +74,8 @@ get_header(); ?>
 
 	$locations = get_field("location",$field_id);
 	//$has_extra_fields = ($mailing_address || $sales_office_info || $specialty_info) ? true : false;
-	$div_class = ( ($description || $locations) && $term_image ) ? 'twocol':'onecol';
-	if($description || $term_image || $locations ) { ?>
+	$div_class = ( ($description || $locations || $mailing_address) && $term_has_images ) ? 'twocol':'onecol';
+	if($description || $term_has_images || $locations ) { ?>
 	<div class="project-description-area divisions <?php echo $div_class ?>">
 		<div class="wrapper">
 			<div class="flexwrap">
