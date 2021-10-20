@@ -3,14 +3,40 @@
 	<?php  
 	$footer_logo = get_field("footer_logo","option");
 	$footer_links = get_field("footer_links","option");
+  $footer_other_logos = get_field("footer_other_logos","option");
+  $other_logos = array();
+  if($footer_other_logos) {
+    foreach($footer_other_logos as $e) {
+      if($e['logo']) {
+        $other_logos[] = $e;
+      }
+    }
+  }
 	$social_media = get_social_media();
 	?>
 	<footer id="colophon" class="site-footer" role="contentinfo">
 		<div class="wrapper">
 			<div class="flexwrap">
-				<?php if ($footer_logo) { ?>
+				<?php if ($footer_logo || $other_logos) { ?>
 					<div class="footer-logo">
-						<img src="<?php echo $footer_logo['url'] ?>" alt="<?php echo $footer_logo['title'] ?>">
+            <?php if ($footer_logo) { ?>
+              <img src="<?php echo $footer_logo['url'] ?>" alt="<?php echo $footer_logo['title'] ?>">
+            <?php } ?>
+						
+            <?php if ($other_logos) { ?>
+            <div class="other-logos">
+              <?php foreach ($other_logos as $r) { 
+                $openLink = '';
+                $closeLink = '';
+                if($r['url']) {
+                  $openLink = '<a href="'.$r['url'].'">';
+                  $closeLink = '</a>';
+                }
+                ?>
+                <div><?php echo $openLink; ?><img src="<?php echo $r['logo']['url'] ?>" alt="<?php echo $r['logo']['title'] ?>"><?php echo $closeLink; ?></div>
+              <?php } ?>
+            </div>
+            <?php } ?>
 					</div>
 				<?php } ?>
 

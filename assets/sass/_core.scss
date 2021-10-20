@@ -6528,10 +6528,21 @@ body.page-template-page-about {
 	.footer-logo {
 		width: 15%;
 		img {
-			width: 100px;
+			width: 110px;
 			height: auto;
+      position: relative;
 		}
 	}
+  .other-logos {
+    margin-top: 35px;
+    div, img {
+      width: 120px;
+    }
+    a {
+      display: block;
+      width: 100%;
+    }
+  }
 	.social-media {
 		width: 15%;
 		a {
