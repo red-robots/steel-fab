@@ -6534,13 +6534,22 @@ body.page-template-page-about {
 		}
 	}
   .other-logos {
+    text-align: center;
     margin-top: 35px;
-    div, img {
+    img {
       width: 120px;
     }
     a {
       display: block;
       width: 100%;
+    }
+    div {
+      width: 100%;
+      text-align: center;
+      @include tab {
+        width: 120px;
+        text-align: left;
+      }
     }
   }
 	.social-media {
