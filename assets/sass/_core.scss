@@ -1270,6 +1270,9 @@ body.open-menu {
 			padding-top: 10vw;
 			padding-bottom: 10vw;
 		}
+    @include desk {
+      padding-left: 5vw;
+    }
 	}
 	.fcol {
 		width: 100%;
@@ -1349,6 +1352,7 @@ body.open-menu {
 				transition: all ease .3s;
 				margin: 0 0;
 				padding: 0 0;
+        transform: scale(1.02);
 			}
 			img {
 				width: 100%;
@@ -4230,6 +4234,28 @@ body.subpage .entry-content.text-left-image-right {
 	div.button {
 		margin-top: 30px;
 	}
+}
+
+div.multiple-buttons {
+  a {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+    &:first-child {
+      margin-top: 0;
+    }
+    @include xs {
+      margin-left: 20px;
+      margin-right: 0;
+      margin-top: 0;
+      width: auto;
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
 }
 
 .page-careers-template {

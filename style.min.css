@@ -1546,7 +1546,7 @@ body.open-menu .nav-overlay{display:block;width:100%;height:100%;position:fixed;
 #home-row-7 .col-title{text-decoration:none;color:#335d7d;margin:0;text-align:center}
 #home-row-7 .gallery{display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}
 #home-row-7 .gallery .photo{display:block;width:50%;position:relative;overflow:hidden;cursor:pointer}
-#home-row-7 .gallery .photo .image{width:100%;height:100%;position:absolute;top:0;left:0;background-size:cover;background-position:center;background-repeat:no-repeat;-webkit-transition:all ease .3s;transition:all ease .3s;margin:0;padding:0}
+#home-row-7 .gallery .photo .image{width:100%;height:100%;position:absolute;top:0;left:0;background-size:cover;background-position:center;background-repeat:no-repeat;-webkit-transition:all ease .3s;transition:all ease .3s;margin:0;padding:0;-webkit-transform:scale(1.02);transform:scale(1.02)}
 #home-row-7 .gallery .photo img{width:100%;height:auto;float:left}
 #home-row-7 .gallery .photo span{display:block;width:100%;-webkit-transition:all ease .3s;transition:all ease .3s}
 #home-row-7 .gallery .photo .caption{width:100%;height:0;position:absolute;bottom:-30px;left:0;opacity:0;z-index:15;color:#FFF;background:rgba(3,26,41,0.85);text-align:center}
@@ -1906,6 +1906,8 @@ body.subpage .entry-content{min-height:20em}
 .text-left-image-right .textcol .text h2{color:#eca72c;font-weight:800;font-size:28px;line-height:1.2;text-transform:uppercase;margin:0 0 20px;position:relative}
 .text-left-image-right .textcol.careers-items:before{background-color:#335d7d;opacity:1}
 .text-left-image-right div.button{margin-top:30px}
+div.multiple-buttons a{margin-left:0;margin-right:0;margin-top:20px;width:100%;text-align:center}
+div.multiple-buttons a:first-child{margin-top:0}
 .page-careers-template .columns-with-icons .wrapper{padding-bottom:60px}
 .text-blue-bg{color:#FFF;position:relative;padding-top:80px;padding-bottom:80px;display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-align:center;-ms-flex-align:center;align-items:center}
 .text-blue-bg:before{content:"";display:block;width:100%;height:100%;position:absolute;top:0;left:0;background-color:rgba(20,96,154,0.85);z-index:2}
@@ -2278,6 +2280,8 @@ body.page-template-page-about.logged-in.admin-bar .fancybox-button.fancybox-butt
 .team-list .staff-info{margin-top:1vw;margin-bottom:0}
 .text-left-image-right .textcol.careers-items .text ul{-webkit-column-count:2;-moz-column-count:2;column-count:2}
 .text-left-image-right .textcol.careers-items .text ul li{-webkit-column-break-inside:avoid;page-break-inside:avoid;-moz-column-break-inside:avoid;break-inside:avoid;min-height:26px;padding-right:15px}
+div.multiple-buttons a{margin-left:20px;margin-right:0;margin-top:0;width:auto}
+div.multiple-buttons a:first-child{margin-left:0}
 .careers-list .job{width:50%}
 .careers-list .job .inside .wrap{padding:30px 6vw}
 .contact-form .gform_wrapper.gravity-theme .gform_page_footer input,.contact-form .gform_wrapper .gform_footer input.button{width:auto}
@@ -2472,6 +2476,7 @@ body.subpage .entry-content.text-left-image-right{min-height:25vw}
 }@media screen and (min-width:960px){.swiper-container{height:600px}
 }@media only screen and (min-width:1100px){.horizontal-timeline{margin:6em auto}
 }@media(min-width:1200px){#home-row-1.hero-video .hero-inner-wrap{min-height:85vh}
+#home-row-6 .wrapper{padding-left:5vw}
 .twocol-text-image .image-bg{-webkit-clip-path:polygon(44% 0,50% 10%,56% 0,100% 0,100% 100%,0 100%,0 0);clip-path:polygon(44% 0,50% 10%,56% 0,100% 0,100% 100%,0 100%,0 0)}
 .twocol-text-image .fxcol.left .bg-img,.twocol-text-image .fxcol.left .bg-color{-webkit-clip-path:polygon(0 0,85% 0,100% 11%,100% 100%,0 100%);clip-path:polygon(0 0,85% 0,100% 11%,100% 100%,0 100%)}
 .twocol-text-image .fxcol.right .right-bg{-webkit-clip-path:polygon(0 10%,22% 0,100% 0,100% 100%,0 100%);clip-path:polygon(0 10%,22% 0,100% 0,100% 100%,0 100%)}

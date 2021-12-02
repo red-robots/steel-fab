@@ -94,7 +94,9 @@ get_header(); ?>
 			<?php  
 			$row3_text = get_field("row3_text");
 			$row3_img_bg = get_field("row3_img_bg");
-			$row3_button = get_field("row3_button");
+			
+      /* Button 1 */
+      $row3_button = get_field("row3_button");
 			$button_type = (isset($row3_button['link_type']) && $row3_button['link_type']) ? $row3_button['link_type'] : 'link';
 			$buttonName = '';
 			$buttonLink = '';
@@ -109,6 +111,21 @@ get_header(); ?>
 				$buttonTarget = ( isset($row3_button['btn_link']['target']) && $row3_button['btn_link']['target'] ) ? $row3_button['btn_link']['target'] : '';
 			}
 
+      /* Button 2 */
+      $row3_button2 = get_field("row3_button2");
+      $button_type2 = (isset($row3_button2['link_type']) && $row3_button2['link_type']) ? $row3_button2['link_type'] : 'link';
+      $buttonName2 = '';
+      $buttonLink2 = '';
+      $buttonTarget2 = '_self';
+      if($button_type2=='file') {
+        $buttonName2 = $row3_button2['btn_file_name'];
+        $buttonLink2 = ( isset($row3_button2['btn_file_link']) && $row3_button2['btn_file_link']) ? $row3_button2['btn_file_link'] : '';
+        $buttonTarget2 = '_blank';
+      } else {
+        $buttonName2 = ( isset($row3_button2['btn_link']['title']) && $row3_button2['btn_link']['title'] ) ? $row3_button2['btn_link']['title'] : '';
+        $buttonLink2 = ( isset($row3_button2['btn_link']['url']) && $row3_button2['btn_link']['url'] ) ? $row3_button2['btn_link']['url'] : '';
+        $buttonTarget2 = ( isset($row3_button2['btn_link']['target']) && $row3_button2['btn_link']['target'] ) ? $row3_button2['btn_link']['target'] : '';
+      }
 			
 
 			if( $row3_text ) { ?>
@@ -122,11 +139,19 @@ get_header(); ?>
 				<div class="textcol careers-items">
 					<div class="text">
 						<?php echo $row3_text ?>
-						<?php if ($buttonName && $buttonLink) { ?>
-						<div class="button">
-							<a href="<?php echo $buttonLink ?>" target="<?php echo $buttonTarget ?>" class="btn-outline sm"><?php echo $buttonName ?></a>
-						</div>
-						<?php } ?>
+
+            <?php if ( ($buttonName && $buttonLink) || ($buttonName2 && $buttonLink2) ) { ?>
+            <div class="button multiple-buttons">
+  						<?php if ($buttonName && $buttonLink) { ?>
+  						<a href="<?php echo $buttonLink ?>" target="<?php echo $buttonTarget ?>" class="btn-outline sm"><?php echo $buttonName ?></a>
+  						<?php } ?>
+
+              <?php if ($buttonName2 && $buttonLink2) { ?>
+              <a href="<?php echo $buttonLink2 ?>" target="<?php echo $buttonTarget2 ?>" class="btn-outline sm"><?php echo $buttonName2 ?></a>
+              <?php } ?>
+            </div>
+            <?php } ?>
+
 					</div>
 				</div>
 			</div>
