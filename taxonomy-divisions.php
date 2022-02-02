@@ -167,11 +167,14 @@ get_header(); ?>
       .project-description-area.divisions .project-info.left .inside {
         padding-left: 30px;
         padding-right: 30px;
-        padding-bottom: <?php echo ($numcols>1) ? ' 10px':' 30px'; ?>;
+        padding-bottom: <?php echo ($numcols>1) ? ' 50px':' 30px'; ?>;
       }
       .project-description-area.divisions .project-info.left .division-info .info {
         margin-top: 0;
         margin-bottom: 40px;
+      }
+      .project-description-area.divisions .project-info.left .division-info .info:last-child {
+        margin-bottom: 0;
       }
       .project-description-area.divisions .project-info.left .division-info {
         column-count: <?php echo $numcols ?>;
