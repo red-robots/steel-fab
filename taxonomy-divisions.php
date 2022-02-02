@@ -51,6 +51,8 @@ get_header(); ?>
   $term_has_images = ($term_image || $multiple_images) ? true : false;
   $count_images = ($multiple_images) ? count($multiple_images) : '';
 	$mailing = get_field("division_mailing",$field_id);
+  $numcols = get_field("numcols",$field_id);
+  $numcolClass = ($numcols) ? ' numcols-'.$numcols:'';
 	$mailing_address = ( isset($mailing['address']) && $mailing['address'] ) ? $mailing['address'] : '';
 	$sales = get_field("division_york_sales",$field_id);
 	$sales_office_info = array();
@@ -76,90 +78,121 @@ get_header(); ?>
 	//$has_extra_fields = ($mailing_address || $sales_office_info || $specialty_info) ? true : false;
 	$div_class = ( ($description || $locations || $mailing_address) && $term_has_images ) ? 'twocol':'onecol';
 	if($description || $term_has_images || $locations ) { ?>
-	<div class="project-description-area divisions <?php echo $div_class ?>">
-		<div class="wrapper">
-			<div class="flexwrap">
-				<?php if ($description || $locations ) { ?>
-				<div class="project-info left">
-					<div class="inside">
-						<div class="wrap">
-							<h2 class="term-name"><?php echo $current_term_name ?></h2>
-							<?php if ($description) { ?>
-							<div class="description">
-								<?php echo email_obfuscator($description) ?>	
-							</div>
-							<?php } ?>
+  	
+    <div class="project-description-area divisions <?php echo $div_class ?>">
+  		<div class="wrapper">
+  			<div class="flexwrap">
+  				<?php if ($description || $locations ) { ?>
+  				<div class="project-info left<?php echo $numcolClass ?>">
+  					<div class="inside">
+  						<div class="wrap">
+  							<h2 class="term-name"><?php echo $current_term_name ?></h2>
+  							<?php if ($description) { ?>
+  							<div class="description">
+  								<?php echo email_obfuscator($description) ?>	
+  							</div>
+  							<?php } ?>
 
-							<?php if ( $locations || $mailing_address) { ?>
-							<div class="division-info">
-								<?php if ($mailing_address) { ?>
-								<div class="info mailing-address">
-									<div class="title">Mailing Address</div>
-									<div class="val v_address"><?php echo $mailing_address ?></div>
-								</div>
-								<?php } ?>
+  							<?php if ( $locations || $mailing_address) { ?>
+  							<div class="division-info">
+  								<?php if ($mailing_address) { ?>
+  								<div class="info mailing-address">
+  									<div class="title">Mailing Address</div>
+  									<div class="val v_address"><?php echo $mailing_address ?></div>
+  								</div>
+  								<?php } ?>
 
-								<?php foreach ($locations as $obj) { 
-									if($obj['location_title']) { 
-										$slug_loc = ($obj['location_title']) ?  sanitize_title($obj['location_title']) : '';
-										?>
-										<div class="info <?php echo $k ?>-info">
-											<div class="title"><?php echo $obj['location_title'] ?></div>
-											<?php unset($obj['location_title']); ?>
-											<?php foreach($obj as $k=>$val) { 
-												if($val) { ?>
-													<div class="val v_<?php echo $k ?>"><?php echo $val ?></div>
-												<?php } ?>
-											<?php } ?>
-										</div>
-									<?php } ?>
-								<?php } ?>
-							</div>
-							<?php } ?>
-						</div>
-					</div>
-				</div>	
-				<?php } ?>
+  								<?php foreach ($locations as $k=>$obj) { 
+  									if($obj['location_title']) { 
+  										$slug_loc = ($obj['location_title']) ?  sanitize_title($obj['location_title']) : '';
+  										?>
+  										<div class="info <?php echo $k ?>-info">
+  											<div class="title"><?php echo $obj['location_title'] ?></div>
+  											<?php unset($obj['location_title']); ?>
+  											<?php foreach($obj as $k=>$val) { 
+  												if($val) { ?>
+  													<div class="val v_<?php echo $k ?>"><?php echo $val ?></div>
+  												<?php } ?>
+  											<?php } ?>
+  										</div>
+  									<?php } ?>
+  								<?php } ?>
+  							</div>
+  							<?php } ?>
+  						</div>
+  					</div>
+  				</div>	
+  				<?php } ?>
 
-				<?php if ($multiple_images) { ?>
-				<div class="project-info right">
+  				<?php if ($multiple_images) { ?>
+  				<div class="project-info right">
 
-          <?php if ($count_images==1) { ?>
-					<div class="image single-photo" style="background-image:url('<?php echo $multiple_images[0]['url'] ?>')">
-						<img src="<?php echo get_images_dir('rectangle-lg.png') ?>" alt="" aria-hidden="true" class="helper">
-					</div>
-          <?php } else if($count_images>1) { ?>
-          <div class="image multiple-photos">
-            <div class="project-slider">
-              <div class="swiper">
-                <div class="swiper-wrapper">
-                  <?php foreach ($multiple_images as $p) { ?>
-                    <div class="swiper-slide" style="background-image:url('<?php echo $p['url'] ?>')">
-                      <img src="<?php echo $p['url'] ?>" alt="<?php echo $p['title'] ?>" style="display:none;" />
-                      <?php if ( $p['caption'] ) { ?>
-                       <div class="photo-caption"><div class="caption"><?php echo $p['caption']; ?></div></div> 
-                      <?php } ?>
-                    </div>
-                  <?php } ?>
+            <?php if ($count_images==1) { ?>
+  					<div class="image single-photo" style="background-image:url('<?php echo $multiple_images[0]['url'] ?>')">
+  						<img src="<?php echo get_images_dir('rectangle-lg.png') ?>" alt="" aria-hidden="true" class="helper">
+  					</div>
+            <?php } else if($count_images>1) { ?>
+            <div class="image multiple-photos">
+              <div class="project-slider">
+                <div class="swiper">
+                  <div class="swiper-wrapper">
+                    <?php foreach ($multiple_images as $p) { ?>
+                      <div class="swiper-slide" style="background-image:url('<?php echo $p['url'] ?>')">
+                        <img src="<?php echo $p['url'] ?>" alt="<?php echo $p['title'] ?>" style="display:none;" />
+                        <?php if ( $p['caption'] ) { ?>
+                         <div class="photo-caption"><div class="caption"><?php echo $p['caption']; ?></div></div> 
+                        <?php } ?>
+                      </div>
+                    <?php } ?>
+                  </div>
+                  
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                  
                 </div>
-                
-                  <div class="swiper-pagination"></div>
-                  <div class="swiper-button-prev"></div>
-                  <div class="swiper-button-next"></div>
-                
+                <img src="<?php echo get_images_dir('rectangle-lg.png') ?>" alt="" class="helper">
               </div>
-              <img src="<?php echo get_images_dir('rectangle-lg.png') ?>" alt="" class="helper">
             </div>
-          </div>
-          <?php } ?>
+            <?php } ?>
 
-        </div>	
-				<?php } ?>
-			</div>
-		</div>
-	</div>
-	<?php } ?>
+          </div>	
+  				<?php } ?>
+  			</div>
+  		</div>
+  	</div>
 
+    <?php if ($numcols) { ?>
+    <style type="text/css">
+      .project-description-area.divisions .project-info.left .inside {
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-bottom: <?php echo ($numcols>1) ? ' 10px':' 30px'; ?>;
+      }
+      .project-description-area.divisions .project-info.left .division-info .info {
+        margin-top: 0;
+        margin-bottom: 40px;
+      }
+      .project-description-area.divisions .project-info.left .division-info {
+        column-count: <?php echo $numcols ?>;
+        column-gap: 3em;
+      }
+      @media screen and (max-width: 960px) {
+        <?php if ($numcols>2) { ?>
+        .project-description-area.divisions .project-info.left .division-info {
+          column-count: 2;
+        }
+        <?php } ?>
+      }
+      @media screen and (max-width: 768px) {
+        .project-description-area.divisions .project-info.left .division-info {
+          column-count: 1;
+        }
+      }
+    </style>
+    <?php } ?>
+
+  <?php } ?>
 
 	<?php /* AVAILABLE JOBS */ ?>
 	<?php

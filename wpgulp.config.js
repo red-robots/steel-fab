@@ -26,8 +26,8 @@ const styleSRC = './assets/sass/style.scss';
 // Path to place the compiled CSS file. Default set to root folder.
 const styleDestination = './';
 
-// Available options → 'compact' or 'compressed' or 'nested' or 'expanded'
-const outputStyle = 'compact';
+// Available options → 'compressed' or 'expanded'
+const outputStyle = 'compressed';
 const errLogToConsole = true;
 const precision = 10;
 
@@ -98,7 +98,8 @@ const zipIgnoreGlob = [
 	'!./vscode',
 	'!./package.json',
 	'!./package-lock.json',
-	'!./assets/sass/**/*',
+	'!./assets/css/**/*',
+	'!./assets/css',
 	'!./assets/img/raw/**/*',
 	'!./assets/img/raw',
 	`!${imgSRC}`,

@@ -50,10 +50,17 @@ function bellaworks_scripts() {
  //      true 
 	// 	);
 
+  // wp_enqueue_script( 
+  //     'bellaworks-blocks', 
+  //     get_template_directory_uri() . '/assets/js/vendor.min.js', 
+  //     array(), '20220202', 
+  //     true 
+  //   );
+
   wp_enqueue_script( 
-      'bellaworks-blocks', 
-      get_template_directory_uri() . '/assets/js/vendor.min.js', 
-      array(), '20200713', 
+      'bellaworks-cplugin', 
+      get_template_directory_uri() . '/assets/js/plugins.min.js', 
+      array(), '20220202', 
       true 
     );
 

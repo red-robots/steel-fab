@@ -34,7 +34,8 @@ const config = require('./wpgulp.config.js');
 const gulp = require('gulp'); // Gulp of-course.
 
 // CSS related plugins.
-const sass = require('gulp-sass'); // Gulp plugin for Sass compilation.
+//const sass = require('gulp-sass'); // Gulp plugin for Sass compilation.
+const sass = require('gulp-sass')(require('sass'));
 const minifycss = require('gulp-uglifycss'); // Minifies CSS files.
 const autoprefixer = require('gulp-autoprefixer'); // Autoprefixing magic.
 const mmq = require('gulp-merge-media-queries'); // Combine matching media queries into one.
@@ -215,16 +216,8 @@ gulp.task('stylesRTL', () => {
  */
 gulp.task('vendorsJS', () => {
 	return gulp
-	  //.src(config.jsVendorSRC, {since: gulp.lastRun('vendorsJS')}) // Only run on changed files.
-		.src(
-      [
-        './assets/js/vendor/bootstrap.bundle.min.js',
-        './assets/js/vendor/fancybox.js',
-        './assets/js/vendor/swiper.js',
-        './assets/js/vendor/slick.min.js'
-      ]
-    )
-    .pipe(plumber(errorHandler))
+		.src(config.jsVendorSRC, {since: gulp.lastRun('vendorsJS')}) // Only run on changed files.
+		.pipe(plumber(errorHandler))
 		.pipe(
 			babel({
 				presets: [
@@ -271,10 +264,7 @@ gulp.task('vendorsJS', () => {
  */
 gulp.task('customJS', () => {
 	return gulp
-		//.src(config.jsCustomSRC, {since: gulp.lastRun('customJS')}) // Only run on changed files.
-    .src([
-    './assets/js/custom/custom.js',
-    ], {since: gulp.lastRun('customJS')} )
+		.src(config.jsCustomSRC, {since: gulp.lastRun('customJS')}) // Only run on changed files.
 		.pipe(plumber(errorHandler))
 		.pipe(
 			babel({
