@@ -180,14 +180,40 @@ get_header(); ?>
         column-count: <?php echo $numcols ?>;
         column-gap: 3em;
       }
-      @media screen and (max-width: 960px) {
+      <?php if ($numcols>2) { ?>
+        .project-description-area.twocol .project-info.left {
+          width: 40%;
+        }
+        .project-description-area.twocol .project-info.right {
+          width: 60%;
+        }
+      <?php } ?>
+      @media screen and (max-width: 1200px) {
+        <?php if ($numcols>2) { ?>
+        .project-description-area.twocol .project-info.left {
+          width: 50%;
+        }
+        .project-description-area.twocol .project-info.right {
+          width: 50%;
+        }
+        <?php } ?>
+      }
+      @media screen and (max-width: 768px) {
+
         <?php if ($numcols>2) { ?>
         .project-description-area.divisions .project-info.left .division-info {
           column-count: 2;
         }
         <?php } ?>
+
+        <?php if ($numcols>2) { ?>
+        .project-description-area.twocol .project-info.left,
+        .project-description-area.twocol .project-info.right {
+          width: 100%;
+        }
+        <?php } ?>
       }
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 480px) {
         .project-description-area.divisions .project-info.left .division-info {
           column-count: 1;
         }
