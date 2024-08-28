@@ -25,6 +25,7 @@ get_header(); ?>
 			$id = get_the_ID();
 			$locations = '';
 			$division = get_the_terms($id,'divisions');
+			$apply_form = get_field('apply_form');
 			if($division) {
 				foreach($division as $k=>$d) {
 					$comma = ($k>0) ? ', ':'';
@@ -39,43 +40,51 @@ get_header(); ?>
 					<div class="locations"><?php echo $locations ?></div>	
 					<?php } ?>
 				</div>
+
+				<?php 
+			      $button = get_field("ctabutton");
+			      $ctabuttons = get_field("ctabuttons");
+			      if( $ctabuttons ) { ?>
+
+			        <div class="jobinfo-button multiple">
+			          <?php foreach ($ctabuttons as $cb) { 
+			            $btn = $cb['button'];
+			            $buttonTarget = (isset($btn['target']) && $btn['target']) ? $btn['target'] : '_self';
+			            $buttonText = (isset($btn['title']) && $btn['title']) ? $btn['title'] : '';
+			            $buttonLink = (isset($btn['url']) && $btn['url']) ? $btn['url'] : '';
+			            if($buttonText && $buttonLink) { ?>
+			              <a href="<?php echo $buttonLink ?>" target="<?php echo $buttonTarget ?>" class="btn-default wide"><?php echo $buttonText ?></a>
+			            <?php } ?>
+			          <?php } ?>
+			        </div>
+
+			      <?php } else {
+
+			        if ( $button ) { 
+			          $buttonTarget = (isset($button['target']) && $button['target']) ? $button['target'] : '_self';
+			          $buttonText = (isset($button['title']) && $button['title']) ? $button['title'] : '';
+			          $buttonLink = (isset($button['url']) && $button['url']) ? $button['url'] : '';
+			          if($buttonText && $buttonLink) { ?>
+			          <div class="jobinfo-button">
+			            <a href="<?php echo $buttonLink ?>" target="<?php echo $buttonTarget ?>" class="btn-default wide"><?php echo $buttonText ?></a>
+			          </div>
+			          <?php } ?>
+			        <?php } ?>
+
+			      <?php } ?>
 				
 			<?php } ?>
 			<div class="entry-content">
 				<?php the_content(); ?>
 			</div>
 
-      <?php 
-      $button = get_field("ctabutton");
-      $ctabuttons = get_field("ctabuttons");
-      if( $ctabuttons ) { ?>
+			<?php if( $apply_form ) { ?>
+				<div id="apply" class="entry-content bump-down">
+					<?php echo $apply_form; ?>
+				</div>
+			<?php } ?>
 
-        <div class="jobinfo-button multiple">
-          <?php foreach ($ctabuttons as $cb) { 
-            $btn = $cb['button'];
-            $buttonTarget = (isset($btn['target']) && $btn['target']) ? $btn['target'] : '_self';
-            $buttonText = (isset($btn['title']) && $btn['title']) ? $btn['title'] : '';
-            $buttonLink = (isset($btn['url']) && $btn['url']) ? $btn['url'] : '';
-            if($buttonText && $buttonLink) { ?>
-              <a href="<?php echo $buttonLink ?>" target="<?php echo $buttonTarget ?>" class="btn-default wide"><?php echo $buttonText ?></a>
-            <?php } ?>
-          <?php } ?>
-        </div>
-
-      <?php } else {
-
-        if ( $button ) { 
-          $buttonTarget = (isset($button['target']) && $button['target']) ? $button['target'] : '_self';
-          $buttonText = (isset($button['title']) && $button['title']) ? $button['title'] : '';
-          $buttonLink = (isset($button['url']) && $button['url']) ? $button['url'] : '';
-          if($buttonText && $buttonLink) { ?>
-          <div class="jobinfo-button">
-            <a href="<?php echo $buttonLink ?>" target="<?php echo $buttonTarget ?>" class="btn-default wide"><?php echo $buttonText ?></a>
-          </div>
-          <?php } ?>
-        <?php } ?>
-
-      <?php } ?>
+      
 		<?php endwhile; ?>
 
 	</main><!-- #main -->

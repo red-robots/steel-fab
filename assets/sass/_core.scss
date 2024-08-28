@@ -4510,6 +4510,7 @@ body.single-careers {
   }
   .jobinfo-button {
     margin-top: 35px;
+    margin-bottom: 40px;
     &.multiple {
       a.btn-default {
         margin-left: 15px;
@@ -6700,4 +6701,7 @@ body.page-template-page-about {
 			top: 46px;
 		}
 	}
+}
+.bump-down {
+	margin-top: 60px;
 }

@@ -26,8 +26,8 @@ const styleSRC = './assets/sass/style.scss';
 // Path to place the compiled CSS file. Default set to root folder.
 const styleDestination = './';
 
-// Available options → 'compressed' or 'expanded'
-const outputStyle = 'compressed';
+// Available options → 'compact' or 'compressed' or 'nested' or 'expanded'
+const outputStyle = 'compact';
 const errLogToConsole = true;
 const precision = 10;
 
