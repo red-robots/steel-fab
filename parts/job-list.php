@@ -22,6 +22,27 @@ if ( $careers->have_posts() ) { ?>
 					$locations .= $comma . $d->name;
 				}
 			}
+
+
+			// For Gravity Forms autocomplete
+			$permalink = get_permalink();
+	        $agents_url = get_bloginfo('url') . '/careers/';
+	        // Remove the trailing slash if it exists
+	        $clean_url = rtrim($permalink, '/');
+
+	        // Extract everything after the base URL
+	        $path = str_replace($agents_url, "", $clean_url);
+
+	        // Replace hyphens with spaces
+	        $path = str_replace('-', ' ', $path);
+
+	        // Capitalize the first and last name
+	        $path = ucwords($path);
+
+	        // Replace spaces with %20 for URL encoding
+	        $path = str_replace(' ', '%20', $path);
+
+	        $agent_link = $permalink . '?careers=' . $path;
 			?>
 			<div class="job">
 				<div class="inside">
@@ -39,7 +60,7 @@ if ( $careers->have_posts() ) { ?>
 						<?php } ?>
 
 						<div class="more">
-							<a href="<?php echo get_permalink(); ?>"><span>Read More</span><i class="a1"></i><i class="a2"></i><i class="a3"></i></a>
+							<a href="<?php  echo $agent_link; //echo get_permalink(); ?>"><span>Read More</span><i class="a1"></i><i class="a2"></i><i class="a3"></i></a>
 						</div>
 					</div>
 				</div>
